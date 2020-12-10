@@ -13,7 +13,7 @@ Flutter template Application to checkout for new projects.
 
 ### Fonts
 1. Add required fonts inside `assets/fonts/font_name`.
-    > Ensure font files names do not contain spaces.
+    > Ensure font file names do not contain spaces.
 1. Modify the fonts section in `pubspec.yaml` to meet your requirements.
 
 ### Images
@@ -66,6 +66,10 @@ This template uses `l10n` for localization and managing translations.
 This project supports 2 environments:
 1. **QA**: For testing purposes (aka: Staging).
 1. **Production**: For appstore releases.
+- TODO: QA Banner
+- TODO: Constants
+- TODO: App Config
+- TODO: Entry points
 
 ### Firebase
 1. Create a new Firebase Project that will contain:
@@ -104,3 +108,4 @@ Logo + Background color
 - Tests Example
 
 ### TODO: Crashlytics
+
