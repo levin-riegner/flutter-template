@@ -109,3 +109,6 @@ Logo + Background color
 
 ### TODO: Crashlytics
 
+### TODO: Secure Storage
+- Hardcoded keys
+- Dynamic Tokens
