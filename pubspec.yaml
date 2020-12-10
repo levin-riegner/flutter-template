@@ -1,0 +1,78 @@
+name: flutter_template
+description: Flutter template Application to checkout for new projects.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none'
+
+# Build version number is automatically increased in regards to commit count
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Add your project dependencies here 👇
+  cupertino_icons: ^1.0.0
+
+
+
+
+  # Logging
+  logging: 0.11.4
+
+  # Firebase
+  firebase_core: 0.5.3
+  # Firebase Analytics
+  firebase_analytics: 6.3.0
+
+  # Translations
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.16.1
+
+  # Theming
+  lr_design_system:
+    git:
+      url: git@github.com:levin-riegner/flutter-design-system
+      ref: release/0.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # Assets
+  assets:
+    - assets/
+    - assets/images/
+    - assets/images/2.0x/
+    - assets/images/3.0x/
+
+  # TODO: Replace with your project's fonts
+  # Fonts
+  fonts:
+    - family: WorkSans
+      fonts:
+        - asset: assets/fonts/work_sans/WorkSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/work_sans/WorkSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/work_sans/WorkSans-SemiBold.ttf
+          weight: 600
+
+  # Adds code generation (synthetic package) support
+  generate: true

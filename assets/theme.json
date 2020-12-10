@@ -1,0 +1,165 @@
+{
+    "theme": {
+        "colorPalettes": [{
+            "name": "light",
+            "colors": {
+                "primary": "FFE21934",
+                "primaryVariant": "fffce8ea",
+                "secondary": "FFFCE8EB",
+                "secondaryVariant": "FFFCE8EB",
+                "background": "FFFFFFFF",
+                "surface": "FFFFFFFF",
+                "error": "FFFF5F55",
+                "onPrimary": "FFFFFFFF",
+                "onSecondary": "FFFFFFFF",
+                "onBackground": "FF202020",
+                "onSurface": "FF202020",
+                "onError": "FFFFFFFF",
+                "disabled": "4D202020",
+                "onDisabled": "FFFFFFFF",
+                "interaction": "FFCCCCCC",
+                "isLight": true
+            }
+        }],
+        "textStyles": {
+            "h1": {
+                "fontWeight": 500,
+                "fontSize": 40,
+                "letterSpacing": 0,
+                "height": 48,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "h2": {
+                "fontWeight": 500,
+                "fontSize": 28,
+                "letterSpacing": 0,
+                "height": 36,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "h3": {
+                "fontWeight": 500,
+                "fontSize": 20,
+                "letterSpacing": 0,
+                "height": 24,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "h4": {
+                "fontWeight": 600,
+                "fontSize": 16,
+                "letterSpacing": 0,
+                "height": 24,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "h5": {
+                "fontWeight": 600,
+                "fontSize": 16,
+                "letterSpacing": 0,
+                "height": 24,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "h6": {
+                "fontWeight": 600,
+                "fontSize": 16,
+                "letterSpacing": 0,
+                "height": 24,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "subtitle1": {
+                "fontWeight": 600,
+                "fontSize": 16,
+                "letterSpacing": 0,
+                "height": 24,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "subtitle2": {
+                "fontWeight": 600,
+                "fontSize": 16,
+                "letterSpacing": 0,
+                "height": 24,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "body1": {
+                "fontWeight": 400,
+                "fontSize": 16,
+                "letterSpacing": 0,
+                "height": 24,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "body2": {
+                "fontWeight": 400,
+                "fontSize": 16,
+                "letterSpacing": 0,
+                "height": 24,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "button": {
+                "fontWeight": 600,
+                "fontSize": 14,
+                "letterSpacing": 0.1,
+                "height": 14,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "caption": {
+                "fontWeight": 400,
+                "fontSize": 11,
+                "letterSpacing": 0,
+                "height": 14,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            },
+            "overline": {
+                "fontWeight": 500,
+                "fontSize": 12,
+                "letterSpacing": 0.1,
+                "height": 14,
+                "style": "normal",
+                "fontFamily": "WorkSans"
+            }
+        },
+        "spacing": {
+            "xxxs": 1.5,
+            "xxs": 1.5,
+            "xs": 3,
+            "s": 6,
+            "m": 12,
+            "l": 24,
+            "xl": 36,
+            "xxl": 48,
+            "xxxl": 64
+        },
+        "dimensions": {
+            "radiusSmall": 3.0,
+            "radiusMedium": 6.0,
+            "radiusLarge": 12.0,
+
+            "listItemHeight": 48.0,
+            "listItemHeightLarge": 62.0,
+            "listItemHeightXLarge": 96.0,
+
+            "dividerHeight": 1.0,
+
+            "buttonHeight": 48.0,
+            "buttonMinWidth": 88.0,
+
+            "iconSize": 24.0,
+
+            "horizontalProgressHeight": 5.0,
+
+            "borderSmall": 1,
+
+            "navigationBarElevation": 0.0,
+            "navigationBarHeight": 56.0
+        }
+    }
+}

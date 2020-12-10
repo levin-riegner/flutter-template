@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "930871121577",
+    "project_id": "flutter-template-lr",
+    "storage_bucket": "flutter-template-lr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930871121577:android:e9755b670fa4b686b3fbb8",
+        "android_client_info": {
+          "package_name": "com.levinriegner.fluttertemplate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930871121577-e5it5no5i0ucprepj66rc07f6iu1c9sr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMmJ4HDCqQptZ872QYM1uZ6M9a8YVQwaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930871121577-e5it5no5i0ucprepj66rc07f6iu1c9sr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "930871121577-cm72ibv4j7o4vituvs5rbrc075quqp8t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.levinriegner.comfluttertemplate"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
