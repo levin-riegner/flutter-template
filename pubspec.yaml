@@ -15,14 +15,26 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # Add your project dependencies here 👇
+  ## Add your project dependencies here 👇
   cupertino_icons: ^1.0.0
 
 
 
+  ## Common Dependencies
+  # Tuple
+  tuple: 1.0.3
+  # Device Info
+  device_info: 1.0.0
+
+  # Dependency Injection
+  get_it: 5.0.3
 
   # Logging
   logging: 0.11.4
+  flutter_paper_trail:
+    git:
+      url: git://github.com/metaflowltd/flutter_paper_trail
+      ref: master
 
   # Firebase
   firebase_core: 0.5.3
@@ -32,13 +44,13 @@ dependencies:
   # Translations
   flutter_localizations:
     sdk: flutter
-  intl: ^0.16.1
+  intl: 0.16.1
 
   # Theming
   lr_design_system:
     git:
       url: git@github.com:levin-riegner/flutter-design-system
-      ref: release/0.1.0
+      ref: release/0.1.1
 
 dev_dependencies:
   flutter_test:

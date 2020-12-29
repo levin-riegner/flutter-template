@@ -78,6 +78,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  device_info:
+    dependency: "direct main"
+    description:
+      name: device_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  device_info_platform_interface:
+    dependency: transitive
+    description:
+      name: device_info_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -151,6 +165,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_paper_trail:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "836509b20ad3aca9daf5c40e10061596428950c6"
+      url: "git://github.com/metaflowltd/flutter_paper_trail"
+    source: git
+    version: "0.0.7"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -161,6 +184,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  get_it:
+    dependency: "direct main"
+    description:
+      name: get_it
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.3"
   http:
     dependency: transitive
     description:
@@ -200,11 +230,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "release/0.1.0"
-      resolved-ref: "2af126012a9442b57bbf15de4a58aea4efbb3bd7"
+      ref: "release/0.1.1"
+      resolved-ref: "8bbb98b4fc434a5a9982935483f213eb327e0231"
       url: "git@github.com:levin-riegner/flutter-design-system"
     source: git
-    version: "0.1.0"
+    version: "0.1.1"
   matcher:
     dependency: transitive
     description:
@@ -294,6 +324,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.19-nullsafety.2"
+  tuple:
+    dependency: "direct main"
+    description:
+      name: tuple
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   typed_data:
     dependency: transitive
     description:

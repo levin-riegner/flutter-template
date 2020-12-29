@@ -6,8 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/router.dart' as app;
-import 'package:flutter_template/app/util/analytics.dart';
-import 'package:flutter_template/main_shared.dart';
+import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:lr_design_system/theme/theme.dart';
 
 class App extends StatefulWidget {
@@ -43,11 +42,17 @@ class _AppState extends State<App> {
       navigatorObservers: [
         if (kReleaseMode)
           FirebaseAnalyticsObserver(
-              analytics: Analytics.firebaseAnalytics,
+            analytics: Analytics.firebaseAnalytics,
           ),
       ],
       navigatorKey: NavigatorHolder.navigatorKey,
-      home: MyHomePage(),
+      home: Center(
+        child: Text(
+          Strings
+              .of(context)
+              .helloWorld,
+        ),
+      ),
     );
     // return BlocProvider<NavigationBloc>(
     //   builder: (_, bloc) => bloc ?? NavigationBloc(navigatorKey: navigatorKey),
@@ -81,30 +86,3 @@ class _AppState extends State<App> {
     // );
   }
 }
-
-// class _App extends StatelessWidget {
-//   final bool isInitiallyAuthenticated;
-//   final bool isFirstLaunch;
-//
-//   const _App({
-//     Key key,
-//     this.isInitiallyAuthenticated,
-//     this.isFirstLaunch,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Navigator(
-//       key: NavigatorHolder.navigatorKey,
-//       initialRoute: CustomRouter.initialRoute(
-//         isInitiallyAuthenticated,
-//         isFirstLaunch,
-//       ),
-//       onGenerateRoute: CustomRouter.generate,
-//       observers: [
-//         HeroController(),
-//         // TODO: FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
-//       ],
-//     );
-//   }
-// }

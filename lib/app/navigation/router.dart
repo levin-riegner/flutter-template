@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
-import 'package:flutter_template/app/util/flogger.dart';
+import 'package:flutter_template/util/tools/flogger.dart';
 
 class Router {
 
