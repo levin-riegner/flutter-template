@@ -60,8 +60,8 @@ Flutter template Application to checkout for new projects.
 1. Drop files inside `assets/images/` folders.
     - 1x images belong inside the root folder.
     - 2x and 3x images have their own separate folder.
-1. Add a new reference to the image inside `lib/app/resources/assets.dart`.
-1. To access the image accross the app use `Assets.myImage`.
+2. Add a new reference to the image to the [Assets](lib/app/resources/assets.dart) class.
+3. To access the image accross the app use `Assets.myImage`.
 
 ### Navigation
 1. Add your application routes inside `lib/app/navigation/routes.dart` following URL conventions.
@@ -171,7 +171,7 @@ Logs recorded before the crash are sent as part of the crash report.
 ### Models
 This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-generate the necessary boilerplate for model classes. The plugins triggered by the build are:
 - [Freezed](https://pub.dev/packages/freezed): Generates toString, equals and hashCode. Creates immutable classes.
-- [Json Serializable](https://pub.dev/packages/json_serializable): Generates toJson/fromJson methods. *Included in the freezed plugin*.
+- [Json Serializable](https://pub.dev/packages/json_serializable): Generates toJson/fromJson methods.
 
 > To execute the build runner use the following command: <br>
 `flutter pub run build_runner build --delete-conflicting-outputs`.
@@ -180,7 +180,7 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 
 #### Domain Models
 
-- These clases model the app's data and are used to communicate between the UI and the Data layers.
+- These classes model the app's data and are used to communicate between the UI and the Data layers.
 
 - They are platform-agnostic and contain business logic.
 
