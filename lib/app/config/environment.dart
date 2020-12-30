@@ -4,9 +4,11 @@ class Environment {
   final String appId;
   final String appName;
   final String apiBaseUrl;
+  final WebViewUrls webViewUrls;
   final String loggingUrl;
   final int loggingPort;
-  final WebViewUrls webViewUrls;
+  final bool isInternal;
+  final String name;
 
   Environment._(
     this.appId,
@@ -15,6 +17,8 @@ class Environment {
     this.webViewUrls,
     this.loggingUrl,
     this.loggingPort,
+    this.isInternal,
+    this.name,
   );
 
   factory Environment.staging() {
@@ -26,6 +30,8 @@ class Environment {
       WebViewUrls("https://staging.fluttertemplate.org"),
       "logsN.papertrailapp.com",
       12345,
+      true,
+      "Staging",
     );
   }
 
@@ -38,6 +44,8 @@ class Environment {
       WebViewUrls("https://fluttertemplate.org"),
       "logsN.papertrailapp.com",
       12345,
+      false,
+      "Production",
     );
   }
 }

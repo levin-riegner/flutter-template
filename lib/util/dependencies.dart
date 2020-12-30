@@ -17,6 +17,8 @@ import 'package:meta/meta.dart';
 
 import 'tools/flogger.dart';
 
+final getIt = GetIt.instance;
+
 abstract class Dependencies {
   static Future<void> register({
     @required Environment environment,
@@ -24,13 +26,13 @@ abstract class Dependencies {
     @required bool isDebugBuild,
   }) async {
     // Environment
-    GetIt.instance.registerSingleton<Environment>(environment);
+    getIt.registerSingleton<Environment>(environment);
 
     // Configs
     final endpoints = Endpoints(environment.apiBaseUrl);
 
     // Repositories
-    GetIt.instance.registerSingleton<ArticleRepository>(
+    getIt.registerSingleton<ArticleRepository>(
       useMocks
           ? ArticleMockRepository()
           : ArticleDataRepository(

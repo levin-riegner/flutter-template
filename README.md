@@ -30,7 +30,9 @@ Flutter template Application to checkout for new projects.
   - [TODO: CI/CD Integration](#todo-cicd-integration)
   - [TODO: Notifications](#todo-notifications)
   - [TODO: QA Console](#todo-qa-console)
-  - [TODO: Update to null-safety (when available)](#todo-update-to-null-safety-when-available)
+  - [TODO: Null-safety (when available)](#todo-null-safety-when-available)
+  - [TODO: App Update](#todo-app-update)
+  - [TODO: App Review](#todo-app-review)
 
 ## Installation
 
@@ -109,9 +111,9 @@ The environment setup can be found on:
 
 An additional **Mock** entry file `main_mock.dart` is available for testing and better prototyping.
 
-> Android Studio Run Configurations are saved inside the .run/ folder
+> Android Studio Run Configurations are available inside the .run/ folder
 
-- [ ] TODO: QA Banner
+For internal environments (such as Staging) a Banner will be shown on the top end part of the screen to easily identify the app against the production version. This can be configured inside the `lib/app/app.dart` file.
 
 #### Configuring Environments
 1. Environment variables can be found at `lib/app/config/environment.dart`.
@@ -146,11 +148,11 @@ An additional **Mock** entry file `main_mock.dart` is available for testing and 
 ### TODO: Crashlytics
 
 ### TODO: Build runner and helper libs
-- Equatable
-- BuiltValue
-- Json Serializable
-- Freezed?
-- ... Sample Model example
+- [ ] Equatable
+- [ ] BuiltValue
+- [ ] Json Serializable
+- [ ] Freezed?
+- [ ] Article Model example
 
 ### TODO: Launch Screen
 Logo + Background color
@@ -160,24 +162,29 @@ Logo + Background color
 - Dynamic Tokens
 
 ### TODO: Architecture
-- Bloc Provider
-- Bloc Example
-- Rx Stream Example
-- Repository Example
-- Tests Example
+- [ ] Bloc Provider
+- [ ] Bloc Example
+- [ ] Rx Stream Example
+- [ ] Repository Example
+- [ ] Tests Example
 
 ### TODO: CI/CD Integration
-- Build numbers
-- Keystore / Match
-- Add fastlane files
-- Add workflows from central repository
-- Document Release process
-- Link Secret generation process
+- [ ] Build numbers
+- [ ] Keystore / Match
+- [ ] Add fastlane files
+- [ ] Add workflows from central repository
+- [ ] Document Release process
+- [ ] Link Secret generation process
 
 ### TODO: Notifications
 
 ### TODO: QA Console
 - [ ] Logs
 - [ ] Default logins
+- [ ] Theme changer
 
-### TODO: Update to null-safety (when available)
+### TODO: Null-safety (when available)
+
+### TODO: App Update
+
+### TODO: App Review
