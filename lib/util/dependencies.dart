@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
@@ -42,9 +44,16 @@ abstract class Dependencies {
     );
     // TODO: Blocs
 
-    // Integrations
-
-    // Init Logger
+    // region Integrations
+    // Firebase
+    await Firebase.initializeApp();
+    // Crashlytics
+    if (isDebugBuild) {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    } else {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    }
+    // Logging
     if (isDebugBuild) {
       Flogger.registerListener((record) => log(record.item1));
     } else {
@@ -68,15 +77,11 @@ abstract class Dependencies {
       Flogger.registerListener((record) {
         PaperTrail.logRecord(record.item1, record.item2);
       });
+      // Register Crashlytics listener
+      Flogger.registerListener((record) {
+        FirebaseCrashlytics.instance.log(record.item1);
+      });
     }
-    // Log Flutter Errors
-    FlutterError.onError = (details) {
-      // Add to Logger
-      Flogger.error('Flutter error', object: details, stackTrace: details.stack);
-      // Log stack trace separately (for better external visualization)
-      Flogger.error("Stack trace: ${details.stack?.toString()?.replaceAll("\n", " ")}");
-      // Log to Crashlytics if !isDebugBuild
-      // TODO: FirebaseCrashlytics.instance.recordFlutterError(details);
-    };
+    // endregion
   }
 }

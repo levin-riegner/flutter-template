@@ -38,8 +38,10 @@ dependencies:
 
   # Firebase
   firebase_core: 0.5.3
-  # Firebase Analytics
+  # Analytics
   firebase_analytics: 6.3.0
+  # Crashlytics
+  firebase_crashlytics: 0.2.4
 
   # Translations
   flutter_localizations:

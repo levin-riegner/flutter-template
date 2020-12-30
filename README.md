@@ -12,6 +12,7 @@ Flutter template Application to checkout for new projects.
   - [Localization](#localization)
     - [Translating Texts](#translating-texts)
     - [Adding new languages](#adding-new-languages)
+    - [Integrating 3rd party translation service](#integrating-3rd-party-translation-service)
     - [Using Localizable Strings](#using-localizable-strings)
   - [Accessibility](#accessibility)
   - [Theming](#theming)
@@ -22,7 +23,7 @@ Flutter template Application to checkout for new projects.
   - [Dependency Injection](#dependency-injection)
   - [Logging](#logging)
   - [Firebase](#firebase)
-  - [TODO: Crashlytics](#todo-crashlytics)
+  - [Crashlytics](#crashlytics)
   - [TODO: Build runner and helper libs](#todo-build-runner-and-helper-libs)
   - [TODO: Launch Screen](#todo-launch-screen)
   - [TODO: Secure Storage](#todo-secure-storage)
@@ -81,6 +82,9 @@ On every build, the arb files will auto-generate the corresponding .dart files t
 2. Add the new locale inside the `Info.plist` on the iOS project as described [here](https://flutter.dev/docs/development/accessibility-and-localization/internationalization#localizing-for-ios-updating-the-ios-app-bundle).
 
 
+#### Integrating 3rd party translation service
+l10n for Flutter comes with support for [Localizely](https://localizely.com/) to hire a team of translators to manage the app's languages.
+
 #### Using Localizable Strings
 1. Import the auto-generated dart file with the following line: `import 'package:flutter_gen/gen_l10n/strings.dart';`.
 1. Reference localizable strings using `Strings.of(context).yourString`.
@@ -108,6 +112,7 @@ The environment setup can be found on:
 - **Android**: project level `build.gradle`.
 - **iOS**: Schemes & Configurations.
 - **Flutter**: `main_yourenvironment.dart` entry files.
+> More info about environment setup can be found [in this document](https://www.notion.so/App-Environments-01422cd3d1d74aec8fb8e4b3f4fd14fb).
 
 An additional **Mock** entry file `main_mock.dart` is available for testing and better prototyping.
 
@@ -145,7 +150,14 @@ For internal environments (such as Staging) a Banner will be shown on the top en
     - iOS Production App.
 1. Replace the google services files on both Android and iOS projects.
 
-### TODO: Crashlytics
+### Crashlytics
+Firebase Crashlytics is already added in the project.
+
+It also uploads iOS dSYMS to Firebase as part of the Build Phases.
+
+Logs recorded before the crash are sent as part of the crash report.
+
+> Remember to enable Crashlytics for each app on your Firebase Project Dashboard
 
 ### TODO: Build runner and helper libs
 - [ ] Equatable

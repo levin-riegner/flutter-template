@@ -8,17 +8,26 @@ class Flogger {
   Flogger._();
 
   // region Log methods
+  static d(String message, {Object object}) => debug(message, object: object);
+
   static debug(String message, {Object object}) {
     _log(message, severity: Level.CONFIG, object: object);
   }
+
+  static i(String message, {Object object}) => info(message, object: object);
 
   static info(String message, {Object object}) {
     _log(message, severity: Level.INFO, object: object);
   }
 
+  static w(String message, {Object object}) => warning(message, object: object);
+
   static warning(String message, {Object object}) {
     _log(message, severity: Level.WARNING, object: object);
   }
+
+  static e(String message, {Object object, StackTrace stackTrace}) =>
+      error(message, object: object, stackTrace: stackTrace);
 
   static error(String message, {Object object, StackTrace stackTrace}) {
     _log(message,
@@ -46,7 +55,7 @@ class Flogger {
 
   // endregion
 
-  static registerListener(void onRecord(Tuple2<String, Level> onRecord)) {
+  static registerListener(void onRecord(Tuple2<String, Level> record)) {
     _logger.onRecord.map(_formatLogRecord).listen(onRecord);
   }
 
