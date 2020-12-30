@@ -26,7 +26,7 @@ Flutter template Application to checkout for new projects.
   - [Crashlytics](#crashlytics)
   - [Models](#models)
     - [Domain Models](#domain-models)
-    - [Data Models](#data-models)
+    - [DTO Models](#dto-models)
     - [UI Models](#ui-models)
   - [TODO: Database](#todo-database)
   - [TODO: Network](#todo-network)
@@ -64,7 +64,7 @@ Flutter template Application to checkout for new projects.
 3. To access the image accross the app use `Assets.myImage`.
 
 ### Navigation
-1. Add your application routes inside `lib/app/navigation/routes.dart` following URL conventions.
+1. Add your application routes inside the [Routes](lib/app/navigation/routes.dart) class following URL conventions.
 1. Add a new route case inside `lib/app/navigation/router.dart` to map a route to a given Widget and Transition.
 
 - [ ] TODO: Review [Navigator 2.0](https://flutter.dev/docs/development/ui/navigation)
@@ -79,7 +79,7 @@ On every build, the arb files will auto-generate the corresponding .dart files t
 
 #### Translating Texts
 - English is set as the default root language from which all others are translated.
-- Add or update your texts inside `lib/app/l10n/app_en.arb`.
+- Add or update your texts inside the [English arb file](lib/app/l10n/app_en.arb).
 - Additional translation languages are available with the following convention: `lib/app/l10n/app_*.arb`.
 
 #### Adding new languages
@@ -102,13 +102,13 @@ l10n for Flutter comes with support for [Localizely](https://localizely.com/) to
 - [ ] Describe Best practices
 
 ### Theming
-- Modify the file inside `assets/theme.json` to match your application's Theme.
+- Modify the [Theme file](assets/theme.json) to match your application's Theme.
 - You can access the theme properties accross the project using `ThemeProvider.theme.type.property`.
 > You can see more information around theming [on the plugin repository](https://github.com/levin-riegner/flutter-design-system).
 
 ### Analytics
 - Firebase Analytics is available in the project for tracking events.
-- An `Analytics` class wrapper is provided to support multiple Analytics services.
+- An [Analytics](lib/util/integrations/analytics.dart) class wrapper is provided to support multiple Analytics services.
 - Add all Events and Parameters inside `AnalyticsEvent` and `AnalyticsParameter`.
 - Track events using `Analytics.trackEvent(name, parameters)`.
 
@@ -118,37 +118,37 @@ This project supports 2 environments:
 1. **Production**: For appstore releases.
 
 The environment setup can be found on:
-- **Android**: project level `build.gradle`.
+- **Android**: project level [build.gradle](android/app/build.gradle).
 - **iOS**: Schemes & Configurations.
 - **Flutter**: `main_yourenvironment.dart` entry files.
 > More info about environment setup can be found [in this document](https://www.notion.so/App-Environments-01422cd3d1d74aec8fb8e4b3f4fd14fb).
 
-An additional **Mock** entry file `main_mock.dart` is available for testing and better prototyping.
+An additional **Mock** [entry file](lib/main_mock.dart) is available for testing and better prototyping.
 
 > Android Studio Run Configurations are available inside the .run/ folder
 
-For internal environments (such as Staging) a Banner will be shown on the top end part of the screen to easily identify the app against the production version. This can be configured inside the `lib/app/app.dart` file.
+For internal environments (such as Staging) a Banner will be shown on the top end part of the screen to easily identify the app against the production version. This can be configured in the [App](lib/app/app.dart) file.
 
 #### Configuring Environments
-1. Environment variables can be found at `lib/app/config/environment.dart`.
+1. Environment variables are declared in the [Environment](lib/app/config/environment.dart) class.
 1. Each entry file declares its environment.
-1. The `Dependencies` class loads all the dependencies for a given environment.
+1. The [Dependencies](lib/util/dependencies.dart) class loads all the dependencies for a given environment.
 
 #### Constants
-- A constants file is available at `lib/app/config/constants.dart` for any constants not related to the environments.
-- WebView URLs can be found at `lib/app/config/webview_urls.dart`.
+- A [Constants](lib/app/config/constants.dart) file is available for any constants not related to the environments.
+- A [WebView URLs](lib/app/config/webview_urls.dart) is also available to register all WebView URLS.
 
 ### Dependency Injection
 - The project uses the service locator [get_it](https://pub.dev/packages/get_it) to register and provide dependencies through out the app.
-- Dependecies can be registered using the `Dependencies` class found at `lib/util/dependencies.dart`.
+- Dependecies can be registered using the [Dependencies](lib/util/dependencies.dart) class.
 - Dependencies are loaded on each entry file for a given environment.
 - A `useMocks` flag is available to register mock or test dependencies.
 
 ### Logging
-- The `Flogger` class is provided as a wrapper to log records to different listeners.
+- The [Flogger](lib/util/tools/flogger.dart) class is provided as a wrapper to log records to different listeners.
 - Use it directly as `Flogger.level("Message")`.<br>
   *Example: Flogger.info("LaunchCompleted");*
-- External log listeners are configured inside the `Dependencies` class.
+- External log listeners are configured inside the [Dependencies](lib/util/dependencies.dart) class.
     > Papertrail is already available on this template.
 
 ### Firebase
@@ -184,15 +184,15 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 
 - They are platform-agnostic and contain business logic.
 
-- An example can be found at `lib/data/article/model/article.dart`.
+[Article model example](lib/data/article/model/article.dart)
 
-#### Data Models
+#### DTO Models
 
 - Theses clases model the data for specific services (ex: a database or API).
 
 - They need to be converted to domain models to communicate with the UI layer.
 
-- An example can be found at `lib/data/article/services/remote/model/article_api_model.dart`.
+[Article API model example](lib/data/article/service/remote/model/article_api_model.dart)
 
 #### UI Models
 
@@ -202,9 +202,9 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 
 - On simple views this class may be omitted and the Domain models exposed directly on the Bloc.
 
-- An example can be found at `lib/presentation/articles/article_state.dart`.
+[Articles State model example](lib/presentation/articles/articles_state.dart)
 
-- A generic `DataState` class can be found, which allows for data models to be extended with idle/loading/content/error methods to update the UI accordingly. 
+- A generic [DataState](lib/presentation/util/data_state.dart) class can be used to wrap domain models with idle/loading/content/error states and update the UI accordingly. 
 
 ### TODO: Database
 https://pub.dev/packages/hive
