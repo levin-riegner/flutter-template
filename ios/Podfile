@@ -37,6 +37,7 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    # AQR (30/12/20): https://github.com/firebase/firebase-ios-sdk/issues/6533#issuecomment-711066130
     target.build_configurations.each do |config|
       config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
     end

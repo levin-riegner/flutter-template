@@ -1,4 +1,5 @@
 import 'package:flutter_template/data/article/model/article.dart';
+import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
 import 'package:flutter_template/data/util/endpoints.dart';
 
 // TODO: HTTP
@@ -7,7 +8,7 @@ class ArticleApiService {
 
   ArticleApiService(this._endpoints) : assert(_endpoints != null);
 
-  Future<List<Article>> getArticles() async {
+  Future<List<ArticleApiModel>> getArticles() async {
     return [];
   }
 }

@@ -10,6 +10,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
+  # flutter: 1.22.5
 
 dependencies:
   flutter:
@@ -28,6 +29,10 @@ dependencies:
 
   # Dependency Injection
   get_it: 5.0.3
+
+  # Boilerplate generation
+  freezed_annotation: 0.12.0
+  json_serializable: 3.5.1
 
   # Logging
   logging: 0.11.4
@@ -57,6 +62,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # Other build dependencies
+  build_runner:
+  freezed: 0.12.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

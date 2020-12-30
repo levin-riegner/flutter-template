@@ -10,7 +10,7 @@ class ArticleDbService {
     return [];
   }
 
-  Future<void> saveArticles() async {
+  Future<void> saveArticles(List<Article> articles) async {
     return;
   }
 

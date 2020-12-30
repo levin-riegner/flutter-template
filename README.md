@@ -24,10 +24,17 @@ Flutter template Application to checkout for new projects.
   - [Logging](#logging)
   - [Firebase](#firebase)
   - [Crashlytics](#crashlytics)
-  - [TODO: Build runner and helper libs](#todo-build-runner-and-helper-libs)
-  - [TODO: Launch Screen](#todo-launch-screen)
+  - [Models](#models)
+    - [Domain Models](#domain-models)
+    - [Data Models](#data-models)
+    - [UI Models](#ui-models)
+  - [TODO: Database](#todo-database)
+  - [TODO: Network](#todo-network)
   - [TODO: Secure Storage](#todo-secure-storage)
+  - [TODO: WebViews](#todo-webviews)
+  - [TODO: Launch Screen](#todo-launch-screen)
   - [TODO: Architecture](#todo-architecture)
+  - [TODO: Error Handling](#todo-error-handling)
   - [TODO: CI/CD Integration](#todo-cicd-integration)
   - [TODO: Notifications](#todo-notifications)
   - [TODO: QA Console](#todo-qa-console)
@@ -65,6 +72,8 @@ Flutter template Application to checkout for new projects.
 
 ### Localization
 This template uses `l10n` for localization and managing translations.
+
+> It is recommended you use the `Flutter Intl` plugin for Android Studio or VSCode.
 
 On every build, the arb files will auto-generate the corresponding .dart files to use in the project.
 
@@ -159,19 +168,58 @@ Logs recorded before the crash are sent as part of the crash report.
 
 > Remember to enable Crashlytics for each app on your Firebase Project Dashboard
 
-### TODO: Build runner and helper libs
-- [ ] Equatable
-- [ ] BuiltValue
-- [ ] Json Serializable
-- [ ] Freezed?
-- [ ] Article Model example
+### Models
+This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-generate the necessary boilerplate for model classes. The plugins triggered by the build are:
+- [Freezed](https://pub.dev/packages/freezed): Generates toString, equals and hashCode. Creates immutable classes.
+- [Json Serializable](https://pub.dev/packages/json_serializable): Generates toJson/fromJson methods. *Included in the freezed plugin*.
 
-### TODO: Launch Screen
-Logo + Background color
+> To execute the build runner use the following command: <br>
+`flutter pub run build_runner build --delete-conflicting-outputs`.
+
+> Currently on Flutter 1.22.* build_runner breaks with l10n, follow [this issue](https://github.com/dart-lang/build/issues/2835#issuecomment-703528119) instructions for the workaround.
+
+#### Domain Models
+
+- These clases model the app's data and are used to communicate between the UI and the Data layers.
+
+- They are platform-agnostic and contain business logic.
+
+- An example can be found at `lib/data/article/model/article.dart`.
+
+#### Data Models
+
+- Theses clases model the data for specific services (ex: a database or API).
+
+- They need to be converted to domain models to communicate with the UI layer.
+
+- An example can be found at `lib/data/article/services/remote/model/article_api_model.dart`.
+
+#### UI Models
+
+- These clases hold the current state of the UI.
+
+- They are created and manipulated only on the Bloc and exposed for the View to listen.
+
+- On simple views this class may be omitted and the Domain models exposed directly on the Bloc.
+
+- An example can be found at `lib/presentation/articles/article_state.dart`.
+
+- A generic `DataState` class can be found, which allows for data models to be extended with idle/loading/content/error methods to update the UI accordingly. 
+
+### TODO: Database
+https://pub.dev/packages/hive
+
+### TODO: Network
+https://newsapi.org/
 
 ### TODO: Secure Storage
 - Hardcoded keys
 - Dynamic Tokens
+
+### TODO: WebViews
+
+### TODO: Launch Screen
+Logo + Background color
 
 ### TODO: Architecture
 - [ ] Bloc Provider
@@ -179,6 +227,8 @@ Logo + Background color
 - [ ] Rx Stream Example
 - [ ] Repository Example
 - [ ] Tests Example
+
+### TODO: Error Handling
 
 ### TODO: CI/CD Integration
 - [ ] Build numbers
@@ -200,3 +250,4 @@ Logo + Background color
 ### TODO: App Update
 
 ### TODO: App Review
+https://pub.dev/packages/in_app_review

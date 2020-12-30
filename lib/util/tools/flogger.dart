@@ -56,7 +56,7 @@ class Flogger {
   // endregion
 
   static registerListener(void onRecord(Tuple2<String, Level> record)) {
-    _logger.onRecord.map(_formatLogRecord).listen(onRecord);
+    _logger.onRecord.map((e) => _formatLogRecord(e)).listen(onRecord);
   }
 
   static Tuple2<String, Level> _formatLogRecord(LogRecord record) {

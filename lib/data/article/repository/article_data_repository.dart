@@ -20,9 +20,10 @@ class ArticleDataRepository implements ArticleRepository {
     if (dbArticles.isNotEmpty) {
       return dbArticles;
     } else {
-      final apiArticles = apiService.getArticles();
-      await dbService.saveArticles();
-      return apiArticles;
+      final apiArticles = await apiService.getArticles();
+      final articles = apiArticles.map((e) => e.toArticle());
+      await dbService.saveArticles(articles);
+      return articles;
     }
   }
 }
