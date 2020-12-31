@@ -10,8 +10,9 @@ abstract class Article implements _$Article {
   const factory Article({
     String id,
     String title,
+    String description,
+    String imageUrl,
     String url,
-    int readTimeInSeconds,
     DateTime publishedAt,
   }) = _Article;
 }

@@ -19,7 +19,8 @@ class _$ArticlesStateTearOff {
   }
 
 // ignore: unused_element
-  Content content({@required DataState<List<Article>, dynamic> articles}) {
+  Content content(
+      {@required DataState<List<Article>, ArticlesError> articles}) {
     return Content(
       articles: articles,
     );
@@ -35,12 +36,12 @@ mixin _$ArticlesState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult confirmRegistration(),
-    @required TResult content(DataState<List<Article>, dynamic> articles),
+    @required TResult content(DataState<List<Article>, ArticlesError> articles),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult confirmRegistration(),
-    TResult content(DataState<List<Article>, dynamic> articles),
+    TResult content(DataState<List<Article>, ArticlesError> articles),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -122,7 +123,7 @@ class _$ConfirmRegistration
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult confirmRegistration(),
-    @required TResult content(DataState<List<Article>, dynamic> articles),
+    @required TResult content(DataState<List<Article>, ArticlesError> articles),
   }) {
     assert(confirmRegistration != null);
     assert(content != null);
@@ -133,7 +134,7 @@ class _$ConfirmRegistration
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult confirmRegistration(),
-    TResult content(DataState<List<Article>, dynamic> articles),
+    TResult content(DataState<List<Article>, ArticlesError> articles),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -177,9 +178,10 @@ abstract class ConfirmRegistration implements ArticlesState {
 abstract class $ContentCopyWith<$Res> {
   factory $ContentCopyWith(Content value, $Res Function(Content) then) =
       _$ContentCopyWithImpl<$Res>;
-  $Res call({DataState<List<Article>, dynamic> articles});
+  $Res call({DataState<List<Article>, ArticlesError> articles});
 
-  $DataStateCopyWith<List<Article>, dynamic, $Res> get articles;
+  $DataStateCopyWith<List<Article>, ArticlesError<dynamic, dynamic>, $Res>
+      get articles;
 }
 
 /// @nodoc
@@ -198,17 +200,18 @@ class _$ContentCopyWithImpl<$Res> extends _$ArticlesStateCopyWithImpl<$Res>
     return _then(Content(
       articles: articles == freezed
           ? _value.articles
-          : articles as DataState<List<Article>, dynamic>,
+          : articles as DataState<List<Article>, ArticlesError>,
     ));
   }
 
   @override
-  $DataStateCopyWith<List<Article>, dynamic, $Res> get articles {
+  $DataStateCopyWith<List<Article>, ArticlesError<dynamic, dynamic>, $Res>
+      get articles {
     if (_value.articles == null) {
       return null;
     }
-    return $DataStateCopyWith<List<Article>, dynamic, $Res>(_value.articles,
-        (value) {
+    return $DataStateCopyWith<List<Article>, ArticlesError<dynamic, dynamic>,
+        $Res>(_value.articles, (value) {
       return _then(_value.copyWith(articles: value));
     });
   }
@@ -219,7 +222,7 @@ class _$Content with DiagnosticableTreeMixin implements Content {
   const _$Content({@required this.articles}) : assert(articles != null);
 
   @override
-  final DataState<List<Article>, dynamic> articles;
+  final DataState<List<Article>, ArticlesError> articles;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -255,7 +258,7 @@ class _$Content with DiagnosticableTreeMixin implements Content {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult confirmRegistration(),
-    @required TResult content(DataState<List<Article>, dynamic> articles),
+    @required TResult content(DataState<List<Article>, ArticlesError> articles),
   }) {
     assert(confirmRegistration != null);
     assert(content != null);
@@ -266,7 +269,7 @@ class _$Content with DiagnosticableTreeMixin implements Content {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult confirmRegistration(),
-    TResult content(DataState<List<Article>, dynamic> articles),
+    TResult content(DataState<List<Article>, ArticlesError> articles),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -304,8 +307,8 @@ class _$Content with DiagnosticableTreeMixin implements Content {
 
 abstract class Content implements ArticlesState {
   const factory Content(
-      {@required DataState<List<Article>, dynamic> articles}) = _$Content;
+      {@required DataState<List<Article>, ArticlesError> articles}) = _$Content;
 
-  DataState<List<Article>, dynamic> get articles;
+  DataState<List<Article>, ArticlesError> get articles;
   $ContentCopyWith<Content> get copyWith;
 }

@@ -17,5 +17,9 @@
     "placeholders": {
       "newMessages": {}
     }
+  },
+  "articlesTitle": "Your content digest",
+  "@articlesTitle": {
+    "description": "Articles screen title"
   }
 }

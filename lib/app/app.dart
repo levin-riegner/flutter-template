@@ -10,6 +10,8 @@ import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:lr_design_system/theme/theme.dart';
 
+import 'navigation/routes.dart';
+
 class App extends StatefulWidget {
   final bool isSessionAvailable;
   final app.Router router = app.Router();
@@ -48,11 +50,12 @@ class _AppState extends State<App> {
           ),
       ],
       navigatorKey: NavigatorHolder.navigatorKey,
-      home: environment.isInternal ? Banner(
-        location: BannerLocation.topEnd,
-        message: environment.name,
-        child: HomeWidget(),
-      ) : HomeWidget(),
+      initialRoute: Routes.articles,
+      // home: environment.isInternal ? Banner(
+      //   location: BannerLocation.topEnd,
+      //   message: environment.name,
+      //   child: HomeWidget(),
+      // ) : HomeWidget(),
     );
     // return BlocProvider<NavigationBloc>(
     //   builder: (_, bloc) => bloc ?? NavigationBloc(navigatorKey: navigatorKey),

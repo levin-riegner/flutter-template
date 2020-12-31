@@ -17,14 +17,16 @@ class _$ArticleTearOff {
   _Article call(
       {String id,
       String title,
+      String description,
+      String imageUrl,
       String url,
-      int readTimeInSeconds,
       DateTime publishedAt}) {
     return _Article(
       id: id,
       title: title,
+      description: description,
+      imageUrl: imageUrl,
       url: url,
-      readTimeInSeconds: readTimeInSeconds,
       publishedAt: publishedAt,
     );
   }
@@ -38,8 +40,9 @@ const $Article = _$ArticleTearOff();
 mixin _$Article {
   String get id;
   String get title;
+  String get description;
+  String get imageUrl;
   String get url;
-  int get readTimeInSeconds;
   DateTime get publishedAt;
 
   $ArticleCopyWith<Article> get copyWith;
@@ -52,8 +55,9 @@ abstract class $ArticleCopyWith<$Res> {
   $Res call(
       {String id,
       String title,
+      String description,
+      String imageUrl,
       String url,
-      int readTimeInSeconds,
       DateTime publishedAt});
 }
 
@@ -69,17 +73,18 @@ class _$ArticleCopyWithImpl<$Res> implements $ArticleCopyWith<$Res> {
   $Res call({
     Object id = freezed,
     Object title = freezed,
+    Object description = freezed,
+    Object imageUrl = freezed,
     Object url = freezed,
-    Object readTimeInSeconds = freezed,
     Object publishedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       title: title == freezed ? _value.title : title as String,
+      description:
+          description == freezed ? _value.description : description as String,
+      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
       url: url == freezed ? _value.url : url as String,
-      readTimeInSeconds: readTimeInSeconds == freezed
-          ? _value.readTimeInSeconds
-          : readTimeInSeconds as int,
       publishedAt:
           publishedAt == freezed ? _value.publishedAt : publishedAt as DateTime,
     ));
@@ -94,8 +99,9 @@ abstract class _$ArticleCopyWith<$Res> implements $ArticleCopyWith<$Res> {
   $Res call(
       {String id,
       String title,
+      String description,
+      String imageUrl,
       String url,
-      int readTimeInSeconds,
       DateTime publishedAt});
 }
 
@@ -112,17 +118,18 @@ class __$ArticleCopyWithImpl<$Res> extends _$ArticleCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object title = freezed,
+    Object description = freezed,
+    Object imageUrl = freezed,
     Object url = freezed,
-    Object readTimeInSeconds = freezed,
     Object publishedAt = freezed,
   }) {
     return _then(_Article(
       id: id == freezed ? _value.id : id as String,
       title: title == freezed ? _value.title : title as String,
+      description:
+          description == freezed ? _value.description : description as String,
+      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
       url: url == freezed ? _value.url : url as String,
-      readTimeInSeconds: readTimeInSeconds == freezed
-          ? _value.readTimeInSeconds
-          : readTimeInSeconds as int,
       publishedAt:
           publishedAt == freezed ? _value.publishedAt : publishedAt as DateTime,
     ));
@@ -132,7 +139,12 @@ class __$ArticleCopyWithImpl<$Res> extends _$ArticleCopyWithImpl<$Res>
 /// @nodoc
 class _$_Article extends _Article with DiagnosticableTreeMixin {
   const _$_Article(
-      {this.id, this.title, this.url, this.readTimeInSeconds, this.publishedAt})
+      {this.id,
+      this.title,
+      this.description,
+      this.imageUrl,
+      this.url,
+      this.publishedAt})
       : super._();
 
   @override
@@ -140,15 +152,17 @@ class _$_Article extends _Article with DiagnosticableTreeMixin {
   @override
   final String title;
   @override
-  final String url;
+  final String description;
   @override
-  final int readTimeInSeconds;
+  final String imageUrl;
+  @override
+  final String url;
   @override
   final DateTime publishedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Article(id: $id, title: $title, url: $url, readTimeInSeconds: $readTimeInSeconds, publishedAt: $publishedAt)';
+    return 'Article(id: $id, title: $title, description: $description, imageUrl: $imageUrl, url: $url, publishedAt: $publishedAt)';
   }
 
   @override
@@ -158,8 +172,9 @@ class _$_Article extends _Article with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'Article'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('imageUrl', imageUrl))
       ..add(DiagnosticsProperty('url', url))
-      ..add(DiagnosticsProperty('readTimeInSeconds', readTimeInSeconds))
       ..add(DiagnosticsProperty('publishedAt', publishedAt));
   }
 
@@ -171,11 +186,14 @@ class _$_Article extends _Article with DiagnosticableTreeMixin {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
+            (identical(other.imageUrl, imageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.imageUrl, imageUrl)) &&
             (identical(other.url, url) ||
                 const DeepCollectionEquality().equals(other.url, url)) &&
-            (identical(other.readTimeInSeconds, readTimeInSeconds) ||
-                const DeepCollectionEquality()
-                    .equals(other.readTimeInSeconds, readTimeInSeconds)) &&
             (identical(other.publishedAt, publishedAt) ||
                 const DeepCollectionEquality()
                     .equals(other.publishedAt, publishedAt)));
@@ -186,8 +204,9 @@ class _$_Article extends _Article with DiagnosticableTreeMixin {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(imageUrl) ^
       const DeepCollectionEquality().hash(url) ^
-      const DeepCollectionEquality().hash(readTimeInSeconds) ^
       const DeepCollectionEquality().hash(publishedAt);
 
   @override
@@ -200,8 +219,9 @@ abstract class _Article extends Article {
   const factory _Article(
       {String id,
       String title,
+      String description,
+      String imageUrl,
       String url,
-      int readTimeInSeconds,
       DateTime publishedAt}) = _$_Article;
 
   @override
@@ -209,9 +229,11 @@ abstract class _Article extends Article {
   @override
   String get title;
   @override
-  String get url;
+  String get description;
   @override
-  int get readTimeInSeconds;
+  String get imageUrl;
+  @override
+  String get url;
   @override
   DateTime get publishedAt;
   @override

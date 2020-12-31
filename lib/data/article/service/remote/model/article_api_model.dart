@@ -3,19 +3,21 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
 part 'article_api_model.freezed.dart';
+
 part 'article_api_model.g.dart';
 
 @freezed
 abstract class ArticleApiModel implements _$ArticleApiModel {
   const ArticleApiModel._();
 
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  // @JsonSerializable(fieldRename: FieldRename.snake)
   const factory ArticleApiModel({
     String id,
     String title,
+    String description,
+    @JsonKey(name: "urlToImage") String imageUrl,
     String url,
-    @JsonKey(name: "read_time") int readTimeInSeconds,
-    int publishedAt,
+    String publishedAt,
   }) = _ArticleApiModel;
 
   factory ArticleApiModel.fromJson(Map<String, dynamic> json) =>
@@ -25,9 +27,23 @@ abstract class ArticleApiModel implements _$ArticleApiModel {
     return Article(
       id: id,
       title: title,
+      description: description,
+      imageUrl: imageUrl,
       url: url,
-      readTimeInSeconds: readTimeInSeconds,
-      publishedAt: DateTime.fromMillisecondsSinceEpoch(publishedAt),
+      publishedAt: DateTime.tryParse(publishedAt),
     );
   }
+}
+
+@freezed
+abstract class ArticlesApiResponse with _$ArticlesApiResponse {
+  // @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory ArticlesApiResponse({
+    String status,
+    int totalResults,
+    List<ArticleApiModel> articles,
+  }) = _ArticlesApiResponse;
+
+  factory ArticlesApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$ArticlesApiResponseFromJson(json);
 }

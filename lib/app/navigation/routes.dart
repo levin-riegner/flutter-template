@@ -1,8 +1,7 @@
 abstract class Routes {
 
   // TODO: Add all new routes here
-  // Examples:
-  static const feed = 'feed';
-  static const feedItemDetail = "feed/itemDetail";
+  static const articles = 'articles';
+  static const articleDetail = "articles/itemDetail";
 
 }

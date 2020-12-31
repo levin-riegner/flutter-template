@@ -22,32 +22,33 @@ dependencies:
 
 
   ## Common Dependencies
+  # UI
+  cached_network_image: 2.5.0
+  # Provider
+  provider: 4.3.2+3
+  # RxDart
+  rxdart: 0.25.0
   # Tuple
   tuple: 1.0.3
   # Device Info
   device_info: 1.0.0
-
   # Dependency Injection
   get_it: 5.0.3
-
   # Boilerplate generation
   freezed_annotation: 0.12.0
   json_serializable: 3.5.1
-
   # Logging
   logging: 0.11.4
   flutter_paper_trail:
     git:
       url: git://github.com/metaflowltd/flutter_paper_trail
       ref: master
-
   # Firebase
   firebase_core: 0.5.3
   # Analytics
   firebase_analytics: 6.3.0
   # Crashlytics
   firebase_crashlytics: 0.2.4
-
   # Translations
   flutter_localizations:
     sdk: flutter
@@ -83,6 +84,8 @@ flutter:
     - assets/images/
     - assets/images/2.0x/
     - assets/images/3.0x/
+
+    - assets/mocks/
 
   # TODO: Replace with your project's fonts
   # Fonts

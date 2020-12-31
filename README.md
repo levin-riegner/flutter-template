@@ -29,12 +29,18 @@ Flutter template Application to checkout for new projects.
     - [DTO Models](#dto-models)
     - [UI Models](#ui-models)
   - [TODO: Database](#todo-database)
+    - [Encryption](#encryption)
   - [TODO: Network](#todo-network)
   - [TODO: Secure Storage](#todo-secure-storage)
   - [TODO: WebViews](#todo-webviews)
   - [TODO: Launch Screen](#todo-launch-screen)
-  - [TODO: Architecture](#todo-architecture)
-  - [TODO: Error Handling](#todo-error-handling)
+  - [Architecture](#architecture)
+    - [Bloc](#bloc)
+    - [TODO: Repository Pattern](#todo-repository-pattern)
+      - [TODO: Mocks](#todo-mocks)
+    - [TODO: Error Handling](#todo-error-handling)
+  - [TODO: Tests](#todo-tests)
+  - [TODO: App Dispose](#todo-app-dispose)
   - [TODO: CI/CD Integration](#todo-cicd-integration)
   - [TODO: Notifications](#todo-notifications)
   - [TODO: QA Console](#todo-qa-console)
@@ -67,8 +73,8 @@ Flutter template Application to checkout for new projects.
 1. Add your application routes inside the [Routes](lib/app/navigation/routes.dart) class following URL conventions.
 1. Add a new route case inside `lib/app/navigation/router.dart` to map a route to a given Widget and Transition.
 
-- [ ] TODO: Review [Navigator 2.0](https://flutter.dev/docs/development/ui/navigation)
-- [ ] TODO: Review Deeplinks
+- [ ] Review [Navigator 2.0](https://flutter.dev/docs/development/ui/navigation)
+- [ ] Review Deeplinks
 
 ### Localization
 This template uses `l10n` for localization and managing translations.
@@ -99,6 +105,7 @@ l10n for Flutter comes with support for [Localizely](https://localizely.com/) to
 1. Reference localizable strings using `Strings.of(context).yourString`.
 
 ### Accessibility
+https://flutter.dev/docs/development/accessibility-and-localization/accessibility#accessibility-release-checklist 
 - [ ] Describe Best practices
 
 ### Theming
@@ -106,11 +113,14 @@ l10n for Flutter comes with support for [Localizely](https://localizely.com/) to
 - You can access the theme properties accross the project using `ThemeProvider.theme.type.property`.
 > You can see more information around theming [on the plugin repository](https://github.com/levin-riegner/flutter-design-system).
 
+- [ ] Use with Provider
+
 ### Analytics
-- Firebase Analytics is available in the project for tracking events.
-- An [Analytics](lib/util/integrations/analytics.dart) class wrapper is provided to support multiple Analytics services.
-- Add all Events and Parameters inside `AnalyticsEvent` and `AnalyticsParameter`.
-- Track events using `Analytics.trackEvent(name, parameters)`.
+An [Analytics](lib/util/integrations/analytics.dart) class wrapper is provided to support multiple Analytics services.
+1. Add all Events and Parameters inside `AnalyticsEvent` and `AnalyticsParameter`.
+2. Track events using `Analytics.trackEvent(name, parameters)`.
+  
+Firebase Analytics is already installed in the project.
 
 ### App Environments
 This project supports 2 environments:
@@ -139,10 +149,11 @@ For internal environments (such as Staging) a Banner will be shown on the top en
 - A [WebView URLs](lib/app/config/webview_urls.dart) is also available to register all WebView URLS.
 
 ### Dependency Injection
-- The project uses the service locator [get_it](https://pub.dev/packages/get_it) to register and provide dependencies through out the app.
 - Dependecies can be registered using the [Dependencies](lib/util/dependencies.dart) class.
 - Dependencies are loaded on each entry file for a given environment.
 - A `useMocks` flag is available to register mock or test dependencies.
+
+The project uses the service locator [get_it](https://pub.dev/packages/get_it) to register and provide dependencies through out the app.
 
 ### Logging
 - The [Flogger](lib/util/tools/flogger.dart) class is provided as a wrapper to log records to different listeners.
@@ -178,30 +189,28 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 
 > Currently on Flutter 1.22.* build_runner breaks with l10n, follow [this issue](https://github.com/dart-lang/build/issues/2835#issuecomment-703528119) instructions for the workaround.
 
+> 💡 **TIP**: You can hide the auto-generated files in Android Studio by going to Preferences > Editor > File Types. <br> Now look for "Ignore files and folders" field at the bottom and append `*.g.dart;*.freezed.dart`;
+
+> 💡 **TIP**: To automatically auto-generate part classes when the code changes use the command `flutter packages pub run build_runner watch` on a console tab and leave it running there.
+
 #### Domain Models
+These classes model the app's data and are used to communicate between the UI and the Data layers.
 
-- These classes model the app's data and are used to communicate between the UI and the Data layers.
-
-- They are platform-agnostic and contain business logic.
+They are platform-agnostic and contain business logic.
 
 [Article model example](lib/data/article/model/article.dart)
 
 #### DTO Models
-
 - Theses clases model the data for specific services (ex: a database or API).
-
 - They need to be converted to domain models to communicate with the UI layer.
 
 [Article API model example](lib/data/article/service/remote/model/article_api_model.dart)
 
 #### UI Models
-
 - These clases hold the current state of the UI.
-
 - They are created and manipulated only on the Bloc and exposed for the View to listen.
-
 - On simple views this class may be omitted and the Domain models exposed directly on the Bloc.
-
+  
 [Articles State model example](lib/presentation/articles/articles_state.dart)
 
 - A generic [DataState](lib/presentation/util/data_state.dart) class can be used to wrap domain models with idle/loading/content/error states and update the UI accordingly. 
@@ -209,8 +218,14 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 ### TODO: Database
 https://pub.dev/packages/hive
 
+#### Encryption
+
 ### TODO: Network
-https://newsapi.org/
+https://pub.dev/packages/chopper
+OR
+https://pub.dev/packages/retrofit
+
+Test: https://newsapi.org/
 
 ### TODO: Secure Storage
 - Hardcoded keys
@@ -221,14 +236,22 @@ https://newsapi.org/
 ### TODO: Launch Screen
 Logo + Background color
 
-### TODO: Architecture
-- [ ] Bloc Provider
-- [ ] Bloc Example
-- [ ] Rx Stream Example
-- [ ] Repository Example
-- [ ] Tests Example
+### Architecture
 
-### TODO: Error Handling
+#### Bloc
+- Blocs expose data to the UI and contain the presentation logic. This data can be exposed as Streams to notify changes to the UI.
+- Blocs are created on the widget tree by wrapping all the child widgets that need to access the bloc. These process is done on the [Router](lib/app/navigation/router.dart) class.
+
+Check the [ArticlesBloc](lib/presentation/articles/articles_bloc.dart) for an example.
+
+#### TODO: Repository Pattern
+##### TODO: Mocks
+
+#### TODO: Error Handling
+
+### TODO: Tests
+
+### TODO: App Dispose
 
 ### TODO: CI/CD Integration
 - [ ] Build numbers

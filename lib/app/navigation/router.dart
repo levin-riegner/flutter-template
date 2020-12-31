@@ -2,18 +2,41 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/app/navigation/parameters/article_detail_arguments.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
+import 'package:flutter_template/presentation/articles/articles_bloc.dart';
+import 'package:flutter_template/presentation/articles/articles_page.dart';
+import 'package:flutter_template/presentation/articles/detail/article_detail_bloc.dart';
+import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
 import 'package:flutter_template/util/tools/flogger.dart';
+import 'package:provider/provider.dart';
 
 class Router {
-
   Route generate(RouteSettings settings) {
     Flogger.info("Navigating to ${settings.name}");
+
     switch (settings.name) {
-      case Routes.feed:
-      // TODO: return _route(settings, FeedPage());
+      case Routes.articles:
+        return _route(
+          settings,
+          Provider<ArticlesBloc>(
+            create: (context) => ArticlesBloc(),
+            dispose: (_, bloc) => bloc.dispose(),
+            child: ArticlesPage(),
+          ),
+        );
+      case Routes.articleDetail:
+        final params = settings.arguments as ArticleDetailArguments;
+        return _route(settings,
+          Provider<ArticleDetailBloc>(
+            create: (context) => ArticleDetailBloc(params.title, params.url),
+            dispose: (_, bloc) => bloc.dispose(),
+            child: ArticleDetailPage(),
+          ),
+        );
       default:
-      // TODO: return _route(settings, LandingPage());
+        // TODO: return _route(settings, LandingPage());
+        return null;
     }
   }
 

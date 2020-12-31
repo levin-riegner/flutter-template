@@ -8,9 +8,11 @@ part 'articles_state.freezed.dart';
 
 @freezed
 abstract class ArticlesState with _$ArticlesState {
+
   const factory ArticlesState.confirmRegistration() = ConfirmRegistration;
 
   const factory ArticlesState.content({
     @required DataState<List<Article>, ArticlesError> articles,
   }) = Content;
+
 }

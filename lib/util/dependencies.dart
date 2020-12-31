@@ -42,7 +42,6 @@ abstract class Dependencies {
               ArticleDbService(Constants.DATABASE_NAME),
             ),
     );
-    // TODO: Blocs
 
     // region Integrations
     // Firebase
