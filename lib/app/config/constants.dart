@@ -7,4 +7,7 @@ class Constants {
 
   // Database
   static const DATABASE_NAME = "app.db";
+
+  // Keys
+  static const API_KEY = "f32ad1e0dc6e4a4b838218e8f3dac87f";
 }

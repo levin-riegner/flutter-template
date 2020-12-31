@@ -1,8 +1,4 @@
-class Endpoints {
-  final String _baseUrl;
+abstract class Endpoints {
 
-  const Endpoints(this._baseUrl)
-      : assert(_baseUrl != null);
-
-  String get articles => '$_baseUrl/api/organizations';
+  static const String articles = "/everything";
 }

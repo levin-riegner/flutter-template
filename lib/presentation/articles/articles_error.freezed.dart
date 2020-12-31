@@ -22,6 +22,11 @@ class _$ArticlesErrorTearOff {
   SubscriptionExpired<T, Y> subscriptionExpired<T, Y>() {
     return SubscriptionExpired<T, Y>();
   }
+
+// ignore: unused_element
+  Unknown<T, Y> unknown<T, Y>() {
+    return Unknown<T, Y>();
+  }
 }
 
 /// @nodoc
@@ -34,22 +39,26 @@ mixin _$ArticlesError<T, Y> {
   TResult when<TResult extends Object>({
     @required TResult blacklisted(),
     @required TResult subscriptionExpired(),
+    @required TResult unknown(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult blacklisted(),
     TResult subscriptionExpired(),
+    TResult unknown(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult blacklisted(Blacklisted<T, Y> value),
     @required TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
+    @required TResult unknown(Unknown<T, Y> value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult blacklisted(Blacklisted<T, Y> value),
     TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
+    TResult unknown(Unknown<T, Y> value),
     @required TResult orElse(),
   });
 }
@@ -121,9 +130,11 @@ class _$Blacklisted<T, Y>
   TResult when<TResult extends Object>({
     @required TResult blacklisted(),
     @required TResult subscriptionExpired(),
+    @required TResult unknown(),
   }) {
     assert(blacklisted != null);
     assert(subscriptionExpired != null);
+    assert(unknown != null);
     return blacklisted();
   }
 
@@ -132,6 +143,7 @@ class _$Blacklisted<T, Y>
   TResult maybeWhen<TResult extends Object>({
     TResult blacklisted(),
     TResult subscriptionExpired(),
+    TResult unknown(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -146,9 +158,11 @@ class _$Blacklisted<T, Y>
   TResult map<TResult extends Object>({
     @required TResult blacklisted(Blacklisted<T, Y> value),
     @required TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
+    @required TResult unknown(Unknown<T, Y> value),
   }) {
     assert(blacklisted != null);
     assert(subscriptionExpired != null);
+    assert(unknown != null);
     return blacklisted(this);
   }
 
@@ -157,6 +171,7 @@ class _$Blacklisted<T, Y>
   TResult maybeMap<TResult extends Object>({
     TResult blacklisted(Blacklisted<T, Y> value),
     TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
+    TResult unknown(Unknown<T, Y> value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -223,9 +238,11 @@ class _$SubscriptionExpired<T, Y>
   TResult when<TResult extends Object>({
     @required TResult blacklisted(),
     @required TResult subscriptionExpired(),
+    @required TResult unknown(),
   }) {
     assert(blacklisted != null);
     assert(subscriptionExpired != null);
+    assert(unknown != null);
     return subscriptionExpired();
   }
 
@@ -234,6 +251,7 @@ class _$SubscriptionExpired<T, Y>
   TResult maybeWhen<TResult extends Object>({
     TResult blacklisted(),
     TResult subscriptionExpired(),
+    TResult unknown(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -248,9 +266,11 @@ class _$SubscriptionExpired<T, Y>
   TResult map<TResult extends Object>({
     @required TResult blacklisted(Blacklisted<T, Y> value),
     @required TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
+    @required TResult unknown(Unknown<T, Y> value),
   }) {
     assert(blacklisted != null);
     assert(subscriptionExpired != null);
+    assert(unknown != null);
     return subscriptionExpired(this);
   }
 
@@ -259,6 +279,7 @@ class _$SubscriptionExpired<T, Y>
   TResult maybeMap<TResult extends Object>({
     TResult blacklisted(Blacklisted<T, Y> value),
     TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
+    TResult unknown(Unknown<T, Y> value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -271,4 +292,108 @@ class _$SubscriptionExpired<T, Y>
 
 abstract class SubscriptionExpired<T, Y> implements ArticlesError<T, Y> {
   const factory SubscriptionExpired() = _$SubscriptionExpired<T, Y>;
+}
+
+/// @nodoc
+abstract class $UnknownCopyWith<T, Y, $Res> {
+  factory $UnknownCopyWith(
+          Unknown<T, Y> value, $Res Function(Unknown<T, Y>) then) =
+      _$UnknownCopyWithImpl<T, Y, $Res>;
+}
+
+/// @nodoc
+class _$UnknownCopyWithImpl<T, Y, $Res>
+    extends _$ArticlesErrorCopyWithImpl<T, Y, $Res>
+    implements $UnknownCopyWith<T, Y, $Res> {
+  _$UnknownCopyWithImpl(
+      Unknown<T, Y> _value, $Res Function(Unknown<T, Y>) _then)
+      : super(_value, (v) => _then(v as Unknown<T, Y>));
+
+  @override
+  Unknown<T, Y> get _value => super._value as Unknown<T, Y>;
+}
+
+/// @nodoc
+class _$Unknown<T, Y> with DiagnosticableTreeMixin implements Unknown<T, Y> {
+  const _$Unknown();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ArticlesError<$T, $Y>.unknown()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ArticlesError<$T, $Y>.unknown'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is Unknown<T, Y>);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult blacklisted(),
+    @required TResult subscriptionExpired(),
+    @required TResult unknown(),
+  }) {
+    assert(blacklisted != null);
+    assert(subscriptionExpired != null);
+    assert(unknown != null);
+    return unknown();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult blacklisted(),
+    TResult subscriptionExpired(),
+    TResult unknown(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (unknown != null) {
+      return unknown();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult blacklisted(Blacklisted<T, Y> value),
+    @required TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
+    @required TResult unknown(Unknown<T, Y> value),
+  }) {
+    assert(blacklisted != null);
+    assert(subscriptionExpired != null);
+    assert(unknown != null);
+    return unknown(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult blacklisted(Blacklisted<T, Y> value),
+    TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
+    TResult unknown(Unknown<T, Y> value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (unknown != null) {
+      return unknown(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Unknown<T, Y> implements ArticlesError<T, Y> {
+  const factory Unknown() = _$Unknown<T, Y>;
 }

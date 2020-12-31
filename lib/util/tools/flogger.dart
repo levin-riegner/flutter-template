@@ -55,14 +55,25 @@ class Flogger {
 
   // endregion
 
-  static registerListener(void onRecord(Tuple2<String, Level> record)) {
-    _logger.onRecord.map((e) => _formatLogRecord(e)).listen(onRecord);
+  static registerListener(void onRecord(FloggerRecord record)) {
+    _logger.onRecord
+        .map((e) => FloggerRecord.fromLogger(e, false))
+        .listen(onRecord);
   }
+}
 
-  static Tuple2<String, Level> _formatLogRecord(LogRecord record) {
+class FloggerRecord {
+  final String message;
+  final Level level;
+  final bool mightContainSensitiveData;
+
+  FloggerRecord._(this.message, this.level, this.mightContainSensitiveData);
+
+  factory FloggerRecord.fromLogger(
+      LogRecord record, bool mightContainSensitiveData) {
     var message =
         '${record.loggerName}: ${record.level.name}: ${record.message}';
     if (record.stackTrace != null) message += '${record.stackTrace}';
-    return Tuple2(message, record.level);
+    return FloggerRecord._(message, record.level, mightContainSensitiveData);
   }
 }

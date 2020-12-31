@@ -1,14 +1,19 @@
+import 'package:chopper/chopper.dart';
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
 import 'package:flutter_template/data/util/endpoints.dart';
 
-// TODO: HTTP
-class ArticleApiService {
-  final Endpoints _endpoints;
+part 'article_api_service.chopper.dart';
 
-  ArticleApiService(this._endpoints) : assert(_endpoints != null);
+@ChopperApi()
+abstract class ArticleApiService extends ChopperService {
 
-  Future<List<ArticleApiModel>> getArticles() async {
-    return [];
-  }
+  static ArticleApiService create([ChopperClient client]) =>
+      _$ArticleApiService(client);
+
+  @Get(path: Endpoints.articles)
+  Future<Response<ArticlesApiResponse>> getArticles(@Query("q") String query);
+
+  @Get(path: "${Endpoints.articles}/{id}")
+  Future<Response<ArticleApiModel>> getArticle(@Path() String id);
 }

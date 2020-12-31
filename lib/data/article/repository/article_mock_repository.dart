@@ -7,7 +7,7 @@ import 'package:flutter_template/data/util/mock.dart';
 
 class ArticleMockRepository implements ArticleRepository {
   @override
-  Future<List<Article>> getArticles() async {
+  Future<List<Article>> getArticles(String query) async {
     final articlesResponseJson = await Mock.getArticlesResponse();
     final articlesResponse =
         ArticlesApiResponse.fromJson(jsonDecode(articlesResponseJson));

@@ -26,7 +26,7 @@ class Environment {
     return Environment._(
       "com.levinriegner.fluttertemplate.qa",
       "FlutterTemplate",
-      "https://api-staging.fluttertemplate.org",
+      "http://newsapi.org/v2",//"https://api-staging.fluttertemplate.org",
       WebViewUrls("https://staging.fluttertemplate.org"),
       "logsN.papertrailapp.com",
       12345,
@@ -40,7 +40,7 @@ class Environment {
     return Environment._(
       "com.levinriegner.fluttertemplate",
       "FlutterTemplate",
-      "https://api.fluttertemplate.org",
+      "http://newsapi.org/v2",//"https://api.fluttertemplate.org",
       WebViewUrls("https://fluttertemplate.org"),
       "logsN.papertrailapp.com",
       12345,

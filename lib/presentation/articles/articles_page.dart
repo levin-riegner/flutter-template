@@ -28,7 +28,6 @@ class _ArticlesPageState extends State<ArticlesPage> {
       body: StreamBuilder<ArticlesState>(
         stream: bloc.state,
         builder: (context, snapshot) {
-          print(snapshot.data);
           if (!snapshot.hasData) return Container();
           final state = snapshot.data;
           return state.when(confirmRegistration: () {

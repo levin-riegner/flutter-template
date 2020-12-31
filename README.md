@@ -28,9 +28,9 @@ Flutter template Application to checkout for new projects.
     - [Domain Models](#domain-models)
     - [DTO Models](#dto-models)
     - [UI Models](#ui-models)
+  - [Network](#network)
   - [TODO: Database](#todo-database)
     - [Encryption](#encryption)
-  - [TODO: Network](#todo-network)
   - [TODO: Secure Storage](#todo-secure-storage)
   - [TODO: WebViews](#todo-webviews)
   - [TODO: Launch Screen](#todo-launch-screen)
@@ -215,17 +215,20 @@ They are platform-agnostic and contain business logic.
 
 - A generic [DataState](lib/presentation/util/data_state.dart) class can be used to wrap domain models with idle/loading/content/error states and update the UI accordingly. 
 
+### Network
+API communication is defined using [Chopper](https://pub.dev/packages/chopper) and requests/responses serialized with [Json Serializable](https://pub.dev/packages/json_serializable).
+
+You can see an example with [ArticleApiService](lib/data/article/service/remote/article_api_service.dart)
+
+A [Network](lib/data/util/network.dart) class is provided wih the basic definition for an HTTP Client. It includes:
+- Logging HTTP Requests as CURL.
+- Adding the Authorization Token to all requests.
+
 ### TODO: Database
 https://pub.dev/packages/hive
 
 #### Encryption
 
-### TODO: Network
-https://pub.dev/packages/chopper
-OR
-https://pub.dev/packages/retrofit
-
-Test: https://newsapi.org/
 
 ### TODO: Secure Storage
 - Hardcoded keys

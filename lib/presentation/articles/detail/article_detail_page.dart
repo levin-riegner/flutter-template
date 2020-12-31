@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_bloc.dart';
-import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 import 'package:lr_design_system/views/ds_inapp_webview.dart';
 import 'package:provider/provider.dart';
 

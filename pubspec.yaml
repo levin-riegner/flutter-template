@@ -45,10 +45,10 @@ dependencies:
       ref: master
   # Firebase
   firebase_core: 0.5.3
-  # Analytics
   firebase_analytics: 6.3.0
-  # Crashlytics
   firebase_crashlytics: 0.2.4
+  # Network
+  chopper: 3.0.6
   # Translations
   flutter_localizations:
     sdk: flutter
@@ -66,6 +66,7 @@ dev_dependencies:
   # Other build dependencies
   build_runner:
   freezed: 0.12.6
+  chopper_generator: 3.0.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

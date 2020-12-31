@@ -13,6 +13,7 @@ import 'package:flutter_template/data/article/repository/article_repository.dart
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
 import 'package:flutter_template/data/util/endpoints.dart';
+import 'package:flutter_template/data/util/network.dart';
 import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
@@ -31,14 +32,15 @@ abstract class Dependencies {
     getIt.registerSingleton<Environment>(environment);
 
     // Configs
-    final endpoints = Endpoints(environment.apiBaseUrl);
+    // TODO: Secure storage for token
+    final httpClient = Network.createHttpClient(environment.apiBaseUrl, () => null);
 
     // Repositories
     getIt.registerSingleton<ArticleRepository>(
       useMocks
           ? ArticleMockRepository()
           : ArticleDataRepository(
-              ArticleApiService(endpoints),
+              ArticleApiService.create(httpClient),
               ArticleDbService(Constants.DATABASE_NAME),
             ),
     );
@@ -54,7 +56,7 @@ abstract class Dependencies {
     }
     // Logging
     if (isDebugBuild) {
-      Flogger.registerListener((record) => log(record.item1));
+      Flogger.registerListener((record) => log(record.message));
     } else {
       // Get Device Model
       final deviceInfo = DeviceInfoPlugin();
@@ -74,11 +76,15 @@ abstract class Dependencies {
         machineName: deviceModel,
       );
       Flogger.registerListener((record) {
-        PaperTrail.logRecord(record.item1, record.item2);
+        if (!record.mightContainSensitiveData) {
+          PaperTrail.logRecord(record.message, record.level);
+        }
       });
       // Register Crashlytics listener
       Flogger.registerListener((record) {
-        FirebaseCrashlytics.instance.log(record.item1);
+        if (!record.mightContainSensitiveData) {
+          PaperTrail.logRecord(record.message, record.level);
+        }
       });
     }
     // endregion

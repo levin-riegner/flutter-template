@@ -15,15 +15,27 @@ class ArticleDataRepository implements ArticleRepository {
         assert(dbService != null);
 
   @override
-  Future<List<Article>> getArticles() async {
+  Future<List<Article>> getArticles(String query) async {
     final dbArticles = await dbService.getArticles();
     if (dbArticles.isNotEmpty) {
       return dbArticles;
     } else {
-      final apiArticles = await apiService.getArticles();
-      final articles = apiArticles.map((e) => e.toArticle());
-      await dbService.saveArticles(articles);
-      return articles;
+      try {
+        final articlesResponse = await apiService.getArticles(query);
+        if(articlesResponse.isSuccessful) {
+          final articles = articlesResponse.body.articles.map((e) => e.toArticle()).toList();
+          await dbService.saveArticles(articles);
+          return articles;
+        } else {
+          // TODO: Parse Error codes
+          print(articlesResponse.error);
+          return [];
+        }
+      } catch (e) {
+        // TODO: Convert Exception to repository exception
+        print("ERROR - $e");
+        throw e;
+      }
     }
   }
 }
