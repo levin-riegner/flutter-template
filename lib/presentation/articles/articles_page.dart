@@ -25,39 +25,42 @@ class _ArticlesPageState extends State<ArticlesPage> {
       appBar: AppBar(
         title: Text(Strings.of(context).articlesTitle),
       ),
-      body: StreamBuilder<ArticlesState>(
-        stream: bloc.state,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) return Container();
-          final state = snapshot.data;
-          return state.when(confirmRegistration: () {
-            return Text("Please confirm registration");
-          }, content: (content) {
-            return content.when(
-                idle: () => _Loading(),
-                loading: () => _Loading(),
-                success: (articles) {
-                  if (articles.isEmpty) return DSEmptyView(useScaffold: false);
-                  return ListView.builder(
-                      itemCount: articles.length,
-                      itemBuilder: (context, position) {
-                        final article = articles[position];
-                        return _Article(article, () {
-                          Navigator.of(context).pushNamed(
-                            Routes.articleDetail,
-                            arguments: ArticleDetailArguments(
-                              title: article.title,
-                              url: article.url,
-                            ),
-                          );
+      body: RefreshIndicator(
+        onRefresh: () => bloc.refresh(),
+        child: StreamBuilder<ArticlesState>(
+          stream: bloc.state,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return Container();
+            final state = snapshot.data;
+            return state.when(confirmRegistration: () {
+              return Text("Please confirm registration");
+            }, content: (content) {
+              return content.when(
+                  idle: () => _Loading(),
+                  loading: () => _Loading(),
+                  success: (articles) {
+                    if (articles.isEmpty) return DSEmptyView(useScaffold: false);
+                    return ListView.builder(
+                        itemCount: articles.length,
+                        itemBuilder: (context, position) {
+                          final article = articles[position];
+                          return _Article(article, () {
+                            Navigator.of(context).pushNamed(
+                              Routes.articleDetail,
+                              arguments: ArticleDetailArguments(
+                                title: article.title,
+                                url: article.url,
+                              ),
+                            );
+                          });
                         });
-                      });
-                },
-                failure: (error) {
-                  return DSErrorView(useScaffold: false);
-                });
-          });
-        },
+                  },
+                  failure: (error) {
+                    return DSErrorView(useScaffold: false);
+                  });
+            });
+          },
+        ),
       ),
     );
   }

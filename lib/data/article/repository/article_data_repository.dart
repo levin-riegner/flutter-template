@@ -15,9 +15,9 @@ class ArticleDataRepository implements ArticleRepository {
         assert(dbService != null);
 
   @override
-  Future<List<Article>> getArticles(String query) async {
-    final dbArticles = await dbService.getArticles();
-    if (dbArticles.isNotEmpty) {
+  Future<List<Article>> getArticles(String query, {bool forceRefresh}) async {
+    final dbArticles = await dbService.getArticles(query);
+    if (dbArticles.isNotEmpty && !forceRefresh) {
       return dbArticles;
     } else {
       try {

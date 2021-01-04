@@ -1,6 +1,5 @@
 import 'package:chopper/chopper.dart';
 import 'package:flutter_template/app/config/constants.dart';
-import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
 import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
 import 'package:flutter_template/data/util/json_serializable_converter.dart';
 
@@ -9,7 +8,7 @@ abstract class Network {
     String baseUrl,
     Future<String> getBearerToken(),
   ) {
-    // Add your models here
+    // Add your models here 👇
     final converter = JsonSerializableConverter({
       ArticlesApiResponse: (json) => ArticlesApiResponse.fromJson(json),
       ArticleApiModel: (json) => ArticleApiModel.fromJson(json),

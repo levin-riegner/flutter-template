@@ -21,7 +21,7 @@ class _$ArticleApiModelTearOff {
       {String id,
       String title,
       String description,
-      @JsonKey(name: "urlToImage") String imageUrl,
+      @JsonKey(name: 'urlToImage') String imageUrl,
       String url,
       String publishedAt}) {
     return _ArticleApiModel(
@@ -49,7 +49,7 @@ mixin _$ArticleApiModel {
   String get id;
   String get title;
   String get description;
-  @JsonKey(name: "urlToImage")
+  @JsonKey(name: 'urlToImage')
   String get imageUrl;
   String get url;
   String get publishedAt;
@@ -67,7 +67,7 @@ abstract class $ArticleApiModelCopyWith<$Res> {
       {String id,
       String title,
       String description,
-      @JsonKey(name: "urlToImage") String imageUrl,
+      @JsonKey(name: 'urlToImage') String imageUrl,
       String url,
       String publishedAt});
 }
@@ -114,7 +114,7 @@ abstract class _$ArticleApiModelCopyWith<$Res>
       {String id,
       String title,
       String description,
-      @JsonKey(name: "urlToImage") String imageUrl,
+      @JsonKey(name: 'urlToImage') String imageUrl,
       String url,
       String publishedAt});
 }
@@ -160,7 +160,7 @@ class _$_ArticleApiModel extends _ArticleApiModel with DiagnosticableTreeMixin {
       {this.id,
       this.title,
       this.description,
-      @JsonKey(name: "urlToImage") this.imageUrl,
+      @JsonKey(name: 'urlToImage') this.imageUrl,
       this.url,
       this.publishedAt})
       : super._();
@@ -175,7 +175,7 @@ class _$_ArticleApiModel extends _ArticleApiModel with DiagnosticableTreeMixin {
   @override
   final String description;
   @override
-  @JsonKey(name: "urlToImage")
+  @JsonKey(name: 'urlToImage')
   final String imageUrl;
   @override
   final String url;
@@ -247,7 +247,7 @@ abstract class _ArticleApiModel extends ArticleApiModel {
       {String id,
       String title,
       String description,
-      @JsonKey(name: "urlToImage") String imageUrl,
+      @JsonKey(name: 'urlToImage') String imageUrl,
       String url,
       String publishedAt}) = _$_ArticleApiModel;
 
@@ -261,7 +261,7 @@ abstract class _ArticleApiModel extends ArticleApiModel {
   @override
   String get description;
   @override
-  @JsonKey(name: "urlToImage")
+  @JsonKey(name: 'urlToImage')
   String get imageUrl;
   @override
   String get url;

@@ -9,12 +9,12 @@
 .history
 .svn/
 
-# IntelliJ related
+# IntelliJ (Android Studio) related
 *.iml
 *.ipr
 *.iws
 .idea/
-# Exception for run configurations
+# Exception for IntelliJ run configurations
 !.idea/runConfigurations/
 !.run/
 
@@ -38,9 +38,6 @@
 
 # Web related
 lib/generated_plugin_registrant.dart
-
-# Auto-generated model files
-*.g.dart
 
 # Symbolication related
 app.*.symbols
@@ -107,5 +104,7 @@ android/private/*
 .graphqlconfig
 graphql/
 
-# Auto-generated files
+# Auto-generated model files
 **/*.g.dart
+**/*.freezed.dart
+**/*.chopper.dart

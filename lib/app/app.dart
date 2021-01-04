@@ -88,6 +88,12 @@ class _AppState extends State<App> {
     //   ),
     // );
   }
+
+  @override
+  void dispose() {
+    Dependencies.dispose();
+    super.dispose();
+  }
 }
 
 class HomeWidget extends StatelessWidget {

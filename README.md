@@ -29,16 +29,19 @@ Flutter template Application to checkout for new projects.
     - [DTO Models](#dto-models)
     - [UI Models](#ui-models)
   - [Network](#network)
-  - [TODO: Database](#todo-database)
+  - [Database](#database)
     - [Encryption](#encryption)
-  - [TODO: Secure Storage](#todo-secure-storage)
+    - [TODO: Streams](#todo-streams)
+  - [Secure Storage](#secure-storage)
   - [TODO: WebViews](#todo-webviews)
+  - [TODO: No Internet Connection](#todo-no-internet-connection)
   - [TODO: Launch Screen](#todo-launch-screen)
   - [Architecture](#architecture)
     - [Bloc](#bloc)
     - [TODO: Repository Pattern](#todo-repository-pattern)
       - [TODO: Mocks](#todo-mocks)
     - [TODO: Error Handling](#todo-error-handling)
+      - [TODO: One-Time Alerts](#todo-one-time-alerts)
   - [TODO: Tests](#todo-tests)
   - [TODO: App Dispose](#todo-app-dispose)
   - [TODO: CI/CD Integration](#todo-cicd-integration)
@@ -155,6 +158,8 @@ For internal environments (such as Staging) a Banner will be shown on the top en
 
 The project uses the service locator [get_it](https://pub.dev/packages/get_it) to register and provide dependencies through out the app.
 
+- [ ] Review Actual Dependency Injection with https://pub.dev/packages/injectable
+
 ### Logging
 - The [Flogger](lib/util/tools/flogger.dart) class is provided as a wrapper to log records to different listeners.
 - Use it directly as `Flogger.level("Message")`.<br>
@@ -189,7 +194,7 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 
 > Currently on Flutter 1.22.* build_runner breaks with l10n, follow [this issue](https://github.com/dart-lang/build/issues/2835#issuecomment-703528119) instructions for the workaround.
 
-> 💡 **TIP**: You can hide the auto-generated files in Android Studio by going to Preferences > Editor > File Types. <br> Now look for "Ignore files and folders" field at the bottom and append `*.g.dart;*.freezed.dart`;
+> 💡 **TIP**: You can hide the auto-generated files in Android Studio by going to Preferences > Editor > File Types. <br> Now look for "Ignore files and folders" field at the bottom and append `*.g.dart;*.freezed.dart;*.chopper.dart`;
 
 > 💡 **TIP**: To automatically auto-generate part classes when the code changes use the command `flutter packages pub run build_runner watch` on a console tab and leave it running there.
 
@@ -224,17 +229,33 @@ A [Network](lib/data/util/network.dart) class is provided wih the basic definiti
 - Logging HTTP Requests as CURL.
 - Adding the Authorization Token to all requests.
 
-### TODO: Database
-https://pub.dev/packages/hive
+### Database
+This project includes the [Hive](https://pub.dev/packages/hive) Database.
+
+Each data class is stored into a **Box** which is the equivalent of a Table/Collection.
+
+- DB Model adapters need to be register in the global [Database](lib/data/util/database.dart) class.
+- Boxes are opened in the [Dependencies](lib/util/dependencies.dart) and injected to the different services.
+
+[Articles DB Service Example](lib/data/article/service/local/article_db_service.dart)
 
 #### Encryption
+The [Database](lib/data/util/database.dart) class includes encryption using AES256.
+- An Encryption Key is generated using [Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage) and stored in the database upon launch.
+- Each box needs to be opened using the `encryptionCipher` parameter with the encryption key.
 
+#### TODO: Streams
 
-### TODO: Secure Storage
-- Hardcoded keys
-- Dynamic Tokens
+- [ ] Stream subscription example
+
+### Secure Storage
+Sensitive dynamic data is stored using [Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage).
+
+The [Secure Storage](lib/data/common/service/secure_storage.dart) class wrapps the plugin to store and read data securily.
 
 ### TODO: WebViews
+
+### TODO: No Internet Connection
 
 ### TODO: Launch Screen
 Logo + Background color
@@ -251,6 +272,8 @@ Check the [ArticlesBloc](lib/presentation/articles/articles_bloc.dart) for an ex
 ##### TODO: Mocks
 
 #### TODO: Error Handling
+
+##### TODO: One-Time Alerts
 
 ### TODO: Tests
 
