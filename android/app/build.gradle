@@ -27,6 +27,27 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
+// Signing
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("private/keystore.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} else {
+    keystoreProperties.setProperty('keystoreFile', System.getenv('KEYSTORE_FILE'))
+    keystoreProperties.setProperty('keystorePassword', System.getenv('KEYSTORE_PASSWORD'))
+    keystoreProperties.setProperty('keyAlias', System.getenv('KEY_ALIAS'))
+    keystoreProperties.setProperty('keyPassword', System.getenv('KEY_PASSWORD'))
+}
+// Version Code
+// Based on: https://gist.github.com/paramsen/4a92c9230d799caeb3b90897da27a80c
+static def generateVersionCode() {
+    def versionCodeOffset = 0 // Update to keep compatibility with existing apps
+    def result = "git rev-list HEAD --count".execute().text.trim() // Unix
+    if(result.empty) result = "PowerShell -Command git rev-list HEAD --count".execute().text.trim() // Windows
+    if(result.empty) throw new RuntimeException("Could not generate versionCode")
+    return result.toInteger() + versionCodeOffset
+}
+
 android {
     compileSdkVersion 30
 
@@ -43,15 +64,29 @@ android {
         applicationId "com.levinriegner.fluttertemplate"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode flutterVersionCode.toInteger()
+        versionCode generateVersionCode()
         versionName flutterVersionName
     }
 
-    buildTypes {
+    signingConfigs {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            storeFile file(keystoreProperties['keystoreFile'])
+            storePassword keystoreProperties['keystorePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            multiDexKeepFile file('multidex-config.txt')
         }
     }
 

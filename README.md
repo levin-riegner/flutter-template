@@ -51,8 +51,13 @@ Flutter template Application to checkout for new projects.
     - [App Dispose](#app-dispose)
     - [Logout](#logout)
     - [Hiding the keyboard when navigating out of the screen](#hiding-the-keyboard-when-navigating-out-of-the-screen)
+    - [App version](#app-version)
+  - [CI/CD Integration](#cicd-integration)
+    - [Fastlane](#fastlane)
+      - [Android](#android-1)
+      - [iOS](#ios-1)
+    - [Github Actions](#github-actions)
   - [TODO: Tests](#todo-tests)
-  - [TODO: CI/CD Integration](#todo-cicd-integration)
   - [TODO: Notifications](#todo-notifications)
   - [TODO: QA Console](#todo-qa-console)
   - [TODO: Null-safety (when available)](#todo-null-safety-when-available)
@@ -364,15 +369,23 @@ Delete all user-related data and references inside the `clearAllLocalData()` fun
 
 Check an example in the [ArticleDetailPage](lib/presentation/articles/detail/article_detail_page.dart).
 
-### TODO: Tests
+#### App version
+Make sure to add the app version somewhere on the user settings/profile so we can communicate more effectively with users. It would look something like build name + number. Example: `a.b.x (xyz)`.
 
-### TODO: CI/CD Integration
-- [ ] Build numbers
-- [ ] Keystore / Match
-- [ ] Add fastlane files
-- [ ] Add workflows from central repository
-- [ ] Document Release process
-- [ ] Link Secret generation process
+### CI/CD Integration
+#### Fastlane
+##### Android
+1. Set your project variables for the `.env.environment` files inside the `android/fastlane/` folder.
+1. Follow the `Code Signing` section on [this document](https://www.notion.so/CI-Continuous-Integration-006651de6c39478394ce13866ce1df21) to set up the `Keystore` securely.
+##### iOS
+1. Set your project variables for the `.env.environment` files inside the `ios/fastlane/` folder.
+1. Follow the `Code Signing` section on [this document](https://www.notion.so/CI-Continuous-Integration-006651de6c39478394ce13866ce1df21) to set up `Match`.
+
+#### Github Actions
+1. Follow the instructions on the [CI Workflows Flutter](https://github.com/levin-riegner/ci-workflows-flutter) Repository to add Github Actions to the destination repository.
+2. Follow the `GitHub Secrets` section on [this document](https://www.notion.so/CI-Continuous-Integration-006651de6c39478394ce13866ce1df21) to set obtain and add the necessary Secrets for the repository.
+
+### TODO: Tests
 
 ### TODO: Notifications
 - [ ] Android Metadata and colors
