@@ -1,6 +1,5 @@
 abstract class Assets {
-  // TODO: Add your assets' references here
-  // Example:
+  // Add your image assets here 👇
 
   // Onboarding
   static const onboardingSlide1 = "assets/images/onboarding1.png";

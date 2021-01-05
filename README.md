@@ -35,7 +35,10 @@ Flutter template Application to checkout for new projects.
   - [Secure Storage](#secure-storage)
   - [WebViews](#webviews)
   - [No Internet Connection](#no-internet-connection)
-  - [TODO: Launch Screen](#todo-launch-screen)
+  - [Launch Screen](#launch-screen)
+    - [iOS](#ios)
+    - [Android](#android)
+    - [Flutter](#flutter)
   - [Architecture](#architecture)
     - [Bloc](#bloc)
     - [Repository Pattern](#repository-pattern)
@@ -266,8 +269,25 @@ For views requiring Internet Connectivity wrap them with the `DSInternetRequired
 - If Internet is not available, a "No Internet" view will be shown.
 - When Internet is recovered, it will automatically update with the child view.
 
-### TODO: Launch Screen
-Logo + Background color
+### Launch Screen
+Customise the initial Splash Screen.
+
+#### iOS
+1. Inside the `Assets.xcassets` folder, replace the `LaunchLogo` image with the app launch logo.
+1. Open `LaunchScreen.storyboard` and set the `View` `Background` to match the app color.
+
+#### Android
+1. Open the `launch_background.xml` and set the color to match the app color.
+
+- [ ] Add launch logo to match correctly with Flutter Splash Screen.
+- [ ] Add a better Android Transition https://medium.com/swlh/splash-screens-in-flutter-a1310b370fce
+
+#### Flutter
+Optionally, you can add a [SplashScreen](lib/presentation/splash/splash_screen.dart) as the initial route to display the logo, load initial data or show an animation.
+
+This page is entirely optional and is no longer part of the OS app launch process.
+
+> 💡 **TIP**: You can get the different image sizes from [this generator website](https://hotpot.ai/icon-resizer).
 
 ### Architecture
 
@@ -318,6 +338,7 @@ Delete all user-related data and references inside the `clearAllLocalData()` fun
 - [ ] Link Secret generation process
 
 ### TODO: Notifications
+- [ ] Android Metadata and colors
 
 ### TODO: QA Console
 - [ ] Logs
