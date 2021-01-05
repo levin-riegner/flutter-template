@@ -48,6 +48,14 @@ static def generateVersionCode() {
     return result.toInteger() + versionCodeOffset
 }
 
+// Version Name
+static def generateVersionName() {
+    def result = "git rev-parse --abbrev-ref HEAD".execute().text.trim() // Unix
+    if(result.empty) result = "PowerShell -Command git rev-parse HEAD --abbrev-ref".execute().text.trim() // Windows
+    if(result.empty) throw new RuntimeException("Could not generate versionCode")
+    return result.substring(result.lastIndexOf("/") + 1)
+}
+
 android {
     compileSdkVersion 30
 
@@ -65,7 +73,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 30
         versionCode generateVersionCode()
-        versionName flutterVersionName
+        versionName generateVersionName()
     }
 
     signingConfigs {

@@ -148,6 +148,7 @@
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				30EA1C334EF547419A603E1B /* [CP] Embed Pods Frameworks */,
 				FA64264825A4C8C5004215F1 /* Set Build Number */,
+				FA64264925A4CE59004215F1 /* Set Build Name */,
 				FA65B670259C994100B7BECB /* Copy Firebase Info Plist File */,
 				FA65B689259C99D700B7BECB /* Upload dSYMs to Crashlytics */,
 				FA65B614259C974400B7BECB /* Crashlytics */,
@@ -295,6 +296,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Set the build number to the current git commit count.\n# If we're using the Dev scheme, then we'll suffix the build\n# number with the current branch name, to make collisions\n# far less likely across feature branches.\n# Based on: http://w3facility.info/question/how-do-i-force-xcode-to-rebuild-the-info-plist-file-in-my-project-every-time-i-build-the-project/\n#\ngit=`sh /etc/profile; which git`\noffset=0\ncommitCount=`\"$git\" rev-list HEAD --count`\nlet appBuild=$offset+$commitCount\nif [ $CONFIGURATION = \"Debug\" ]; then\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nfi\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
+		};
+		FA64264925A4CE59004215F1 /* Set Build Name */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Name";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Set the build name to the current git branch version after \"/\".\n# Example: release/a.b.c\n# If we're using a branch without \"/\", then\n# the whole branch name will be used (ex: master)\n\ngit=`sh /etc/profile; which git`\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ${branchName##*/}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
 		};
 		FA65B614259C974400B7BECB /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;

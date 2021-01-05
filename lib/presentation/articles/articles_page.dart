@@ -8,6 +8,7 @@ import 'package:flutter_template/presentation/articles/articles_state.dart';
 import 'package:lr_design_system/theme/theme.dart';
 import 'package:lr_design_system/theme/theme_spacing.dart';
 import 'package:lr_design_system/utils/alert_service.dart';
+import 'package:lr_design_system/views/ds_app_version.dart';
 import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 import 'package:lr_design_system/views/ds_loading_indicator.dart';
 import 'package:provider/provider.dart';
@@ -66,6 +67,10 @@ class _ArticlesPageState extends State<ArticlesPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(Strings.of(context).articlesTitle),
+        actions: [Padding(
+          padding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
+          child: DSAppVersion(),
+        )],
       ),
       body: Builder(builder: (BuildContext context) {
         // Listen to Alerts

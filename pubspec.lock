@@ -525,7 +525,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "899ca4f86ad9e72b7aa3aebee620ca220fd2f223"
+      resolved-ref: c22a4fda4c021b8c470e86f20aca456712201c92
       url: "git@github.com:levin-riegner/flutter-design-system"
     source: git
     version: "0.1.1"
@@ -585,6 +585,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.3"
+  package_info:
+    dependency: transitive
+    description:
+      name: package_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.3+2"
   path:
     dependency: transitive
     description:

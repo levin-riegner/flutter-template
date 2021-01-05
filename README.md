@@ -370,7 +370,7 @@ Delete all user-related data and references inside the `clearAllLocalData()` fun
 Check an example in the [ArticleDetailPage](lib/presentation/articles/detail/article_detail_page.dart).
 
 #### App version
-Make sure to add the app version somewhere on the user settings/profile so we can communicate more effectively with users. It would look something like build name + number. Example: `a.b.x (xyz)`.
+Make sure to add the app version somewhere on the user settings/profile so we can communicate more effectively with users. You can use the `DSAppVersion` widget for that.
 
 ### CI/CD Integration
 #### Fastlane
