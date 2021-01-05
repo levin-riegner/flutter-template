@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/navigation/parameters/article_detail_arguments.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
+import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/presentation/articles/articles_bloc.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_bloc.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
+import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/tools/flogger.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +22,7 @@ class Router {
         return _route(
           settings,
           Provider<ArticlesBloc>(
-            create: (context) => ArticlesBloc(),
+            create: (context) => ArticlesBloc(getIt.get<ArticleRepository>()),
             dispose: (_, bloc) => bloc.dispose(),
             child: ArticlesPage(),
           ),

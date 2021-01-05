@@ -7,18 +7,16 @@ class ArticleDbService {
 
   ArticleDbService(this._articlesBox) : assert(_articlesBox != null);
 
-  Future<List<Article>> getArticles(String query) async {
+  Future<List<ArticleDbModel>> getArticles(String query) async {
     return _articlesBox.values
         .where((e) => query != null
             ? e.title.contains(query) || e.description.contains(query)
             : true)
-        .map((e) => e.toArticle())
         .toList();
   }
 
-  Future<void> saveArticles(List<Article> articles) async {
-    final dbArticles = articles.map((e) => ArticleDbModel.fromArticle(e));
-    _articlesBox.addAll(dbArticles);
+  Future<void> saveArticles(List<ArticleDbModel> articles) async {
+    _articlesBox.addAll(articles);
   }
 
 }

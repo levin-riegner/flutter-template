@@ -14,18 +14,8 @@ class _$ArticlesErrorTearOff {
   const _$ArticlesErrorTearOff();
 
 // ignore: unused_element
-  Blacklisted<T, Y> blacklisted<T, Y>() {
-    return Blacklisted<T, Y>();
-  }
-
-// ignore: unused_element
-  SubscriptionExpired<T, Y> subscriptionExpired<T, Y>() {
-    return SubscriptionExpired<T, Y>();
-  }
-
-// ignore: unused_element
-  Unknown<T, Y> unknown<T, Y>() {
-    return Unknown<T, Y>();
+  Unknown unknown() {
+    return const Unknown();
   }
 }
 
@@ -34,304 +24,78 @@ class _$ArticlesErrorTearOff {
 const $ArticlesError = _$ArticlesErrorTearOff();
 
 /// @nodoc
-mixin _$ArticlesError<T, Y> {
+mixin _$ArticlesError {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult blacklisted(),
-    @required TResult subscriptionExpired(),
     @required TResult unknown(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult blacklisted(),
-    TResult subscriptionExpired(),
     TResult unknown(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult blacklisted(Blacklisted<T, Y> value),
-    @required TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
-    @required TResult unknown(Unknown<T, Y> value),
+    @required TResult unknown(Unknown value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult blacklisted(Blacklisted<T, Y> value),
-    TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
-    TResult unknown(Unknown<T, Y> value),
+    TResult unknown(Unknown value),
     @required TResult orElse(),
   });
 }
 
 /// @nodoc
-abstract class $ArticlesErrorCopyWith<T, Y, $Res> {
+abstract class $ArticlesErrorCopyWith<$Res> {
   factory $ArticlesErrorCopyWith(
-          ArticlesError<T, Y> value, $Res Function(ArticlesError<T, Y>) then) =
-      _$ArticlesErrorCopyWithImpl<T, Y, $Res>;
+          ArticlesError value, $Res Function(ArticlesError) then) =
+      _$ArticlesErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ArticlesErrorCopyWithImpl<T, Y, $Res>
-    implements $ArticlesErrorCopyWith<T, Y, $Res> {
+class _$ArticlesErrorCopyWithImpl<$Res>
+    implements $ArticlesErrorCopyWith<$Res> {
   _$ArticlesErrorCopyWithImpl(this._value, this._then);
 
-  final ArticlesError<T, Y> _value;
+  final ArticlesError _value;
   // ignore: unused_field
-  final $Res Function(ArticlesError<T, Y>) _then;
+  final $Res Function(ArticlesError) _then;
 }
 
 /// @nodoc
-abstract class $BlacklistedCopyWith<T, Y, $Res> {
-  factory $BlacklistedCopyWith(
-          Blacklisted<T, Y> value, $Res Function(Blacklisted<T, Y>) then) =
-      _$BlacklistedCopyWithImpl<T, Y, $Res>;
+abstract class $UnknownCopyWith<$Res> {
+  factory $UnknownCopyWith(Unknown value, $Res Function(Unknown) then) =
+      _$UnknownCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BlacklistedCopyWithImpl<T, Y, $Res>
-    extends _$ArticlesErrorCopyWithImpl<T, Y, $Res>
-    implements $BlacklistedCopyWith<T, Y, $Res> {
-  _$BlacklistedCopyWithImpl(
-      Blacklisted<T, Y> _value, $Res Function(Blacklisted<T, Y>) _then)
-      : super(_value, (v) => _then(v as Blacklisted<T, Y>));
+class _$UnknownCopyWithImpl<$Res> extends _$ArticlesErrorCopyWithImpl<$Res>
+    implements $UnknownCopyWith<$Res> {
+  _$UnknownCopyWithImpl(Unknown _value, $Res Function(Unknown) _then)
+      : super(_value, (v) => _then(v as Unknown));
 
   @override
-  Blacklisted<T, Y> get _value => super._value as Blacklisted<T, Y>;
+  Unknown get _value => super._value as Unknown;
 }
 
 /// @nodoc
-class _$Blacklisted<T, Y>
-    with DiagnosticableTreeMixin
-    implements Blacklisted<T, Y> {
-  const _$Blacklisted();
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ArticlesError<$T, $Y>.blacklisted()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ArticlesError<$T, $Y>.blacklisted'));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Blacklisted<T, Y>);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult blacklisted(),
-    @required TResult subscriptionExpired(),
-    @required TResult unknown(),
-  }) {
-    assert(blacklisted != null);
-    assert(subscriptionExpired != null);
-    assert(unknown != null);
-    return blacklisted();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult blacklisted(),
-    TResult subscriptionExpired(),
-    TResult unknown(),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (blacklisted != null) {
-      return blacklisted();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult blacklisted(Blacklisted<T, Y> value),
-    @required TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
-    @required TResult unknown(Unknown<T, Y> value),
-  }) {
-    assert(blacklisted != null);
-    assert(subscriptionExpired != null);
-    assert(unknown != null);
-    return blacklisted(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult blacklisted(Blacklisted<T, Y> value),
-    TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
-    TResult unknown(Unknown<T, Y> value),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (blacklisted != null) {
-      return blacklisted(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Blacklisted<T, Y> implements ArticlesError<T, Y> {
-  const factory Blacklisted() = _$Blacklisted<T, Y>;
-}
-
-/// @nodoc
-abstract class $SubscriptionExpiredCopyWith<T, Y, $Res> {
-  factory $SubscriptionExpiredCopyWith(SubscriptionExpired<T, Y> value,
-          $Res Function(SubscriptionExpired<T, Y>) then) =
-      _$SubscriptionExpiredCopyWithImpl<T, Y, $Res>;
-}
-
-/// @nodoc
-class _$SubscriptionExpiredCopyWithImpl<T, Y, $Res>
-    extends _$ArticlesErrorCopyWithImpl<T, Y, $Res>
-    implements $SubscriptionExpiredCopyWith<T, Y, $Res> {
-  _$SubscriptionExpiredCopyWithImpl(SubscriptionExpired<T, Y> _value,
-      $Res Function(SubscriptionExpired<T, Y>) _then)
-      : super(_value, (v) => _then(v as SubscriptionExpired<T, Y>));
-
-  @override
-  SubscriptionExpired<T, Y> get _value =>
-      super._value as SubscriptionExpired<T, Y>;
-}
-
-/// @nodoc
-class _$SubscriptionExpired<T, Y>
-    with DiagnosticableTreeMixin
-    implements SubscriptionExpired<T, Y> {
-  const _$SubscriptionExpired();
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ArticlesError<$T, $Y>.subscriptionExpired()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty(
-          'type', 'ArticlesError<$T, $Y>.subscriptionExpired'));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is SubscriptionExpired<T, Y>);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult blacklisted(),
-    @required TResult subscriptionExpired(),
-    @required TResult unknown(),
-  }) {
-    assert(blacklisted != null);
-    assert(subscriptionExpired != null);
-    assert(unknown != null);
-    return subscriptionExpired();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult blacklisted(),
-    TResult subscriptionExpired(),
-    TResult unknown(),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (subscriptionExpired != null) {
-      return subscriptionExpired();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult blacklisted(Blacklisted<T, Y> value),
-    @required TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
-    @required TResult unknown(Unknown<T, Y> value),
-  }) {
-    assert(blacklisted != null);
-    assert(subscriptionExpired != null);
-    assert(unknown != null);
-    return subscriptionExpired(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult blacklisted(Blacklisted<T, Y> value),
-    TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
-    TResult unknown(Unknown<T, Y> value),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (subscriptionExpired != null) {
-      return subscriptionExpired(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SubscriptionExpired<T, Y> implements ArticlesError<T, Y> {
-  const factory SubscriptionExpired() = _$SubscriptionExpired<T, Y>;
-}
-
-/// @nodoc
-abstract class $UnknownCopyWith<T, Y, $Res> {
-  factory $UnknownCopyWith(
-          Unknown<T, Y> value, $Res Function(Unknown<T, Y>) then) =
-      _$UnknownCopyWithImpl<T, Y, $Res>;
-}
-
-/// @nodoc
-class _$UnknownCopyWithImpl<T, Y, $Res>
-    extends _$ArticlesErrorCopyWithImpl<T, Y, $Res>
-    implements $UnknownCopyWith<T, Y, $Res> {
-  _$UnknownCopyWithImpl(
-      Unknown<T, Y> _value, $Res Function(Unknown<T, Y>) _then)
-      : super(_value, (v) => _then(v as Unknown<T, Y>));
-
-  @override
-  Unknown<T, Y> get _value => super._value as Unknown<T, Y>;
-}
-
-/// @nodoc
-class _$Unknown<T, Y> with DiagnosticableTreeMixin implements Unknown<T, Y> {
+class _$Unknown with DiagnosticableTreeMixin implements Unknown {
   const _$Unknown();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ArticlesError<$T, $Y>.unknown()';
+    return 'ArticlesError.unknown()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ArticlesError<$T, $Y>.unknown'));
+    properties..add(DiagnosticsProperty('type', 'ArticlesError.unknown'));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Unknown<T, Y>);
+    return identical(this, other) || (other is Unknown);
   }
 
   @override
@@ -340,12 +104,8 @@ class _$Unknown<T, Y> with DiagnosticableTreeMixin implements Unknown<T, Y> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult blacklisted(),
-    @required TResult subscriptionExpired(),
     @required TResult unknown(),
   }) {
-    assert(blacklisted != null);
-    assert(subscriptionExpired != null);
     assert(unknown != null);
     return unknown();
   }
@@ -353,8 +113,6 @@ class _$Unknown<T, Y> with DiagnosticableTreeMixin implements Unknown<T, Y> {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult blacklisted(),
-    TResult subscriptionExpired(),
     TResult unknown(),
     @required TResult orElse(),
   }) {
@@ -368,12 +126,8 @@ class _$Unknown<T, Y> with DiagnosticableTreeMixin implements Unknown<T, Y> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult blacklisted(Blacklisted<T, Y> value),
-    @required TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
-    @required TResult unknown(Unknown<T, Y> value),
+    @required TResult unknown(Unknown value),
   }) {
-    assert(blacklisted != null);
-    assert(subscriptionExpired != null);
     assert(unknown != null);
     return unknown(this);
   }
@@ -381,9 +135,7 @@ class _$Unknown<T, Y> with DiagnosticableTreeMixin implements Unknown<T, Y> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult blacklisted(Blacklisted<T, Y> value),
-    TResult subscriptionExpired(SubscriptionExpired<T, Y> value),
-    TResult unknown(Unknown<T, Y> value),
+    TResult unknown(Unknown value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -394,6 +146,6 @@ class _$Unknown<T, Y> with DiagnosticableTreeMixin implements Unknown<T, Y> {
   }
 }
 
-abstract class Unknown<T, Y> implements ArticlesError<T, Y> {
-  const factory Unknown() = _$Unknown<T, Y>;
+abstract class Unknown implements ArticlesError {
+  const factory Unknown() = _$Unknown;
 }

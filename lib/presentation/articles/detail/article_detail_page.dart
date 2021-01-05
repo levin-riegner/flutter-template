@@ -12,10 +12,17 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<ArticleDetailBloc>(context);
-    return InAppWebView(
-      urlNotifier: ValueNotifier(bloc.url),
-      useScaffold: true,
-      title: bloc.title,
+    return WillPopScope(
+      onWillPop: () async {
+        // Close Keyboard if open
+        FocusScope.of(context).unfocus();
+        return true; // Continue with pop
+      },
+      child: InAppWebView(
+        urlNotifier: ValueNotifier(bloc.url),
+        useScaffold: true,
+        title: bloc.title,
+      ),
     );
   }
 }

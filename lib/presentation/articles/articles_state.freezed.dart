@@ -14,8 +14,8 @@ class _$ArticlesStateTearOff {
   const _$ArticlesStateTearOff();
 
 // ignore: unused_element
-  ConfirmRegistration confirmRegistration() {
-    return const ConfirmRegistration();
+  SubscriptionExpired subscriptionExpired() {
+    return const SubscriptionExpired();
   }
 
 // ignore: unused_element
@@ -35,23 +35,23 @@ const $ArticlesState = _$ArticlesStateTearOff();
 mixin _$ArticlesState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult confirmRegistration(),
+    @required TResult subscriptionExpired(),
     @required TResult content(DataState<List<Article>, ArticlesError> articles),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult confirmRegistration(),
+    TResult subscriptionExpired(),
     TResult content(DataState<List<Article>, ArticlesError> articles),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult confirmRegistration(ConfirmRegistration value),
+    @required TResult subscriptionExpired(SubscriptionExpired value),
     @required TResult content(Content value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult confirmRegistration(ConfirmRegistration value),
+    TResult subscriptionExpired(SubscriptionExpired value),
     TResult content(Content value),
     @required TResult orElse(),
   });
@@ -75,45 +75,45 @@ class _$ArticlesStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $ConfirmRegistrationCopyWith<$Res> {
-  factory $ConfirmRegistrationCopyWith(
-          ConfirmRegistration value, $Res Function(ConfirmRegistration) then) =
-      _$ConfirmRegistrationCopyWithImpl<$Res>;
+abstract class $SubscriptionExpiredCopyWith<$Res> {
+  factory $SubscriptionExpiredCopyWith(
+          SubscriptionExpired value, $Res Function(SubscriptionExpired) then) =
+      _$SubscriptionExpiredCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ConfirmRegistrationCopyWithImpl<$Res>
+class _$SubscriptionExpiredCopyWithImpl<$Res>
     extends _$ArticlesStateCopyWithImpl<$Res>
-    implements $ConfirmRegistrationCopyWith<$Res> {
-  _$ConfirmRegistrationCopyWithImpl(
-      ConfirmRegistration _value, $Res Function(ConfirmRegistration) _then)
-      : super(_value, (v) => _then(v as ConfirmRegistration));
+    implements $SubscriptionExpiredCopyWith<$Res> {
+  _$SubscriptionExpiredCopyWithImpl(
+      SubscriptionExpired _value, $Res Function(SubscriptionExpired) _then)
+      : super(_value, (v) => _then(v as SubscriptionExpired));
 
   @override
-  ConfirmRegistration get _value => super._value as ConfirmRegistration;
+  SubscriptionExpired get _value => super._value as SubscriptionExpired;
 }
 
 /// @nodoc
-class _$ConfirmRegistration
+class _$SubscriptionExpired
     with DiagnosticableTreeMixin
-    implements ConfirmRegistration {
-  const _$ConfirmRegistration();
+    implements SubscriptionExpired {
+  const _$SubscriptionExpired();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ArticlesState.confirmRegistration()';
+    return 'ArticlesState.subscriptionExpired()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'ArticlesState.confirmRegistration'));
+      ..add(DiagnosticsProperty('type', 'ArticlesState.subscriptionExpired'));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ConfirmRegistration);
+    return identical(this, other) || (other is SubscriptionExpired);
   }
 
   @override
@@ -122,24 +122,24 @@ class _$ConfirmRegistration
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult confirmRegistration(),
+    @required TResult subscriptionExpired(),
     @required TResult content(DataState<List<Article>, ArticlesError> articles),
   }) {
-    assert(confirmRegistration != null);
+    assert(subscriptionExpired != null);
     assert(content != null);
-    return confirmRegistration();
+    return subscriptionExpired();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult confirmRegistration(),
+    TResult subscriptionExpired(),
     TResult content(DataState<List<Article>, ArticlesError> articles),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (confirmRegistration != null) {
-      return confirmRegistration();
+    if (subscriptionExpired != null) {
+      return subscriptionExpired();
     }
     return orElse();
   }
@@ -147,31 +147,31 @@ class _$ConfirmRegistration
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult confirmRegistration(ConfirmRegistration value),
+    @required TResult subscriptionExpired(SubscriptionExpired value),
     @required TResult content(Content value),
   }) {
-    assert(confirmRegistration != null);
+    assert(subscriptionExpired != null);
     assert(content != null);
-    return confirmRegistration(this);
+    return subscriptionExpired(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult confirmRegistration(ConfirmRegistration value),
+    TResult subscriptionExpired(SubscriptionExpired value),
     TResult content(Content value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (confirmRegistration != null) {
-      return confirmRegistration(this);
+    if (subscriptionExpired != null) {
+      return subscriptionExpired(this);
     }
     return orElse();
   }
 }
 
-abstract class ConfirmRegistration implements ArticlesState {
-  const factory ConfirmRegistration() = _$ConfirmRegistration;
+abstract class SubscriptionExpired implements ArticlesState {
+  const factory SubscriptionExpired() = _$SubscriptionExpired;
 }
 
 /// @nodoc
@@ -180,8 +180,7 @@ abstract class $ContentCopyWith<$Res> {
       _$ContentCopyWithImpl<$Res>;
   $Res call({DataState<List<Article>, ArticlesError> articles});
 
-  $DataStateCopyWith<List<Article>, ArticlesError<dynamic, dynamic>, $Res>
-      get articles;
+  $DataStateCopyWith<List<Article>, ArticlesError, $Res> get articles;
 }
 
 /// @nodoc
@@ -205,13 +204,12 @@ class _$ContentCopyWithImpl<$Res> extends _$ArticlesStateCopyWithImpl<$Res>
   }
 
   @override
-  $DataStateCopyWith<List<Article>, ArticlesError<dynamic, dynamic>, $Res>
-      get articles {
+  $DataStateCopyWith<List<Article>, ArticlesError, $Res> get articles {
     if (_value.articles == null) {
       return null;
     }
-    return $DataStateCopyWith<List<Article>, ArticlesError<dynamic, dynamic>,
-        $Res>(_value.articles, (value) {
+    return $DataStateCopyWith<List<Article>, ArticlesError, $Res>(
+        _value.articles, (value) {
       return _then(_value.copyWith(articles: value));
     });
   }
@@ -257,10 +255,10 @@ class _$Content with DiagnosticableTreeMixin implements Content {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult confirmRegistration(),
+    @required TResult subscriptionExpired(),
     @required TResult content(DataState<List<Article>, ArticlesError> articles),
   }) {
-    assert(confirmRegistration != null);
+    assert(subscriptionExpired != null);
     assert(content != null);
     return content(articles);
   }
@@ -268,7 +266,7 @@ class _$Content with DiagnosticableTreeMixin implements Content {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult confirmRegistration(),
+    TResult subscriptionExpired(),
     TResult content(DataState<List<Article>, ArticlesError> articles),
     @required TResult orElse(),
   }) {
@@ -282,10 +280,10 @@ class _$Content with DiagnosticableTreeMixin implements Content {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult confirmRegistration(ConfirmRegistration value),
+    @required TResult subscriptionExpired(SubscriptionExpired value),
     @required TResult content(Content value),
   }) {
-    assert(confirmRegistration != null);
+    assert(subscriptionExpired != null);
     assert(content != null);
     return content(this);
   }
@@ -293,7 +291,7 @@ class _$Content with DiagnosticableTreeMixin implements Content {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult confirmRegistration(ConfirmRegistration value),
+    TResult subscriptionExpired(SubscriptionExpired value),
     TResult content(Content value),
     @required TResult orElse(),
   }) {

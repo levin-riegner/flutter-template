@@ -1,7 +1,10 @@
 import 'package:flutter_template/data/article/model/article.dart';
+import 'package:flutter_template/data/article/model/article_data_error.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
+import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
+import 'package:flutter_template/util/tools/flogger.dart';
 
 class ArticleDataRepository implements ArticleRepository {
   final ArticleApiService apiService;
@@ -15,26 +18,34 @@ class ArticleDataRepository implements ArticleRepository {
 
   @override
   Future<List<Article>> getArticles(String query, {bool forceRefresh}) async {
-    final dbArticles = await dbService.getArticles(query);
-    if (dbArticles.isNotEmpty && !forceRefresh) {
-      return dbArticles;
-    } else {
-      try {
+    try {
+      final dbArticles =
+          (await dbService.getArticles(query)).map((e) => e.toArticle()).toList();
+      if (dbArticles.isNotEmpty && !forceRefresh) {
+        return dbArticles;
+      } else {
         final articlesResponse = await apiService.getArticles(query);
-        if(articlesResponse.isSuccessful) {
-          final articles = articlesResponse.body.articles.map((e) => e.toArticle()).toList();
-          await dbService.saveArticles(articles);
+        if (articlesResponse.isSuccessful) {
+          final articles =
+              articlesResponse.body.articles.map((e) => e.toArticle()).toList();
+          await dbService
+              .saveArticles(articles.map(ArticleDbModel.fromArticle).toList());
           return articles;
         } else {
-          // TODO: Parse Error codes
-          print(articlesResponse.error);
-          return [];
+          Flogger.d("Error getting articles", object: articlesResponse.error);
+          switch (articlesResponse.statusCode) {
+            case 403:
+              throw SubscriptionExpired();
+            case 404:
+              throw NotFound();
+            default:
+              throw Unknown(articlesResponse.error);
+          }
         }
-      } catch (e) {
-        // TODO: Convert Exception to repository exception
-        print("ERROR - $e");
-        throw e;
       }
+    } catch (e) {
+      Flogger.w("Unexpected error getting articles", object: e);
+      throw Unknown(e);
     }
   }
 }

@@ -21,5 +21,12 @@
   "articlesTitle": "Your content digest",
   "@articlesTitle": {
     "description": "Articles screen title"
+  },
+  "noArticlesFound": "No articles found for the text {query}",
+  "@noArticlesFound": {
+    "description": "No articles found alert text",
+    "placeholders": {
+      "query": {}
+    }
   }
 }

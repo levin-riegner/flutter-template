@@ -43,10 +43,14 @@ Flutter template Application to checkout for new projects.
     - [Bloc](#bloc)
     - [Repository Pattern](#repository-pattern)
       - [Mocks](#mocks)
-    - [TODO: Error Handling](#todo-error-handling)
-      - [TODO: One-Time Alerts](#todo-one-time-alerts)
+  - [Error Handling](#error-handling)
+    - [One-Time Alerts](#one-time-alerts)
+    - [State Errors](#state-errors)
+    - [Empty States](#empty-states)
+  - [Other](#other)
     - [App Dispose](#app-dispose)
     - [Logout](#logout)
+    - [Hiding the keyboard when navigating out of the screen](#hiding-the-keyboard-when-navigating-out-of-the-screen)
   - [TODO: Tests](#todo-tests)
   - [TODO: CI/CD Integration](#todo-cicd-integration)
   - [TODO: Notifications](#todo-notifications)
@@ -313,9 +317,34 @@ You can inject the mock implementations of the repositories to quickly prototype
 
 Mocks will also be used for all the UI tests in the project.
 
-#### TODO: Error Handling
+### Error Handling
+1. The Repository handles the errors from the different data sources and throws the appropiate data errors for the model type.<br>
+See the example with [ArticleDataError](lib/data/article/model/article_data_error.dart) throw inside [ArticleDataRepository](lib/data/article/repository/article_data_repository.dart) dependending on the results from the different data sources.
+1. The Bloc catches the data errors and converts them as One-Time Errors (for example to show a popup once) or as part of the State.
 
-##### TODO: One-Time Alerts
+#### One-Time Alerts
+Alerts can be used to show non-blocking errors for a few seconds to the user.
+
+A bloc should expose an `alerts` Stream where the view can subscribe and show the alert appropiately. The `AlertService` is provided by the Design System library to show alerts in the form of a dismissable banner.
+
+See the example with the [ArticlesBloc](lib/presentation/articles/articles_bloc.dart), [ArticlesAlert](lib/presentation/articles/articles_alert.dart) and [ArticlesPage](lib/presentation/articles/articles_page.dart).
+
+> ❗️ Alerts not necessary mean errors, they can also be used for example to show confirmation to user actions.
+
+#### State Errors
+An error can also be incorporated as part of the state.
+
+For that an [ArticlesError](lib/presentation/articles/articles_error.dart) class should define all possible state errors.
+
+This set of errors will then be used in conjunction with the [DataState](lib/presentation/util/data_state.dart) to either display a Success content response to the user or a Failure with the specific error.
+
+See the example also with the [ArticlesBloc](lib/presentation/articles/articles_bloc.dart) and [ArticlesPage](lib/presentation/articles/articles_page.dart).
+
+#### Empty States
+
+An empty state **is not an error**, it should however be displayed to the user in case a Content is retrieved successfully but with an empty result. A `DSEmptyView` widget can be used for these situations.
+
+### Other
 
 #### App Dispose
 Close all the required dependencies inside the `dispose()` function on the [Dependencies](lib/util/dependencies.dart) class.
@@ -326,6 +355,14 @@ This method will be called when the app is disposed.
 Delete all user-related data and references inside the `clearAllLocalData()` function on the [Dependencies](lib/util/dependencies.dart) class.
 
 > Make sure to call this method upon your logout event.
+
+#### Hiding the keyboard when navigating out of the screen
+
+- Use `FocusScope.of(context).unfocus()` to close the keyboard.
+
+- If the user can close the screen by navigating back, wrap the parent widget with the `WillPopScope` widget and add the close keyboard code there.
+
+Check an example in the [ArticleDetailPage](lib/presentation/articles/detail/article_detail_page.dart).
 
 ### TODO: Tests
 

@@ -7,6 +7,7 @@ import 'package:flutter_template/presentation/articles/articles_bloc.dart';
 import 'package:flutter_template/presentation/articles/articles_state.dart';
 import 'package:lr_design_system/theme/theme.dart';
 import 'package:lr_design_system/theme/theme_spacing.dart';
+import 'package:lr_design_system/utils/alert_service.dart';
 import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 import 'package:lr_design_system/views/ds_loading_indicator.dart';
 import 'package:provider/provider.dart';
@@ -21,47 +22,60 @@ class _ArticlesPageState extends State<ArticlesPage> {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<ArticlesBloc>(context);
+    final body = RefreshIndicator(
+      onRefresh: () => bloc.refresh(),
+      child: StreamBuilder<ArticlesState>(
+        stream: bloc.state,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return Container();
+          final state = snapshot.data;
+          return state.when(subscriptionExpired: () {
+            return Text("Please renew your subscription");
+          }, content: (content) {
+            return content.when(
+              idle: () => _Loading(),
+              loading: () => _Loading(),
+              success: (articles) {
+                if (articles.isEmpty) return DSEmptyView(useScaffold: false);
+                return ListView.builder(
+                    itemCount: articles.length,
+                    itemBuilder: (context, position) {
+                      final article = articles[position];
+                      return _Article(article, () {
+                        Navigator.of(context).pushNamed(
+                          Routes.articleDetail,
+                          arguments: ArticleDetailArguments(
+                            title: article.title,
+                            url: article.url,
+                          ),
+                        );
+                      });
+                    });
+              },
+              failure: (error) {
+                return DSErrorView(
+                  useScaffold: false,
+                  onRefresh: () => bloc.refresh(),
+                );
+              },
+            );
+          });
+        },
+      ),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(Strings.of(context).articlesTitle),
       ),
-      body: RefreshIndicator(
-        onRefresh: () => bloc.refresh(),
-        child: StreamBuilder<ArticlesState>(
-          stream: bloc.state,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) return Container();
-            final state = snapshot.data;
-            return state.when(confirmRegistration: () {
-              return Text("Please confirm registration");
-            }, content: (content) {
-              return content.when(
-                  idle: () => _Loading(),
-                  loading: () => _Loading(),
-                  success: (articles) {
-                    if (articles.isEmpty) return DSEmptyView(useScaffold: false);
-                    return ListView.builder(
-                        itemCount: articles.length,
-                        itemBuilder: (context, position) {
-                          final article = articles[position];
-                          return _Article(article, () {
-                            Navigator.of(context).pushNamed(
-                              Routes.articleDetail,
-                              arguments: ArticleDetailArguments(
-                                title: article.title,
-                                url: article.url,
-                              ),
-                            );
-                          });
-                        });
-                  },
-                  failure: (error) {
-                    return DSErrorView(useScaffold: false);
-                  });
-            });
-          },
-        ),
-      ),
+      body: Builder(builder: (BuildContext context) {
+        // Listen to Alerts
+        bloc.alerts.listen((alert) => alert.when(queryNotFound: (query) {
+              return AlertService.instance().showAlert(
+                  context: context,
+                  message: Strings.of(context).noArticlesFound(query));
+            }));
+        return body;
+      }),
     );
   }
 }
