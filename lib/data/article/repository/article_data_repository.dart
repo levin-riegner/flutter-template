@@ -3,7 +3,6 @@ import 'package:flutter_template/data/article/repository/article_repository.dart
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
 
-// TODO: DB / Caching / Observables
 class ArticleDataRepository implements ArticleRepository {
   final ArticleApiService apiService;
   final ArticleDbService dbService;

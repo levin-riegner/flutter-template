@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
-import 'package:tuple/tuple.dart';
 
 class Flogger {
   static Logger _logger = Logger("App");

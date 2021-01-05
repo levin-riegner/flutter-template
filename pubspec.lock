@@ -524,8 +524,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "release/0.1.1"
-      resolved-ref: "8bbb98b4fc434a5a9982935483f213eb327e0231"
+      ref: master
+      resolved-ref: "899ca4f86ad9e72b7aa3aebee620ca220fd2f223"
       url: "git@github.com:levin-riegner/flutter-design-system"
     source: git
     version: "0.1.1"
@@ -814,13 +814,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1+3"
-  tuple:
-    dependency: "direct main"
-    description:
-      name: tuple
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
   typed_data:
     dependency: transitive
     description:
@@ -862,7 +855,7 @@ packages:
       name: webview_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.21"
+    version: "1.0.7"
   win32:
     dependency: transitive
     description:

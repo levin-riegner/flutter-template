@@ -31,19 +31,20 @@ Flutter template Application to checkout for new projects.
   - [Network](#network)
   - [Database](#database)
     - [Encryption](#encryption)
-    - [TODO: Streams](#todo-streams)
+    - [Streams](#streams)
   - [Secure Storage](#secure-storage)
-  - [TODO: WebViews](#todo-webviews)
-  - [TODO: No Internet Connection](#todo-no-internet-connection)
+  - [WebViews](#webviews)
+  - [No Internet Connection](#no-internet-connection)
   - [TODO: Launch Screen](#todo-launch-screen)
   - [Architecture](#architecture)
     - [Bloc](#bloc)
-    - [TODO: Repository Pattern](#todo-repository-pattern)
-      - [TODO: Mocks](#todo-mocks)
+    - [Repository Pattern](#repository-pattern)
+      - [Mocks](#mocks)
     - [TODO: Error Handling](#todo-error-handling)
       - [TODO: One-Time Alerts](#todo-one-time-alerts)
+    - [App Dispose](#app-dispose)
+    - [Logout](#logout)
   - [TODO: Tests](#todo-tests)
-  - [TODO: App Dispose](#todo-app-dispose)
   - [TODO: CI/CD Integration](#todo-cicd-integration)
   - [TODO: Notifications](#todo-notifications)
   - [TODO: QA Console](#todo-qa-console)
@@ -244,18 +245,26 @@ The [Database](lib/data/util/database.dart) class includes encryption using AES2
 - An Encryption Key is generated using [Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage) and stored in the database upon launch.
 - Each box needs to be opened using the `encryptionCipher` parameter with the encryption key.
 
-#### TODO: Streams
+#### Streams
 
-- [ ] Stream subscription example
+- [ ] Stream subscription and combine example.
 
 ### Secure Storage
 Sensitive dynamic data is stored using [Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage).
 
 The [Secure Storage](lib/data/common/service/secure_storage.dart) class wrapps the plugin to store and read data securily.
 
-### TODO: WebViews
+### WebViews
+Use the `InAppWebView` widget for any in-app webviews. This widget also takes care of No Internet Connection situations.
 
-### TODO: No Internet Connection
+If navigation inside the WebView is required:
+- Consider adding a "Home" button on the screen to ensure the user can get back to the original site.
+- Open the link with an external browser using the [url_launcher](https://pub.dev/packages/url_launcher) package.
+
+### No Internet Connection
+For views requiring Internet Connectivity wrap them with the `DSInternetRequired` widget.
+- If Internet is not available, a "No Internet" view will be shown.
+- When Internet is recovered, it will automatically update with the child view.
 
 ### TODO: Launch Screen
 Logo + Background color
@@ -268,16 +277,37 @@ Logo + Background color
 
 Check the [ArticlesBloc](lib/presentation/articles/articles_bloc.dart) for an example.
 
-#### TODO: Repository Pattern
-##### TODO: Mocks
+#### Repository Pattern
+The presentation layer obtains and manipulates data through the different Repository classes.
+
+Blocs contain references through all the Repositories they need.
+
+A Repository contains one or multiple data sources from where it retrieves and stores data according to the application logic.
+
+An example can be found on the [ArticleDataRepository](lib/data/article/repository/article_data_repository.dart), where when articles are required, they are retrieved from the API and saved on the local Database.
+
+##### Mocks
+A mock implementation of the ArticleRepository is provided by the [ArticleMockRepository](lib/data/article/repository/article_mock_repository.dart) class.
+
+You can inject the mock implementations of the repositories to quickly prototype the UI and try every different state.
+
+Mocks will also be used for all the UI tests in the project.
 
 #### TODO: Error Handling
 
 ##### TODO: One-Time Alerts
 
-### TODO: Tests
+#### App Dispose
+Close all the required dependencies inside the `dispose()` function on the [Dependencies](lib/util/dependencies.dart) class.
 
-### TODO: App Dispose
+This method will be called when the app is disposed.
+
+#### Logout
+Delete all user-related data and references inside the `clearAllLocalData()` function on the [Dependencies](lib/util/dependencies.dart) class.
+
+> Make sure to call this method upon your logout event.
+
+### TODO: Tests
 
 ### TODO: CI/CD Integration
 - [ ] Build numbers

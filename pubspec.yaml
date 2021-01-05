@@ -18,7 +18,7 @@ dependencies:
 
   ## Add your project dependencies here 👇
   cupertino_icons: ^1.0.0
-
+  url_launcher: ^5.7.10
 
 
   ## Common Dependencies
@@ -28,8 +28,6 @@ dependencies:
   provider: 4.3.2+3
   # RxDart
   rxdart: 0.25.0
-  # Tuple
-  tuple: 1.0.3
   # Device Info
   device_info: 1.0.0
   # Dependency Injection
@@ -63,7 +61,7 @@ dependencies:
   lr_design_system:
     git:
       url: git@github.com:levin-riegner/flutter-design-system
-      ref: release/0.1.1
+      ref: master # TODO: Set to release branch (ex: release/0.1.3)
 
 dev_dependencies:
   flutter_test:
