@@ -15,6 +15,12 @@ Flutter template Application to checkout for new projects.
     - [Integrating 3rd party translation service](#integrating-3rd-party-translation-service)
     - [Using Localizable Strings](#using-localizable-strings)
   - [Accessibility](#accessibility)
+    - [Images](#images-1)
+    - [Texts](#texts)
+    - [Buttons](#buttons)
+    - [Errors](#errors)
+    - [Widget tree order](#widget-tree-order)
+    - [Testing Accessibility](#testing-accessibility)
   - [Theming](#theming)
   - [Analytics](#analytics)
   - [App Environments](#app-environments)
@@ -122,8 +128,37 @@ l10n for Flutter comes with support for [Localizely](https://localizely.com/) to
 1. Reference localizable strings using `Strings.of(context).yourString`.
 
 ### Accessibility
-https://flutter.dev/docs/development/accessibility-and-localization/accessibility#accessibility-release-checklist 
-- [ ] Describe Best practices
+#### Images
+- Add Semantics Label to images. A `semanticLabel` property is available on most image widgets, otherwise wrap it using the `Semantics` widget and filling the `semantics` label.
+- Ensure that images coming from an API carry an `alt` text.
+> ✚ Other useful semantics widgets can be found [on this article](https://medium.com/flutter-community/developing-and-testing-accessible-app-in-flutter-1dc1d33c7eea)
+#### Texts
+Consider that text size can always be enlarged externally and allow for text widgets to grow. 
+- Provide an `overflow` implementation.
+- Use the correct `textAlign` attribute.
+#### Buttons
+- Use "clickable" widgets only if they will take the user somwhere. Ex: Don't use an ImageButton that will only hold an Image without being clickable.
+- Ensure that clickable widgets (GestureArea / InkWell) contain a child with text. Otherwise provide the `semantics` label to the clickable image.
+- All tappable targets should be at least `48x48` points.
+#### Errors
+- Important actions should be able to be undone. In fields that show errors, suggest a correction if possible.
+#### Widget tree order
+- Ensure the content order generally makes logical sense, and can be read correctly from top to bottom.
+  
+More information around accessibility can be found in the following links:
+- [L+R Document](https://docs.google.com/document/d/12fljOK6AHswEaq9F9e558XjLKIOyPxO8gyWfOKozkyk)
+- [Material Design](https://material.io/design/usability/accessibility.html)
+- [Flutter](https://flutter.dev/docs/development/accessibility-and-localization/accessibility)
+
+#### Testing Accessibility
+Testing can be easily done on Android using the [Accessibility Scanner App](https://play.google.com/store/apps/details?id=com.google.android.apps.accessibility.auditor&hl=en_US).
+1. Open the app to enable the Scanner.
+2. Start recording a session and navigate through the different screens in the app.
+3. Open the Accessibility Scanner app again and review all suggestions available for each screen.
+> 💡 Results for each screen can also be shared and sent to the developers for review.
+
+Accessibility can also be tested on iOS by using the [XCode Accessibility Scanner](https://www.raywenderlich.com/6827616-ios-accessibility-getting-started)
+
 
 ### Theming
 - Modify the [Theme file](assets/theme.json) to match your application's Theme.

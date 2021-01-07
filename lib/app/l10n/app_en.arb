@@ -22,6 +22,10 @@
   "@articlesTitle": {
     "description": "Articles screen title"
   },
+  "articleThumbnailAlt": "Article Thumbnail",
+  "@articleThumbnailAlt": {
+    "description": "Alt text for the articles thumbnails"
+  },
   "noArticlesFound": "No articles found for the text {query}",
   "@noArticlesFound": {
     "description": "No articles found alert text",

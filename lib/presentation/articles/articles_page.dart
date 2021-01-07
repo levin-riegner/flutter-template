@@ -67,10 +67,12 @@ class _ArticlesPageState extends State<ArticlesPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(Strings.of(context).articlesTitle),
-        actions: [Padding(
-          padding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
-          child: DSAppVersion(),
-        )],
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
+            child: DSAppVersion(),
+          )
+        ],
       ),
       body: Builder(builder: (BuildContext context) {
         // Listen to Alerts
@@ -109,7 +111,10 @@ class _Article extends StatelessWidget {
           child: Column(
             children: [
               if (_article.imageUrl != null)
-                CachedNetworkImage(imageUrl: _article.imageUrl),
+                Semantics(
+                  child: CachedNetworkImage(imageUrl: _article.imageUrl),
+                  label: Strings.of(context).articleThumbnailAlt,
+                ),
               ThemeSpacing.Medium,
               Text(_article.title),
             ],
