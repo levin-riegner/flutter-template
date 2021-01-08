@@ -9,6 +9,7 @@ import 'package:flutter_template/app/navigation/router.dart' as app;
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:lr_design_system/theme/theme.dart';
+import 'package:shake/shake.dart';
 
 import 'navigation/routes.dart';
 
@@ -27,6 +28,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+
   @override
   Widget build(BuildContext context) {
     final environment = getIt.get<Environment>();
@@ -51,42 +53,7 @@ class _AppState extends State<App> {
       ],
       navigatorKey: NavigatorHolder.navigatorKey,
       initialRoute: Routes.articles,
-      // home: environment.isInternal ? Banner(
-      //   location: BannerLocation.topEnd,
-      //   message: environment.name,
-      //   child: HomeWidget(),
-      // ) : HomeWidget(),
     );
-    // return BlocProvider<NavigationBloc>(
-    //   builder: (_, bloc) => bloc ?? NavigationBloc(navigatorKey: navigatorKey),
-    //   onDispose: (_, bloc) => bloc.dispose(),
-    //   child: MaterialApp(
-    //     // Localization
-    //     debugShowCheckedModeBanner: true,
-    //     localizationsDelegates: [
-    //       // ... app-specific localization delegate[s] here
-    //       AppLocalizations.delegate,
-    //       GlobalMaterialLocalizations.delegate,
-    //       GlobalWidgetsLocalizations.delegate,
-    //       GlobalCupertinoLocalizations.delegate,
-    //     ],
-    //     supportedLocales: [
-    //       const Locale('en'),
-    //     ],
-    //     // Theming
-    //     theme: AppTheme.buildDropletteTheme(),
-    //     // Routes
-    //     onGenerateRoute: _router.getRoute,
-    //     navigatorObservers: [
-    //       if (kReleaseMode)
-    //         FirebaseAnalyticsObserver(
-    //             analytics: Analytics.instance().firebaseAnalytics),
-    //       _router.routeObserver,
-    //     ],
-    //     navigatorKey: navigatorKey,
-    //     home: SplashScreen(hasSessionAvailable: widget.hasSessionAvailable),
-    //   ),
-    // );
   }
 
   @override

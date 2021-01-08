@@ -48,4 +48,25 @@ class Environment {
       "Production",
     );
   }
+
+  static List<Environment> values() {
+    return [Environment.staging(), Environment.production()];
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Environment) {
+      if (this.name == other.name && this.appId == other.appId && this.appName == other.appName && this.apiBaseUrl == other.apiBaseUrl) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => name.hashCode;
+
 }

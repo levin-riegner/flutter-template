@@ -9,6 +9,7 @@ import 'package:flutter_template/presentation/articles/articles_bloc.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_bloc.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
+import 'package:flutter_template/presentation/splash/splash_screen.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/tools/flogger.dart';
 import 'package:provider/provider.dart';
@@ -37,8 +38,7 @@ class Router {
           ),
         );
       default:
-        // TODO: return _route(settings, LandingPage());
-        return null;
+        return _route(settings, SplashScreen(Routes.articles));
     }
   }
 

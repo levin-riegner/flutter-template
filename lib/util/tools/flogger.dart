@@ -1,8 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
+import 'package:logger/logger.dart' as console_logger;
 
 class Flogger {
-  static Logger _logger = Logger("App");
+  static const String loggerName = "App";
+
+  static Logger _logger = Logger(loggerName);
 
   Flogger._();
 
@@ -74,5 +77,21 @@ class FloggerRecord {
         '${record.loggerName}: ${record.level.name}: ${record.message}';
     if (record.stackTrace != null) message += '${record.stackTrace}';
     return FloggerRecord._(message, record.level, mightContainSensitiveData);
+  }
+}
+
+extension LogLevel on Level {
+  console_logger.Level toLoggerLevel() {
+    if (this == Level.CONFIG) {
+      return console_logger.Level.debug;
+    } else if (this == Level.INFO) {
+      return console_logger.Level.info;
+    } else if (this == Level.WARNING) {
+      return console_logger.Level.warning;
+    } else if (this == Level.SEVERE || this == Level.SHOUT) {
+      return console_logger.Level.error;
+    } else {
+      return console_logger.Level.debug;
+    }
   }
 }

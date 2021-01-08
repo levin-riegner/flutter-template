@@ -1,14 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/util/tools/flogger.dart';
 import 'package:lr_design_system/theme/theme.dart';
 
 class SplashScreen extends StatefulWidget {
-  final bool hasSessionAvailable;
+  final String initialRoute;
 
-  SplashScreen({@required this.hasSessionAvailable});
+  SplashScreen(this.initialRoute);
 
   @override
   State<StatefulWidget> createState() {
@@ -29,7 +28,7 @@ class _SplashState extends State<SplashScreen> with TickerProviderStateMixin {
     )..forward();
     Timer(Duration(milliseconds: _kLaunchDurationInMs), () {
       Flogger.info("Launch Completed");
-      Navigator.of(context).pushNamedAndRemoveUntil(widget.hasSessionAvailable ? Routes.articles : "login", (route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(widget.initialRoute, (_) => false);
     });
   }
 
@@ -43,11 +42,6 @@ class _SplashState extends State<SplashScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-
-    // final backgroundGradient = LinearGradient(
-    //   begin: Alignment.bottomCenter,
-    //   colors: [AppColors.primaryGradientBottom, AppColors.primaryGradientTop],
-    // );
 
     final animation = FadeTransition(
       opacity: _opacityController.drive(CurveTween(curve: Curves.easeOut)),

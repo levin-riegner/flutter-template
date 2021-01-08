@@ -5,10 +5,10 @@ import 'dart:io';
 import 'package:device_info/device_info.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
+import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/data/article/repository/article_data_repository.dart';
 import 'package:flutter_template/data/article/repository/article_mock_repository.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
@@ -16,14 +16,16 @@ import 'package:flutter_template/data/article/service/local/article_db_service.d
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
 import 'package:flutter_template/data/util/database.dart';
-import 'package:flutter_template/data/util/endpoints.dart';
 import 'package:flutter_template/data/util/network.dart';
 import 'package:flutter_template/data/common/service/secure_storage.dart';
+import 'package:flutter_template/util/console/console_screen.dart';
 import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:logger/logger.dart';
+import 'package:logger_flutter/logger_flutter.dart';
 import 'package:meta/meta.dart';
+import 'package:shake/shake.dart';
 
 import 'tools/flogger.dart';
 
@@ -43,12 +45,13 @@ abstract class Dependencies {
     final secureStorage = SecureStorage();
     getIt.registerSingleton<SecureStorage>(secureStorage);
     // HttpClient
-    final httpClient =
-        Network.createHttpClient(environment.apiBaseUrl, () => secureStorage.getUserAuthToken());
+    final httpClient = Network.createHttpClient(
+        environment.apiBaseUrl, () => secureStorage.getUserAuthToken());
 
     // Database
     await Database.init(secureStorage);
-    final databaseEncryption = await Database.getEncryptionCipher(secureStorage);
+    final databaseEncryption =
+        await Database.getEncryptionCipher(secureStorage);
     // Open db boxes
     final articlesBox = await Hive.openBox<ArticleDbModel>("articles",
         encryptionCipher: databaseEncryption);
@@ -105,12 +108,27 @@ abstract class Dependencies {
         }
       });
     }
+    // Shake detector for Console
+    if (environment.isInternal) {
+      final shakeDetector = ShakeDetector.autoStart(onPhoneShake: () {
+        print("SHAKE IT SHAKE IT");
+        NavigatorHolder.navigatorKey.currentState
+            .push(MaterialPageRoute(builder: (_) => ConsoleScreen()));
+      });
+      // Save logs for console
+      Flogger.registerListener((record) => LogConsole.add(OutputEvent(record.level.toLoggerLevel(), [record.message])));
+      getIt.registerSingleton<ShakeDetector>(shakeDetector);
+    }
+
     // endregion
   }
 
   /// Dispose all Dependencies
   static Future<void> dispose() async {
+    // Close Database
     await Hive.close();
+    // Stop listening to Shake
+    getIt.get<ShakeDetector>().stopListening();
   }
 
   /// Clears all local data

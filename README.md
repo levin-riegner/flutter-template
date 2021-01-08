@@ -66,7 +66,7 @@ Flutter template Application to checkout for new projects.
       - [TODO: Self-hosted runner](#todo-self-hosted-runner)
   - [TODO: Tests](#todo-tests)
   - [TODO: Notifications](#todo-notifications)
-  - [TODO: QA Console](#todo-qa-console)
+  - [QA Console](#qa-console)
   - [TODO: Null-safety (when available)](#todo-null-safety-when-available)
   - [TODO: App Update](#todo-app-update)
   - [TODO: App Review](#todo-app-review)
@@ -430,10 +430,13 @@ Make sure to add the app version somewhere on the user settings/profile so we ca
 ### TODO: Notifications
 - [ ] Android Metadata and colors
 
-### TODO: QA Console
-- [ ] Logs
-- [ ] Default logins
-- [ ] Theme changer
+### QA Console
+For internal builds, a [QA console](lib/util/console/console_screen.dart) will be opened when shaking the device. It contains:
+- **Logs Screen**: Shows a list with all the logs that happened on the app.
+- **Environment Switcher**: Restarts the app on a different environment.
+- **Default logins**: A list of all common logins that will perform the login operations automatically.
+  > ❗️ Make sure to update the `_performLogin` method to match your app's Login.
+- [ ] **Theme Changer**: Once we agree on a set of colors for all apps we can add a theme color changer to update colors on the app itself.
 
 ### TODO: Null-safety (when available)
 
