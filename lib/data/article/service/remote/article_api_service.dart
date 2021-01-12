@@ -1,5 +1,4 @@
 import 'package:chopper/chopper.dart';
-import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
 import 'package:flutter_template/data/util/endpoints.dart';
 

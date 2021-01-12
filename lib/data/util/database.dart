@@ -8,6 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 abstract class Database {
   // Hive Objects TypeId (Do not reuse the same value)
   static const int ArticleHiveType = 0;
+  static const String ArticleBox = "articles";
 
   static Future<void> init(SecureStorage secureStorage) async {
     await Hive.initFlutter();

@@ -30,15 +30,17 @@ class _ArticlesPageState extends State<ArticlesPage> {
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Container();
           final state = snapshot.data;
-          return state.when(subscriptionExpired: () {
-            return Text("Please renew your subscription");
-          }, content: (content) {
-            return content.when(
-              idle: () => _Loading(),
-              loading: () => _Loading(),
-              success: (articles) {
-                if (articles.isEmpty) return DSEmptyView(useScaffold: false);
-                return ListView.builder(
+          return state.when(
+            subscriptionExpired: () {
+              return Text("Please renew your subscription");
+            },
+            content: (content) {
+              return content.when(
+                idle: () => Container(),
+                loading: () => _Loading(),
+                success: (articles) {
+                  if (articles.isEmpty) return DSEmptyView(useScaffold: false);
+                  return ListView.builder(
                     itemCount: articles.length,
                     itemBuilder: (context, position) {
                       final article = articles[position];
@@ -51,16 +53,18 @@ class _ArticlesPageState extends State<ArticlesPage> {
                           ),
                         );
                       });
-                    });
-              },
-              failure: (error) {
-                return DSErrorView(
-                  useScaffold: false,
-                  onRefresh: () => bloc.refresh(),
-                );
-              },
-            );
-          });
+                    },
+                  );
+                },
+                failure: (error) {
+                  return DSErrorView(
+                    useScaffold: false,
+                    onRefresh: () => bloc.refresh(),
+                  );
+                },
+              );
+            },
+          );
         },
       ),
     );
@@ -76,11 +80,14 @@ class _ArticlesPageState extends State<ArticlesPage> {
       ),
       body: Builder(builder: (BuildContext context) {
         // Listen to Alerts
-        bloc.alerts.listen((alert) => alert.when(queryNotFound: (query) {
-              return AlertService.instance().showAlert(
+        bloc.alerts.listen((alert) => alert.when(
+              queryNotFound: (query) {
+                return AlertService.instance().showAlert(
                   context: context,
-                  message: Strings.of(context).noArticlesFound(query));
-            }));
+                  message: Strings.of(context).noArticlesFound(query),
+                );
+              },
+            ));
         return body;
       }),
     );

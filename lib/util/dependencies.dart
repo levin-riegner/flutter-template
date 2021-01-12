@@ -53,7 +53,7 @@ abstract class Dependencies {
     final databaseEncryption =
         await Database.getEncryptionCipher(secureStorage);
     // Open db boxes
-    final articlesBox = await Hive.openBox<ArticleDbModel>("articles",
+    final articlesBox = await Hive.openBox<ArticleDbModel>(Database.ArticleBox,
         encryptionCipher: databaseEncryption);
 
     // Repositories

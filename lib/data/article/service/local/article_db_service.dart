@@ -1,4 +1,3 @@
-import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:hive/hive.dart';
 
@@ -16,7 +15,7 @@ class ArticleDbService {
   }
 
   Future<void> saveArticles(List<ArticleDbModel> articles) async {
-    _articlesBox.addAll(articles);
+    return _articlesBox.addAll(articles);
   }
 
 }

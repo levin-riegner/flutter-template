@@ -34,7 +34,7 @@ class _AppState extends State<App> {
     final environment = getIt.get<Environment>();
     return MaterialApp(
       // Localization
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: environment.isInternal,
       localizationsDelegates: [
         // ... app-specific localization delegate[s] here
         Strings.delegate,

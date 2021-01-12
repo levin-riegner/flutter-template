@@ -241,7 +241,7 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 > To execute the build runner use the following command: <br>
 `flutter pub run build_runner build --delete-conflicting-outputs`.
 
-> Currently on Flutter 1.22.* build_runner breaks with l10n, follow [this issue](https://github.com/dart-lang/build/issues/2835#issuecomment-703528119) instructions for the workaround.
+> ❗️ Currently on Flutter 1.22.* build_runner breaks with l10n, follow [this issue](https://github.com/dart-lang/build/issues/2835#issuecomment-703528119) instructions for the workaround.
 
 > 💡 **TIP**: You can hide the auto-generated files in Android Studio by going to Preferences > Editor > File Types. <br> Now look for "Ignore files and folders" field at the bottom and append `*.g.dart;*.freezed.dart;*.chopper.dart`;
 
@@ -258,7 +258,7 @@ They are platform-agnostic and contain business logic.
 - Theses clases model the data for specific services (ex: a database or API).
 - They need to be converted to domain models to communicate with the UI layer.
 
-[Article API model example](lib/data/article/service/remote/model/article_api_model.dart)
+[Article API Model](lib/data/article/service/remote/model/article_api_model.dart) and [Article DB Model](lib/data/article/service/local/model/article_db_model.dart) examples
 
 #### UI Models
 - These clases hold the current state of the UI.
@@ -429,6 +429,7 @@ Make sure to add the app version somewhere on the user settings/profile so we ca
 
 ### TODO: Notifications
 - [ ] Android Metadata and colors
+- [ ] Badges
 
 ### QA Console
 For internal builds, a [QA console](lib/util/console/console_screen.dart) will be opened when shaking the device. It contains:
@@ -436,7 +437,9 @@ For internal builds, a [QA console](lib/util/console/console_screen.dart) will b
 - **Environment Switcher**: Restarts the app on a different environment.
 - **Default logins**: A list of all common logins that will perform the login operations automatically.
   > ❗️ Make sure to update the `_performLogin` method to match your app's Login.
-- [ ] **Theme Changer**: Once we agree on a set of colors for all apps we can add a theme color changer to update colors on the app itself.
+- [ ] **Theme Changer**: Once we agree on a declarative set of colors / typography for all apps we can add a theme color changer to update colors on the app itself.
+- [ ] Consider adding local data browser (secure storage, database).
+- [ ] Consider performance monitors (Frame rate, widget tree, etc).
 
 ### TODO: Null-safety (when available)
 
