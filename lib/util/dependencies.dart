@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_paper_trail/flutter_paper_trail.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/data/article/repository/article_data_repository.dart';
@@ -104,14 +105,13 @@ abstract class Dependencies {
       // Register Crashlytics listener
       Flogger.registerListener((record) {
         if (!record.mightContainSensitiveData) {
-          PaperTrail.logRecord(record.message, record.level);
+          FirebaseCrashlytics.instance.log(record.message);
         }
       });
     }
     // Shake detector for Console
     if (environment.isInternal) {
       final shakeDetector = ShakeDetector.autoStart(onPhoneShake: () {
-        print("SHAKE IT SHAKE IT");
         NavigatorHolder.navigatorKey.currentState
             .push(MaterialPageRoute(builder: (_) => ConsoleScreen()));
       });
@@ -129,6 +129,14 @@ abstract class Dependencies {
     await Hive.close();
     // Stop listening to Shake
     getIt.get<ShakeDetector>().stopListening();
+  }
+
+  /// Registers user to dependencies
+  static Future<void> registerUser(String userId, String email) async {
+    return Future.wait([
+      FlutterPaperTrail.setUserId(userId),
+      FirebaseCrashlytics.instance.setUserIdentifier(userId),
+    ]);
   }
 
   /// Clears all local data

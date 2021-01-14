@@ -56,6 +56,7 @@ Flutter template Application to checkout for new projects.
   - [Other](#other)
     - [App Dispose](#app-dispose)
     - [Logout](#logout)
+    - [Register User](#register-user)
     - [Hiding the keyboard when navigating out of the screen](#hiding-the-keyboard-when-navigating-out-of-the-screen)
     - [App version](#app-version)
   - [CI/CD Integration](#cicd-integration)
@@ -75,9 +76,12 @@ Flutter template Application to checkout for new projects.
 
 1. Click the `Use this template` button to create a new repository.
 1. Checkout and open with Android Studio.
-1. Find and rename all instances of `com.levinriegner` with the company name, including folders.
+1. Find and rename all instances of `com.levinriegner` with the company name, including Android folders.
 1. Find and rename all instances of `fluttertemplate` and `flutter_template` with the actual product name, including folders.
-
+1. Create a new Firebase project and update the Google Services files.
+1. Setup Key Signing by following the CI instructions below.
+1. Clear the README file.
+> ❗️ Ensure that all template variables have been changed by searching `levinriegner` and `template` on the project.
 ## Features
 
 ### Fonts
@@ -214,7 +218,7 @@ The project uses the service locator [get_it](https://pub.dev/packages/get_it) t
 - Use it directly as `Flogger.level("Message")`.<br>
   *Example: Flogger.info("LaunchCompleted");*
 - External log listeners are configured inside the [Dependencies](lib/util/dependencies.dart) class.
-    > Papertrail is already available on this template.
+    > [Papertrail](https://papertrailapp.com/dashboard) is already available on this template. It will log the first 6 characters of the userId when available along with other useful platform data.
 
 ### Firebase
 1. Create a new Firebase Project that will contain:
@@ -395,7 +399,11 @@ This method will be called when the app is disposed.
 #### Logout
 Delete all user-related data and references inside the `clearAllLocalData()` function on the [Dependencies](lib/util/dependencies.dart) class.
 
-> Make sure to call this method upon your logout event.
+> ❗️ Make sure to call this method upon your logout event.
+
+#### Register User
+Some dependencies might need to be notified when the user is registered in the app. use the `registerUser` function on the [Dependencies](lib/util/dependencies.dart) class to set the user properties to all 3rd party services.
+> ❗️ Make sure to call this method upon your login event.
 
 #### Hiding the keyboard when navigating out of the screen
 
@@ -438,8 +446,8 @@ For internal builds, a [QA console](lib/util/console/console_screen.dart) will b
 - **Default logins**: A list of all common logins that will perform the login operations automatically.
   > ❗️ Make sure to update the `_performLogin` method to match your app's Login.
 - [ ] **Theme Changer**: Once we agree on a declarative set of colors / typography for all apps we can add a theme color changer to update colors on the app itself.
-- [ ] Consider adding local data browser (secure storage, database).
-- [ ] Consider performance monitors (Frame rate, widget tree, etc).
+- [ ] Add send by email option to Logs Screen.
+- [ ] Consider a constants editor similar to Facebook Tweaks.
 
 ### TODO: Null-safety (when available)
 

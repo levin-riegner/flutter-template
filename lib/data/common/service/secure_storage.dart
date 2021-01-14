@@ -4,6 +4,7 @@ class SecureStorage {
   final FlutterSecureStorage _flutterSecureStorage =
       const FlutterSecureStorage();
   static const _kDatabaseKey = "databaseKey";
+  static const _kUserId = "userId";
   static const _kUserAuthToken = "userAuthToken";
 
   // region Database Key
@@ -18,9 +19,18 @@ class SecureStorage {
   Future<void> saveDatabaseKey(String key) async {
     await _flutterSecureStorage.write(key: _kDatabaseKey, value: key);
   }
+
   // endregion
 
-  // region Auth Token
+  // region User
+  Future<String> getUserId() async {
+    return _flutterSecureStorage.read(key: _kUserId);
+  }
+
+  Future<void> saveUserId(String id) async {
+    await _flutterSecureStorage.write(key: _kUserId, value: id);
+  }
+
   Future<String> getUserAuthToken() async {
     return _flutterSecureStorage.read(key: _kUserAuthToken);
   }
@@ -28,6 +38,7 @@ class SecureStorage {
   Future<void> saveUserAuthToken(String token) async {
     await _flutterSecureStorage.write(key: _kUserAuthToken, value: token);
   }
+
   // endregion
 
   Future<void> deleteAll() async {
