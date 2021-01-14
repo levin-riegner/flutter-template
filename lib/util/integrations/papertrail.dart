@@ -14,13 +14,23 @@ abstract class PaperTrail {
     @required String hostName,
     @required String programName,
     @required int port,
-    @required String machineName,
   }) async {
+    // Get Device Model
+    final deviceInfo = DeviceInfoPlugin();
+    String deviceModel = "Unknown";
+    if (Platform.isAndroid) {
+      final androidInfo = await deviceInfo.androidInfo;
+      deviceModel = androidInfo.model;
+    } else if (Platform.isIOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+      deviceModel = iosInfo.model;
+    }
+    // Init Papertrail
     await FlutterPaperTrail.initLogger(
       hostName: hostName,
       programName: programName,
       port: port,
-      machineName: machineName,
+      machineName: deviceModel,
     );
   }
 

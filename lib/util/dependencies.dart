@@ -80,22 +80,11 @@ abstract class Dependencies {
     if (isDebugBuild) {
       Flogger.registerListener((record) => log(record.message));
     } else {
-      // Get Device Model
-      final deviceInfo = DeviceInfoPlugin();
-      String deviceModel = "Unknown";
-      if (Platform.isAndroid) {
-        final androidInfo = await deviceInfo.androidInfo;
-        deviceModel = androidInfo.model;
-      } else if (Platform.isIOS) {
-        final iosInfo = await deviceInfo.iosInfo;
-        deviceModel = iosInfo.model;
-      }
       // Init PaperTrail
       await PaperTrail.init(
         hostName: environment.loggingUrl,
         programName: environment.appName,
         port: environment.loggingPort,
-        machineName: deviceModel,
       );
       Flogger.registerListener((record) {
         if (!record.mightContainSensitiveData) {
