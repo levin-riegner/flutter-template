@@ -3,9 +3,9 @@ import 'package:logging/logging.dart';
 import 'package:logger/logger.dart' as console_logger;
 
 class Flogger {
-  static const String loggerName = "App";
+  static const String _loggerName = "App";
 
-  static Logger _logger = Logger(loggerName);
+  static Logger _logger = Logger(_loggerName);
 
   Flogger._();
 
@@ -59,7 +59,7 @@ class Flogger {
 
   static registerListener(void onRecord(FloggerRecord record)) {
     _logger.onRecord
-        .map((e) => FloggerRecord.fromLogger(e, false))
+        .map((e) => FloggerRecord.fromLogger(e, e.loggerName != _loggerName))
         .listen(onRecord);
   }
 }

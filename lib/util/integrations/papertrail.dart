@@ -15,22 +15,12 @@ abstract class PaperTrail {
     @required String programName,
     @required int port,
   }) async {
-    // Get Device Model
-    final deviceInfo = DeviceInfoPlugin();
-    String deviceModel = "Unknown";
-    if (Platform.isAndroid) {
-      final androidInfo = await deviceInfo.androidInfo;
-      deviceModel = androidInfo.model;
-    } else if (Platform.isIOS) {
-      final iosInfo = await deviceInfo.iosInfo;
-      deviceModel = iosInfo.model;
-    }
     // Init Papertrail
     await FlutterPaperTrail.initLogger(
       hostName: hostName,
       programName: programName,
       port: port,
-      machineName: deviceModel,
+      machineName: programName.replaceAll(" ", "_"),
     );
   }
 
