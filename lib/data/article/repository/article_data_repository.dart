@@ -18,34 +18,29 @@ class ArticleDataRepository implements ArticleRepository {
 
   @override
   Future<List<Article>> getArticles(String query, {bool forceRefresh}) async {
-    try {
-      final dbArticles =
-          (await dbService.getArticles(query)).map((e) => e.toArticle()).toList();
-      if (dbArticles.isNotEmpty && !forceRefresh) {
-        return dbArticles;
+    final dbArticles =
+        (await dbService.getArticles(query)).map((e) => e.toArticle()).toList();
+    if (dbArticles.isNotEmpty && !forceRefresh) {
+      return dbArticles;
+    } else {
+      final articlesResponse = await apiService.getArticles(query);
+      if (articlesResponse.isSuccessful) {
+        final articles =
+            articlesResponse.body.articles.map((e) => e.toArticle()).toList();
+        await dbService
+            .saveArticles(articles.map(ArticleDbModel.fromArticle).toList());
+        return articles;
       } else {
-        final articlesResponse = await apiService.getArticles(query);
-        if (articlesResponse.isSuccessful) {
-          final articles =
-              articlesResponse.body.articles.map((e) => e.toArticle()).toList();
-          await dbService
-              .saveArticles(articles.map(ArticleDbModel.fromArticle).toList());
-          return articles;
-        } else {
-          Flogger.d("Error getting articles", object: articlesResponse.error);
-          switch (articlesResponse.statusCode) {
-            case 403:
-              throw SubscriptionExpired();
-            case 404:
-              throw NotFound();
-            default:
-              throw Unknown(articlesResponse.error);
-          }
+        Flogger.d("Error getting articles", object: articlesResponse.error);
+        switch (articlesResponse.statusCode) {
+          case 403:
+            throw SubscriptionExpired();
+          case 404:
+            throw NotFound();
+          default:
+            throw Unknown(articlesResponse.error);
         }
       }
-    } catch (e) {
-      Flogger.w("Unexpected error getting articles", object: e);
-      throw Unknown(e);
     }
   }
 }
