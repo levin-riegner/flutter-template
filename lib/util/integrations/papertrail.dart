@@ -27,8 +27,8 @@ abstract class PaperTrail {
   static Future<void> logRecord(String message, Level recordLevel) async {
     // UserId
     var userId = await getIt.get<SecureStorage>().getUserId();
-    if (userId != null && userId.length > 6) {
-      userId = userId.substring(0, 6);
+    if (userId != null && userId.length > 7) {
+      userId = userId.substring(0, 7);
     }
 
     // System Variables
