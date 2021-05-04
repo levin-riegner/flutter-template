@@ -26,7 +26,7 @@ class Environment {
     return Environment._(
       "com.levinriegner.fluttertemplate.qa",
       "FlutterTemplate",
-      "http://newsapi.org/v2",//"https://api-staging.fluttertemplate.org",
+      "http://newsapi.org/v2",
       WebViewUrls("https://staging.fluttertemplate.org"),
       "logsN.papertrailapp.com",
       12345,
@@ -40,7 +40,7 @@ class Environment {
     return Environment._(
       "com.levinriegner.fluttertemplate",
       "FlutterTemplate",
-      "http://newsapi.org/v2",//"https://api.fluttertemplate.org",
+      "http://newsapi.org/v2",
       WebViewUrls("https://fluttertemplate.org"),
       "logsN.papertrailapp.com",
       12345,
@@ -50,13 +50,19 @@ class Environment {
   }
 
   static List<Environment> values() {
-    return [Environment.staging(), Environment.production()];
+    return [
+      Environment.staging(),
+      Environment.production(),
+    ];
   }
 
   @override
   bool operator ==(Object other) {
     if (other is Environment) {
-      if (this.name == other.name && this.appId == other.appId && this.appName == other.appName && this.apiBaseUrl == other.apiBaseUrl) {
+      if (this.name == other.name &&
+          this.appId == other.appId &&
+          this.appName == other.appName &&
+          this.apiBaseUrl == other.apiBaseUrl) {
         return true;
       } else {
         return false;
@@ -68,5 +74,4 @@ class Environment {
 
   @override
   int get hashCode => name.hashCode;
-
 }

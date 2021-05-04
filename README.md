@@ -448,7 +448,9 @@ For internal builds, a [QA console](lib/util/console/console_screen.dart) will b
 - [ ] **Theme Changer**: Once we agree on a declarative set of colors / typography for all apps we can add a theme color changer to update colors on the app itself.
 - [ ] Add send by email option to Logs Screen.
 - [ ] Consider a constants editor similar to Facebook Tweaks.
-
+- [ ] MaterialApp > debugShowMaterialGrid: true,
+- [ ] MaterialApp > showSemanticsDebugger: true,
+- [ ] MaterialApp > showPerformanceOverlay: true,
 ### TODO: Null-safety (when available)
 
 ### TODO: App Update

@@ -23,7 +23,6 @@ import 'package:flutter_template/util/console/console_screen.dart';
 import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
-import 'package:logger/logger.dart';
 import 'package:logger_flutter/logger_flutter.dart';
 import 'package:meta/meta.dart';
 import 'package:shake/shake.dart';

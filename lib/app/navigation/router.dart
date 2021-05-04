@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/navigation/parameters/article_detail_arguments.dart';
+import 'package:flutter_template/app/navigation/parameters/article_arguments.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/presentation/articles/articles_bloc.dart';
@@ -30,7 +30,8 @@ class Router {
         );
       case Routes.articleDetail:
         final params = settings.arguments as ArticleDetailArguments;
-        return _route(settings,
+        return _route(
+          settings,
           Provider<ArticleDetailBloc>(
             create: (context) => ArticleDetailBloc(params.title, params.url),
             dispose: (_, bloc) => bloc.dispose(),

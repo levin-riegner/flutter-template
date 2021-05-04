@@ -64,7 +64,7 @@ class ArticlesBloc extends BaseBloc {
       );
     } catch (e) {
       Flogger.w("Unexpected error getting articles", object: e);
-      return ArticlesState.content(articles: Failure(reason: Unknown()));
+      _state.value = ArticlesState.content(articles: Failure(reason: Unknown()));
     }
   }
 

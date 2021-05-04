@@ -3,5 +3,4 @@ abstract class Assets {
 
   // Onboarding
   static const onboardingSlide1 = "assets/images/onboarding1.png";
-
 }
