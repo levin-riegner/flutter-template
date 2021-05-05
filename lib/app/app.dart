@@ -15,6 +15,7 @@ import 'package:lr_app_versioning/app_versioning.dart';
 import 'package:lr_design_system/config/ds_app.dart';
 import 'package:lr_design_system/config/ds_config.dart';
 import 'package:lr_design_system/views/ds_dialog.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'navigation/routes.dart';
 
@@ -99,12 +100,11 @@ class _AppState extends State<App> {
 
   // Push
   void _initPushNotifications() async {
-    // PermissionStatus status = await Permission.notification.status;
-    // if (status.isGranted) {
-    //   Flogger.i("Init Push Notifications: Granted");
-    //   await _webEngage.onNotificationsPermissionAccepted();
-    //   _webEngage.register();
-    // }
+    PermissionStatus status = await Permission.notification.status;
+    if (status.isGranted) {
+      Flogger.i("Init Push Notifications: Granted");
+      // TODO: Register with push service
+    }
   }
 
   @override

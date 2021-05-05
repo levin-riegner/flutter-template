@@ -7,7 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'articles_state.freezed.dart';
 
 @freezed
-abstract class ArticlesState with _$ArticlesState {
+class ArticlesState with _$ArticlesState {
 
   const factory ArticlesState.subscriptionExpired() = SubscriptionExpired;
 

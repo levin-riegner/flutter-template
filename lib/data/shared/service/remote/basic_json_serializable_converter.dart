@@ -12,7 +12,7 @@ class JsonSerializableConverter extends JsonConverter {
     /// Get jsonFactory using Type parameters
     /// if not found or invalid, throw error or return null
     final jsonFactory = factories[T];
-    if (jsonFactory == null || jsonFactory is JsonFactory<T>) {
+    if (jsonFactory == null || jsonFactory is! JsonFactory<T>) {
       /// throw serializer not found error;
       Flogger.error("Serializer not found for type $T");
       return null;

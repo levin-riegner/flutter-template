@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 part 'article.freezed.dart';
 
 @freezed
-abstract class Article implements _$Article {
+class Article with _$Article {
   const Article._();
 
   const factory Article({

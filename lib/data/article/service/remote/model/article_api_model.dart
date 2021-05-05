@@ -7,7 +7,7 @@ part 'article_api_model.freezed.dart';
 part 'article_api_model.g.dart';
 
 @freezed
-abstract class ArticleApiModel implements _$ArticleApiModel {
+class ArticleApiModel with _$ArticleApiModel {
   const ArticleApiModel._();
 
   // @JsonSerializable(fieldRename: FieldRename.snake)
@@ -36,7 +36,7 @@ abstract class ArticleApiModel implements _$ArticleApiModel {
 }
 
 @freezed
-abstract class ArticlesApiResponse with _$ArticlesApiResponse {
+class ArticlesApiResponse with _$ArticlesApiResponse {
   // @JsonSerializable(fieldRename: FieldRename.snake)
   const factory ArticlesApiResponse({
     String? status,

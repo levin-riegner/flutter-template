@@ -1,6 +1,6 @@
 import 'package:chopper/chopper.dart';
 import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
-import 'package:flutter_template/data/shared/service/remote/model/json_serializable_converter.dart';
+import 'package:flutter_template/data/shared/service/remote/basic_json_serializable_converter.dart';
 
 abstract class Network {
   static ChopperClient createHttpClient(
@@ -10,8 +10,8 @@ abstract class Network {
   ) {
     // Add your models here 👇
     final converter = JsonSerializableConverter({
-      ArticlesApiResponse: (json) => ArticlesApiResponse.fromJson(json),
       ArticleApiModel: (json) => ArticleApiModel.fromJson(json),
+      ArticlesApiResponse: (json) => ArticlesApiResponse.fromJson(json),
     });
 
     // Create Chopper Client
