@@ -71,6 +71,7 @@ Flutter template Application to checkout for new projects.
   - [TODO: Null-safety (when available)](#todo-null-safety-when-available)
   - [TODO: App Update](#todo-app-update)
   - [TODO: App Review](#todo-app-review)
+  - [TODO: Firebase Performance Monitoring](#todo-firebase-performance-monitoring)
 
 ## Installation
 
@@ -278,7 +279,7 @@ API communication is defined using [Chopper](https://pub.dev/packages/chopper) a
 
 You can see an example with [ArticleApiService](lib/data/article/service/remote/article_api_service.dart)
 
-A [Network](lib/data/util/network.dart) class is provided wih the basic definition for an HTTP Client. It includes:
+A [Network](lib/data/shared/service/remote/network.dart) class is provided wih the basic definition for an HTTP Client. It includes:
 - Logging HTTP Requests as CURL.
 - Adding the Authorization Token to all requests.
 
@@ -287,13 +288,13 @@ This project includes the [Hive](https://pub.dev/packages/hive) Database.
 
 Each data class is stored into a **Box** which is the equivalent of a Table/Collection.
 
-- DB Model adapters need to be register in the global [Database](lib/data/util/database.dart) class.
+- DB Model adapters need to be register in the global [Database](lib/data/shared/service/local/database.dart) class.
 - Boxes are opened in the [Dependencies](lib/util/dependencies.dart) and injected to the different services.
 
 [Articles DB Service Example](lib/data/article/service/local/article_db_service.dart)
 
 #### Encryption
-The [Database](lib/data/util/database.dart) class includes encryption using AES256.
+The [Database](lib/data/shared/service/local/database.dart) class includes encryption using AES256.
 - An Encryption Key is generated using [Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage) and stored in the database upon launch.
 - Each box needs to be opened using the `encryptionCipher` parameter with the encryption key.
 
@@ -457,3 +458,5 @@ For internal builds, a [QA console](lib/util/console/console_screen.dart) will b
 
 ### TODO: App Review
 https://pub.dev/packages/in_app_review
+
+### TODO: Firebase Performance Monitoring

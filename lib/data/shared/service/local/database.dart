@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
-import 'package:flutter_template/data/common/service/secure_storage.dart';
+import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -12,13 +12,13 @@ abstract class Database {
 
   static Future<void> init(SecureStorage secureStorage) async {
     await Hive.initFlutter();
-    await Database.setupEncryption(secureStorage);
+    await Database._setupEncryption(secureStorage);
     // Register all the model adapters here 👇
     Hive.registerAdapter<ArticleDbModel>(ArticleDbModelAdapter());
   }
 
   // Ensures or sets the database encryption key
-  static Future<void> setupEncryption(SecureStorage secureStorage) async {
+  static Future<void> _setupEncryption(SecureStorage secureStorage) async {
     if (secureStorage == null) return;
     final containsEncryptionKey = await secureStorage.containsDatabaseKey();
     if (!containsEncryptionKey) {

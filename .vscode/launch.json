@@ -1,0 +1,71 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "mock-debug",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "QA",
+                "--debug"
+            ],
+            "program": "lib/main_mock.dart"
+        },
+        {
+            "name": "mock-release",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "QA",
+                "--release"
+            ],
+            "program": "lib/main_mock.dart"
+        },
+        {
+            "name": "prod-debug",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "Production",
+                "--debug"
+            ],
+            "program": "lib/main_prod.dart"
+        },
+        {
+            "name": "prod-release",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "Production",
+                "--release"
+            ],
+            "program": "lib/main_prod.dart"
+        },
+        {
+            "name": "staging-debug",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "QA",
+                "--debug"
+            ],
+            "program": "lib/main_qa.dart"
+        },
+        {
+            "name": "staging-release",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "QA",
+                "--release"
+            ],
+            "program": "lib/main_qa.dart"
+        },
+    ]
+}

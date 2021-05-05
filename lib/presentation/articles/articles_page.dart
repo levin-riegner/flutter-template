@@ -1,17 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/navigation/parameters/article_detail_arguments.dart';
+import 'package:flutter_template/app/navigation/parameters/article_arguments.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/presentation/articles/articles_bloc.dart';
 import 'package:flutter_template/presentation/articles/articles_state.dart';
-import 'package:lr_design_system/theme/theme.dart';
-import 'package:lr_design_system/theme/theme_spacing.dart';
+import 'package:flutter_template/presentation/util/base_stateful_widget.dart';
 import 'package:lr_design_system/utils/alert_service.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/views/ds_app_version.dart';
 import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 import 'package:lr_design_system/views/ds_loading_indicator.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/strings.dart';
 
 class ArticlesPage extends StatefulWidget {
@@ -19,10 +18,25 @@ class ArticlesPage extends StatefulWidget {
   _ArticlesPageState createState() => _ArticlesPageState();
 }
 
-class _ArticlesPageState extends State<ArticlesPage> {
+class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Listen to Alerts
+    bloc.alerts.listen((alert) {
+      alert.when(
+        queryNotFound: (query) {
+          return AlertService.instance().showAlert(
+            context: context,
+            message: Strings.of(context).noArticlesFound(query),
+          );
+        },
+      );
+    }).disposedBy(disposeBag);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<ArticlesBloc>(context);
     final body = RefreshIndicator(
       onRefresh: () => bloc.refresh(),
       child: StreamBuilder<ArticlesState>(
@@ -73,23 +87,12 @@ class _ArticlesPageState extends State<ArticlesPage> {
         title: Text(Strings.of(context).articlesTitle),
         actions: [
           Padding(
-            padding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
+            padding: EdgeInsets.all(Dimens.of(context).marginMedium),
             child: DSAppVersion(),
           )
         ],
       ),
-      body: Builder(builder: (BuildContext context) {
-        // Listen to Alerts
-        bloc.alerts.listen((alert) => alert.when(
-              queryNotFound: (query) {
-                return AlertService.instance().showAlert(
-                  context: context,
-                  message: Strings.of(context).noArticlesFound(query),
-                );
-              },
-            ));
-        return body;
-      }),
+      body: body,
     );
   }
 }
@@ -114,7 +117,7 @@ class _Article extends StatelessWidget {
     return Card(
       child: InkWell(
         child: Padding(
-          padding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
+          padding: EdgeInsets.all(Dimens.of(context).marginMedium),
           child: Column(
             children: [
               if (_article.imageUrl != null)
@@ -122,7 +125,7 @@ class _Article extends StatelessWidget {
                   child: CachedNetworkImage(imageUrl: _article.imageUrl),
                   label: Strings.of(context).articleThumbnailAlt,
                 ),
-              ThemeSpacing.Medium,
+              Dimens.of(context).boxMedium,
               Text(_article.title),
             ],
           ),

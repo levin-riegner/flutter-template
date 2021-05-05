@@ -1,4 +1,5 @@
 import 'package:chopper/chopper.dart';
+import 'package:logging_flutter/flogger.dart';
 
 typedef T JsonFactory<T>(Map<String, dynamic> json);
 
@@ -13,6 +14,7 @@ class JsonSerializableConverter extends JsonConverter {
     final jsonFactory = factories[T];
     if (jsonFactory == null || jsonFactory is! JsonFactory<T>) {
       /// throw serializer not found error;
+      Flogger.error("Serializer not found for type $T");
       return null;
     }
 

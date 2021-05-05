@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/util/console/console_environments.dart';
 import 'package:flutter_template/util/console/console_logins.dart';
-import 'package:logger_flutter/logger_flutter.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_design_system/views/ds_list_item_action.dart';
 
 class ConsoleScreen extends StatelessWidget {

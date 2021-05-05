@@ -4,21 +4,19 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lr_design_system/theme/theme.dart';
+import 'package:logging_flutter/flogger.dart';
 
 import 'app/app.dart';
-import 'util/tools/flogger.dart';
 
 void mainShared() async {
-
   // Force Light Theme?
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
+    SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.light,
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
+    ),
   );
-
-  // Load Theme
-  final jsonString = await rootBundle.loadString("assets/theme.json");
-  ThemeProvider.setThemeFromJson(jsonString);
 
   // Log Global Flutter Errors
   FlutterError.onError = (details) {

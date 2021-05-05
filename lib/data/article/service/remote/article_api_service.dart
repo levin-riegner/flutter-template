@@ -1,6 +1,6 @@
 import 'package:chopper/chopper.dart';
 import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
-import 'package:flutter_template/data/util/endpoints.dart';
+import 'package:flutter_template/data/shared/service/remote/endpoints.dart';
 
 part 'article_api_service.chopper.dart';
 

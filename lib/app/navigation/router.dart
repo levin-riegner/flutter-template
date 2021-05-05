@@ -11,7 +11,8 @@ import 'package:flutter_template/presentation/articles/detail/article_detail_blo
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
 import 'package:flutter_template/presentation/splash/splash_screen.dart';
 import 'package:flutter_template/util/dependencies.dart';
-import 'package:flutter_template/util/tools/flogger.dart';
+import 'package:flutter_template/util/integrations/analytics.dart';
+import 'package:logging_flutter/flogger.dart';
 import 'package:provider/provider.dart';
 
 class Router {
@@ -20,6 +21,7 @@ class Router {
 
     switch (settings.name) {
       case Routes.articles:
+        Analytics.setCurrentScreenName(AnalyticsScreen.articles);
         return _route(
           settings,
           Provider<ArticlesBloc>(
@@ -29,6 +31,7 @@ class Router {
           ),
         );
       case Routes.articleDetail:
+        Analytics.setCurrentScreenName(AnalyticsScreen.articleDetail);
         final params = settings.arguments as ArticleDetailArguments;
         return _route(
           settings,

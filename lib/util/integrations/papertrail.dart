@@ -2,12 +2,11 @@ import 'dart:io';
 
 import 'package:device_info/device_info.dart';
 import 'package:flutter_paper_trail/flutter_paper_trail.dart';
-import 'package:flutter_template/data/common/service/secure_storage.dart';
+import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
+import 'package:flutter_template/util/dependencies.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:package_info/package_info.dart';
-
-import '../dependencies.dart';
 
 abstract class PaperTrail {
   static Future<void> init({
@@ -24,6 +23,10 @@ abstract class PaperTrail {
     );
   }
 
+  static Future<void> setUserId(String id) async {
+    await FlutterPaperTrail.setUserId(id);
+  }
+
   static Future<void> logRecord(String message, Level recordLevel) async {
     // UserId
     var userId = await getIt.get<SecureStorage>().getUserId();
@@ -33,7 +36,7 @@ abstract class PaperTrail {
 
     // System Variables
     final info = await PackageInfo.fromPlatform();
-    final versionCode = info.version;
+    final versionName = info.version;
     var deviceInfoString = "";
     if (Platform.isAndroid) {
       final androidInfo = await DeviceInfoPlugin().androidInfo;
@@ -54,7 +57,7 @@ abstract class PaperTrail {
 
     // Papertrail message
     final papertrailMessage =
-        "user_id=$userId; version_code=$versionCode; device=$deviceInfoString; message=$message";
+        "user_id=$userId; version_name=$versionName; device=$deviceInfoString; message=$message";
 
     final level = LogLevelFactory.fromRecordLevel(recordLevel);
     switch (level) {

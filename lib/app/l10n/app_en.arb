@@ -32,5 +32,11 @@
     "placeholders": {
       "query": {}
     }
-  }
+  },
+  "dialogAppUpdateTitle": "Update Available",
+  "@dialogAppUpdateTitle": {},
+  "dialogAppUpdateDescription": "A new version of Candid is available. Please update now.",
+  "@dialogAppUpdateDescription": {},
+  "dialogAppUpdateConfirmationButton": "Update",
+  "@dialogAppUpdateConfirmationButton": {}
 }

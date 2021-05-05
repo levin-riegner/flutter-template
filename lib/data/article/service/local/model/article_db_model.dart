@@ -1,5 +1,5 @@
 import 'package:flutter_template/data/article/model/article.dart';
-import 'package:flutter_template/data/util/database.dart';
+import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:hive/hive.dart';
 
 part 'article_db_model.g.dart';
