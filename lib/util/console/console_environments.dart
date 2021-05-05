@@ -25,7 +25,7 @@ class _ConsoleEnvironmentsState extends State<ConsoleEnvironments> {
             title: Text(environment.name),
             value: environment,
             groupValue: currentEnvironment,
-            onChanged: (environment) => _setEnvironment(context, environment),
+            onChanged: (environment) => _setEnvironment(context, environment!),
           );
         },
       ),

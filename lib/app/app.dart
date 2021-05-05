@@ -1,8 +1,8 @@
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/strings.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/router.dart' as app;
@@ -23,17 +23,15 @@ class App extends StatefulWidget {
   final app.Router router = app.Router();
 
   App({
-    Key key,
-    @required this.isSessionAvailable,
-  })  : assert(isSessionAvailable != null),
-        super(key: key);
+    Key? key,
+    required this.isSessionAvailable,
+  }) : super(key: key);
 
   @override
   _AppState createState() => _AppState();
 }
 
 class _AppState extends State<App> {
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -47,33 +45,31 @@ class _AppState extends State<App> {
     return DSApp(
       dimens: AppDimens.regular(),
       config: DSConfig.fallback(),
-      child: Builder(
-        builder: (context) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: environment.isInternal,
-            localizationsDelegates: [
-              Strings.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: Strings.supportedLocales,
-            theme: AppTheme.lightTheme(),
-            onGenerateRoute: widget.router.generate,
-            navigatorObservers: [
-              if (kReleaseMode)
-                FirebaseAnalyticsObserver(
-                  analytics: Analytics.firebaseAnalytics,
-                ),
-            ],
-            navigatorKey: NavigatorHolder.navigatorKey,
-            initialRoute: widget.isSessionAvailable ? Routes.articles : Routes.articles,
-          );
-        }
-      ),
+      child: Builder(builder: (context) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: environment.isInternal,
+          localizationsDelegates: [
+            Strings.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: Strings.supportedLocales,
+          theme: AppTheme.lightTheme(),
+          onGenerateRoute: widget.router.generate,
+          navigatorObservers: [
+            if (kReleaseMode)
+              FirebaseAnalyticsObserver(
+                analytics: Analytics.firebaseAnalytics,
+              ),
+          ],
+          navigatorKey: NavigatorHolder.navigatorKey,
+          initialRoute:
+              widget.isSessionAvailable ? Routes.articles : Routes.articles,
+        );
+      }),
     );
   }
-
 
   // Versioning
   void _checkAppVersioning() async {
@@ -85,12 +81,12 @@ class _AppState extends State<App> {
         appUpdateInfo.updateType == AppUpdateType.Mandatory) {
       Flogger.i("Showing app update dialog");
       showDialog(
-        context: NavigatorHolder.navigatorKey.currentState.overlay.context,
+        context: NavigatorHolder.navigatorKey.currentState!.overlay!.context,
         builder: (context) => DSDialog(
-          title: Strings.of(context).dialogAppUpdateTitle,
-          description: Strings.of(context).dialogAppUpdateDescription,
+          title: Strings.of(context)!.dialogAppUpdateTitle,
+          description: Strings.of(context)!.dialogAppUpdateDescription,
           positiveButtonText:
-          Strings.of(context).dialogAppUpdateConfirmationButton,
+              Strings.of(context)!.dialogAppUpdateConfirmationButton,
           positiveCallback: () {
             Flogger.i("Launching app update");
             appVersioning.launchUpdate();

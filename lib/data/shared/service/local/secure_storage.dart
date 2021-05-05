@@ -12,7 +12,7 @@ class SecureStorage {
     return _flutterSecureStorage.containsKey(key: _kDatabaseKey);
   }
 
-  Future<String> getDatabaseKey() async {
+  Future<String?> getDatabaseKey() async {
     return _flutterSecureStorage.read(key: _kDatabaseKey);
   }
 
@@ -23,7 +23,7 @@ class SecureStorage {
   // endregion
 
   // region User
-  Future<String> getUserId() async {
+  Future<String?> getUserId() async {
     return _flutterSecureStorage.read(key: _kUserId);
   }
 
@@ -31,7 +31,7 @@ class SecureStorage {
     await _flutterSecureStorage.write(key: _kUserId, value: id);
   }
 
-  Future<String> getUserAuthToken() async {
+  Future<String?> getUserAuthToken() async {
     return _flutterSecureStorage.read(key: _kUserAuthToken);
   }
 

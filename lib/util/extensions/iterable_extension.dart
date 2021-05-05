@@ -1,16 +1,18 @@
 extension IterableExtension<E> on Iterable<E> {
-  E get firstOrNull {
+  E? get firstOrNull {
     Iterator<E> it = iterator;
     if (!it.moveNext()) {
       return null;
     }
     return it.current;
   }
+}
 
-  List<E> orEmpty() {
+extension IterableNullableExtension<E> on Iterable<E>? {
+  List<E>? orEmpty() {
     if (this == null) return List.empty();
-    return this;
+    return this as List<E>;
   }
 
-  bool get isNullOrEmpty => this == null || this.isEmpty;
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
 }

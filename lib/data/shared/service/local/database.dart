@@ -19,7 +19,6 @@ abstract class Database {
 
   // Ensures or sets the database encryption key
   static Future<void> _setupEncryption(SecureStorage secureStorage) async {
-    if (secureStorage == null) return;
     final containsEncryptionKey = await secureStorage.containsDatabaseKey();
     if (!containsEncryptionKey) {
       final key = Hive.generateSecureKey();
@@ -30,9 +29,12 @@ abstract class Database {
   /// Returns current encryption cipher for database
   static Future<HiveCipher> getEncryptionCipher(
       SecureStorage secureStorage) async {
-    if (secureStorage == null) return null;
+    final String? key = await secureStorage.getDatabaseKey();
+    if (key == null) {
+      await _setupEncryption(secureStorage);
+    }
     final encryptionKey =
-        base64Url.decode(await secureStorage.getDatabaseKey());
+        base64Url.decode((await secureStorage.getDatabaseKey())!);
     return HiveAesCipher(encryptionKey);
   }
 }

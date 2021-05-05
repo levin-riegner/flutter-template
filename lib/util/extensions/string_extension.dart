@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension StringExtension on String {
-  bool get isNullOrEmpty => this == null || this.isEmpty;
-
-  String takeLast(int count) {
+  String takeLast(int? count) {
     if (count == null || count < 0) return this;
     if (length <= count) {
       return this;
@@ -17,12 +15,12 @@ extension StringExtension on String {
       .toString();
 
   String sanitizeHtmlText() {
-    RegExp exp = RegExp(
-        r"<[^>]*>",
-        multiLine: true,
-        caseSensitive: true
-    );
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
 
     return replaceAll(exp, '');
   }
+}
+
+extension StringNullableExtension on String? {
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
 }

@@ -20,7 +20,8 @@ void mainShared() async {
 
   // Log Global Flutter Errors
   FlutterError.onError = (details) {
-    Zone.current.handleUncaughtError(details.exception, details.stack);
+    Zone.current.handleUncaughtError(
+        details.exception, details.stack ?? StackTrace.empty);
   };
 
   // Run Zoned App
@@ -30,7 +31,7 @@ void mainShared() async {
     // Catch and log crashes
     Flogger.e('Unhandled error', object: error, stackTrace: stackTrace);
     // Log stack trace separately (for better external visualization)
-    Flogger.e("Stack trace: ${stackTrace?.toString()?.replaceAll("\n", " ")}");
+    Flogger.e("Stack trace: ${stackTrace.toString().replaceAll("\n", " ")}");
     if (kReleaseMode) {
       FirebaseCrashlytics.instance.recordError(error, stackTrace);
     }

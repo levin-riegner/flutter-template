@@ -18,7 +18,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashState extends State<SplashScreen> with TickerProviderStateMixin {
   static const _kLaunchDurationInMs = 3000;
-  AnimationController _opacityController;
+  late AnimationController _opacityController;
 
   @override
   void initState() {

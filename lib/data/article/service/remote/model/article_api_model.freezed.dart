@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'article_api_model.dart';
 
@@ -8,6 +8,10 @@ part of 'article_api_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 ArticleApiModel _$ArticleApiModelFromJson(Map<String, dynamic> json) {
   return _ArticleApiModel.fromJson(json);
 }
@@ -16,14 +20,13 @@ ArticleApiModel _$ArticleApiModelFromJson(Map<String, dynamic> json) {
 class _$ArticleApiModelTearOff {
   const _$ArticleApiModelTearOff();
 
-// ignore: unused_element
   _ArticleApiModel call(
-      {String id,
-      String title,
-      String description,
-      @JsonKey(name: 'urlToImage') String imageUrl,
-      String url,
-      String publishedAt}) {
+      {String? id,
+      String? title,
+      String? description,
+      @JsonKey(name: "urlToImage") String? imageUrl,
+      String? url,
+      String? publishedAt}) {
     return _ArticleApiModel(
       id: id,
       title: title,
@@ -34,28 +37,28 @@ class _$ArticleApiModelTearOff {
     );
   }
 
-// ignore: unused_element
   ArticleApiModel fromJson(Map<String, Object> json) {
     return ArticleApiModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $ArticleApiModel = _$ArticleApiModelTearOff();
 
 /// @nodoc
 mixin _$ArticleApiModel {
-  String get id;
-  String get title;
-  String get description;
-  @JsonKey(name: 'urlToImage')
-  String get imageUrl;
-  String get url;
-  String get publishedAt;
+  String? get id => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  @JsonKey(name: "urlToImage")
+  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get url => throw _privateConstructorUsedError;
+  String? get publishedAt => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
-  $ArticleApiModelCopyWith<ArticleApiModel> get copyWith;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ArticleApiModelCopyWith<ArticleApiModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -64,12 +67,12 @@ abstract class $ArticleApiModelCopyWith<$Res> {
           ArticleApiModel value, $Res Function(ArticleApiModel) then) =
       _$ArticleApiModelCopyWithImpl<$Res>;
   $Res call(
-      {String id,
-      String title,
-      String description,
-      @JsonKey(name: 'urlToImage') String imageUrl,
-      String url,
-      String publishedAt});
+      {String? id,
+      String? title,
+      String? description,
+      @JsonKey(name: "urlToImage") String? imageUrl,
+      String? url,
+      String? publishedAt});
 }
 
 /// @nodoc
@@ -83,22 +86,38 @@ class _$ArticleApiModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object title = freezed,
-    Object description = freezed,
-    Object imageUrl = freezed,
-    Object url = freezed,
-    Object publishedAt = freezed,
+    Object? id = freezed,
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? imageUrl = freezed,
+    Object? url = freezed,
+    Object? publishedAt = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      title: title == freezed ? _value.title : title as String,
-      description:
-          description == freezed ? _value.description : description as String,
-      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
-      url: url == freezed ? _value.url : url as String,
-      publishedAt:
-          publishedAt == freezed ? _value.publishedAt : publishedAt as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      publishedAt: publishedAt == freezed
+          ? _value.publishedAt
+          : publishedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -111,12 +130,12 @@ abstract class _$ArticleApiModelCopyWith<$Res>
       __$ArticleApiModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
-      String title,
-      String description,
-      @JsonKey(name: 'urlToImage') String imageUrl,
-      String url,
-      String publishedAt});
+      {String? id,
+      String? title,
+      String? description,
+      @JsonKey(name: "urlToImage") String? imageUrl,
+      String? url,
+      String? publishedAt});
 }
 
 /// @nodoc
@@ -132,35 +151,50 @@ class __$ArticleApiModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object title = freezed,
-    Object description = freezed,
-    Object imageUrl = freezed,
-    Object url = freezed,
-    Object publishedAt = freezed,
+    Object? id = freezed,
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? imageUrl = freezed,
+    Object? url = freezed,
+    Object? publishedAt = freezed,
   }) {
     return _then(_ArticleApiModel(
-      id: id == freezed ? _value.id : id as String,
-      title: title == freezed ? _value.title : title as String,
-      description:
-          description == freezed ? _value.description : description as String,
-      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
-      url: url == freezed ? _value.url : url as String,
-      publishedAt:
-          publishedAt == freezed ? _value.publishedAt : publishedAt as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      publishedAt: publishedAt == freezed
+          ? _value.publishedAt
+          : publishedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_ArticleApiModel extends _ArticleApiModel with DiagnosticableTreeMixin {
   const _$_ArticleApiModel(
       {this.id,
       this.title,
       this.description,
-      @JsonKey(name: 'urlToImage') this.imageUrl,
+      @JsonKey(name: "urlToImage") this.imageUrl,
       this.url,
       this.publishedAt})
       : super._();
@@ -169,18 +203,18 @@ class _$_ArticleApiModel extends _ArticleApiModel with DiagnosticableTreeMixin {
       _$_$_ArticleApiModelFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
-  final String title;
+  final String? title;
   @override
-  final String description;
+  final String? description;
   @override
-  @JsonKey(name: 'urlToImage')
-  final String imageUrl;
+  @JsonKey(name: "urlToImage")
+  final String? imageUrl;
   @override
-  final String url;
+  final String? url;
   @override
-  final String publishedAt;
+  final String? publishedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -231,6 +265,7 @@ class _$_ArticleApiModel extends _ArticleApiModel with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(url) ^
       const DeepCollectionEquality().hash(publishedAt);
 
+  @JsonKey(ignore: true)
   @override
   _$ArticleApiModelCopyWith<_ArticleApiModel> get copyWith =>
       __$ArticleApiModelCopyWithImpl<_ArticleApiModel>(this, _$identity);
@@ -242,33 +277,35 @@ class _$_ArticleApiModel extends _ArticleApiModel with DiagnosticableTreeMixin {
 }
 
 abstract class _ArticleApiModel extends ArticleApiModel {
-  const _ArticleApiModel._() : super._();
   const factory _ArticleApiModel(
-      {String id,
-      String title,
-      String description,
-      @JsonKey(name: 'urlToImage') String imageUrl,
-      String url,
-      String publishedAt}) = _$_ArticleApiModel;
+      {String? id,
+      String? title,
+      String? description,
+      @JsonKey(name: "urlToImage") String? imageUrl,
+      String? url,
+      String? publishedAt}) = _$_ArticleApiModel;
+  const _ArticleApiModel._() : super._();
 
   factory _ArticleApiModel.fromJson(Map<String, dynamic> json) =
       _$_ArticleApiModel.fromJson;
 
   @override
-  String get id;
+  String? get id => throw _privateConstructorUsedError;
   @override
-  String get title;
+  String? get title => throw _privateConstructorUsedError;
   @override
-  String get description;
+  String? get description => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'urlToImage')
-  String get imageUrl;
+  @JsonKey(name: "urlToImage")
+  String? get imageUrl => throw _privateConstructorUsedError;
   @override
-  String get url;
+  String? get url => throw _privateConstructorUsedError;
   @override
-  String get publishedAt;
+  String? get publishedAt => throw _privateConstructorUsedError;
   @override
-  _$ArticleApiModelCopyWith<_ArticleApiModel> get copyWith;
+  @JsonKey(ignore: true)
+  _$ArticleApiModelCopyWith<_ArticleApiModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 ArticlesApiResponse _$ArticlesApiResponseFromJson(Map<String, dynamic> json) {
@@ -279,9 +316,8 @@ ArticlesApiResponse _$ArticlesApiResponseFromJson(Map<String, dynamic> json) {
 class _$ArticlesApiResponseTearOff {
   const _$ArticlesApiResponseTearOff();
 
-// ignore: unused_element
   _ArticlesApiResponse call(
-      {String status, int totalResults, List<ArticleApiModel> articles}) {
+      {String? status, int? totalResults, List<ArticleApiModel>? articles}) {
     return _ArticlesApiResponse(
       status: status,
       totalResults: totalResults,
@@ -289,24 +325,24 @@ class _$ArticlesApiResponseTearOff {
     );
   }
 
-// ignore: unused_element
   ArticlesApiResponse fromJson(Map<String, Object> json) {
     return ArticlesApiResponse.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $ArticlesApiResponse = _$ArticlesApiResponseTearOff();
 
 /// @nodoc
 mixin _$ArticlesApiResponse {
-  String get status;
-  int get totalResults;
-  List<ArticleApiModel> get articles;
+  String? get status => throw _privateConstructorUsedError;
+  int? get totalResults => throw _privateConstructorUsedError;
+  List<ArticleApiModel>? get articles => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
-  $ArticlesApiResponseCopyWith<ArticlesApiResponse> get copyWith;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ArticlesApiResponseCopyWith<ArticlesApiResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -314,7 +350,8 @@ abstract class $ArticlesApiResponseCopyWith<$Res> {
   factory $ArticlesApiResponseCopyWith(
           ArticlesApiResponse value, $Res Function(ArticlesApiResponse) then) =
       _$ArticlesApiResponseCopyWithImpl<$Res>;
-  $Res call({String status, int totalResults, List<ArticleApiModel> articles});
+  $Res call(
+      {String? status, int? totalResults, List<ArticleApiModel>? articles});
 }
 
 /// @nodoc
@@ -328,17 +365,23 @@ class _$ArticlesApiResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object status = freezed,
-    Object totalResults = freezed,
-    Object articles = freezed,
+    Object? status = freezed,
+    Object? totalResults = freezed,
+    Object? articles = freezed,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed ? _value.status : status as String,
-      totalResults:
-          totalResults == freezed ? _value.totalResults : totalResults as int,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalResults: totalResults == freezed
+          ? _value.totalResults
+          : totalResults // ignore: cast_nullable_to_non_nullable
+              as int?,
       articles: articles == freezed
           ? _value.articles
-          : articles as List<ArticleApiModel>,
+          : articles // ignore: cast_nullable_to_non_nullable
+              as List<ArticleApiModel>?,
     ));
   }
 }
@@ -350,7 +393,8 @@ abstract class _$ArticlesApiResponseCopyWith<$Res>
           $Res Function(_ArticlesApiResponse) then) =
       __$ArticlesApiResponseCopyWithImpl<$Res>;
   @override
-  $Res call({String status, int totalResults, List<ArticleApiModel> articles});
+  $Res call(
+      {String? status, int? totalResults, List<ArticleApiModel>? articles});
 }
 
 /// @nodoc
@@ -366,24 +410,29 @@ class __$ArticlesApiResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object status = freezed,
-    Object totalResults = freezed,
-    Object articles = freezed,
+    Object? status = freezed,
+    Object? totalResults = freezed,
+    Object? articles = freezed,
   }) {
     return _then(_ArticlesApiResponse(
-      status: status == freezed ? _value.status : status as String,
-      totalResults:
-          totalResults == freezed ? _value.totalResults : totalResults as int,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalResults: totalResults == freezed
+          ? _value.totalResults
+          : totalResults // ignore: cast_nullable_to_non_nullable
+              as int?,
       articles: articles == freezed
           ? _value.articles
-          : articles as List<ArticleApiModel>,
+          : articles // ignore: cast_nullable_to_non_nullable
+              as List<ArticleApiModel>?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_ArticlesApiResponse
     with DiagnosticableTreeMixin
     implements _ArticlesApiResponse {
@@ -393,11 +442,11 @@ class _$_ArticlesApiResponse
       _$_$_ArticlesApiResponseFromJson(json);
 
   @override
-  final String status;
+  final String? status;
   @override
-  final int totalResults;
+  final int? totalResults;
   @override
-  final List<ArticleApiModel> articles;
+  final List<ArticleApiModel>? articles;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -435,6 +484,7 @@ class _$_ArticlesApiResponse
       const DeepCollectionEquality().hash(totalResults) ^
       const DeepCollectionEquality().hash(articles);
 
+  @JsonKey(ignore: true)
   @override
   _$ArticlesApiResponseCopyWith<_ArticlesApiResponse> get copyWith =>
       __$ArticlesApiResponseCopyWithImpl<_ArticlesApiResponse>(
@@ -448,19 +498,21 @@ class _$_ArticlesApiResponse
 
 abstract class _ArticlesApiResponse implements ArticlesApiResponse {
   const factory _ArticlesApiResponse(
-      {String status,
-      int totalResults,
-      List<ArticleApiModel> articles}) = _$_ArticlesApiResponse;
+      {String? status,
+      int? totalResults,
+      List<ArticleApiModel>? articles}) = _$_ArticlesApiResponse;
 
   factory _ArticlesApiResponse.fromJson(Map<String, dynamic> json) =
       _$_ArticlesApiResponse.fromJson;
 
   @override
-  String get status;
+  String? get status => throw _privateConstructorUsedError;
   @override
-  int get totalResults;
+  int? get totalResults => throw _privateConstructorUsedError;
   @override
-  List<ArticleApiModel> get articles;
+  List<ArticleApiModel>? get articles => throw _privateConstructorUsedError;
   @override
-  _$ArticlesApiResponseCopyWith<_ArticlesApiResponse> get copyWith;
+  @JsonKey(ignore: true)
+  _$ArticlesApiResponseCopyWith<_ArticlesApiResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }

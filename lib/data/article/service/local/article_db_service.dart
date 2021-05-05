@@ -7,10 +7,10 @@ class ArticleDbService {
 
   ArticleDbService(this._articlesBox);
 
-  Future<List<ArticleDbModel>> getArticles(String query) async {
+  Future<List<ArticleDbModel>> getArticles(String? query) async {
     return _articlesBox.values
         .where((e) => query != null
-            ? e.title.contains(query) || e.description.contains(query)
+            ? e.title!.contains(query) || e.description!.contains(query)
             : true)
         .toList();
   }
@@ -23,7 +23,7 @@ class ArticleDbService {
   }
 
   Future<void> saveArticles(List<ArticleDbModel> articles) async {
-    return _articlesBox.addAll(articles);
+    await _articlesBox.addAll(articles);
   }
 
 }

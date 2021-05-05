@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
@@ -25,7 +24,6 @@ import 'package:hive/hive.dart';
 import 'package:logging_flutter/flogger.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_app_versioning/app_versioning.dart';
-import 'package:meta/meta.dart';
 import 'package:shake/shake.dart';
 
 final getIt = GetIt.instance;
@@ -34,9 +32,9 @@ abstract class Dependencies {
   static List<Box> _userDataBoxes = [];
 
   static Future<void> register({
-    @required Environment environment,
-    @required bool useMocks,
-    @required bool isDebugBuild,
+    required Environment environment,
+    required bool useMocks,
+    required bool isDebugBuild,
   }) async {
     // Environment
     getIt.registerSingleton<Environment>(environment);
@@ -122,7 +120,7 @@ abstract class Dependencies {
     if (environment.isInternal) {
       final shakeDetector = ShakeDetector.autoStart(onPhoneShake: () {
         NavigatorHolder.navigatorKey.currentState
-            .push(MaterialPageRoute(builder: (_) => ConsoleScreen()));
+            ?.push(MaterialPageRoute(builder: (_) => ConsoleScreen()));
       });
       // Save logs for console
       Flogger.registerListener((record) =>

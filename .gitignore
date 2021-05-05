@@ -31,7 +31,7 @@
 .packages
 .pub-cache/
 .pub/
-**/build/
+/build/
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
@@ -59,6 +59,8 @@ android/private/*
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
+# Native code
+**/android/app/.cxx/
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
@@ -93,10 +95,8 @@ android/private/*
 !**/ios/**/default.mode2v3
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
-!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 # Build Files
-.flutter-plugins-dependencies
 **/ios/*.app.dSYM.zip
 **/ios/*.ipa
 

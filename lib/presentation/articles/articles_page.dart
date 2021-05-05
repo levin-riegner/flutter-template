@@ -26,9 +26,9 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
     bloc.alerts.listen((alert) {
       alert.when(
         queryNotFound: (query) {
-          return AlertService.instance().showAlert(
+          return AlertService.instance()!.showAlert(
             context: context,
-            message: Strings.of(context).noArticlesFound(query),
+            message: Strings.of(context)!.noArticlesFound(query),
           );
         },
       );
@@ -43,7 +43,7 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
         stream: bloc.state,
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Container();
-          final state = snapshot.data;
+          final state = snapshot.data!;
           return state.when(
             subscriptionExpired: () {
               return Text("Please renew your subscription");
@@ -84,7 +84,7 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.of(context).articlesTitle),
+        title: Text(Strings.of(context)!.articlesTitle),
         actions: [
           Padding(
             padding: EdgeInsets.all(Dimens.of(context).marginMedium),
@@ -122,11 +122,11 @@ class _Article extends StatelessWidget {
             children: [
               if (_article.imageUrl != null)
                 Semantics(
-                  child: CachedNetworkImage(imageUrl: _article.imageUrl),
-                  label: Strings.of(context).articleThumbnailAlt,
+                  child: CachedNetworkImage(imageUrl: _article.imageUrl!),
+                  label: Strings.of(context)!.articleThumbnailAlt,
                 ),
               Dimens.of(context).boxMedium,
-              Text(_article.title),
+              Text(_article.title!),
             ],
           ),
         ),

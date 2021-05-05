@@ -6,7 +6,7 @@ abstract class Network {
   static ChopperClient createHttpClient(
     final String baseUrl,
     final String apiKey,
-    Future<String> getBearerToken(),
+    Future<String?> getBearerToken(),
   ) {
     // Add your models here 👇
     final converter = JsonSerializableConverter({

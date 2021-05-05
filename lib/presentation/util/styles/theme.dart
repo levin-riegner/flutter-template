@@ -193,7 +193,7 @@ abstract class AppTheme {
         elevation: 0,
       ),
       tooltipTheme: base.tooltipTheme.copyWith(
-        textStyle: base.textTheme.overline.copyWith(color: Color(0xFFFFFFFF)),
+        textStyle: base.textTheme.overline?.copyWith(color: Color(0xFFFFFFFF)),
       ),
       cardColor: base.colorScheme.background,
       dividerColor: base.disabledColor,
@@ -209,7 +209,7 @@ abstract class AppTheme {
         elevation: 0.0,
         shape: BeveledRectangleBorder(),
         backgroundColor: base.colorScheme.onBackground,
-        contentTextStyle: base.textTheme.caption.copyWith(
+        contentTextStyle: base.textTheme.caption?.copyWith(
           color: base.colorScheme.background,
         ),
       ),

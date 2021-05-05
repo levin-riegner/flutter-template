@@ -8,7 +8,7 @@ import 'base_bloc.dart';
 abstract class BaseState<T extends StatefulWidget, B extends BaseBloc>
     extends State<T> {
   final List<StreamSubscription> disposeBag = [];
-  B bloc;
+  late B bloc;
 
   @mustCallSuper
   @override

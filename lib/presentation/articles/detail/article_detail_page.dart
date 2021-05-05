@@ -19,7 +19,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         return true; // Continue with pop
       },
       child: InAppWebView(
-        urlNotifier: ValueNotifier(bloc.url),
+        urlNotifier: ValueNotifier(bloc.url!),
         useScaffold: true,
         title: bloc.title,
       ),

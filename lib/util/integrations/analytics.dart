@@ -1,7 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging_flutter/flogger.dart';
-import 'package:meta/meta.dart';
 
 abstract class Analytics {
   const Analytics._();
@@ -38,7 +37,7 @@ abstract class Analytics {
   //    eventName: AnalyticsEvent.selectItem,
   //    parameters: {AnalyticsParameter.itemId: item.id},
   //  );
-  trackEvent({@required String eventName, Map<String, dynamic> parameters}) {
+  trackEvent({required String eventName, Map<String, dynamic>? parameters}) {
     Flogger.info(eventName, object: parameters);
     if (kReleaseMode) {
       // Track in Analytics Services

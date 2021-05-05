@@ -12,7 +12,7 @@ abstract class ArticlesState with _$ArticlesState {
   const factory ArticlesState.subscriptionExpired() = SubscriptionExpired;
 
   const factory ArticlesState.content({
-    @required DataState<List<Article>, ArticlesError> articles,
+    required DataState<List<Article>, ArticlesError> articles,
   }) = Content;
 
 }
