@@ -9,12 +9,14 @@ import 'package:flutter_template/presentation/util/styles/dimens.dart';
 import 'package:flutter_template/presentation/util/styles/theme.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
+import 'package:flutter_template/util/tools/qa_config.dart';
 import 'package:logging_flutter/flogger.dart';
 import 'package:lr_app_versioning/app_versioning.dart';
 import 'package:lr_design_system/config/ds_app.dart';
 import 'package:lr_design_system/config/ds_config.dart';
 import 'package:lr_design_system/views/ds_dialog.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
 import 'navigation/routes.dart';
 
@@ -44,29 +46,38 @@ class _AppState extends State<App> {
     return DSApp(
       dimens: AppDimens.regular(),
       config: DSConfig.fallback(),
-      child: Builder(builder: (context) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
-            Strings.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: Strings.supportedLocales,
-          theme: AppTheme.lightTheme(),
-          onGenerateRoute: widget.router.generate,
-          navigatorObservers: [
-            if (kReleaseMode)
-              FirebaseAnalyticsObserver(
-                analytics: Analytics.firebaseAnalytics,
-              ),
-          ],
-          navigatorKey: NavigatorHolder.navigatorKey,
-          initialRoute:
-              widget.isSessionAvailable ? Routes.articles : Routes.articles,
-        );
-      }),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => QaConfig()),
+        ],
+        child: Builder(builder: (context) {
+          return MaterialApp(
+            debugShowMaterialGrid:
+                context.watch<QaConfig>().debugShowMaterialGrid,
+            showSemanticsDebugger:
+                context.watch<QaConfig>().showSemanticsDebugger,
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: [
+              Strings.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: Strings.supportedLocales,
+            theme: AppTheme.lightTheme(),
+            onGenerateRoute: widget.router.generate,
+            navigatorObservers: [
+              if (kReleaseMode)
+                FirebaseAnalyticsObserver(
+                  analytics: Analytics.firebaseAnalytics,
+                ),
+            ],
+            navigatorKey: NavigatorHolder.navigatorKey,
+            initialRoute:
+                widget.isSessionAvailable ? Routes.articles : Routes.articles,
+          );
+        }),
+      ),
     );
   }
 

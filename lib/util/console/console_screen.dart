@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/util/console/console_environments.dart';
 import 'package:flutter_template/util/console/console_logins.dart';
+import 'package:flutter_template/util/console/console_qa_config.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_design_system/views/ds_list_item_action.dart';
 
@@ -23,6 +24,11 @@ class ConsoleScreen extends StatelessWidget {
           text: "Logins",
           type: DSListItemActionType.navigation,
           onPressed: () => _navigateTo(context, ConsoleLogins()),
+        ),
+        DSListItemAction(
+          text: "QA Configs",
+          type: DSListItemActionType.navigation,
+          onPressed: () => _navigateTo(context, ConsoleQaConfigs()),
         ),
       ],
     );

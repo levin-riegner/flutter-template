@@ -424,12 +424,10 @@ For internal builds, a [QA console](lib/util/console/console_screen.dart) will b
 - **Environment Switcher**: Restarts the app on a different environment.
 - **Default logins**: A list of all common logins that will perform the login operations automatically.
   > ❗️ Make sure to update the `_performLogin` method to match your app's Login.
-- [ ] **Theme Changer**: Once we agree on a declarative set of colors / typography for all apps we can add a theme color changer to update colors on the app itself.
-- [ ] Consider a constants editor similar to Facebook Tweaks.
-- [ ] MaterialApp > debugShowMaterialGrid: true,
-- [ ] MaterialApp > showSemanticsDebugger: true,
-- [ ] MaterialApp > showPerformanceOverlay: true,
-
+- **QA Configs**: A set of tools useful for QAing an app. It uses `provider` to listen to changes and a custom [QaConfig](lib/util/tools/qa_config.dart) model with the supported options. It includes:
+  - Material Grid Overlay.
+  - Accessibility Mode.
+  > This structure can also be extended to support app-specific configurations.
 ### App Update
 
 #### Version Bomb

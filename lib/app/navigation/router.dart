@@ -49,7 +49,7 @@ class Router {
 
   Route _route(RouteSettings settings, Widget widget,
       {bool presentModally = false}) {
-    final environment = getIt<Environment>();
+    final Environment environment = getIt<Environment>();
     widget = environment.isInternal
         ? Banner(
             message: environment.name,

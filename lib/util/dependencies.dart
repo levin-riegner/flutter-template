@@ -118,10 +118,13 @@ abstract class Dependencies {
     await appVersioning.tracker.track();
     // Shake detector for Console
     if (environment.isInternal) {
-      final shakeDetector = ShakeDetector.autoStart(onPhoneShake: () {
-        NavigatorHolder.navigatorKey.currentState
-            ?.push(MaterialPageRoute(builder: (_) => ConsoleScreen()));
-      });
+      final shakeDetector = ShakeDetector.autoStart(
+        shakeThresholdGravity: 2,
+        onPhoneShake: () {
+          NavigatorHolder.navigatorKey.currentState
+              ?.push(MaterialPageRoute(builder: (_) => ConsoleScreen()));
+        },
+      );
       // Save logs for console
       Flogger.registerListener((record) =>
           LogConsole.add(OutputEvent(record.level, [record.message])));
