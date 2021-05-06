@@ -67,8 +67,8 @@ Now null-safe!
   - [QA Console](#qa-console)
   - [App Update](#app-update)
     - [Version Bomb](#version-bomb)
+    - [Optional Updates](#optional-updates)
   - [Version Tracker](#version-tracker)
-    - [TODO: Optional updates](#todo-optional-updates)
   - [App Review](#app-review)
   - [TODO: Apple Privacy](#todo-apple-privacy)
   - [TODO: Tests](#todo-tests)
@@ -428,21 +428,26 @@ For internal builds, a [QA console](lib/util/console/console_screen.dart) will b
   - Material Grid Overlay.
   - Accessibility Mode.
   > This structure can also be extended to support app-specific configurations.
+
 ### App Update
+The app checks for available available updates during launch inside the `_checkAppUpdateAvailable` method on the [App](lib/app/app.dart) class.
+- A Dialog is shown to the user to update the app, which only can be dismissed if the update is optional.
+- If an update is available, the user is redirected to the Appstore for iOS or is prompted to update the app using Android In-App Updates.
 
 #### Version Bomb
 The app includes a dependency to `lr_app_versioning` which allows to enforce minimum app versions via custom `API` or `RemoteConfig`.
+
+#### Optional Updates
+If the app meets the minimum version criteria but an app update is available on the stores, the user will be prompted to update, with the option to dismiss the dialog.
 
 ### Version Tracker
 The app includes several version tracking functionalities using the `version_tracker.dart` class.
 Version tracking is enabled during the register dependencies phase by calling `appVersioning.tracker.track()`.
 
-#### TODO: Optional updates
-
 ### App Review
 This template supports in-app reviews through the [in_app_review](https://pub.dev/packages/in_app_review) plugin.
 Consider requesting a review after the user has opened the app a few times and triggered a specific set(s) of action(s).
-> Do not trigger in-app review from a clickable element as it may or may not work depending on the current requests quote and obscure dark-box logic from Apple and Google.
+> Do not trigger the in-app review from a clickable element as it may or may not work depending on the current requests quote and obscure dark-box logic from Apple and Google.
 You can see an example on how to request an in-app review inside the [ArticlesPage](lib/presentation/articles/articles_page.dart).
 
 ### TODO: Apple Privacy

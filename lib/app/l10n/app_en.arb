@@ -38,5 +38,7 @@
   "dialogAppUpdateDescription": "A new version of Candid is available. Please update now.",
   "@dialogAppUpdateDescription": {},
   "dialogAppUpdateConfirmationButton": "Update",
-  "@dialogAppUpdateConfirmationButton": {}
+  "@dialogAppUpdateConfirmationButton": {},
+  "dialogAppUpdateDismissButton": "Not Now",
+  "@dialogAppUpdateDismissButton": {}
 }

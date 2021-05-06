@@ -37,7 +37,7 @@ class _AppState extends State<App> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _checkAppVersioning();
+    _checkAppUpdateAvailable();
     _initPushNotifications();
   }
 
@@ -82,27 +82,41 @@ class _AppState extends State<App> {
   }
 
   // Versioning
-  void _checkAppVersioning() async {
-    // Check Mandatory Update
+  void _checkAppUpdateAvailable() async {
+    // Check App Update Available
     final appVersioning = getIt.get<AppVersioning>();
     final appUpdateInfo = await appVersioning.getAppUpdateInfo();
     Flogger.i("Got app update info: ", object: appUpdateInfo);
-    if (appUpdateInfo.isUpdateAvailable &&
-        appUpdateInfo.updateType == AppUpdateType.Mandatory) {
+    final isOptionalUpdate =
+        appUpdateInfo.updateType != AppUpdateType.Mandatory;
+    if (appUpdateInfo.isUpdateAvailable) {
+      if (NavigatorHolder.navigatorKey.currentState?.overlay?.context == null)
+        return;
       Flogger.i("Showing app update dialog");
       showDialog(
         context: NavigatorHolder.navigatorKey.currentState!.overlay!.context,
-        builder: (context) => DSDialog(
-          title: Strings.of(context)!.dialogAppUpdateTitle,
-          description: Strings.of(context)!.dialogAppUpdateDescription,
-          positiveButtonText:
-              Strings.of(context)!.dialogAppUpdateConfirmationButton,
-          positiveCallback: () {
-            Flogger.i("Launching app update");
-            appVersioning.launchUpdate();
-          },
-        ),
-        barrierDismissible: false,
+        builder: (context) {
+          return DSDialog(
+            title: Strings.of(context)!.dialogAppUpdateTitle,
+            description: Strings.of(context)!.dialogAppUpdateDescription,
+            positiveButtonText:
+                Strings.of(context)!.dialogAppUpdateConfirmationButton,
+            positiveCallback: () {
+              Flogger.i("Launching mandatory update");
+              appVersioning.launchUpdate(updateInBackground: isOptionalUpdate);
+            },
+            negativeButtonText: isOptionalUpdate
+                ? Strings.of(context)!.dialogAppUpdateDismissButton
+                : null,
+            negativeCallback: isOptionalUpdate
+                ? () {
+                    Flogger.i("Optional updated dismissed");
+                    Navigator.of(context).pop();
+                  }
+                : null,
+          );
+        },
+        barrierDismissible: isOptionalUpdate,
       );
     }
   }

@@ -111,6 +111,7 @@ abstract class Dependencies {
       updateConfig: UpdateConfig(
         appStoreAppId: Constants.APPSTORE_APP_ID,
         playStoreAppId: Constants.PLAYSTORE_APP_ID,
+        appstoreCountryCode: 'US',
       ),
     );
     getIt.registerSingleton<AppVersioning>(appVersioning);
