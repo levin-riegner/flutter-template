@@ -1,17 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/strings.dart';
+import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/navigation/parameters/article_arguments.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/presentation/articles/articles_bloc.dart';
 import 'package:flutter_template/presentation/articles/articles_state.dart';
 import 'package:flutter_template/presentation/util/base_stateful_widget.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:logging_flutter/flogger.dart';
 import 'package:lr_design_system/utils/alert_service.dart';
 import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/views/ds_app_version.dart';
 import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 import 'package:lr_design_system/views/ds_loading_indicator.dart';
-import 'package:flutter_gen/gen_l10n/strings.dart';
 
 class ArticlesPage extends StatefulWidget {
   @override
@@ -86,6 +89,24 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
       appBar: AppBar(
         title: Text(Strings.of(context)!.articlesTitle),
         actions: [
+          IconButton(
+            icon: Icon(Icons.star),
+            onPressed: () async {
+              // In-app review
+              try {
+                final InAppReview inAppReview = InAppReview.instance;
+                if (await inAppReview.isAvailable()) {
+                  inAppReview.requestReview();
+                } else {
+                  inAppReview.openStoreListing(
+                    appStoreId: Constants.APPSTORE_APP_ID,
+                  );
+                }
+              } catch (e) {
+                Flogger.i("Error requesting app review", object: e);
+              }
+            },
+          ),
           Padding(
             padding: EdgeInsets.all(Dimens.of(context).marginMedium),
             child: DSAppVersion(),

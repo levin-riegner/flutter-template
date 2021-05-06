@@ -57,7 +57,7 @@ dependencies:
       ref: release/0.2.0
   # Firebase
   firebase_core: 1.1.0
-  firebase_analytics: 8.0.2
+  firebase_analytics: 8.0.3
   firebase_crashlytics: 2.0.2
   # Network
   chopper: 4.0.0-nullsafety.1
@@ -74,6 +74,8 @@ dependencies:
   shake: 1.0.0
   # Permissions
   permission_handler: 7.1.0
+  # In-app review
+  in_app_review: 2.0.2
 
 dev_dependencies:
   flutter_test:

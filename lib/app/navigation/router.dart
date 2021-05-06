@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/navigation/parameters/article_arguments.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
@@ -48,6 +49,14 @@ class Router {
 
   Route _route(RouteSettings settings, Widget widget,
       {bool presentModally = false}) {
+    final environment = getIt<Environment>();
+    widget = environment.isInternal
+        ? Banner(
+            message: environment.name,
+            location: BannerLocation.bottomEnd,
+            child: widget,
+          )
+        : widget;
     return Platform.isIOS
         ? CupertinoPageRoute(
             settings: settings,

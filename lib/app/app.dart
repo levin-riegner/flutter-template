@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/router.dart' as app;
 import 'package:flutter_template/presentation/util/styles/dimens.dart';
@@ -42,13 +41,12 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    final environment = getIt.get<Environment>();
     return DSApp(
       dimens: AppDimens.regular(),
       config: DSConfig.fallback(),
       child: Builder(builder: (context) {
         return MaterialApp(
-          debugShowCheckedModeBanner: environment.isInternal,
+          debugShowCheckedModeBanner: false,
           localizationsDelegates: [
             Strings.delegate,
             GlobalMaterialLocalizations.delegate,
