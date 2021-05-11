@@ -1,5 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+/// Use this class to store sensitive user-data
+/// that will only be persisted locally during the user session
 class SecureStorage {
   final FlutterSecureStorage _flutterSecureStorage =
       const FlutterSecureStorage();

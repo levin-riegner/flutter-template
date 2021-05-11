@@ -76,6 +76,8 @@ dependencies:
   permission_handler: 7.1.0
   # In-app review
   in_app_review: 2.0.2
+  # Shared Preferences
+  shared_preferences: 2.0.5
 
 dev_dependencies:
   flutter_test:

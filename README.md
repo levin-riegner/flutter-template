@@ -70,9 +70,11 @@ Now null-safe!
     - [Optional Updates](#optional-updates)
   - [Version Tracker](#version-tracker)
   - [App Review](#app-review)
-  - [TODO: Apple Privacy](#todo-apple-privacy)
-  - [TODO: Tests](#todo-tests)
+  - [Privacy](#privacy)
+    - [Apple iOS 14](#apple-ios-14)
+    - [GDPR and CCPA](#gdpr-and-ccpa)
   - [TODO: Deeplinks (+ Navigator 2.0)](#todo-deeplinks--navigator-20)
+  - [TODO: Tests](#todo-tests)
 
 ## Installation
 
@@ -445,13 +447,26 @@ The app includes several version tracking functionalities using the `version_tra
 Version tracking is enabled during the register dependencies phase by calling `appVersioning.tracker.track()`.
 
 ### App Review
-This template supports in-app reviews through the [in_app_review](https://pub.dev/packages/in_app_review) plugin.
+This template supports in-app reviews through the [in_app_review](https://pub.dev/packages/in_app_review) plugin. You can see an example on how to request an in-app review inside the [ArticlesPage](lib/presentation/articles/articles_page.dart).
 Consider requesting a review after the user has opened the app a few times and triggered a specific set(s) of action(s).
-> Do not trigger the in-app review from a clickable element as it may or may not work depending on the current requests quote and obscure dark-box logic from Apple and Google.
-You can see an example on how to request an in-app review inside the [ArticlesPage](lib/presentation/articles/articles_page.dart).
+> Do not trigger the in-app review from a clickable element as it may or may not work depending on the current requests quote and unknown dark-box logic from Apple and Google.
 
-### TODO: Apple Privacy
+### Privacy
+#### Apple iOS 14
+- When creating or updating your app on the Appstore, fill the Privacy Questionnaire with all the data the app is persisting.
 
-### TODO: Tests
+- Tracking the user's IDFA or sharing personal user data with 3rd party companies now requires explicit user permission through the iOS `ATTrackingManager` and setting the minimum app version to iOS14+.
+  > 1st-party services such as Crashlytics or Analytics do not require tracking consent since data is used only inside the app ecosystem and not shared with any other companies.
+
+  This template doesn't require any tracking permission, but if you want to integrate Facebook or any Ads SDK you may consider asking for it.
+
+#### GDPR and CCPA
+1. Non-essential data cannot be tracked or persisted without the user's explicit opt-in.
+   - A method `setDataCollectionEnabled` is available on the [Dependencies](lib/util/dependencies.dart) file to toggle collection through the different services.
+   - A class [UserConfig](lib/data/shared/service/local/user_config.dart) is available with a boolean option to store the user's opt-in. __Defaults to false__.
+   > After the user explicitly opts-in or out of data collection (usually required during signup and login). Persist the choice using `UserConfig` and activate it using `Dependencies.setDataCollectionEnabled`.
+2. A contact channel must be available for the user to request a complete deletion of all personal data. This also includes data stored in external services such as Google Analytics.
 
 ### TODO: Deeplinks (+ Navigator 2.0)
+
+### TODO: Tests

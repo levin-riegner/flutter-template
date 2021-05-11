@@ -8,6 +8,10 @@ import 'package:logging/logging.dart';
 import 'package:package_info/package_info.dart';
 
 abstract class PaperTrail {
+  const PaperTrail._();
+
+  static bool _loggingEnabled = false;
+
   static Future<void> init({
     required String hostName,
     required String programName,
@@ -16,10 +20,14 @@ abstract class PaperTrail {
     // Init Papertrail
     await FlutterPaperTrail.initLogger(
       hostName: hostName,
-      programName: programName,
+      programName: programName.replaceAll(" ", "_"),
       port: port,
       machineName: programName.replaceAll(" ", "_"),
     );
+  }
+
+  static Future<void> setLoggingEnabled(bool enabled) async {
+    _loggingEnabled = enabled;
   }
 
   static Future<void> setUserId(String id) async {
@@ -27,6 +35,7 @@ abstract class PaperTrail {
   }
 
   static Future<void> logRecord(String message, Level recordLevel) async {
+    if (!_loggingEnabled) return;
     // UserId
     var userId = await getIt.get<SecureStorage>().getUserId();
     if (userId != null && userId.length > 7) {

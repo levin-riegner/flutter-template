@@ -15,6 +15,7 @@ import 'package:flutter_template/data/article/service/local/model/article_db_mod
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
 import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
+import 'package:flutter_template/data/shared/service/local/user_config.dart';
 import 'package:flutter_template/data/shared/service/remote/network.dart';
 import 'package:flutter_template/util/console/console_screen.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
@@ -117,6 +118,12 @@ abstract class Dependencies {
     getIt.registerSingleton<AppVersioning>(appVersioning);
     // Version tracking
     await appVersioning.tracker.track();
+    // User Configs
+    final userConfig = UserConfig();
+    getIt.registerSingleton<UserConfig>(userConfig);
+    // Analytics tracking
+    final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
+    setDataCollectionEnabled(dataCollectionEnabled || environment.isInternal);
     // Shake detector for Console
     if (environment.isInternal) {
       final shakeDetector = ShakeDetector.autoStart(
@@ -147,6 +154,7 @@ abstract class Dependencies {
   }
 
   /// Registers user to dependencies
+  /// Call this method after registration
   static Future<void> registerUser(String userId, String email) async {
     Flogger.i("Registering user");
     Flogger.d("With id $userId and email $email");
@@ -169,6 +177,20 @@ abstract class Dependencies {
       getIt.get<SecureStorage>().deleteAll(),
       // Analytics
       Analytics.logout(),
+      // User Configs
+      getIt.get<UserConfig>().clear(),
+    ]);
+  }
+
+  /// Enable or Disable Analytics Collection as per GDPR / CCPA compliance
+  /// Call this method after requesting GDPR / CCPA permission
+  static Future<void> setDataCollectionEnabled(bool enabled) async {
+    Flogger.i("Setting data collection enabled");
+    await Future.wait([
+      // Toggle collection to 3rd party services
+      Analytics.setCollectionEnabled(enabled),
+      PaperTrail.setLoggingEnabled(enabled),
+      FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(enabled),
     ]);
   }
 }
