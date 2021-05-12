@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'articles_state.dart';
 
@@ -9,18 +9,18 @@ part of 'articles_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$ArticlesStateTearOff {
   const _$ArticlesStateTearOff();
 
-// ignore: unused_element
   SubscriptionExpired subscriptionExpired() {
     return const SubscriptionExpired();
   }
 
-// ignore: unused_element
-  Content content(
-      {@required DataState<List<Article>, ArticlesError> articles}) {
+  Content content({required DataState<List<Article>, ArticlesError> articles}) {
     return Content(
       articles: articles,
     );
@@ -28,33 +28,37 @@ class _$ArticlesStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $ArticlesState = _$ArticlesStateTearOff();
 
 /// @nodoc
 mixin _$ArticlesState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult subscriptionExpired(),
-    @required TResult content(DataState<List<Article>, ArticlesError> articles),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function() subscriptionExpired,
+    required TResult Function(DataState<List<Article>, ArticlesError> articles)
+        content,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult subscriptionExpired(),
-    TResult content(DataState<List<Article>, ArticlesError> articles),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? subscriptionExpired,
+    TResult Function(DataState<List<Article>, ArticlesError> articles)? content,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult subscriptionExpired(SubscriptionExpired value),
-    @required TResult content(Content value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(SubscriptionExpired value) subscriptionExpired,
+    required TResult Function(Content value) content,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult subscriptionExpired(SubscriptionExpired value),
-    TResult content(Content value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SubscriptionExpired value)? subscriptionExpired,
+    TResult Function(Content value)? content,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -94,6 +98,7 @@ class _$SubscriptionExpiredCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$SubscriptionExpired
     with DiagnosticableTreeMixin
     implements SubscriptionExpired {
@@ -121,23 +126,21 @@ class _$SubscriptionExpired
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult subscriptionExpired(),
-    @required TResult content(DataState<List<Article>, ArticlesError> articles),
+  TResult when<TResult extends Object?>({
+    required TResult Function() subscriptionExpired,
+    required TResult Function(DataState<List<Article>, ArticlesError> articles)
+        content,
   }) {
-    assert(subscriptionExpired != null);
-    assert(content != null);
     return subscriptionExpired();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult subscriptionExpired(),
-    TResult content(DataState<List<Article>, ArticlesError> articles),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? subscriptionExpired,
+    TResult Function(DataState<List<Article>, ArticlesError> articles)? content,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (subscriptionExpired != null) {
       return subscriptionExpired();
     }
@@ -146,23 +149,20 @@ class _$SubscriptionExpired
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult subscriptionExpired(SubscriptionExpired value),
-    @required TResult content(Content value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(SubscriptionExpired value) subscriptionExpired,
+    required TResult Function(Content value) content,
   }) {
-    assert(subscriptionExpired != null);
-    assert(content != null);
     return subscriptionExpired(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult subscriptionExpired(SubscriptionExpired value),
-    TResult content(Content value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SubscriptionExpired value)? subscriptionExpired,
+    TResult Function(Content value)? content,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (subscriptionExpired != null) {
       return subscriptionExpired(this);
     }
@@ -194,20 +194,18 @@ class _$ContentCopyWithImpl<$Res> extends _$ArticlesStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object articles = freezed,
+    Object? articles = freezed,
   }) {
     return _then(Content(
       articles: articles == freezed
           ? _value.articles
-          : articles as DataState<List<Article>, ArticlesError>,
+          : articles // ignore: cast_nullable_to_non_nullable
+              as DataState<List<Article>, ArticlesError>,
     ));
   }
 
   @override
   $DataStateCopyWith<List<Article>, ArticlesError, $Res> get articles {
-    if (_value.articles == null) {
-      return null;
-    }
     return $DataStateCopyWith<List<Article>, ArticlesError, $Res>(
         _value.articles, (value) {
       return _then(_value.copyWith(articles: value));
@@ -216,8 +214,9 @@ class _$ContentCopyWithImpl<$Res> extends _$ArticlesStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$Content with DiagnosticableTreeMixin implements Content {
-  const _$Content({@required this.articles}) : assert(articles != null);
+  const _$Content({required this.articles});
 
   @override
   final DataState<List<Article>, ArticlesError> articles;
@@ -248,29 +247,28 @@ class _$Content with DiagnosticableTreeMixin implements Content {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(articles);
 
+  @JsonKey(ignore: true)
   @override
   $ContentCopyWith<Content> get copyWith =>
       _$ContentCopyWithImpl<Content>(this, _$identity);
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult subscriptionExpired(),
-    @required TResult content(DataState<List<Article>, ArticlesError> articles),
+  TResult when<TResult extends Object?>({
+    required TResult Function() subscriptionExpired,
+    required TResult Function(DataState<List<Article>, ArticlesError> articles)
+        content,
   }) {
-    assert(subscriptionExpired != null);
-    assert(content != null);
     return content(articles);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult subscriptionExpired(),
-    TResult content(DataState<List<Article>, ArticlesError> articles),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? subscriptionExpired,
+    TResult Function(DataState<List<Article>, ArticlesError> articles)? content,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (content != null) {
       return content(articles);
     }
@@ -279,23 +277,20 @@ class _$Content with DiagnosticableTreeMixin implements Content {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult subscriptionExpired(SubscriptionExpired value),
-    @required TResult content(Content value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(SubscriptionExpired value) subscriptionExpired,
+    required TResult Function(Content value) content,
   }) {
-    assert(subscriptionExpired != null);
-    assert(content != null);
     return content(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult subscriptionExpired(SubscriptionExpired value),
-    TResult content(Content value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SubscriptionExpired value)? subscriptionExpired,
+    TResult Function(Content value)? content,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (content != null) {
       return content(this);
     }
@@ -305,8 +300,10 @@ class _$Content with DiagnosticableTreeMixin implements Content {
 
 abstract class Content implements ArticlesState {
   const factory Content(
-      {@required DataState<List<Article>, ArticlesError> articles}) = _$Content;
+      {required DataState<List<Article>, ArticlesError> articles}) = _$Content;
 
-  DataState<List<Article>, ArticlesError> get articles;
-  $ContentCopyWith<Content> get copyWith;
+  DataState<List<Article>, ArticlesError> get articles =>
+      throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ContentCopyWith<Content> get copyWith => throw _privateConstructorUsedError;
 }

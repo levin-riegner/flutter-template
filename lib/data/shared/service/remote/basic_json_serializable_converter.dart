@@ -1,4 +1,5 @@
 import 'package:chopper/chopper.dart';
+import 'package:logging_flutter/flogger.dart';
 
 typedef T JsonFactory<T>(Map<String, dynamic> json);
 
@@ -7,25 +8,26 @@ class JsonSerializableConverter extends JsonConverter {
 
   JsonSerializableConverter(this.factories);
 
-  T _decodeMap<T>(Map<String, dynamic> values) {
+  T? _decodeMap<T>(Map<String, dynamic> values) {
     /// Get jsonFactory using Type parameters
     /// if not found or invalid, throw error or return null
     final jsonFactory = factories[T];
     if (jsonFactory == null || jsonFactory is! JsonFactory<T>) {
       /// throw serializer not found error;
+      Flogger.error("Serializer not found for type $T");
       return null;
     }
 
     return jsonFactory(values);
   }
 
-  List<T> _decodeList<T>(List values) =>
-      values.where((v) => v != null).map<T>((v) => _decode<T>(v)).toList();
+  List<T?> _decodeList<T>(List values) =>
+      values.where((v) => v != null).map<T?>((v) => _decode<T>(v)).toList();
 
   dynamic _decode<T>(entity) {
-    if (entity is Iterable) return _decodeList<T>(entity);
+    if (entity is Iterable) return _decodeList<T>(entity as List<dynamic>);
 
-    if (entity is Map) return _decodeMap<T>(entity);
+    if (entity is Map) return _decodeMap<T>(entity as Map<String, dynamic>);
 
     return entity;
   }

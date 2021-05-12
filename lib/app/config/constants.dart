@@ -1,4 +1,5 @@
-class Constants {
+abstract class Constants {
+  const Constants._();
 
   // TODO: Replace with your values
   // Appstores

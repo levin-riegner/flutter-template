@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/util/tools/flogger.dart';
-import 'package:lr_design_system/theme/theme.dart';
+import 'package:flutter_template/app/resources/assets.dart';
+import 'package:logging_flutter/flogger.dart';
 
+// Optional splash screen to show an animation
 class SplashScreen extends StatefulWidget {
   final String initialRoute;
 
@@ -17,7 +18,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashState extends State<SplashScreen> with TickerProviderStateMixin {
   static const _kLaunchDurationInMs = 3000;
-  AnimationController _opacityController;
+  late AnimationController _opacityController;
 
   @override
   void initState() {
@@ -28,7 +29,8 @@ class _SplashState extends State<SplashScreen> with TickerProviderStateMixin {
     )..forward();
     Timer(Duration(milliseconds: _kLaunchDurationInMs), () {
       Flogger.info("Launch Completed");
-      Navigator.of(context).pushNamedAndRemoveUntil(widget.initialRoute, (_) => false);
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(widget.initialRoute, (_) => false);
     });
   }
 
@@ -58,12 +60,12 @@ class _SplashState extends State<SplashScreen> with TickerProviderStateMixin {
 
     final launchImage = FadeTransition(
       opacity: _opacityController.drive(CurveTween(curve: Curves.easeOut)),
-      child: Image.asset("assets/images/graphics/launchImage.png"),
+      child: Image.asset(Assets.launchImage),
     );
 
     return Stack(children: <Widget>[
       Container(
-        decoration: BoxDecoration(color: ThemeProvider.theme.colors.primary),
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
       ),
       SizedBox(
         width: width,

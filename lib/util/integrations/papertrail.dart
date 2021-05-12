@@ -2,29 +2,40 @@ import 'dart:io';
 
 import 'package:device_info/device_info.dart';
 import 'package:flutter_paper_trail/flutter_paper_trail.dart';
-import 'package:flutter_template/data/common/service/secure_storage.dart';
+import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
+import 'package:flutter_template/util/dependencies.dart';
 import 'package:logging/logging.dart';
-import 'package:meta/meta.dart';
 import 'package:package_info/package_info.dart';
 
-import '../dependencies.dart';
-
 abstract class PaperTrail {
+  const PaperTrail._();
+
+  static bool _loggingEnabled = false;
+
   static Future<void> init({
-    @required String hostName,
-    @required String programName,
-    @required int port,
+    required String hostName,
+    required String programName,
+    required int port,
   }) async {
     // Init Papertrail
     await FlutterPaperTrail.initLogger(
       hostName: hostName,
-      programName: programName,
+      programName: programName.replaceAll(" ", "_"),
       port: port,
       machineName: programName.replaceAll(" ", "_"),
     );
   }
 
+  static Future<void> setLoggingEnabled(bool enabled) async {
+    _loggingEnabled = enabled;
+  }
+
+  static Future<void> setUserId(String id) async {
+    await FlutterPaperTrail.setUserId(id);
+  }
+
   static Future<void> logRecord(String message, Level recordLevel) async {
+    if (!_loggingEnabled) return;
     // UserId
     var userId = await getIt.get<SecureStorage>().getUserId();
     if (userId != null && userId.length > 7) {
@@ -33,7 +44,7 @@ abstract class PaperTrail {
 
     // System Variables
     final info = await PackageInfo.fromPlatform();
-    final versionCode = info.version;
+    final versionName = info.version;
     var deviceInfoString = "";
     if (Platform.isAndroid) {
       final androidInfo = await DeviceInfoPlugin().androidInfo;
@@ -54,7 +65,7 @@ abstract class PaperTrail {
 
     // Papertrail message
     final papertrailMessage =
-        "user_id=$userId; version_code=$versionCode; device=$deviceInfoString; message=$message";
+        "user_id=$userId; version_name=$versionName; device=$deviceInfoString; message=$message";
 
     final level = LogLevelFactory.fromRecordLevel(recordLevel);
     switch (level) {

@@ -2,6 +2,7 @@
 # Flutter Template
 
 Flutter template Application to checkout for new projects.
+Now null-safe!
 <!-- omit in toc -->
 # Table of Contents
 - [Installation](#installation)
@@ -37,7 +38,6 @@ Flutter template Application to checkout for new projects.
   - [Network](#network)
   - [Database](#database)
     - [Encryption](#encryption)
-    - [Streams](#streams)
   - [Secure Storage](#secure-storage)
   - [WebViews](#webviews)
   - [No Internet Connection](#no-internet-connection)
@@ -64,13 +64,17 @@ Flutter template Application to checkout for new projects.
       - [Android](#android-1)
       - [iOS](#ios-1)
     - [Github Actions](#github-actions)
-      - [TODO: Self-hosted runner](#todo-self-hosted-runner)
-  - [TODO: Tests](#todo-tests)
-  - [TODO: Notifications](#todo-notifications)
   - [QA Console](#qa-console)
-  - [TODO: Null-safety (when available)](#todo-null-safety-when-available)
-  - [TODO: App Update](#todo-app-update)
-  - [TODO: App Review](#todo-app-review)
+  - [App Update](#app-update)
+    - [Version Bomb](#version-bomb)
+    - [Optional Updates](#optional-updates)
+  - [Version Tracker](#version-tracker)
+  - [App Review](#app-review)
+  - [Privacy](#privacy)
+    - [Apple iOS 14](#apple-ios-14)
+    - [GDPR and CCPA](#gdpr-and-ccpa)
+  - [TODO: Deeplinks (+ Navigator 2.0)](#todo-deeplinks--navigator-20)
+  - [TODO: Tests](#todo-tests)
 
 ## Installation
 
@@ -99,9 +103,6 @@ Flutter template Application to checkout for new projects.
 ### Navigation
 1. Add your application routes inside the [Routes](lib/app/navigation/routes.dart) class following URL conventions.
 1. Add a new route case inside `lib/app/navigation/router.dart` to map a route to a given Widget and Transition.
-
-- [ ] Review [Navigator 2.0](https://flutter.dev/docs/development/ui/navigation)
-- [ ] Review Deeplinks
 
 ### Localization
 This template uses `l10n` for localization and managing translations.
@@ -165,11 +166,9 @@ Accessibility can also be tested on iOS by using the [XCode Accessibility Scanne
 
 
 ### Theming
-- Modify the [Theme file](assets/theme.json) to match your application's Theme.
-- You can access the theme properties accross the project using `ThemeProvider.theme.type.property`.
+- Modify the [Theme file](lib/presentation/util/styles/theme.dart) to match your application's Theme.
+- Modify the [Dimens file](lib/presentation/util/styles/dimens.dart) to match your application's Dimensions.
 > You can see more information around theming [on the plugin repository](https://github.com/levin-riegner/flutter-design-system).
-
-- [ ] Use with Provider
 
 ### Analytics
 An [Analytics](lib/util/integrations/analytics.dart) class wrapper is provided to support multiple Analytics services.
@@ -191,7 +190,7 @@ The environment setup can be found on:
 
 An additional **Mock** [entry file](lib/main_mock.dart) is available for testing and better prototyping.
 
-> Android Studio Run Configurations are available inside the .run/ folder
+> Android Studio & Visual Studio Run Configurations are available inside the .run/ and .vscode/ folders respectively.
 
 For internal environments (such as Staging) a Banner will be shown on the top end part of the screen to easily identify the app against the production version. This can be configured in the [App](lib/app/app.dart) file.
 
@@ -211,10 +210,8 @@ For internal environments (such as Staging) a Banner will be shown on the top en
 
 The project uses the service locator [get_it](https://pub.dev/packages/get_it) to register and provide dependencies through out the app.
 
-- [ ] Review Actual Dependency Injection with https://pub.dev/packages/injectable
-
 ### Logging
-- The [Flogger](lib/util/tools/flogger.dart) class is provided as a wrapper to log records to different listeners.
+- The `Flogger` class is provided by the `logging_flutter` plugin as a wrapper to log records to different listeners.
 - Use it directly as `Flogger.level("Message")`.<br>
   *Example: Flogger.info("LaunchCompleted");*
 - External log listeners are configured inside the [Dependencies](lib/util/dependencies.dart) class.
@@ -244,8 +241,6 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 
 > To execute the build runner use the following command: <br>
 `flutter pub run build_runner build --delete-conflicting-outputs`.
-
-> ❗️ Currently on Flutter 1.22.* build_runner breaks with l10n, follow [this issue](https://github.com/dart-lang/build/issues/2835#issuecomment-703528119) instructions for the workaround.
 
 > 💡 **TIP**: You can hide the auto-generated files in Android Studio by going to Preferences > Editor > File Types. <br> Now look for "Ignore files and folders" field at the bottom and append `*.g.dart;*.freezed.dart;*.chopper.dart`;
 
@@ -278,7 +273,7 @@ API communication is defined using [Chopper](https://pub.dev/packages/chopper) a
 
 You can see an example with [ArticleApiService](lib/data/article/service/remote/article_api_service.dart)
 
-A [Network](lib/data/util/network.dart) class is provided wih the basic definition for an HTTP Client. It includes:
+A [Network](lib/data/shared/service/remote/network.dart) class is provided wih the basic definition for an HTTP Client. It includes:
 - Logging HTTP Requests as CURL.
 - Adding the Authorization Token to all requests.
 
@@ -287,19 +282,15 @@ This project includes the [Hive](https://pub.dev/packages/hive) Database.
 
 Each data class is stored into a **Box** which is the equivalent of a Table/Collection.
 
-- DB Model adapters need to be register in the global [Database](lib/data/util/database.dart) class.
+- DB Model adapters need to be register in the global [Database](lib/data/shared/service/local/database.dart) class.
 - Boxes are opened in the [Dependencies](lib/util/dependencies.dart) and injected to the different services.
 
 [Articles DB Service Example](lib/data/article/service/local/article_db_service.dart)
 
 #### Encryption
-The [Database](lib/data/util/database.dart) class includes encryption using AES256.
+The [Database](lib/data/shared/service/local/database.dart) class includes encryption using AES256.
 - An Encryption Key is generated using [Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage) and stored in the database upon launch.
 - Each box needs to be opened using the `encryptionCipher` parameter with the encryption key.
-
-#### Streams
-
-- [ ] Stream subscription and combine example.
 
 ### Secure Storage
 Sensitive dynamic data is stored using [Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage).
@@ -327,9 +318,7 @@ Customise the initial Splash Screen.
 
 #### Android
 1. Open the `launch_background.xml` and set the color to match the app color.
-
-- [ ] Add launch logo to match correctly with Flutter Splash Screen.
-- [ ] Add a better Android Transition https://medium.com/swlh/splash-screens-in-flutter-a1310b370fce
+1. Replace the `launch_logo.png` inside the different `drawable-*hdpi` folders with the app launch logo.
 
 #### Flutter
 Optionally, you can add a [SplashScreen](lib/presentation/splash/splash_screen.dart) as the initial route to display the logo, load initial data or show an animation.
@@ -431,27 +420,53 @@ Make sure to add the app version somewhere on the user settings/profile so we ca
 
 > 🛠 App version name and number will be autogenerated from the branch name and commit count respectively.
 
-##### TODO: Self-hosted runner
-
-### TODO: Tests
-
-### TODO: Notifications
-- [ ] Android Metadata and colors
-- [ ] Badges
-
 ### QA Console
 For internal builds, a [QA console](lib/util/console/console_screen.dart) will be opened when shaking the device. It contains:
-- **Logs Screen**: Shows a list with all the logs that happened on the app.
+- **Logs Screen**: Shows a list with all the logs that happened on the app (they can be copied and pasted into an email).
 - **Environment Switcher**: Restarts the app on a different environment.
 - **Default logins**: A list of all common logins that will perform the login operations automatically.
   > ❗️ Make sure to update the `_performLogin` method to match your app's Login.
-- [ ] **Theme Changer**: Once we agree on a declarative set of colors / typography for all apps we can add a theme color changer to update colors on the app itself.
-- [ ] Add send by email option to Logs Screen.
-- [ ] Consider a constants editor similar to Facebook Tweaks.
+- **QA Configs**: A set of tools useful for QAing an app. It uses `provider` to listen to changes and a custom [QaConfig](lib/util/tools/qa_config.dart) model with the supported options. It includes:
+  - Material Grid Overlay.
+  - Accessibility Mode.
+  > This structure can also be extended to support app-specific configurations.
 
-### TODO: Null-safety (when available)
+### App Update
+The app checks for available available updates during launch inside the `_checkAppUpdateAvailable` method on the [App](lib/app/app.dart) class.
+- A Dialog is shown to the user to update the app, which only can be dismissed if the update is optional.
+- If an update is available, the user is redirected to the Appstore for iOS or is prompted to update the app using Android In-App Updates.
 
-### TODO: App Update
+#### Version Bomb
+The app includes a dependency to `lr_app_versioning` which allows to enforce minimum app versions via custom `API` or `RemoteConfig`.
 
-### TODO: App Review
-https://pub.dev/packages/in_app_review
+#### Optional Updates
+If the app meets the minimum version criteria but an app update is available on the stores, the user will be prompted to update, with the option to dismiss the dialog.
+
+### Version Tracker
+The app includes several version tracking functionalities using the `version_tracker.dart` class.
+Version tracking is enabled during the register dependencies phase by calling `appVersioning.tracker.track()`.
+
+### App Review
+This template supports in-app reviews through the [in_app_review](https://pub.dev/packages/in_app_review) plugin. You can see an example on how to request an in-app review inside the [ArticlesPage](lib/presentation/articles/articles_page.dart).
+Consider requesting a review after the user has opened the app a few times and triggered a specific set(s) of action(s).
+> Do not trigger the in-app review from a clickable element as it may or may not work depending on the current requests quote and unknown dark-box logic from Apple and Google.
+
+### Privacy
+#### Apple iOS 14
+- When creating or updating your app on the Appstore, fill the Privacy Questionnaire with all the data the app is persisting.
+
+- Tracking the user's IDFA or sharing personal user data with 3rd party companies now requires explicit user permission through the iOS `ATTrackingManager` and setting the minimum app version to iOS14+.
+  > 1st-party services such as Crashlytics or Analytics do not require tracking consent since data is used only inside the app ecosystem and not shared with any other companies.
+
+  This template doesn't require any tracking permission, but if you want to integrate Facebook or any Ads SDK you may consider asking for it.
+
+#### GDPR and CCPA
+1. Non-essential data cannot be tracked or persisted without the user's explicit opt-in.
+   - A method `setDataCollectionEnabled` is available on the [Dependencies](lib/util/dependencies.dart) file to toggle collection through the different services.
+   - A class [UserConfig](lib/data/shared/service/local/user_config.dart) is available with a boolean option to store the user's opt-in. __Defaults to false__.
+   > After the user explicitly opts-in or out of data collection (usually required during signup and login). Persist the choice using `UserConfig` and activate it using `Dependencies.setDataCollectionEnabled`.
+2. A contact channel must be available for the user to request a complete deletion of all personal data. This also includes data stored in external services such as Google Analytics.
+
+### TODO: Deeplinks (+ Navigator 2.0)
+
+### TODO: Tests

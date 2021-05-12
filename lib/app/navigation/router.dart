@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/navigation/parameters/article_detail_arguments.dart';
+import 'package:flutter_template/app/config/environment.dart';
+import 'package:flutter_template/app/navigation/parameters/article_arguments.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/presentation/articles/articles_bloc.dart';
@@ -11,7 +12,8 @@ import 'package:flutter_template/presentation/articles/detail/article_detail_blo
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
 import 'package:flutter_template/presentation/splash/splash_screen.dart';
 import 'package:flutter_template/util/dependencies.dart';
-import 'package:flutter_template/util/tools/flogger.dart';
+import 'package:flutter_template/util/integrations/analytics.dart';
+import 'package:logging_flutter/flogger.dart';
 import 'package:provider/provider.dart';
 
 class Router {
@@ -20,6 +22,7 @@ class Router {
 
     switch (settings.name) {
       case Routes.articles:
+        Analytics.setCurrentScreenName(AnalyticsScreen.articles);
         return _route(
           settings,
           Provider<ArticlesBloc>(
@@ -29,8 +32,10 @@ class Router {
           ),
         );
       case Routes.articleDetail:
+        Analytics.setCurrentScreenName(AnalyticsScreen.articleDetail);
         final params = settings.arguments as ArticleDetailArguments;
-        return _route(settings,
+        return _route(
+          settings,
           Provider<ArticleDetailBloc>(
             create: (context) => ArticleDetailBloc(params.title, params.url),
             dispose: (_, bloc) => bloc.dispose(),
@@ -44,6 +49,14 @@ class Router {
 
   Route _route(RouteSettings settings, Widget widget,
       {bool presentModally = false}) {
+    final Environment environment = getIt<Environment>();
+    widget = environment.isInternal
+        ? Banner(
+            message: environment.name,
+            location: BannerLocation.bottomEnd,
+            child: widget,
+          )
+        : widget;
     return Platform.isIOS
         ? CupertinoPageRoute(
             settings: settings,

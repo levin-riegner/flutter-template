@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'data_state.dart';
 
@@ -9,29 +9,28 @@ part of 'data_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$DataStateTearOff {
   const _$DataStateTearOff();
 
-// ignore: unused_element
   Idle<T, Y> idle<T, Y>() {
     return Idle<T, Y>();
   }
 
-// ignore: unused_element
   Loading<T, Y> loading<T, Y>() {
     return Loading<T, Y>();
   }
 
-// ignore: unused_element
-  Success<T, Y> success<T, Y>({@required T data}) {
+  Success<T, Y> success<T, Y>({required T data}) {
     return Success<T, Y>(
       data: data,
     );
   }
 
-// ignore: unused_element
-  Failure<T, Y> failure<T, Y>({@required Y reason}) {
+  Failure<T, Y> failure<T, Y>({required Y reason}) {
     return Failure<T, Y>(
       reason: reason,
     );
@@ -39,41 +38,44 @@ class _$DataStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $DataState = _$DataStateTearOff();
 
 /// @nodoc
 mixin _$DataState<T, Y> {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult idle(),
-    @required TResult loading(),
-    @required TResult success(T data),
-    @required TResult failure(Y reason),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function() idle,
+    required TResult Function() loading,
+    required TResult Function(T data) success,
+    required TResult Function(Y reason) failure,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult idle(),
-    TResult loading(),
-    TResult success(T data),
-    TResult failure(Y reason),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? loading,
+    TResult Function(T data)? success,
+    TResult Function(Y reason)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult idle(Idle<T, Y> value),
-    @required TResult loading(Loading<T, Y> value),
-    @required TResult success(Success<T, Y> value),
-    @required TResult failure(Failure<T, Y> value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(Idle<T, Y> value) idle,
+    required TResult Function(Loading<T, Y> value) loading,
+    required TResult Function(Success<T, Y> value) success,
+    required TResult Function(Failure<T, Y> value) failure,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult idle(Idle<T, Y> value),
-    TResult loading(Loading<T, Y> value),
-    TResult success(Success<T, Y> value),
-    TResult failure(Failure<T, Y> value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Idle<T, Y> value)? idle,
+    TResult Function(Loading<T, Y> value)? loading,
+    TResult Function(Success<T, Y> value)? success,
+    TResult Function(Failure<T, Y> value)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -110,6 +112,7 @@ class _$IdleCopyWithImpl<T, Y, $Res> extends _$DataStateCopyWithImpl<T, Y, $Res>
 }
 
 /// @nodoc
+
 class _$Idle<T, Y> with DiagnosticableTreeMixin implements Idle<T, Y> {
   const _$Idle();
 
@@ -134,29 +137,24 @@ class _$Idle<T, Y> with DiagnosticableTreeMixin implements Idle<T, Y> {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult idle(),
-    @required TResult loading(),
-    @required TResult success(T data),
-    @required TResult failure(Y reason),
+  TResult when<TResult extends Object?>({
+    required TResult Function() idle,
+    required TResult Function() loading,
+    required TResult Function(T data) success,
+    required TResult Function(Y reason) failure,
   }) {
-    assert(idle != null);
-    assert(loading != null);
-    assert(success != null);
-    assert(failure != null);
     return idle();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult idle(),
-    TResult loading(),
-    TResult success(T data),
-    TResult failure(Y reason),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? loading,
+    TResult Function(T data)? success,
+    TResult Function(Y reason)? failure,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (idle != null) {
       return idle();
     }
@@ -165,29 +163,24 @@ class _$Idle<T, Y> with DiagnosticableTreeMixin implements Idle<T, Y> {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult idle(Idle<T, Y> value),
-    @required TResult loading(Loading<T, Y> value),
-    @required TResult success(Success<T, Y> value),
-    @required TResult failure(Failure<T, Y> value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(Idle<T, Y> value) idle,
+    required TResult Function(Loading<T, Y> value) loading,
+    required TResult Function(Success<T, Y> value) success,
+    required TResult Function(Failure<T, Y> value) failure,
   }) {
-    assert(idle != null);
-    assert(loading != null);
-    assert(success != null);
-    assert(failure != null);
     return idle(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult idle(Idle<T, Y> value),
-    TResult loading(Loading<T, Y> value),
-    TResult success(Success<T, Y> value),
-    TResult failure(Failure<T, Y> value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Idle<T, Y> value)? idle,
+    TResult Function(Loading<T, Y> value)? loading,
+    TResult Function(Success<T, Y> value)? success,
+    TResult Function(Failure<T, Y> value)? failure,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (idle != null) {
       return idle(this);
     }
@@ -219,6 +212,7 @@ class _$LoadingCopyWithImpl<T, Y, $Res>
 }
 
 /// @nodoc
+
 class _$Loading<T, Y> with DiagnosticableTreeMixin implements Loading<T, Y> {
   const _$Loading();
 
@@ -243,29 +237,24 @@ class _$Loading<T, Y> with DiagnosticableTreeMixin implements Loading<T, Y> {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult idle(),
-    @required TResult loading(),
-    @required TResult success(T data),
-    @required TResult failure(Y reason),
+  TResult when<TResult extends Object?>({
+    required TResult Function() idle,
+    required TResult Function() loading,
+    required TResult Function(T data) success,
+    required TResult Function(Y reason) failure,
   }) {
-    assert(idle != null);
-    assert(loading != null);
-    assert(success != null);
-    assert(failure != null);
     return loading();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult idle(),
-    TResult loading(),
-    TResult success(T data),
-    TResult failure(Y reason),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? loading,
+    TResult Function(T data)? success,
+    TResult Function(Y reason)? failure,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loading != null) {
       return loading();
     }
@@ -274,29 +263,24 @@ class _$Loading<T, Y> with DiagnosticableTreeMixin implements Loading<T, Y> {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult idle(Idle<T, Y> value),
-    @required TResult loading(Loading<T, Y> value),
-    @required TResult success(Success<T, Y> value),
-    @required TResult failure(Failure<T, Y> value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(Idle<T, Y> value) idle,
+    required TResult Function(Loading<T, Y> value) loading,
+    required TResult Function(Success<T, Y> value) success,
+    required TResult Function(Failure<T, Y> value) failure,
   }) {
-    assert(idle != null);
-    assert(loading != null);
-    assert(success != null);
-    assert(failure != null);
     return loading(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult idle(Idle<T, Y> value),
-    TResult loading(Loading<T, Y> value),
-    TResult success(Success<T, Y> value),
-    TResult failure(Failure<T, Y> value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Idle<T, Y> value)? idle,
+    TResult Function(Loading<T, Y> value)? loading,
+    TResult Function(Success<T, Y> value)? success,
+    TResult Function(Failure<T, Y> value)? failure,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loading != null) {
       return loading(this);
     }
@@ -329,17 +313,21 @@ class _$SuccessCopyWithImpl<T, Y, $Res>
 
   @override
   $Res call({
-    Object data = freezed,
+    Object? data = freezed,
   }) {
     return _then(Success<T, Y>(
-      data: data == freezed ? _value.data : data as T,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as T,
     ));
   }
 }
 
 /// @nodoc
+
 class _$Success<T, Y> with DiagnosticableTreeMixin implements Success<T, Y> {
-  const _$Success({@required this.data}) : assert(data != null);
+  const _$Success({required this.data});
 
   @override
   final T data;
@@ -369,35 +357,31 @@ class _$Success<T, Y> with DiagnosticableTreeMixin implements Success<T, Y> {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
 
+  @JsonKey(ignore: true)
   @override
   $SuccessCopyWith<T, Y, Success<T, Y>> get copyWith =>
       _$SuccessCopyWithImpl<T, Y, Success<T, Y>>(this, _$identity);
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult idle(),
-    @required TResult loading(),
-    @required TResult success(T data),
-    @required TResult failure(Y reason),
+  TResult when<TResult extends Object?>({
+    required TResult Function() idle,
+    required TResult Function() loading,
+    required TResult Function(T data) success,
+    required TResult Function(Y reason) failure,
   }) {
-    assert(idle != null);
-    assert(loading != null);
-    assert(success != null);
-    assert(failure != null);
     return success(data);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult idle(),
-    TResult loading(),
-    TResult success(T data),
-    TResult failure(Y reason),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? loading,
+    TResult Function(T data)? success,
+    TResult Function(Y reason)? failure,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (success != null) {
       return success(data);
     }
@@ -406,29 +390,24 @@ class _$Success<T, Y> with DiagnosticableTreeMixin implements Success<T, Y> {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult idle(Idle<T, Y> value),
-    @required TResult loading(Loading<T, Y> value),
-    @required TResult success(Success<T, Y> value),
-    @required TResult failure(Failure<T, Y> value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(Idle<T, Y> value) idle,
+    required TResult Function(Loading<T, Y> value) loading,
+    required TResult Function(Success<T, Y> value) success,
+    required TResult Function(Failure<T, Y> value) failure,
   }) {
-    assert(idle != null);
-    assert(loading != null);
-    assert(success != null);
-    assert(failure != null);
     return success(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult idle(Idle<T, Y> value),
-    TResult loading(Loading<T, Y> value),
-    TResult success(Success<T, Y> value),
-    TResult failure(Failure<T, Y> value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Idle<T, Y> value)? idle,
+    TResult Function(Loading<T, Y> value)? loading,
+    TResult Function(Success<T, Y> value)? success,
+    TResult Function(Failure<T, Y> value)? failure,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (success != null) {
       return success(this);
     }
@@ -437,10 +416,12 @@ class _$Success<T, Y> with DiagnosticableTreeMixin implements Success<T, Y> {
 }
 
 abstract class Success<T, Y> implements DataState<T, Y> {
-  const factory Success({@required T data}) = _$Success<T, Y>;
+  const factory Success({required T data}) = _$Success<T, Y>;
 
-  T get data;
-  $SuccessCopyWith<T, Y, Success<T, Y>> get copyWith;
+  T get data => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $SuccessCopyWith<T, Y, Success<T, Y>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -464,17 +445,21 @@ class _$FailureCopyWithImpl<T, Y, $Res>
 
   @override
   $Res call({
-    Object reason = freezed,
+    Object? reason = freezed,
   }) {
     return _then(Failure<T, Y>(
-      reason: reason == freezed ? _value.reason : reason as Y,
+      reason: reason == freezed
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as Y,
     ));
   }
 }
 
 /// @nodoc
+
 class _$Failure<T, Y> with DiagnosticableTreeMixin implements Failure<T, Y> {
-  const _$Failure({@required this.reason}) : assert(reason != null);
+  const _$Failure({required this.reason});
 
   @override
   final Y reason;
@@ -504,35 +489,31 @@ class _$Failure<T, Y> with DiagnosticableTreeMixin implements Failure<T, Y> {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(reason);
 
+  @JsonKey(ignore: true)
   @override
   $FailureCopyWith<T, Y, Failure<T, Y>> get copyWith =>
       _$FailureCopyWithImpl<T, Y, Failure<T, Y>>(this, _$identity);
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult idle(),
-    @required TResult loading(),
-    @required TResult success(T data),
-    @required TResult failure(Y reason),
+  TResult when<TResult extends Object?>({
+    required TResult Function() idle,
+    required TResult Function() loading,
+    required TResult Function(T data) success,
+    required TResult Function(Y reason) failure,
   }) {
-    assert(idle != null);
-    assert(loading != null);
-    assert(success != null);
-    assert(failure != null);
     return failure(reason);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult idle(),
-    TResult loading(),
-    TResult success(T data),
-    TResult failure(Y reason),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? loading,
+    TResult Function(T data)? success,
+    TResult Function(Y reason)? failure,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (failure != null) {
       return failure(reason);
     }
@@ -541,29 +522,24 @@ class _$Failure<T, Y> with DiagnosticableTreeMixin implements Failure<T, Y> {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult idle(Idle<T, Y> value),
-    @required TResult loading(Loading<T, Y> value),
-    @required TResult success(Success<T, Y> value),
-    @required TResult failure(Failure<T, Y> value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(Idle<T, Y> value) idle,
+    required TResult Function(Loading<T, Y> value) loading,
+    required TResult Function(Success<T, Y> value) success,
+    required TResult Function(Failure<T, Y> value) failure,
   }) {
-    assert(idle != null);
-    assert(loading != null);
-    assert(success != null);
-    assert(failure != null);
     return failure(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult idle(Idle<T, Y> value),
-    TResult loading(Loading<T, Y> value),
-    TResult success(Success<T, Y> value),
-    TResult failure(Failure<T, Y> value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Idle<T, Y> value)? idle,
+    TResult Function(Loading<T, Y> value)? loading,
+    TResult Function(Success<T, Y> value)? success,
+    TResult Function(Failure<T, Y> value)? failure,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (failure != null) {
       return failure(this);
     }
@@ -572,8 +548,10 @@ class _$Failure<T, Y> with DiagnosticableTreeMixin implements Failure<T, Y> {
 }
 
 abstract class Failure<T, Y> implements DataState<T, Y> {
-  const factory Failure({@required Y reason}) = _$Failure<T, Y>;
+  const factory Failure({required Y reason}) = _$Failure<T, Y>;
 
-  Y get reason;
-  $FailureCopyWith<T, Y, Failure<T, Y>> get copyWith;
+  Y get reason => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FailureCopyWith<T, Y, Failure<T, Y>> get copyWith =>
+      throw _privateConstructorUsedError;
 }

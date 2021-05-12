@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'article.dart';
 
@@ -9,18 +9,20 @@ part of 'article.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$ArticleTearOff {
   const _$ArticleTearOff();
 
-// ignore: unused_element
   _Article call(
-      {String id,
-      String title,
-      String description,
-      String imageUrl,
-      String url,
-      DateTime publishedAt}) {
+      {String? id,
+      String? title,
+      String? description,
+      String? imageUrl,
+      String? url,
+      DateTime? publishedAt}) {
     return _Article(
       id: id,
       title: title,
@@ -33,19 +35,19 @@ class _$ArticleTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Article = _$ArticleTearOff();
 
 /// @nodoc
 mixin _$Article {
-  String get id;
-  String get title;
-  String get description;
-  String get imageUrl;
-  String get url;
-  DateTime get publishedAt;
+  String? get id => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get url => throw _privateConstructorUsedError;
+  DateTime? get publishedAt => throw _privateConstructorUsedError;
 
-  $ArticleCopyWith<Article> get copyWith;
+  @JsonKey(ignore: true)
+  $ArticleCopyWith<Article> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -53,12 +55,12 @@ abstract class $ArticleCopyWith<$Res> {
   factory $ArticleCopyWith(Article value, $Res Function(Article) then) =
       _$ArticleCopyWithImpl<$Res>;
   $Res call(
-      {String id,
-      String title,
-      String description,
-      String imageUrl,
-      String url,
-      DateTime publishedAt});
+      {String? id,
+      String? title,
+      String? description,
+      String? imageUrl,
+      String? url,
+      DateTime? publishedAt});
 }
 
 /// @nodoc
@@ -71,22 +73,38 @@ class _$ArticleCopyWithImpl<$Res> implements $ArticleCopyWith<$Res> {
 
   @override
   $Res call({
-    Object id = freezed,
-    Object title = freezed,
-    Object description = freezed,
-    Object imageUrl = freezed,
-    Object url = freezed,
-    Object publishedAt = freezed,
+    Object? id = freezed,
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? imageUrl = freezed,
+    Object? url = freezed,
+    Object? publishedAt = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      title: title == freezed ? _value.title : title as String,
-      description:
-          description == freezed ? _value.description : description as String,
-      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
-      url: url == freezed ? _value.url : url as String,
-      publishedAt:
-          publishedAt == freezed ? _value.publishedAt : publishedAt as DateTime,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      publishedAt: publishedAt == freezed
+          ? _value.publishedAt
+          : publishedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -97,12 +115,12 @@ abstract class _$ArticleCopyWith<$Res> implements $ArticleCopyWith<$Res> {
       __$ArticleCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
-      String title,
-      String description,
-      String imageUrl,
-      String url,
-      DateTime publishedAt});
+      {String? id,
+      String? title,
+      String? description,
+      String? imageUrl,
+      String? url,
+      DateTime? publishedAt});
 }
 
 /// @nodoc
@@ -116,27 +134,44 @@ class __$ArticleCopyWithImpl<$Res> extends _$ArticleCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object title = freezed,
-    Object description = freezed,
-    Object imageUrl = freezed,
-    Object url = freezed,
-    Object publishedAt = freezed,
+    Object? id = freezed,
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? imageUrl = freezed,
+    Object? url = freezed,
+    Object? publishedAt = freezed,
   }) {
     return _then(_Article(
-      id: id == freezed ? _value.id : id as String,
-      title: title == freezed ? _value.title : title as String,
-      description:
-          description == freezed ? _value.description : description as String,
-      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
-      url: url == freezed ? _value.url : url as String,
-      publishedAt:
-          publishedAt == freezed ? _value.publishedAt : publishedAt as DateTime,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      publishedAt: publishedAt == freezed
+          ? _value.publishedAt
+          : publishedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
 
 /// @nodoc
+
 class _$_Article extends _Article with DiagnosticableTreeMixin {
   const _$_Article(
       {this.id,
@@ -148,17 +183,17 @@ class _$_Article extends _Article with DiagnosticableTreeMixin {
       : super._();
 
   @override
-  final String id;
+  final String? id;
   @override
-  final String title;
+  final String? title;
   @override
-  final String description;
+  final String? description;
   @override
-  final String imageUrl;
+  final String? imageUrl;
   @override
-  final String url;
+  final String? url;
   @override
-  final DateTime publishedAt;
+  final DateTime? publishedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -209,33 +244,36 @@ class _$_Article extends _Article with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(url) ^
       const DeepCollectionEquality().hash(publishedAt);
 
+  @JsonKey(ignore: true)
   @override
   _$ArticleCopyWith<_Article> get copyWith =>
       __$ArticleCopyWithImpl<_Article>(this, _$identity);
 }
 
 abstract class _Article extends Article {
-  const _Article._() : super._();
   const factory _Article(
-      {String id,
-      String title,
-      String description,
-      String imageUrl,
-      String url,
-      DateTime publishedAt}) = _$_Article;
+      {String? id,
+      String? title,
+      String? description,
+      String? imageUrl,
+      String? url,
+      DateTime? publishedAt}) = _$_Article;
+  const _Article._() : super._();
 
   @override
-  String get id;
+  String? get id => throw _privateConstructorUsedError;
   @override
-  String get title;
+  String? get title => throw _privateConstructorUsedError;
   @override
-  String get description;
+  String? get description => throw _privateConstructorUsedError;
   @override
-  String get imageUrl;
+  String? get imageUrl => throw _privateConstructorUsedError;
   @override
-  String get url;
+  String? get url => throw _privateConstructorUsedError;
   @override
-  DateTime get publishedAt;
+  DateTime? get publishedAt => throw _privateConstructorUsedError;
   @override
-  _$ArticleCopyWith<_Article> get copyWith;
+  @JsonKey(ignore: true)
+  _$ArticleCopyWith<_Article> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -1,35 +1,52 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/navigation/parameters/article_detail_arguments.dart';
+import 'package:flutter_gen/gen_l10n/strings.dart';
+import 'package:flutter_template/app/config/constants.dart';
+import 'package:flutter_template/app/navigation/parameters/article_arguments.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/presentation/articles/articles_bloc.dart';
 import 'package:flutter_template/presentation/articles/articles_state.dart';
-import 'package:lr_design_system/theme/theme.dart';
-import 'package:lr_design_system/theme/theme_spacing.dart';
+import 'package:flutter_template/presentation/util/base_stateful_widget.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:logging_flutter/flogger.dart';
 import 'package:lr_design_system/utils/alert_service.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/views/ds_app_version.dart';
 import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 import 'package:lr_design_system/views/ds_loading_indicator.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/strings.dart';
 
 class ArticlesPage extends StatefulWidget {
   @override
   _ArticlesPageState createState() => _ArticlesPageState();
 }
 
-class _ArticlesPageState extends State<ArticlesPage> {
+class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Listen to Alerts
+    bloc.alerts.listen((alert) {
+      alert.when(
+        queryNotFound: (query) {
+          return AlertService.instance()!.showAlert(
+            context: context,
+            message: Strings.of(context)!.noArticlesFound(query),
+          );
+        },
+      );
+    }).disposedBy(disposeBag);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<ArticlesBloc>(context);
     final body = RefreshIndicator(
       onRefresh: () => bloc.refresh(),
       child: StreamBuilder<ArticlesState>(
         stream: bloc.state,
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Container();
-          final state = snapshot.data;
+          final state = snapshot.data!;
           return state.when(
             subscriptionExpired: () {
               return Text("Please renew your subscription");
@@ -70,26 +87,33 @@ class _ArticlesPageState extends State<ArticlesPage> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.of(context).articlesTitle),
+        title: Text(Strings.of(context)!.articlesTitle),
         actions: [
+          IconButton(
+            icon: Icon(Icons.star),
+            onPressed: () async {
+              // In-app review
+              try {
+                final InAppReview inAppReview = InAppReview.instance;
+                if (await inAppReview.isAvailable()) {
+                  inAppReview.requestReview();
+                } else {
+                  inAppReview.openStoreListing(
+                    appStoreId: Constants.APPSTORE_APP_ID,
+                  );
+                }
+              } catch (e) {
+                Flogger.i("Error requesting app review", object: e);
+              }
+            },
+          ),
           Padding(
-            padding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
+            padding: EdgeInsets.all(Dimens.of(context).marginMedium),
             child: DSAppVersion(),
           )
         ],
       ),
-      body: Builder(builder: (BuildContext context) {
-        // Listen to Alerts
-        bloc.alerts.listen((alert) => alert.when(
-              queryNotFound: (query) {
-                return AlertService.instance().showAlert(
-                  context: context,
-                  message: Strings.of(context).noArticlesFound(query),
-                );
-              },
-            ));
-        return body;
-      }),
+      body: body,
     );
   }
 }
@@ -114,16 +138,16 @@ class _Article extends StatelessWidget {
     return Card(
       child: InkWell(
         child: Padding(
-          padding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
+          padding: EdgeInsets.all(Dimens.of(context).marginMedium),
           child: Column(
             children: [
               if (_article.imageUrl != null)
                 Semantics(
-                  child: CachedNetworkImage(imageUrl: _article.imageUrl),
-                  label: Strings.of(context).articleThumbnailAlt,
+                  child: CachedNetworkImage(imageUrl: _article.imageUrl!),
+                  label: Strings.of(context)!.articleThumbnailAlt,
                 ),
-              ThemeSpacing.Medium,
-              Text(_article.title),
+              Dimens.of(context).boxMedium,
+              Text(_article.title!),
             ],
           ),
         ),

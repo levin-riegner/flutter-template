@@ -7,12 +7,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'articles_state.freezed.dart';
 
 @freezed
-abstract class ArticlesState with _$ArticlesState {
+class ArticlesState with _$ArticlesState {
 
   const factory ArticlesState.subscriptionExpired() = SubscriptionExpired;
 
   const factory ArticlesState.content({
-    @required DataState<List<Article>, ArticlesError> articles,
+    required DataState<List<Article>, ArticlesError> articles,
   }) = Content;
 
 }

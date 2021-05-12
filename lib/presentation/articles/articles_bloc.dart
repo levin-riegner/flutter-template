@@ -8,11 +8,11 @@ import 'package:flutter_template/presentation/articles/articles_error.dart';
 import 'package:flutter_template/presentation/articles/articles_state.dart';
 import 'package:flutter_template/presentation/util/base_bloc.dart';
 import 'package:flutter_template/presentation/util/data_state.dart';
-import 'package:flutter_template/util/tools/flogger.dart';
+import 'package:logging_flutter/flogger.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ArticlesBloc extends BaseBloc {
-  static const kQuery = "Bitcoin";
+  static const kQuery = "XCH";
 
   // Repository
   final ArticleRepository _articlesRepository;
@@ -41,13 +41,13 @@ class ArticlesBloc extends BaseBloc {
 
   // region Private
   Future<void> _getArticles({bool forceRefresh = false}) async {
-    _state.value = ArticlesState.content(articles: Loading());
+    _state.add(ArticlesState.content(articles: Loading()));
     try {
       final articles = await _articlesRepository.getArticles(kQuery,
           forceRefresh: forceRefresh);
-      _state.value = ArticlesState.content(articles: Success(data: articles));
+      _state.add(ArticlesState.content(articles: Success(data: articles)));
     } on data.ArticleDataError catch (e) {
-      _state.value = e.when(
+      _state.add(e.when(
         subscriptionExpired: () {
           Flogger.info("Subscription Expired");
           return ArticlesState.subscriptionExpired();
@@ -61,10 +61,10 @@ class ArticlesBloc extends BaseBloc {
           Flogger.w("Unknown error getting articles", object: error);
           return ArticlesState.content(articles: Failure(reason: Unknown()));
         },
-      );
+      ));
     } catch (e) {
       Flogger.w("Unexpected error getting articles", object: e);
-      return ArticlesState.content(articles: Failure(reason: Unknown()));
+      _state.add(ArticlesState.content(articles: Failure(reason: Unknown())));
     }
   }
 

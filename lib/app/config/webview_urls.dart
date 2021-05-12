@@ -2,7 +2,7 @@ class WebViewUrls {
 
   final String _baseUrl;
 
-  WebViewUrls(this._baseUrl): assert(_baseUrl != null);
+  WebViewUrls(this._baseUrl);
 
   String get about => "$_baseUrl/about";
 

@@ -1,24 +1,24 @@
 import 'package:chopper/chopper.dart';
-import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
-import 'package:flutter_template/data/util/json_serializable_converter.dart';
+import 'package:flutter_template/data/shared/service/remote/basic_json_serializable_converter.dart';
 
 abstract class Network {
   static ChopperClient createHttpClient(
-    String baseUrl,
-    Future<String> getBearerToken(),
+    final String baseUrl,
+    final String apiKey,
+    Future<String?> getBearerToken(),
   ) {
     // Add your models here 👇
     final converter = JsonSerializableConverter({
-      ArticlesApiResponse: (json) => ArticlesApiResponse.fromJson(json),
       ArticleApiModel: (json) => ArticleApiModel.fromJson(json),
+      ArticlesApiResponse: (json) => ArticlesApiResponse.fromJson(json),
     });
 
     // Create Chopper Client
     final chopper = ChopperClient(
       baseUrl: baseUrl,
       converter: converter,
-      // errorConverter: JsonConverter(),
+      errorConverter: converter,
       interceptors: [
         // Add Bearer Token
         (Request request) async {
@@ -29,11 +29,11 @@ abstract class Network {
         // Add API Key
         (Request request) async {
           final newParameters = Map<String, dynamic>.from(request.parameters);
-          newParameters["apiKey"] = Constants.API_KEY;
+          newParameters["apiKey"] = apiKey;
           return request.copyWith(parameters: newParameters);
         },
         CurlInterceptor(),
-        HttpLoggingInterceptor(),
+        // HttpLoggingInterceptor(),
       ],
     );
     return chopper;

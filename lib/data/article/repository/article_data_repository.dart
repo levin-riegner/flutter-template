@@ -4,7 +4,7 @@ import 'package:flutter_template/data/article/repository/article_repository.dart
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
-import 'package:flutter_template/util/tools/flogger.dart';
+import 'package:logging_flutter/flogger.dart';
 
 class ArticleDataRepository implements ArticleRepository {
   final ArticleApiService apiService;
@@ -13,23 +13,25 @@ class ArticleDataRepository implements ArticleRepository {
   ArticleDataRepository(
     this.apiService,
     this.dbService,
-  )   : assert(apiService != null),
-        assert(dbService != null);
+  );
 
   @override
-  Future<List<Article>> getArticles(String query, {bool forceRefresh}) async {
+  Future<List<Article>> getArticles(String query, {bool? forceRefresh}) async {
     final dbArticles =
         (await dbService.getArticles(query)).map((e) => e.toArticle()).toList();
-    if (dbArticles.isNotEmpty && !forceRefresh) {
+    if (dbArticles.isNotEmpty && !forceRefresh!) {
       return dbArticles;
     } else {
       final articlesResponse = await apiService.getArticles(query);
       if (articlesResponse.isSuccessful) {
         final articles =
-            articlesResponse.body.articles.map((e) => e.toArticle()).toList();
-        await dbService
-            .saveArticles(articles.map(ArticleDbModel.fromArticle).toList());
-        return articles;
+            articlesResponse.body?.articles?.map((e) => e.toArticle()).toList();
+        if(articles != null) {
+          await dbService
+              .saveArticles(articles.map(ArticleDbModel.fromArticle).toList());
+          return articles;
+        }
+        return [];
       } else {
         Flogger.d("Error getting articles", object: articlesResponse.error);
         switch (articlesResponse.statusCode) {
@@ -38,7 +40,7 @@ class ArticleDataRepository implements ArticleRepository {
           case 404:
             throw NotFound();
           default:
-            throw Unknown(articlesResponse.error);
+            throw Unknown(articlesResponse.error!);
         }
       }
     }

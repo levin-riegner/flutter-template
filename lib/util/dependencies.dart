@@ -1,13 +1,10 @@
-import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
-import 'package:device_info/device_info.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_paper_trail/flutter_paper_trail.dart';
+import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/data/article/repository/article_data_repository.dart';
@@ -16,27 +13,29 @@ import 'package:flutter_template/data/article/repository/article_repository.dart
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
-import 'package:flutter_template/data/util/database.dart';
-import 'package:flutter_template/data/util/network.dart';
-import 'package:flutter_template/data/common/service/secure_storage.dart';
+import 'package:flutter_template/data/shared/service/local/database.dart';
+import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
+import 'package:flutter_template/data/shared/service/local/user_config.dart';
+import 'package:flutter_template/data/shared/service/remote/network.dart';
 import 'package:flutter_template/util/console/console_screen.dart';
+import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
-import 'package:logger/logger.dart';
-import 'package:logger_flutter/logger_flutter.dart';
-import 'package:meta/meta.dart';
+import 'package:logging_flutter/flogger.dart';
+import 'package:logging_flutter/logging_flutter.dart';
+import 'package:lr_app_versioning/app_versioning.dart';
 import 'package:shake/shake.dart';
-
-import 'tools/flogger.dart';
 
 final getIt = GetIt.instance;
 
 abstract class Dependencies {
+  static List<Box> _userDataBoxes = [];
+
   static Future<void> register({
-    @required Environment environment,
-    @required bool useMocks,
-    @required bool isDebugBuild,
+    required Environment environment,
+    required bool useMocks,
+    required bool isDebugBuild,
   }) async {
     // Environment
     getIt.registerSingleton<Environment>(environment);
@@ -47,16 +46,21 @@ abstract class Dependencies {
     getIt.registerSingleton<SecureStorage>(secureStorage);
     // HttpClient
     final httpClient = Network.createHttpClient(
-        environment.apiBaseUrl, () => secureStorage.getUserAuthToken());
-
+      environment.apiBaseUrl,
+      Constants.API_KEY,
+      () => secureStorage.getUserAuthToken(),
+    );
     // Database
     await Database.init(secureStorage);
     final databaseEncryption =
         await Database.getEncryptionCipher(secureStorage);
     // Open db boxes
-    final articlesBox = await Hive.openBox<ArticleDbModel>(Database.ArticleBox,
-        encryptionCipher: databaseEncryption);
-
+    final articlesBox = await Hive.openBox<ArticleDbModel>(
+      Database.ArticleBox,
+      encryptionCipher: databaseEncryption,
+    );
+    // Save user boxes as class var for logout
+    _userDataBoxes.addAll([]);
     // Repositories
     getIt.registerSingleton<ArticleRepository>(
       useMocks
@@ -78,6 +82,7 @@ abstract class Dependencies {
     }
     // Logging
     if (isDebugBuild) {
+      Flogger.showDebugLogs(true);
       Flogger.registerListener((record) => log(record.message));
     } else {
       // Init PaperTrail
@@ -98,14 +103,39 @@ abstract class Dependencies {
         }
       });
     }
+    // App Versioning
+    final appVersioning = AppVersioning.firebaseService(
+      remoteConfigKeys: RemoteConfigKeys(
+        minimumIosVersionKey: "minimumIosVersion",
+        minimumAndroidVersionKey: "minimumAndroidVersion",
+      ),
+      updateConfig: UpdateConfig(
+        appStoreAppId: Constants.APPSTORE_APP_ID,
+        playStoreAppId: Constants.PLAYSTORE_APP_ID,
+        appstoreCountryCode: 'US',
+      ),
+    );
+    getIt.registerSingleton<AppVersioning>(appVersioning);
+    // Version tracking
+    await appVersioning.tracker.track();
+    // User Configs
+    final userConfig = UserConfig();
+    getIt.registerSingleton<UserConfig>(userConfig);
+    // Analytics tracking
+    final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
+    setDataCollectionEnabled(dataCollectionEnabled || environment.isInternal);
     // Shake detector for Console
     if (environment.isInternal) {
-      final shakeDetector = ShakeDetector.autoStart(onPhoneShake: () {
-        NavigatorHolder.navigatorKey.currentState
-            .push(MaterialPageRoute(builder: (_) => ConsoleScreen()));
-      });
+      final shakeDetector = ShakeDetector.autoStart(
+        shakeThresholdGravity: 2,
+        onPhoneShake: () {
+          NavigatorHolder.navigatorKey.currentState
+              ?.push(MaterialPageRoute(builder: (_) => ConsoleScreen()));
+        },
+      );
       // Save logs for console
-      Flogger.registerListener((record) => LogConsole.add(OutputEvent(record.level.toLoggerLevel(), [record.message])));
+      Flogger.registerListener((record) =>
+          LogConsole.add(OutputEvent(record.level, [record.message])));
       getIt.registerSingleton<ShakeDetector>(shakeDetector);
     }
 
@@ -114,25 +144,53 @@ abstract class Dependencies {
 
   /// Dispose all Dependencies
   static Future<void> dispose() async {
+    Flogger.i("Disposing dependencies");
     // Close Database
     await Hive.close();
     // Stop listening to Shake
-    getIt.get<ShakeDetector>().stopListening();
+    if (getIt.get<Environment>().isInternal) {
+      getIt.get<ShakeDetector>().stopListening();
+    }
   }
 
   /// Registers user to dependencies
+  /// Call this method after registration
   static Future<void> registerUser(String userId, String email) async {
-    return Future.wait([
-      FlutterPaperTrail.setUserId(userId),
+    Flogger.i("Registering user");
+    Flogger.d("With id $userId and email $email");
+    await Future.wait([
+      if (kReleaseMode) PaperTrail.setUserId(userId),
       FirebaseCrashlytics.instance.setUserIdentifier(userId),
+      Analytics.identify(userId, email),
     ]);
   }
 
   /// Clears all local data
   static Future<void> clearAllLocalData() async {
-    // Database
-    await Hive.deleteFromDisk();
-    // Secure storage
-    await getIt.get<SecureStorage>().deleteAll();
+    Flogger.i("Clearing all local data");
+    await Future.wait([
+      // Clear user boxes
+      // Clearing the whole database won't allow for writing again
+      // without closing the app or re-opening boxes
+      ..._userDataBoxes.map((e) => e.clear()),
+      // Secure storage
+      getIt.get<SecureStorage>().deleteAll(),
+      // Analytics
+      Analytics.logout(),
+      // User Configs
+      getIt.get<UserConfig>().clear(),
+    ]);
+  }
+
+  /// Enable or Disable Analytics Collection as per GDPR / CCPA compliance
+  /// Call this method after requesting GDPR / CCPA permission
+  static Future<void> setDataCollectionEnabled(bool enabled) async {
+    Flogger.i("Setting data collection enabled");
+    await Future.wait([
+      // Toggle collection to 3rd party services
+      Analytics.setCollectionEnabled(enabled),
+      PaperTrail.setLoggingEnabled(enabled),
+      FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(enabled),
+    ]);
   }
 }

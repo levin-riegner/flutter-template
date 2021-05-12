@@ -25,8 +25,8 @@ class _MockConfig {
   final bool emptyResponses;
 
   const _MockConfig({
-    this.ioDelay,
-    this.errorAllResponses,
-    this.emptyResponses,
+    required this.ioDelay,
+    required this.errorAllResponses,
+    required this.emptyResponses,
   });
 }

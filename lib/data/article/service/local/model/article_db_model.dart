@@ -1,5 +1,5 @@
 import 'package:flutter_template/data/article/model/article.dart';
-import 'package:flutter_template/data/util/database.dart';
+import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:hive/hive.dart';
 
 part 'article_db_model.g.dart';
@@ -15,15 +15,15 @@ class ArticleDbModel extends HiveObject {
   static const int _publishedAtIndex = 4;
 
   @HiveField(_titleIndex)
-  String title;
+  String? title;
   @HiveField(_descriptionIndex)
-  String description;
+  String? description;
   @HiveField(_imageUrlIndex)
-  String imageUrl;
+  String? imageUrl;
   @HiveField(_urlIndex)
-  String url;
+  String? url;
   @HiveField(_publishedAtIndex)
-  int publishedAt;
+  int? publishedAt;
 
   ArticleDbModel({
     this.title,
@@ -39,7 +39,7 @@ class ArticleDbModel extends HiveObject {
       description: description,
       imageUrl: imageUrl,
       url: url,
-      publishedAt: DateTime.fromMillisecondsSinceEpoch(publishedAt),
+      publishedAt: DateTime.fromMillisecondsSinceEpoch(publishedAt!),
     );
   }
 
