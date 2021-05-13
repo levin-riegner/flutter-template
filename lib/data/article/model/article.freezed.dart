@@ -172,7 +172,7 @@ class __$ArticleCopyWithImpl<$Res> extends _$ArticleCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Article extends _Article with DiagnosticableTreeMixin {
+class _$_Article extends _Article {
   const _$_Article(
       {this.id,
       this.title,
@@ -196,21 +196,8 @@ class _$_Article extends _Article with DiagnosticableTreeMixin {
   final DateTime? publishedAt;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Article(id: $id, title: $title, description: $description, imageUrl: $imageUrl, url: $url, publishedAt: $publishedAt)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Article'))
-      ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('title', title))
-      ..add(DiagnosticsProperty('description', description))
-      ..add(DiagnosticsProperty('imageUrl', imageUrl))
-      ..add(DiagnosticsProperty('url', url))
-      ..add(DiagnosticsProperty('publishedAt', publishedAt));
   }
 
   @override

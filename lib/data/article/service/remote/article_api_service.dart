@@ -7,7 +7,7 @@ part 'article_api_service.chopper.dart';
 @ChopperApi()
 abstract class ArticleApiService extends ChopperService {
 
-  static ArticleApiService create([ChopperClient? client]) =>
+  static ArticleApiService create(ChopperClient client) =>
       _$ArticleApiService(client);
 
   @Get(path: Endpoints.articles)

@@ -85,18 +85,12 @@ class _$UnknownCopyWithImpl<$Res> extends _$ArticlesErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Unknown with DiagnosticableTreeMixin implements Unknown {
+class _$Unknown implements Unknown {
   const _$Unknown();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArticlesError.unknown()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'ArticlesError.unknown'));
   }
 
   @override

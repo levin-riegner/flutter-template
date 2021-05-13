@@ -113,18 +113,12 @@ class _$IdleCopyWithImpl<T, Y, $Res> extends _$DataStateCopyWithImpl<T, Y, $Res>
 
 /// @nodoc
 
-class _$Idle<T, Y> with DiagnosticableTreeMixin implements Idle<T, Y> {
+class _$Idle<T, Y> implements Idle<T, Y> {
   const _$Idle();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'DataState<$T, $Y>.idle()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'DataState<$T, $Y>.idle'));
   }
 
   @override
@@ -213,18 +207,12 @@ class _$LoadingCopyWithImpl<T, Y, $Res>
 
 /// @nodoc
 
-class _$Loading<T, Y> with DiagnosticableTreeMixin implements Loading<T, Y> {
+class _$Loading<T, Y> implements Loading<T, Y> {
   const _$Loading();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'DataState<$T, $Y>.loading()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'DataState<$T, $Y>.loading'));
   }
 
   @override
@@ -326,23 +314,15 @@ class _$SuccessCopyWithImpl<T, Y, $Res>
 
 /// @nodoc
 
-class _$Success<T, Y> with DiagnosticableTreeMixin implements Success<T, Y> {
+class _$Success<T, Y> implements Success<T, Y> {
   const _$Success({required this.data});
 
   @override
   final T data;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'DataState<$T, $Y>.success(data: $data)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'DataState<$T, $Y>.success'))
-      ..add(DiagnosticsProperty('data', data));
   }
 
   @override
@@ -458,23 +438,15 @@ class _$FailureCopyWithImpl<T, Y, $Res>
 
 /// @nodoc
 
-class _$Failure<T, Y> with DiagnosticableTreeMixin implements Failure<T, Y> {
+class _$Failure<T, Y> implements Failure<T, Y> {
   const _$Failure({required this.reason});
 
   @override
   final Y reason;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'DataState<$T, $Y>.failure(reason: $reason)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'DataState<$T, $Y>.failure'))
-      ..add(DiagnosticsProperty('reason', reason));
   }
 
   @override

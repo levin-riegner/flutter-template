@@ -49,24 +49,26 @@ abstract class Analytics {
 abstract class AnalyticsScreen {
   const AnalyticsScreen._();
 
-  static const String articles = "Articles";
-  static const String articleDetail = "Article Detail";
+  static const String articles = "articles";
+  static const String articleDetail = "article_detail";
 }
 
+// IMPORTANT: Analytics events and properties cannot contain whitespaces.
+// Better to always use snake_case for every text analytics-related
 abstract class AnalyticsEvent {
   const AnalyticsEvent._();
 
-  static const String selectItem = "Item_Selected";
+  static const String selectItem = "item_selected";
 }
 
 abstract class AnalyticsParameter {
   const AnalyticsParameter._();
 
-  static const String itemId = "itemId";
+  static const String itemId = "item_id";
 }
 
 abstract class AnalyticsValue {
   const AnalyticsValue._();
 
-  static const String article = "Article";
+  static const String article = "article";
 }

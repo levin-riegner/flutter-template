@@ -99,21 +99,12 @@ class _$SubscriptionExpiredCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SubscriptionExpired
-    with DiagnosticableTreeMixin
-    implements SubscriptionExpired {
+class _$SubscriptionExpired implements SubscriptionExpired {
   const _$SubscriptionExpired();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArticlesState.subscriptionExpired()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ArticlesState.subscriptionExpired'));
   }
 
   @override
@@ -215,23 +206,15 @@ class _$ContentCopyWithImpl<$Res> extends _$ArticlesStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Content with DiagnosticableTreeMixin implements Content {
+class _$Content implements Content {
   const _$Content({required this.articles});
 
   @override
   final DataState<List<Article>, ArticlesError> articles;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArticlesState.content(articles: $articles)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ArticlesState.content'))
-      ..add(DiagnosticsProperty('articles', articles));
   }
 
   @override

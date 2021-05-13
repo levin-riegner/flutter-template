@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'article_data_error.freezed.dart';
@@ -9,5 +8,5 @@ class ArticleDataError with _$ArticleDataError {
 
   const factory ArticleDataError.notFound() = NotFound;
 
-  const factory ArticleDataError.unknown(Object error) = Unknown;
+  const factory ArticleDataError.unknown(Object? error) = Unknown;
 }

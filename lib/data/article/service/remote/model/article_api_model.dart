@@ -1,24 +1,27 @@
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
-
-part 'article_api_model.freezed.dart';
 
 part 'article_api_model.g.dart';
 
-@freezed
-class ArticleApiModel with _$ArticleApiModel {
-  const ArticleApiModel._();
+// @JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
+class ArticleApiModel {
+  final String? id;
+  final String? title;
+  final String? description;
+  @JsonKey(name: "urlToImage")
+  final String? imageUrl;
+  final String? url;
+  final String? publishedAt;
 
-  // @JsonSerializable(fieldRename: FieldRename.snake)
-  const factory ArticleApiModel({
-    String? id,
-    String? title,
-    String? description,
-    @JsonKey(name: "urlToImage") String? imageUrl,
-    String? url,
-    String? publishedAt,
-  }) = _ArticleApiModel;
+  const ArticleApiModel({
+    this.id,
+    this.title,
+    this.description,
+    this.imageUrl,
+    this.url,
+    this.publishedAt,
+  });
 
   factory ArticleApiModel.fromJson(Map<String, dynamic> json) =>
       _$ArticleApiModelFromJson(json);
@@ -30,19 +33,23 @@ class ArticleApiModel with _$ArticleApiModel {
       description: description,
       imageUrl: imageUrl,
       url: url,
-      publishedAt: DateTime.tryParse(publishedAt!),
+      publishedAt: publishedAt != null ? DateTime.tryParse(publishedAt!) : null,
     );
   }
 }
 
-@freezed
-class ArticlesApiResponse with _$ArticlesApiResponse {
-  // @JsonSerializable(fieldRename: FieldRename.snake)
-  const factory ArticlesApiResponse({
-    String? status,
-    int? totalResults,
-    List<ArticleApiModel>? articles,
-  }) = _ArticlesApiResponse;
+// @JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
+class ArticlesApiResponse {
+  final String? status;
+  final int? totalResults;
+  final List<ArticleApiModel>? articles;
+
+  const ArticlesApiResponse({
+    this.status,
+    this.totalResults,
+    this.articles,
+  });
 
   factory ArticlesApiResponse.fromJson(Map<String, dynamic> json) =>
       _$ArticlesApiResponseFromJson(json);

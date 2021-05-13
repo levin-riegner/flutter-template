@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/presentation/articles/articles_error.dart';
 import 'package:flutter_template/presentation/util/data_state.dart';

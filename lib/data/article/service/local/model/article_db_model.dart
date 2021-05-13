@@ -39,7 +39,7 @@ class ArticleDbModel extends HiveObject {
       description: description,
       imageUrl: imageUrl,
       url: url,
-      publishedAt: DateTime.fromMillisecondsSinceEpoch(publishedAt!),
+      publishedAt: publishedAt!= null ? DateTime.fromMillisecondsSinceEpoch(publishedAt!) : null,
     );
   }
 
