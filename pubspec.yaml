@@ -30,7 +30,7 @@ dependencies:
   rxdart: 0.26.0
   # Device Info
   device_info: 2.0.0
-  package_info: 2.0.0
+  package_info_plus: 1.0.1
   # Dependency Injection
   get_it: 7.0.0
   # Boilerplate generation

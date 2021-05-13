@@ -75,10 +75,14 @@ abstract class Dependencies {
     // Firebase
     await Firebase.initializeApp();
     // Crashlytics
-    if (isDebugBuild) {
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    } else {
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    if (!kIsWeb) {
+      if (isDebugBuild) {
+        await FirebaseCrashlytics.instance
+            .setCrashlyticsCollectionEnabled(false);
+      } else {
+        await FirebaseCrashlytics.instance
+            .setCrashlyticsCollectionEnabled(true);
+      }
     }
     // Logging
     if (isDebugBuild) {
@@ -97,11 +101,12 @@ abstract class Dependencies {
         }
       });
       // Register Crashlytics listener
-      Flogger.registerListener((record) {
-        if (!record.mightContainSensitiveData) {
-          FirebaseCrashlytics.instance.log(record.message);
-        }
-      });
+      if (!kIsWeb)
+        Flogger.registerListener((record) {
+          if (!record.mightContainSensitiveData) {
+            FirebaseCrashlytics.instance.log(record.message);
+          }
+        });
     }
     // App Versioning
     final appVersioning = AppVersioning.firebaseService(
@@ -160,7 +165,7 @@ abstract class Dependencies {
     Flogger.d("With id $userId and email $email");
     await Future.wait([
       if (kReleaseMode) PaperTrail.setUserId(userId),
-      FirebaseCrashlytics.instance.setUserIdentifier(userId),
+      if (!kIsWeb) FirebaseCrashlytics.instance.setUserIdentifier(userId),
       Analytics.identify(userId, email),
     ]);
   }
@@ -190,7 +195,7 @@ abstract class Dependencies {
       // Toggle collection to 3rd party services
       Analytics.setCollectionEnabled(enabled),
       PaperTrail.setLoggingEnabled(enabled),
-      FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(enabled),
+      if (!kIsWeb) FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(enabled),
     ]);
   }
 }

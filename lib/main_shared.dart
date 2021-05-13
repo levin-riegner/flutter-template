@@ -32,7 +32,7 @@ void mainShared() async {
     Flogger.e('Unhandled error', object: error, stackTrace: stackTrace);
     // Log stack trace separately (for better external visualization)
     Flogger.e("Stack trace: ${stackTrace.toString().replaceAll("\n", " ")}");
-    if (kReleaseMode) {
+    if (kReleaseMode && !kIsWeb) {
       FirebaseCrashlytics.instance.recordError(error, stackTrace);
     }
   });
