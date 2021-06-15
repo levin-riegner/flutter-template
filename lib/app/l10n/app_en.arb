@@ -33,9 +33,29 @@
       "query": {}
     }
   },
+  "contentCardOrganizationsLabel": "{count, plural, =0{Unknown organizations} =1{Organization: {organizations}} other{Organizations: {organizations}}}",
+  "@contentCardOrganizationsLabel": {
+    "description": "Comma-separated list of organization names.",
+    "placeholders": {
+      "count": {},
+      "organizations": {
+        "type": "String",
+        "example": "AmeriCares, Ford Foundation"
+      }
+    }
+  },
+  "savedNewsArticlesPageTitle": "All saved news articles ({count})",
+  "@savedNewsArticlesPageTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
   "dialogAppUpdateTitle": "Update Available",
   "@dialogAppUpdateTitle": {},
-  "dialogAppUpdateDescription": "A new version of Candid is available. Please update now.",
+  "dialogAppUpdateDescription": "A new version of fluttertemplate is available. Please update now.",
   "@dialogAppUpdateDescription": {},
   "dialogAppUpdateConfirmationButton": "Update",
   "@dialogAppUpdateConfirmationButton": {},

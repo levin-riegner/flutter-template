@@ -28,8 +28,8 @@ dependencies:
   # RxDart
   rxdart: 0.27.1
   # Device Info
-  device_info_plus: 1.0.1
-  package_info_plus: 1.0.2
+  device_info_plus: 2.0.1
+  package_info_plus: 1.0.3
   # Dependency Injection
   get_it: 7.1.3
   # Boilerplate generation
@@ -56,9 +56,10 @@ dependencies:
       url: git@github.com:levin-riegner/flutter-design-system
       ref: release/0.4.0
   # Firebase
-  firebase_core: 1.2.1
-  firebase_analytics: 8.1.1
-  firebase_crashlytics: 2.0.5
+  firebase_core: 1.3.0
+  firebase_analytics: 8.1.2
+  firebase_crashlytics: 2.0.6
+  firebase_dynamic_links: 2.0.6
   # Network
   chopper: 4.0.1
   # Database
@@ -70,9 +71,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   # Detect shake to open console
-  shake: 1.0.0
+  shake: 1.0.1
   # Permissions
-  permission_handler: 8.0.1
+  permission_handler: 8.1.0
   # In-app review
   in_app_review: 2.0.2
   # Shared Preferences

@@ -10,6 +10,7 @@ Now null-safe!
   - [Fonts](#fonts)
   - [Images](#images)
   - [Navigation](#navigation)
+    - [Deeplinks](#deeplinks)
   - [Localization](#localization)
     - [Translating Texts](#translating-texts)
     - [Adding new languages](#adding-new-languages)
@@ -72,19 +73,22 @@ Now null-safe!
   - [App Review](#app-review)
   - [Privacy](#privacy)
     - [Apple iOS 14](#apple-ios-14)
-    - [GDPR and CCPA](#gdpr-and-ccpa)
-  - [TODO: Deeplinks (+ Navigator 2.0)](#todo-deeplinks--navigator-20)
-  - [TODO: Tests](#todo-tests)
+    - [GDPR, CCPA and Appstore Requirements](#gdpr-ccpa-and-appstore-requirements)
+  - [TODO:](#todo)
 
 ## Installation
-
 1. Click the `Use this template` button to create a new repository.
 1. Checkout and open with Android Studio.
-1. Find and rename all instances of `com.levinriegner` with the company name, including Android folders.
-1. Find and rename all instances of `fluttertemplate` and `flutter_template` with the actual product name, including folders.
-1. Create a new Firebase project and update the Google Services files.
-1. Setup Key Signing by following the CI instructions below.
-1. Clear the README file.
+   1. Find and rename all instances of `com.levinriegner` with the company name, including Android folders.
+   2. Find and rename all instances of `fluttertemplate` and `flutter_template` with the actual product name, including folders. 
+3. Setup Key Signing by following the CI instructions below.
+2. Create a new Firebase project and update the Google Services files.
+   1. Create Android app for QA and Production environments.
+   2. Create iOS app for QA and Production environments.
+   3. Add SHA256 signing to Android apps
+      > Use `./gradlew signingReport` to view the keys information.
+   4. Add ITC Team ID and Appstore App ID to iOS apps.
+4. Clear the README file.
 > ❗️ Ensure that all template variables have been changed by searching `levinriegner` and `template` on the project.
 ## Features
 
@@ -103,6 +107,19 @@ Now null-safe!
 ### Navigation
 1. Add your application routes inside the [Routes](lib/app/navigation/routes.dart) class following URL conventions.
 1. Add a new route case inside `lib/app/navigation/router.dart` to map a route to a given Widget and Transition.
+
+#### Deeplinks
+The project includes **Firebase Dynamic Links** to handle deeplinks in the app.
+> ❗️ Make sure you have added the iOS **Team ID** and **Appstore ID** on the Firebase Project Settings before creating a URL Prefix. Otherwise the iOS link will not work until the *apple-app-site-association* file hosted by Firebase is updated (someday, somehow).
+
+1. Enable Dynamic Links on your Firebase Project.
+2. Create 2 URL prefixes for your QA and Production environments.
+3. Setup **Allowlist URL pattern** for each prefix (can be found clicking the 3 vertical dots on each prefix's page).
+4. Update your prefixes inside `build.gradle` for Android.
+5. Update your prefixes inside the `Entitlements` files for iOS .
+
+> To use Dynamic Links with your Custom Domain follow the instructions on the [Firebase Documentation](https://firebase.google.com/docs/dynamic-links/custom-domains)
+
 
 ### Localization
 This template uses `l10n` for localization and managing translations.
@@ -460,13 +477,16 @@ Consider requesting a review after the user has opened the app a few times and t
 
   This template doesn't require any tracking permission, but if you want to integrate Facebook or any Ads SDK you may consider asking for it.
 
-#### GDPR and CCPA
+#### GDPR, CCPA and Appstore Requirements
 1. Non-essential data cannot be tracked or persisted without the user's explicit opt-in.
    - A method `setDataCollectionEnabled` is available on the [Dependencies](lib/util/dependencies.dart) file to toggle collection through the different services.
    - A class [UserConfig](lib/data/shared/service/local/user_config.dart) is available with a boolean option to store the user's opt-in. __Defaults to false__.
    > After the user explicitly opts-in or out of data collection (usually required during signup and login). Persist the choice using `UserConfig` and activate it using `Dependencies.setDataCollectionEnabled`.
 2. A contact channel must be available for the user to request a complete deletion of all personal data. This also includes data stored in external services such as Google Analytics.
+3. A **Delete Account** option must be provided by the app to remove the user from the platform (both deleting backend data and logging the user out of the app).
 
-### TODO: Deeplinks (+ Navigator 2.0)
-
-### TODO: Tests
+### TODO:
+- Unit Test Example
+- Widget Test Example
+- Static Code Analysis
+- Linting
