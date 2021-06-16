@@ -25,7 +25,7 @@ abstract class Analytics {
   }
 
   static setCurrentScreenName(String screenName) {
-    Flogger.i("Setting current screen name to: $screenName");
+    Flogger.i("Current screen: $screenName");
     if (kReleaseMode) {
       firebaseAnalytics.setCurrentScreen(screenName: screenName);
     }

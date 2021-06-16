@@ -1,13 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:flutter_template/app/config/constants.dart';
-import 'package:flutter_template/app/navigation/parameters/article_arguments.dart';
-import 'package:flutter_template/app/navigation/routes.dart';
+import 'package:flutter_template/app/navigation/app_router.gr.dart';
 import 'package:flutter_template/data/article/model/article.dart';
+import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/presentation/articles/articles_bloc.dart';
 import 'package:flutter_template/presentation/articles/articles_state.dart';
 import 'package:flutter_template/presentation/util/base_stateful_widget.dart';
+import 'package:flutter_template/util/dependencies.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:logging_flutter/flogger.dart';
 import 'package:lr_design_system/utils/alert_service.dart';
@@ -15,10 +17,20 @@ import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/views/ds_app_version.dart';
 import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 import 'package:lr_design_system/views/ds_loading_indicator.dart';
+import 'package:provider/provider.dart';
 
-class ArticlesPage extends StatefulWidget {
+class ArticlesPage extends StatefulWidget implements AutoRouteWrapper {
   @override
   _ArticlesPageState createState() => _ArticlesPageState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return Provider<ArticlesBloc>(
+      create: (context) => ArticlesBloc(getIt.get<ArticleRepository>()),
+      dispose: (_, bloc) => bloc.dispose(),
+      child: this,
+    );
+  }
 }
 
 class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
@@ -62,13 +74,11 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
                     itemBuilder: (context, position) {
                       final article = articles[position];
                       return _Article(article, () {
-                        Navigator.of(context).pushNamed(
-                          Routes.articleDetail,
-                          arguments: ArticleDetailArguments(
-                            title: article.title,
-                            url: article.url,
-                          ),
-                        );
+                        AutoRouter.of(context).push(ArticleDetailRoute(
+                          id: "art1cl3Id",
+                          title: article.title!,
+                          url: article.url!,
+                        ));
                       });
                     },
                   );

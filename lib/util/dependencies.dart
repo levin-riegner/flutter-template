@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
+import 'package:flutter_template/app/navigation/app_router.gr.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/data/article/repository/article_data_repository.dart';
 import 'package:flutter_template/data/article/repository/article_mock_repository.dart';
@@ -40,6 +41,8 @@ abstract class Dependencies {
     // Environment
     getIt.registerSingleton<Environment>(environment);
 
+    // Routing
+    getIt.registerSingleton<AppRouter>(AppRouter(NavigatorHolder.navigatorKey));
     // Configs
     // Secure Storage
     final secureStorage = SecureStorage();
