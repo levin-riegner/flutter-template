@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/strings.dart';
@@ -39,6 +40,7 @@ class _AppState extends State<App> {
     super.didChangeDependencies();
     _checkAppUpdateAvailable();
     _initPushNotifications();
+    _initDynamicLinks();
   }
 
   @override
@@ -53,9 +55,13 @@ class _AppState extends State<App> {
         child: Builder(builder: (context) {
           return MaterialApp(
             debugShowMaterialGrid:
-                context.watch<QaConfig>().debugShowMaterialGrid,
+            context
+                .watch<QaConfig>()
+                .debugShowMaterialGrid,
             showSemanticsDebugger:
-                context.watch<QaConfig>().showSemanticsDebugger,
+            context
+                .watch<QaConfig>()
+                .showSemanticsDebugger,
             debugShowCheckedModeBanner: false,
             localizationsDelegates: [
               Strings.delegate,
@@ -74,7 +80,7 @@ class _AppState extends State<App> {
             ],
             navigatorKey: NavigatorHolder.navigatorKey,
             initialRoute:
-                widget.isSessionAvailable ? Routes.articles : Routes.articles,
+            widget.isSessionAvailable ? Routes.articles : Routes.articles,
           );
         }),
       ),
@@ -86,7 +92,7 @@ class _AppState extends State<App> {
     // Check App Update Available
     final appVersioning = getIt.get<AppVersioning>();
     final appUpdateInfo = await appVersioning.getAppUpdateInfo();
-    Flogger.i("Got app update info: ", object: appUpdateInfo);
+    Flogger.i("Got app update info", object: appUpdateInfo);
     final isOptionalUpdate =
         appUpdateInfo.updateType != AppUpdateType.Mandatory;
     if (appUpdateInfo.isUpdateAvailable) {
@@ -100,9 +106,9 @@ class _AppState extends State<App> {
             title: Strings.of(context)!.dialogAppUpdateTitle,
             description: Strings.of(context)!.dialogAppUpdateDescription,
             positiveButtonText:
-                Strings.of(context)!.dialogAppUpdateConfirmationButton,
+            Strings.of(context)!.dialogAppUpdateConfirmationButton,
             positiveCallback: () {
-              Flogger.i("Launching mandatory update");
+              Flogger.i("Launching update");
               appVersioning.launchUpdate(updateInBackground: isOptionalUpdate);
             },
             negativeButtonText: isOptionalUpdate
@@ -110,9 +116,9 @@ class _AppState extends State<App> {
                 : null,
             negativeCallback: isOptionalUpdate
                 ? () {
-                    Flogger.i("Optional updated dismissed");
-                    Navigator.of(context).pop();
-                  }
+              Flogger.i("Optional updated dismissed");
+              Navigator.of(context).pop();
+            }
                 : null,
           );
         },
@@ -129,6 +135,38 @@ class _AppState extends State<App> {
       // TODO: Register with push service
     }
   }
+
+  // region Dynamic Links
+  void _initDynamicLinks() async {
+    // Register Dynamic Link Callback
+    FirebaseDynamicLinks.instance.onLink(
+      onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+        final Uri? deepLink = dynamicLink?.link;
+        if (deepLink != null) {
+          _onDeepLink(deepLink);
+        }
+      },
+      onError: (OnLinkErrorException e) async {
+        Flogger.w("Error getting dynamic link: ${e.message}", object: e);
+      },
+    );
+
+    // Check if app was opened by a Dynamic Link
+    final PendingDynamicLinkData? data =
+    await FirebaseDynamicLinks.instance.getInitialLink();
+    final Uri? deepLink = data?.link;
+    if (deepLink != null) {
+      _onDeepLink(deepLink);
+    }
+  }
+
+  void _onDeepLink(Uri deepLink) {
+    Flogger.i("Received DeepLink with path: ${deepLink.path}", object: deepLink);
+    // Navigate
+    Navigator.pushNamed(NavigatorHolder.navigatorKey.currentState!.context, deepLink.path);
+  }
+
+  // endregion
 
   @override
   void dispose() {

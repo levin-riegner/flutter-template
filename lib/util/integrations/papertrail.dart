@@ -5,7 +5,7 @@ import 'package:flutter_paper_trail/flutter_paper_trail.dart';
 import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:logging/logging.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 abstract class PaperTrail {
   const PaperTrail._();

@@ -103,12 +103,18 @@ android {
     productFlavors {
         qa {
             dimension "app"
-            manifestPlaceholders = [applicationName: "fluttertemplate QA"]
+            manifestPlaceholders = [
+                    applicationName: "fluttertemplate QA",
+                    dynamicLinksDomain: "fluttertemplateqa.page.link"
+            ]
             applicationIdSuffix ".qa"
         }
         production {
             dimension "app"
-            manifestPlaceholders = [applicationName: "fluttertemplate"]
+            manifestPlaceholders = [
+                    applicationName: "fluttertemplate",
+                    dynamicLinksDomain: "fluttertemplate.page.link"
+            ]
         }
     }
 }

@@ -51,14 +51,9 @@ abstract class Dependencies {
       () => secureStorage.getUserAuthToken(),
     );
     // Database
-    await Database.init(secureStorage);
-    final databaseEncryption =
-        await Database.getEncryptionCipher(secureStorage);
+    await Database.init();
     // Open db boxes
-    final articlesBox = await Hive.openBox<ArticleDbModel>(
-      Database.ArticleBox,
-      encryptionCipher: databaseEncryption,
-    );
+    final articlesBox = await Hive.openBox<ArticleDbModel>(Database.ArticleBox);
     // Save user boxes as class var for logout
     _userDataBoxes.addAll([]);
     // Repositories
