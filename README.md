@@ -90,6 +90,7 @@ Now null-safe!
    4. Add ITC Team ID and Appstore App ID to iOS apps.
 4. Clear the README file.
 > ❗️ Ensure that all template variables have been changed by searching `levinriegner` and `template` on the project.
+
 ## Features
 
 ### Fonts
@@ -116,10 +117,9 @@ The project includes **Firebase Dynamic Links** to handle deeplinks in the app.
 2. Create 2 URL prefixes for your QA and Production environments.
 3. Setup **Allowlist URL pattern** for each prefix (can be found clicking the 3 vertical dots on each prefix's page).
 4. Update your prefixes inside `build.gradle` for Android.
-5. Update your prefixes inside the `Entitlements` files for iOS .
+5. Update your prefixes inside the `Entitlements` files for iOS.
 
-> To use Dynamic Links with your Custom Domain follow the instructions on the [Firebase Documentation](https://firebase.google.com/docs/dynamic-links/custom-domains)
-
+To use Dynamic Links with your Custom Domain follow the instructions on the [Firebase Documentation](https://firebase.google.com/docs/dynamic-links/custom-domains).
 
 ### Localization
 This template uses `l10n` for localization and managing translations.
@@ -134,13 +134,11 @@ On every build, the arb files will auto-generate the corresponding .dart files t
 - Additional translation languages are available with the following convention: `lib/app/l10n/app_*.arb`.
 
 #### Adding new languages
-
 1. Create a new file named `app_languagecode.arb` inside the `lib/app/l10n/` folder.<br>
 *Spanish example: `lib/app/l10n/app_es.arb`*.
     > *More information about language codes can be found [here](https://wiki.mozilla.org/L10n:Locale_Codes)*
 
 2. Add the new locale inside the `Info.plist` on the iOS project as described [here](https://flutter.dev/docs/development/accessibility-and-localization/internationalization#localizing-for-ios-updating-the-ios-app-bundle).
-
 
 #### Integrating 3rd party translation service
 l10n for Flutter comes with support for [Localizely](https://localizely.com/) to hire a team of translators to manage the app's languages.
@@ -490,3 +488,5 @@ Consider requesting a review after the user has opened the app a few times and t
 - Widget Test Example
 - Static Code Analysis
 - Linting
+- Review [Mason](https://pub.dev/packages/mason)
+- Review [Pigeon](https://pub.dev/packages/pigeon)
