@@ -1,22 +1,53 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_template/app/config/environment.dart';
-import 'package:flutter_template/app/navigation/parameters/article_arguments.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
-import 'package:flutter_template/data/article/repository/article_repository.dart';
-import 'package:flutter_template/presentation/articles/articles_bloc.dart';
+import 'package:flutter_template/app/navigation/wrappers/article_wrapper_page.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
-import 'package:flutter_template/presentation/articles/detail/article_detail_bloc.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
-import 'package:flutter_template/presentation/splash/splash_screen.dart';
-import 'package:flutter_template/util/dependencies.dart';
-import 'package:flutter_template/util/integrations/analytics.dart';
-import 'package:logging_flutter/flogger.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_template/util/console/console_environments.dart';
+import 'package:flutter_template/util/console/console_logins.dart';
+import 'package:flutter_template/util/console/console_qa_config.dart';
+import 'package:flutter_template/util/console/console_screen.dart';
 
-class Router {
+@AdaptiveAutoRouter(
+  replaceInRouteName: "Page,Route",
+  routes: <AutoRoute>[
+    AutoRoute(
+      initial: true,
+      path: Routes.articles,
+      name: "ArticlesRouter",
+      page: ArticleWrapperPage,
+      children: [
+        AutoRoute(path: "", page: ArticlesPage),
+        AutoRoute(path: ":id", page: ArticleDetailPage),
+        RedirectRoute(path: "*", redirectTo: ""),
+      ],
+    ),
+    AutoRoute(
+      name: "ConsoleRouter",
+      page: EmptyRouterPage,
+      children: [
+        AutoRoute(
+          path: "",
+          page: ConsoleScreen,
+        ),
+        AutoRoute(
+          page: ConsoleEnvironments,
+        ),
+        AutoRoute(
+          page: ConsoleLogins,
+        ),
+        AutoRoute(
+          page: ConsoleQaConfigs,
+        ),
+      ],
+    ),
+  ],
+)
+class $AppRouter {}
+
+/* class Router {
+
+
   Route generate(RouteSettings settings) {
     Flogger.info("Navigating to ${settings.name}");
 
@@ -69,4 +100,4 @@ class Router {
             fullscreenDialog: presentModally,
           );
   }
-}
+} */

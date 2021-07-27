@@ -1,7 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/util/console/console_environments.dart';
-import 'package:flutter_template/util/console/console_logins.dart';
-import 'package:flutter_template/util/console/console_qa_config.dart';
+import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_design_system/views/ds_list_item_action.dart';
 
@@ -40,8 +39,7 @@ class ConsoleScreen extends StatelessWidget {
     );
   }
 
-  _navigateTo(BuildContext context, Widget widget) {
-    final route = MaterialPageRoute(builder: (_) => widget);
-    Navigator.of(context).push(route);
+  _navigateTo(BuildContext context, PageRouteInfo<dynamic> route) {
+    AutoRouter.of(context).navigate(route);
   }
 }

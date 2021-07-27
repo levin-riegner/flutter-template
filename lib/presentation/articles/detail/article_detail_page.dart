@@ -1,9 +1,18 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/articles/detail/article_detail_bloc.dart';
 import 'package:lr_design_system/views/ds_inapp_webview.dart';
-import 'package:provider/provider.dart';
 
 class ArticleDetailPage extends StatefulWidget {
+  final String id;
+  final String? title;
+  final String? url;
+
+  const ArticleDetailPage({
+    @PathParam("id") required this.id,
+    this.title,
+    this.url,
+  });
+
   @override
   _ArticleDetailPageState createState() => _ArticleDetailPageState();
 }
@@ -11,7 +20,6 @@ class ArticleDetailPage extends StatefulWidget {
 class _ArticleDetailPageState extends State<ArticleDetailPage> {
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<ArticleDetailBloc>(context);
     return WillPopScope(
       onWillPop: () async {
         // Close Keyboard if open
@@ -19,9 +27,9 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         return true; // Continue with pop
       },
       child: InAppWebView(
-        urlNotifier: ValueNotifier(bloc.url!),
+        urlNotifier: ValueNotifier(widget.url!),
         useScaffold: true,
-        title: bloc.title,
+        title: widget.title,
       ),
     );
   }

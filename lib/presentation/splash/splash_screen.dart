@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/resources/assets.dart';
 import 'package:logging_flutter/flogger.dart';
@@ -29,8 +30,9 @@ class _SplashState extends State<SplashScreen> with TickerProviderStateMixin {
     )..forward();
     Timer(Duration(milliseconds: _kLaunchDurationInMs), () {
       Flogger.info("Launch Completed");
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(widget.initialRoute, (_) => false);
+      AutoRouter.of(context).replaceNamed(
+        widget.initialRoute,
+      );
     });
   }
 

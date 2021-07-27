@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/config/environment.dart';
+import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
 import 'package:flutter_template/util/dependencies.dart';
 
 class ConsoleEnvironments extends StatefulWidget {
@@ -37,6 +39,10 @@ class _ConsoleEnvironmentsState extends State<ConsoleEnvironments> {
     getIt.unregister<Environment>(instance: currentEnvironment);
     getIt.registerSingleton<Environment>(environment);
     // Restart App
-    Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
+    AutoRouter.of(context).navigate(ArticlesRouter(
+      children: [
+        ArticlesRoute(),
+      ]
+    ));
   }
 }

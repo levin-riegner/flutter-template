@@ -78,6 +78,8 @@ dependencies:
   in_app_review: 2.0.2
   # Shared Preferences
   shared_preferences: 2.0.6
+  # Auto route
+  auto_route: 2.2.0 
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +89,7 @@ dev_dependencies:
   freezed: 0.14.2
   chopper_generator: 4.0.1
   hive_generator: 1.1.0
+  auto_route_generator: 2.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
