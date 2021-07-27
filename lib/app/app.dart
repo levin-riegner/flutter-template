@@ -99,11 +99,11 @@ class _AppState extends State<App> {
     final isOptionalUpdate =
         appUpdateInfo.updateType != AppUpdateType.Mandatory;
     if (appUpdateInfo.isUpdateAvailable) {
-      if (NavigatorHolder.navigatorKey.currentState?.overlay?.context == null)
+      if (getIt<AppRouter>().navigatorKey.currentState?.context == null)
         return;
       Flogger.i("Showing app update dialog");
       showDialog(
-        context: NavigatorHolder.navigatorKey.currentState!.overlay!.context,
+        context: getIt<AppRouter>().navigatorKey.currentState!.context,
         builder: (context) {
           return DSDialog(
             title: Strings.of(context)!.dialogAppUpdateTitle,
