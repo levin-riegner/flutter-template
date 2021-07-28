@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
+import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_design_system/views/ds_list_item_action.dart';
 
@@ -17,17 +18,17 @@ class ConsoleScreen extends StatelessWidget {
         DSListItemAction(
           text: "Environments",
           type: DSListItemActionType.navigation,
-          onPressed: () => _navigateTo(context, ConsoleEnvironments()),
+          onPressed: () => _navigateTo(context, Routes.environments),
         ),
         DSListItemAction(
           text: "Logins",
           type: DSListItemActionType.navigation,
-          onPressed: () => _navigateTo(context, ConsoleLogins()),
+          onPressed: () => _navigateTo(context, Routes.logins),
         ),
         DSListItemAction(
           text: "QA Configs",
           type: DSListItemActionType.navigation,
-          onPressed: () => _navigateTo(context, ConsoleQaConfigs()),
+          onPressed: () => _navigateTo(context, Routes.qaConfigs),
         ),
       ],
     );
@@ -39,7 +40,7 @@ class ConsoleScreen extends StatelessWidget {
     );
   }
 
-  _navigateTo(BuildContext context, PageRouteInfo<dynamic> route) {
-    AutoRouter.of(context).navigate(route);
+  _navigateTo(BuildContext context, String route) {
+    AutoRouter.of(context).navigateNamed(route);
   }
 }

@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/presentation/util/styles/dimens.dart';
 import 'package:flutter_template/presentation/util/styles/theme.dart';
 import 'package:flutter_template/util/dependencies.dart';
@@ -69,6 +68,12 @@ class _AppState extends State<App> {
             supportedLocales: Strings.supportedLocales,
             theme: AppTheme.lightTheme(),
             routerDelegate: appRouter.delegate(
+              initialRoutes: [
+                if (widget.isSessionAvailable)
+                  ArticlesRouter()
+                else
+                  ArticlesRouter()
+              ],
               navigatorObservers: kReleaseMode
                   ? () => [
                         FirebaseAnalyticsObserver(
@@ -77,13 +82,6 @@ class _AppState extends State<App> {
                   : AutoRouterDelegate.defaultNavigatorObserversBuilder,
             ),
             routeInformationParser: appRouter.defaultRouteParser(),
-            /* onGenerateRoute: widget.router.generate,
-            navigatorObservers: [
-              if (kReleaseMode)
-                FirebaseAnalyticsObserver(
-                  analytics: Analytics.firebaseAnalytics,
-                ),
-            ], */
           );
         }),
       ),
@@ -99,8 +97,7 @@ class _AppState extends State<App> {
     final isOptionalUpdate =
         appUpdateInfo.updateType != AppUpdateType.Mandatory;
     if (appUpdateInfo.isUpdateAvailable) {
-      if (getIt<AppRouter>().navigatorKey.currentState?.context == null)
-        return;
+      if (getIt<AppRouter>().navigatorKey.currentState?.context == null) return;
       Flogger.i("Showing app update dialog");
       showDialog(
         context: getIt<AppRouter>().navigatorKey.currentState!.context,
@@ -164,10 +161,12 @@ class _AppState extends State<App> {
   }
 
   void _onDeepLink(Uri deepLink) {
-    Flogger.i("Received DeepLink with path: ${deepLink.path}",
-        object: deepLink);
-    // Navigate
-    AutoRouter.of(context).navigateNamed(deepLink.path);
+    Flogger.i(
+      "Received DeepLink with path: ${deepLink.path}",
+      object: deepLink,
+    );
+    // Navigate    
+    AutoRouter.of(getIt<AppRouter>().navigatorKey.currentState!.context).navigateNamed(deepLink.path);
   }
 
   // endregion

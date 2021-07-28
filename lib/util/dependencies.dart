@@ -5,7 +5,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
+import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
+import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/repository/article_data_repository.dart';
 import 'package:flutter_template/data/article/repository/article_mock_repository.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
@@ -39,7 +41,7 @@ abstract class Dependencies {
     getIt.registerSingleton<Environment>(environment);
 
     // AutoRouter
-    final appRouter = AppRouter();
+    final appRouter = AppRouter(NavigatorHolder.navigatorKey);
     getIt.registerSingleton<AppRouter>(appRouter);
 
     // Configs
@@ -126,12 +128,8 @@ abstract class Dependencies {
       final shakeDetector = ShakeDetector.autoStart(
         shakeThresholdGravity: 2,
         onPhoneShake: () {
-          appRouter.push(
-            ConsoleRouter(
-              children: [
-                ConsoleScreen(),
-              ]
-            ),
+          appRouter.navigateNamed(
+            Routes.console,
           );
         },
       );

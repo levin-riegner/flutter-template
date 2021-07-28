@@ -12,7 +12,6 @@ import 'package:flutter_template/util/console/console_screen.dart';
   replaceInRouteName: "Page,Route",
   routes: <AutoRoute>[
     AutoRoute(
-      initial: true,
       path: Routes.articles,
       name: "ArticlesRouter",
       page: ArticleWrapperPage,
@@ -23,6 +22,7 @@ import 'package:flutter_template/util/console/console_screen.dart';
       ],
     ),
     AutoRoute(
+      path: Routes.console,
       name: "ConsoleRouter",
       page: EmptyRouterPage,
       children: [
@@ -31,14 +31,18 @@ import 'package:flutter_template/util/console/console_screen.dart';
           page: ConsoleScreen,
         ),
         AutoRoute(
+          path: Routes.environments,
           page: ConsoleEnvironments,
         ),
         AutoRoute(
+          path: Routes.logins,
           page: ConsoleLogins,
         ),
         AutoRoute(
+          path: Routes.qaConfigs,
           page: ConsoleQaConfigs,
         ),
+        RedirectRoute(path: "*", redirectTo: "")
       ],
     ),
   ],

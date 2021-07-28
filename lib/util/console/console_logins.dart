@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
+import 'package:flutter_template/app/navigation/routes.dart';
 
 class ConsoleLogins extends StatefulWidget {
   @override
@@ -35,11 +36,7 @@ class _ConsoleLoginsState extends State<ConsoleLogins> {
   _performLogin(BuildContext context, _Login login) async {
     // TODO: Perform login operation
     // TODO: Navigate to Home
-    AutoRouter.of(context).navigate(
-      ArticlesRouter(children: [
-        ArticlesRoute(),
-      ]),
-    );
+    AutoRouter.of(context).root.navigateNamed(Routes.articles);
   }
 }
 

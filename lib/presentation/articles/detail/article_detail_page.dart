@@ -27,7 +27,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         return true; // Continue with pop
       },
       child: InAppWebView(
-        urlNotifier: ValueNotifier(widget.url!),
+        urlNotifier: ValueNotifier(widget.url ?? "https://levinriegner.com"),
         useScaffold: true,
         title: widget.title,
       ),
