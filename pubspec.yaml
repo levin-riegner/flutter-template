@@ -5,7 +5,9 @@ description: Flutter template Application to checkout for new projects.
 # pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none'
 
-# Build version number is automatically increased in regards to commit count
+# The following version field is ignored during the build process.
+# Version name and version number are automatically generated in regards to
+# Branch name and Commit count respectively.
 version: 1.0.0+1
 
 environment:
@@ -22,19 +24,19 @@ dependencies:
 
   ## Common Dependencies
   # UI
-  cached_network_image: 3.0.0
+  cached_network_image: ^3.0.0
   # Provider
-  provider: 5.0.0
+  provider: ^5.0.0
   # RxDart
-  rxdart: 0.27.1
+  rxdart: ^0.27.1
   # Device Info
-  device_info_plus: 2.0.1
-  package_info_plus: 1.0.3
+  device_info_plus: ^2.0.1
+  package_info_plus: ^1.0.3
   # Dependency Injection
-  get_it: 7.1.3
+  get_it: ^7.1.3
   # Boilerplate generation
-  freezed_annotation: 0.14.2
-  json_serializable: 4.1.3
+  freezed_annotation: ^0.14.2
+  json_serializable: ^4.1.3
   # Logging
   logging_flutter:
     git:
@@ -56,37 +58,38 @@ dependencies:
       url: git@github.com:levin-riegner/flutter-design-system
       ref: release/0.4.0
   # Firebase
-  firebase_core: 1.3.0
-  firebase_analytics: 8.1.2
-  firebase_crashlytics: 2.0.6
-  firebase_dynamic_links: 2.0.6
+  firebase_core: ^1.3.0
+  firebase_analytics: ^8.1.2
+  firebase_crashlytics: ^2.0.6
+  firebase_dynamic_links: ^2.0.6
   # Network
-  chopper: 4.0.1
+  chopper: ^4.0.1
   # Database
-  hive: 2.0.4
-  hive_flutter: 1.0.0
+  hive: ^2.0.4
+  hive_flutter: ^1.0.0
   # Secure storage
-  flutter_secure_storage: 4.2.0
+  flutter_secure_storage: ^4.2.0
   # Translations
   flutter_localizations:
     sdk: flutter
   # Detect shake to open console
-  shake: 1.0.1
+  shake: ^1.0.1
   # Permissions
-  permission_handler: 8.1.0
+  permission_handler: ^8.1.1
   # In-app review
-  in_app_review: 2.0.2
+  in_app_review: ^2.0.2
   # Shared Preferences
-  shared_preferences: 2.0.6
+  shared_preferences: ^2.0.6
 
 dev_dependencies:
+  test:
   flutter_test:
     sdk: flutter
   # Other build dependencies
-  build_runner: 2.0.4
-  freezed: 0.14.2
-  chopper_generator: 4.0.1
-  hive_generator: 1.1.0
+  build_runner: ^2.0.4
+  freezed: ^0.14.2
+  chopper_generator: ^4.0.1
+  hive_generator: ^1.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
