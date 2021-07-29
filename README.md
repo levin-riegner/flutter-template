@@ -13,7 +13,7 @@ Now null-safe!
     - [The App Router](#the-app-router)
     - [The Wrappers](#the-wrappers)
     - [The Routes](#the-routes)
-    - [Access AutoRouter.of and navigation](#access-autorouter.of-and-navigation)
+    - [Access AutoRouter.of and navigate](#access-autorouter.of-and-navigate)
     - [Deeplinks](#deeplinks)
   - [Localization](#localization)
     - [Translating Texts](#translating-texts)
