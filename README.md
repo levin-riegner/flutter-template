@@ -10,6 +10,10 @@ Now null-safe!
   - [Fonts](#fonts)
   - [Images](#images)
   - [Navigation](#navigation)
+    - [The App Router](#the-app-router)
+    - [The Wrappers](#the-wrappers)
+    - [The Routes](#the-routes)
+    - [Access AutoRouter.of and navigate](#access-autorouterof-and-navigate)
     - [Deeplinks](#deeplinks)
   - [Localization](#localization)
     - [Translating Texts](#translating-texts)
@@ -106,8 +110,49 @@ Now null-safe!
 3. To access the image accross the app use `Assets.myImage`.
 
 ### Navigation
-1. Add your application routes inside the [Routes](lib/app/navigation/routes.dart) class following URL conventions.
-1. Add a new route case inside `lib/app/navigation/router.dart` to map a route to a given Widget and Transition.
+The project uses the [auto_route package](https://github.com/Milad-Akarie/auto_route_library) for routing and deeplinking. There are three important components to take into consideration:
+- [App Router](lib/app/navigation/router/app_router.dart)
+- [Wrappers](lib/app/navigation/wrappers)
+- [Routes](lib/app/navigation/routes.dart)
+
+#### The App Router
+Works as the navigation controller within the app. Since `auto_route` supports Nested Navigation we can separate Routers based on logic. Eg: `ArticlesRouter` and `ConsoleRouter` can be instantiated separately and work independently from each other. To create a new AutoRouter:  
+1. Head to [app_router.dart](lib/app/navigation/router/app_router.dart) and add a new `AutoRoute` object to `@AdaptiveAutoRouter`'s `children` parameter.
+2. Specify a [path](#the-routes) a name and a page (can be an `EmptyRouterPage` or a [Wrapper](#the-wrappers)).
+3. Add child AutoRoutes inside the `children` parameter to specify the controllers for each screen, follow the same previous steps but instead of a `Wrapper` add the corresponding Widget to the `page` param.
+4. (OPTIONAL) To avoid invalid or unhandled routes add a `RedirectRoute` or a prefixed Wildcard path at the end of the route list.
+5. Run the code generation tool. [Click here to know how to do it](#models).
+
+The package will automatically generate a new file with all the routes and their corresponding paths.
+
+IMPORTANT NOTES:
+- Each Router is context-scoped, this means it's not possible to navigate directly from one to another. In order to do it, we must reference the root Router first. For more information check (Access AutoRoute.of and navigate)[#access-autorouteof-and-navigate]
+
+#### The Wrappers
+Wrappers are similar to middlewares, they are often used for scoping state management solutions such as Providers and BLoCs. To wrap a route:
+1. Create the desired Wrapper class at [lib/app/navigation/wrappers](lib/app/navigation/wrappers) and implement your solution within the `build` method.
+2. Head to [app_router.dart](lib/app/navigation/router/app_router.dart) and replace the corresponding AutoRoute's page with your previously created Wrapper.
+3. Run the code generation tool. [Click here to know how to do it](#models).
+
+IMPORTANT NOTES:
+- Always return an `AutoRoute` object in the Wrapper's build method. This will allow to render sub-routes.
+
+#### The Routes
+Routes are the string paths that reference each screen. To add a new one:
+1. Head to [routes.dart](lib/app/navigation/routes.dart) to map a route to a given Router.
+
+IMPORTANT NOTES:
+- Path params are defined with a slash `/` while in the AutoRouter object are defined with a colon `:`. Keep this in mind to avoid path mismatches.
+
+#### Access AutoRouter.of and navigate
+Similarly to the legacy Navigator, AutoRoute has an .of method to access the closest instance of the given context.
+
+For navigating you should rely on `navigateNamed` method. `Navigate` methods are specially good because they automatically handle the stack depending on if the route already existed or not. For navigating back you can use `pop`.
+
+IMPORTANT NOTES:
+- When navigating between different Routers you must access the root or the navigation won't work. To access the root Router simply add `.root` to `AutoRouter.of(context)`.
+
+For more information [check out the package documentation](https://autoroute.vercel.app)
 
 #### Deeplinks
 The project includes **Firebase Dynamic Links** to handle deeplinks in the app.
@@ -253,11 +298,12 @@ Logs recorded before the crash are sent as part of the crash report.
 This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-generate the necessary boilerplate for model classes. The plugins triggered by the build are:
 - [Freezed](https://pub.dev/packages/freezed): Generates toString, equals and hashCode. Creates immutable classes.
 - [Json Serializable](https://pub.dev/packages/json_serializable): Generates toJson/fromJson methods.
+- [Auto Route](https://pub.dev/packages/auto_route): Generates routing classes.
 
 > To execute the build runner use the following command: <br>
 `flutter pub run build_runner build --delete-conflicting-outputs`.
 
-> 💡 **TIP**: You can hide the auto-generated files in Android Studio by going to Preferences > Editor > File Types. <br> Now look for "Ignore files and folders" field at the bottom and append `*.g.dart;*.freezed.dart;*.chopper.dart`;
+> 💡 **TIP**: You can hide the auto-generated files in Android Studio by going to Preferences > Editor > File Types. <br> Now look for "Ignore files and folders" field at the bottom and append `*.g.dart;*.freezed.dart;*.chopper.dart;*.gr.dart`;
 
 > 💡 **TIP**: To automatically auto-generate part classes when the code changes use the command `flutter packages pub run build_runner watch` on a console tab and leave it running there.
 
