@@ -114,7 +114,7 @@ The project uses the [auto_route package](https://github.com/Milad-Akarie/auto_r
 #### The App Router
 Works as the navigation controller within the app. Since `auto_route` supports Nested Navigation we can separate Routers based on logic. Eg: `ArticlesRouter` and `ConsoleRouter` can be instantiated separately and work independently from each other. To create a new AutoRouter:  
 1. Head to [app_router.dart](lib/app/navigation/router/app_router.dart) and add a new `AutoRoute` object to `@AdaptiveAutoRouter`'s `children` parameter.
-2. Specify a [path](#the-routes) a name and a page (can be an `EmptyRouterPage` or a [Wrapper](#the-wrappers).
+2. Specify a [path](#the-routes) a name and a page (can be an `EmptyRouterPage` or a [Wrapper](#the-wrappers)).
 3. Add child AutoRoutes inside the `children` parameter to specify the controllers for each screen, follow the same previous steps but instead of a `Wrapper` add the corresponding Widget to the `page` param.
 4. (OPTIONAL) To avoid invalid or unhandled routes add a `RedirectRoute` or a prefixed Wildcard path at the end of the route list.
 5. Run the code generation tool. [Click here to know how to do it](#models).
@@ -147,6 +147,8 @@ For navigating you should rely on `navigateNamed` method. `Navigate` methods are
 
 IMPORTANT NOTES:
 - When navigating between different Routers you must access the root or the navigation won't work. To access the root Router simply add `.root` to `AutoRouter.of(context)`.
+
+For more information [check out the package documentation](https://autoroute.vercel.app)
 
 #### Deeplinks
 The project includes **Firebase Dynamic Links** to handle deeplinks in the app.
@@ -292,7 +294,7 @@ Logs recorded before the crash are sent as part of the crash report.
 This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-generate the necessary boilerplate for model classes. The plugins triggered by the build are:
 - [Freezed](https://pub.dev/packages/freezed): Generates toString, equals and hashCode. Creates immutable classes.
 - [Json Serializable](https://pub.dev/packages/json_serializable): Generates toJson/fromJson methods.
-- [Auto Route][https://pub.dev/packages/auto_route]: Generates routing classes.
+- [Auto Route](https://pub.dev/packages/auto_route): Generates routing classes.
 
 > To execute the build runner use the following command: <br>
 `flutter pub run build_runner build --delete-conflicting-outputs`.
