@@ -10,6 +10,10 @@ Now null-safe!
   - [Fonts](#fonts)
   - [Images](#images)
   - [Navigation](#navigation)
+    - [The App Router](#the-app-router)
+    - [The Wrappers](#the-wrappers)
+    - [The Routes](#the-routes)
+    - [Access AutoRouter.of and navigation](#access-autorouter.of-and-navigation)
     - [Deeplinks](#deeplinks)
   - [Localization](#localization)
     - [Translating Texts](#translating-texts)
@@ -140,7 +144,7 @@ Routes are the string paths that reference each screen. To add a new one:
 IMPORTANT NOTES:
 - Path params are defined with a slash `/` while in the AutoRouter object are defined with a colon `:`. Keep this in mind to avoid path mismatches.
 
-#### Access AutoRoute.of and navigate
+#### Access AutoRouter.of and navigate
 Similarly to the legacy Navigator, AutoRoute has an .of method to access the closest instance of the given context.
 
 For navigating you should rely on `navigateNamed` method. `Navigate` methods are specially good because they automatically handle the stack depending on if the route already existed or not. For navigating back you can use `pop`.
