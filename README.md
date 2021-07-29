@@ -13,7 +13,7 @@ Now null-safe!
     - [The App Router](#the-app-router)
     - [The Wrappers](#the-wrappers)
     - [The Routes](#the-routes)
-    - [Access AutoRouter.of and navigate](#access-autorouter.of-and-navigate)
+    - [Access AutoRouter.of and navigate](#access-autorouterof-and-navigate)
     - [Deeplinks](#deeplinks)
   - [Localization](#localization)
     - [Translating Texts](#translating-texts)
@@ -126,7 +126,7 @@ Works as the navigation controller within the app. Since `auto_route` supports N
 The package will automatically generate a new file with all the routes and their corresponding paths.
 
 IMPORTANT NOTES:
-- Each Router is context-scoped, this means it's not possible to navigate directly from one to another. In order to do it, we must reference the root Router first. For more information check (Access AutoRoute.of and navigate)[#access-autoroute.of-and-navigate]
+- Each Router is context-scoped, this means it's not possible to navigate directly from one to another. In order to do it, we must reference the root Router first. For more information check (Access AutoRoute.of and navigate)[#access-autorouteof-and-navigate]
 
 #### The Wrappers
 Wrappers are similar to middlewares, they are often used for scoping state management solutions such as Providers and BLoCs. To wrap a route:
