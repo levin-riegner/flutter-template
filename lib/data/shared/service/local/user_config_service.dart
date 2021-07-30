@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// Use this class to store simple key-value preferences
 /// that will only be persisted locally during the user session
-class UserConfig {
+class UserConfigService {
   static const String _kDataCollectionEnabledKey = "dataCollectionEnabled";
 
   Future<bool> isDataCollectionEnabled() async {

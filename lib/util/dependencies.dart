@@ -16,7 +16,7 @@ import 'package:flutter_template/data/article/service/local/model/article_db_mod
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
 import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
-import 'package:flutter_template/data/shared/service/local/user_config.dart';
+import 'package:flutter_template/data/shared/service/local/user_config_service.dart';
 import 'package:flutter_template/data/shared/service/remote/network.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:flutter_template/util/integrations/papertrail.dart';
@@ -118,8 +118,8 @@ abstract class Dependencies {
     // Version tracking
     await appVersioning.tracker.track();
     // User Configs
-    final userConfig = UserConfig();
-    getIt.registerSingleton<UserConfig>(userConfig);
+    final userConfig = UserConfigService();
+    getIt.registerSingleton<UserConfigService>(userConfig);
     // Analytics tracking
     final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
     setDataCollectionEnabled(dataCollectionEnabled || environment.isInternal);
@@ -178,7 +178,7 @@ abstract class Dependencies {
       // Analytics
       Analytics.logout(),
       // User Configs
-      getIt.get<UserConfig>().clear(),
+      getIt.get<UserConfigService>().clear(),
     ]);
   }
 
