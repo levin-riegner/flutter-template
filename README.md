@@ -118,7 +118,7 @@ The project uses the [auto_route package](https://github.com/Milad-Akarie/auto_r
 #### The App Router
 Works as the navigation controller within the app. Since `auto_route` supports Nested Navigation we can separate Routers based on logic. Eg: `ArticlesRouter` and `ConsoleRouter` can be instantiated separately and work independently from each other. To create a new AutoRouter:  
 1. Head to [app_router.dart](lib/app/navigation/router/app_router.dart) and add a new `AutoRoute` object to `@AdaptiveAutoRouter`'s `children` parameter.
-2. Specify a [path](#the-routes) a name and a page (can be an `EmptyRouterPage` or a [Wrapper](#the-wrappers)).
+2. Specify a [path](#the-routes), a name and a page (can be an `EmptyRouterPage` or a [Wrapper](#the-wrappers)).
 3. Add child AutoRoutes inside the `children` parameter to specify the controllers for each screen, follow the same previous steps but instead of a `Wrapper` add the corresponding Widget to the `page` param.
 4. (OPTIONAL) To avoid invalid or unhandled routes add a `RedirectRoute` or a prefixed Wildcard path at the end of the route list.
 5. Run the code generation tool. [Click here to know how to do it](#models).
@@ -126,7 +126,7 @@ Works as the navigation controller within the app. Since `auto_route` supports N
 The package will automatically generate a new file with all the routes and their corresponding paths.
 
 IMPORTANT NOTES:
-- Each Router is context-scoped, this means it's not possible to navigate directly from one to another. In order to do it, we must reference the root Router first. For more information check (Access AutoRoute.of and navigate)[#access-autorouteof-and-navigate]
+- Each Router is context-scoped, this means it's not possible to navigate directly from one to another. In order to do it, we must reference the root Router first. For more information check [Access AutoRoute.of and navigate](#access-autorouteof-and-navigate)
 
 #### The Wrappers
 Wrappers are similar to middlewares, they are often used for scoping state management solutions such as Providers and BLoCs. To wrap a route:
