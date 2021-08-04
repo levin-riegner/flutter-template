@@ -69,10 +69,7 @@ class _AppState extends State<App> {
             theme: AppTheme.lightTheme(),
             routerDelegate: appRouter.delegate(
               initialRoutes: [
-                if (widget.isSessionAvailable)
-                  ArticlesRouter()
-                else
-                  ArticlesRouter()
+                BottomNavigationRoute(),
               ],
               navigatorObservers: kReleaseMode
                   ? () => [

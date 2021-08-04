@@ -3,11 +3,15 @@ abstract class Routes {
 
   // TODO: Add all new routes here
   // Articles
-  static const articles = '/articles';
+  static const articles = 'articles';
   static String articleDetails(String id) => "/$id"; 
 
+  // Settings
+  static const String settings = "settings";
+  static const String settingsDetails = "detail";
+
   // Console
-  static const console = "/console";
+  static const console = "console";
   static const environments = "console-environments";
   static const logins = "console-logins";
   static const qaConfigs = "console-qa-configs";
