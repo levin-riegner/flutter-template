@@ -25,7 +25,7 @@ class Environment {
     // TODO: Replace with your constants
     return Environment._(
       "com.levinriegner.fluttertemplate.qa",
-      "FlutterTemplate",
+      "FlutterTemplate QA",
       "https://newsapi.org/v2",
       WebViewUrls("https://staging.fluttertemplate.org"),
       "logsN.papertrailapp.com",

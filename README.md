@@ -92,7 +92,7 @@ Now null-safe!
    3. Add SHA256 signing to Android apps
       > Use `./gradlew signingReport` to view the keys information.
    4. Add ITC Team ID and Appstore App ID to iOS apps.
-4. Clear the README file.
+4. Clear the README file, keeping only the instructions below the `# FlutterTemplate` section.
 > ❗️ Ensure that all template variables have been changed by searching `levinriegner` and `template` on the project.
 
 ## Features
@@ -118,7 +118,7 @@ The project uses the [auto_route package](https://github.com/Milad-Akarie/auto_r
 #### The App Router
 Works as the navigation controller within the app. Since `auto_route` supports Nested Navigation we can separate Routers based on logic. Eg: `ArticlesRouter` and `ConsoleRouter` can be instantiated separately and work independently from each other. To create a new AutoRouter:  
 1. Head to [app_router.dart](lib/app/navigation/router/app_router.dart) and add a new `AutoRoute` object to `@AdaptiveAutoRouter`'s `children` parameter.
-2. Specify a [path](#the-routes) a name and a page (can be an `EmptyRouterPage` or a [Wrapper](#the-wrappers)).
+2. Specify a [path](#the-routes), a name and a page (can be an `EmptyRouterPage` or a [Wrapper](#the-wrappers)).
 3. Add child AutoRoutes inside the `children` parameter to specify the controllers for each screen, follow the same previous steps but instead of a `Wrapper` add the corresponding Widget to the `page` param.
 4. (OPTIONAL) To avoid invalid or unhandled routes add a `RedirectRoute` or a prefixed Wildcard path at the end of the route list.
 5. Run the code generation tool. [Click here to know how to do it](#models).
@@ -126,7 +126,7 @@ Works as the navigation controller within the app. Since `auto_route` supports N
 The package will automatically generate a new file with all the routes and their corresponding paths.
 
 IMPORTANT NOTES:
-- Each Router is context-scoped, this means it's not possible to navigate directly from one to another. In order to do it, we must reference the root Router first. For more information check (Access AutoRoute.of and navigate)[#access-autorouteof-and-navigate]
+- Each Router is context-scoped, this means it's not possible to navigate directly from one to another. In order to do it, we must reference the root Router first. For more information check [Access AutoRoute.of and navigate](#access-autorouteof-and-navigate)
 
 #### The Wrappers
 Wrappers are similar to middlewares, they are often used for scoping state management solutions such as Providers and BLoCs. To wrap a route:
@@ -524,7 +524,7 @@ Consider requesting a review after the user has opened the app a few times and t
 #### GDPR, CCPA and Appstore Requirements
 1. Non-essential data cannot be tracked or persisted without the user's explicit opt-in.
    - A method `setDataCollectionEnabled` is available on the [Dependencies](lib/util/dependencies.dart) file to toggle collection through the different services.
-   - A class [UserConfig](lib/data/shared/service/local/user_config.dart) is available with a boolean option to store the user's opt-in. __Defaults to false__.
+   - A class [UserConfig](lib/data/shared/service/local/user_config_service.dart) is available with a boolean option to store the user's opt-in. __Defaults to false__.
    > After the user explicitly opts-in or out of data collection (usually required during signup and login). Persist the choice using `UserConfig` and activate it using `Dependencies.setDataCollectionEnabled`.
 2. A contact channel must be available for the user to request a complete deletion of all personal data. This also includes data stored in external services such as Google Analytics.
 3. A **Delete Account** option must be provided by the app to remove the user from the platform (both deleting backend data and logging the user out of the app).
@@ -536,3 +536,117 @@ Consider requesting a review after the user has opened the app a few times and t
 - Linting
 - Review [Mason](https://pub.dev/packages/mason)
 - Review [Pigeon](https://pub.dev/packages/pigeon)
+
+# FlutterTemplate
+
+FlutterTemplate Flutter Application.
+
+## Getting Started
+
+1. Get the project dependencies with the following commands:
+    ```
+    flutter pub upgrade
+    flutter pub get
+    ```
+
+2. Generate the missing `*.*.dart` part files from [built_value](https://pub.dev/packages/built_value#examples):
+    ```
+    flutter pub run build_runner build --delete-conflicting-outputs
+    ```
+
+## Apple Signing
+- Retrieve the Apple Signing Certificates *inside the ios folder*:
+    ```
+    fastlane match development --readonly --env qa
+    ```
+
+## Android Signing
+1. Create a new folder named `private` inside the `android` directory.
+2. Add a new file named `keystore.properties` inside the new "private" folder containing the following lines:
+    ```
+    keystoreFile=../private/keystore.jks
+    keystorePassword=XXXXXXXX
+    keyAlias=key_name_goes_here
+    keyPassword=XXXXXXXX
+    ```
+3. Add the `keystore.jks` file to the folder.
+
+## Running from command-line
+
+- Trigger a new build for the chosen platform:
+    ```
+    flutter build target_platform -t lib/main_qa.dart --flavor QA --debug --verbose
+    ```
+    > Replace `target_platform` with `apk` (Android) or `ios` (iOS)
+
+- To run the previous build on a device:
+    ```
+    flutter run -t lib/main_qa.dart --flavor QA --debug
+    ```
+
+## Troubleshooting
+Try the following steps if you are having trouble running the project:
+
+### General
+- Ensure your local flutter version matches the version range specified in the `pubspec.yaml`.<br/>
+    You can check your current version by running `flutter --version`.<br/>
+    If you need to update your Flutter SDK use `flutter upgrade`.
+- Run Flutter Clean `flutter clean`.
+
+### iOS
+- Remove DerivedData folder `rm -rf ~/Library/Developer/Xcode/DerivedData/`.
+- Remove Pods folder `rm -rf ios/Pods`.
+- Update Pods repository `pod repo update`.
+
+## Release Process
+To create a new release use the GitHub Actions `Internal` and `Release` Flows.
+
+### Internal Release (QA)
+1. Checkout from `master` to a new branch named `internal/a.b.c`.
+2. Push to origin.
+3. ☕️ Wait for the workflow to complete...
+4. **iOS** (Optional): Visit the Appstore Connect portal and submit the new build to **External Testers** (if any).
+- **Android**: Build is uploaded to **Firebase App Distribution**.
+- **iOS**: Build is uploaded to **Testflight**.
+
+
+### AppStore/PlayStore Release (Production)
+1. Checkout from `master` to a new branch named `release/a.b.c`.
+2. Push to origin.
+3. ☕️ Wait for the workflow to complete...
+4. **iOS** (Optional): Visit the Appstore Connect portal and submit the new build to **External Testers** (if any).
+5. **iOS**: Create a new release on the Appstore Connect portal, select the new build and submit for Review.
+6. **Android**: Navigate to the Production Track on the Google Play Console and submit the new build for Review.
+> Production builds will also be avaiable to internal testers for verification through the same mechanism as the QA builds.
+
+### General
+All flows can also be dispatched manually on the GitHub website:
+- Navigate to the "Actions" tab on the repository.
+- Select the "Workflow" you want to trigger.
+- Press the "Run workflow" button.
+- Select the branch you want to run it from.
+- Press "Run workflow".
+
+An additional **Test Workflow** will also be triggered on every *push* to execute all **Unit Tests** available on the project.
+
+### Manual Release
+
+#### iOS
+1. Switch to a new branch named `internal/a.b.c` or `release/a.b.c` depending on the release type.
+2. Execute the following commands to build the Flutter app for iOS:
+   1. Get the dependencies: `flutter pub get && flutter pub run build_runner build --delete-conflicting-outputs`.
+   2. Build the Flutter app:
+      - **Internal Build**: `flutter build ios -t lib/main_qa.dart --flavor QA --release --no-codesign`
+      - **Production Build**: `flutter build ios -t lib/main_prod.dart --flavor Production --release --no-codesign`
+3. Open the ios project with XCode.
+4. Ensure the right Target (**QA** or **Production**) is selected and "Any iOS Device" is set for the Build.
+5. Run Product > Archive from the top menu.
+6. When the iOS Archive is completed, open the Archives screen from Window > Organizer if it doesn't open automatically.
+7. Select the newly created archive and tap the `Distribute App` button.
+8. Keep tapping `Next` and finally `Upload`.
+9. After the upload is completed, navigate to the [Appstore Website](https://appstoreconnect.apple.com/apps/) and wait for the build to be processed.
+10. Once the processing is completed, submit the build to External testers or add any required Internal testers.
+
+### IMPORTANT
+Do not push new commits directly to the release and internal branches, otherwise we might end up with conflicting version codes later on.<br>
+If you need to upload a new build for the same release, always **push the changes to master first** and then rebase them on top of the release/internal branch.
