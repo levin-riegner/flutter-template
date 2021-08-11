@@ -2,6 +2,9 @@ abstract class Routes {
   const Routes._();
 
   // TODO: Add all new routes here
+  // Home
+  static const home = "/";
+
   // Articles
   static const articles = 'articles';
   static String articleDetails(String id) => "/$id"; 

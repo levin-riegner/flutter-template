@@ -15,7 +15,7 @@ import 'package:flutter_template/util/console/console_screen.dart';
   replaceInRouteName: "Page,Route",
   routes: <AutoRoute>[
     AutoRoute(
-      path: "/",
+      path: Routes.home,
       page: BottomNavigationPage,
       children: [
         AutoRoute(
