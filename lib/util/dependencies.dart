@@ -3,10 +3,11 @@ import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
+import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
+import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/repository/article_data_repository.dart';
 import 'package:flutter_template/data/article/repository/article_mock_repository.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
@@ -17,7 +18,6 @@ import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
 import 'package:flutter_template/data/shared/service/local/user_config_service.dart';
 import 'package:flutter_template/data/shared/service/remote/network.dart';
-import 'package:flutter_template/util/console/console_screen.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
@@ -39,6 +39,10 @@ abstract class Dependencies {
   }) async {
     // Environment
     getIt.registerSingleton<Environment>(environment);
+
+    // AutoRouter
+    final appRouter = AppRouter(NavigatorHolder.navigatorKey);
+    getIt.registerSingleton<AppRouter>(appRouter);
 
     // Configs
     // Secure Storage
@@ -124,8 +128,9 @@ abstract class Dependencies {
       final shakeDetector = ShakeDetector.autoStart(
         shakeThresholdGravity: 2,
         onPhoneShake: () {
-          NavigatorHolder.navigatorKey.currentState
-              ?.push(MaterialPageRoute(builder: (_) => ConsoleScreen()));
+          appRouter.navigateNamed(
+            Routes.console,
+          );
         },
       );
       // Save logs for console

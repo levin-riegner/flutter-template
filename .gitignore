@@ -108,3 +108,4 @@ graphql/
 **/*.g.dart
 **/*.freezed.dart
 **/*.chopper.dart
+**/*.gr.dart

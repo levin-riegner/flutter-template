@@ -1,11 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_template/app/navigation/navigator_holder.dart';
-import 'package:flutter_template/app/navigation/router.dart' as app;
 import 'package:flutter_template/presentation/util/styles/dimens.dart';
 import 'package:flutter_template/presentation/util/styles/theme.dart';
 import 'package:flutter_template/util/dependencies.dart';
@@ -19,11 +18,10 @@ import 'package:lr_design_system/views/ds_dialog.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
-import 'navigation/routes.dart';
+import 'navigation/router/app_router.gr.dart';
 
 class App extends StatefulWidget {
   final bool isSessionAvailable;
-  final app.Router router = app.Router();
 
   App({
     Key? key,
@@ -35,6 +33,8 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  final appRouter = getIt<AppRouter>();
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -53,15 +53,11 @@ class _AppState extends State<App> {
           ChangeNotifierProvider(create: (_) => QaConfig()),
         ],
         child: Builder(builder: (context) {
-          return MaterialApp(
+          return MaterialApp.router(
             debugShowMaterialGrid:
-            context
-                .watch<QaConfig>()
-                .debugShowMaterialGrid,
+                context.watch<QaConfig>().debugShowMaterialGrid,
             showSemanticsDebugger:
-            context
-                .watch<QaConfig>()
-                .showSemanticsDebugger,
+                context.watch<QaConfig>().showSemanticsDebugger,
             debugShowCheckedModeBanner: false,
             localizationsDelegates: [
               Strings.delegate,
@@ -71,16 +67,18 @@ class _AppState extends State<App> {
             ],
             supportedLocales: Strings.supportedLocales,
             theme: AppTheme.lightTheme(),
-            onGenerateRoute: widget.router.generate,
-            navigatorObservers: [
-              if (kReleaseMode)
-                FirebaseAnalyticsObserver(
-                  analytics: Analytics.firebaseAnalytics,
-                ),
-            ],
-            navigatorKey: NavigatorHolder.navigatorKey,
-            initialRoute:
-            widget.isSessionAvailable ? Routes.articles : Routes.articles,
+            routerDelegate: appRouter.delegate(
+              initialRoutes: [
+                BottomNavigationRoute(),
+              ],
+              navigatorObservers: kReleaseMode
+                  ? () => [
+                        FirebaseAnalyticsObserver(
+                            analytics: Analytics.firebaseAnalytics),
+                      ]
+                  : AutoRouterDelegate.defaultNavigatorObserversBuilder,
+            ),
+            routeInformationParser: appRouter.defaultRouteParser(),
           );
         }),
       ),
@@ -96,17 +94,16 @@ class _AppState extends State<App> {
     final isOptionalUpdate =
         appUpdateInfo.updateType != AppUpdateType.Mandatory;
     if (appUpdateInfo.isUpdateAvailable) {
-      if (NavigatorHolder.navigatorKey.currentState?.overlay?.context == null)
-        return;
+      if (getIt<AppRouter>().navigatorKey.currentState?.context == null) return;
       Flogger.i("Showing app update dialog");
       showDialog(
-        context: NavigatorHolder.navigatorKey.currentState!.overlay!.context,
+        context: getIt<AppRouter>().navigatorKey.currentState!.context,
         builder: (context) {
           return DSDialog(
             title: Strings.of(context)!.dialogAppUpdateTitle,
             description: Strings.of(context)!.dialogAppUpdateDescription,
             positiveButtonText:
-            Strings.of(context)!.dialogAppUpdateConfirmationButton,
+                Strings.of(context)!.dialogAppUpdateConfirmationButton,
             positiveCallback: () {
               Flogger.i("Launching update");
               appVersioning.launchUpdate(updateInBackground: isOptionalUpdate);
@@ -116,9 +113,9 @@ class _AppState extends State<App> {
                 : null,
             negativeCallback: isOptionalUpdate
                 ? () {
-              Flogger.i("Optional updated dismissed");
-              Navigator.of(context).pop();
-            }
+                    Flogger.i("Optional updated dismissed");
+                    AutoRouter.of(context).pop();
+                  }
                 : null,
           );
         },
@@ -153,7 +150,7 @@ class _AppState extends State<App> {
 
     // Check if app was opened by a Dynamic Link
     final PendingDynamicLinkData? data =
-    await FirebaseDynamicLinks.instance.getInitialLink();
+        await FirebaseDynamicLinks.instance.getInitialLink();
     final Uri? deepLink = data?.link;
     if (deepLink != null) {
       _onDeepLink(deepLink);
@@ -161,9 +158,12 @@ class _AppState extends State<App> {
   }
 
   void _onDeepLink(Uri deepLink) {
-    Flogger.i("Received DeepLink with path: ${deepLink.path}", object: deepLink);
-    // Navigate
-    Navigator.pushNamed(NavigatorHolder.navigatorKey.currentState!.context, deepLink.path);
+    Flogger.i(
+      "Received DeepLink with path: ${deepLink.path}",
+      object: deepLink,
+    );
+    // Navigate    
+    AutoRouter.of(getIt<AppRouter>().navigatorKey.currentState!.context).navigateNamed(deepLink.path);
   }
 
   // endregion

@@ -1,7 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/util/console/console_environments.dart';
-import 'package:flutter_template/util/console/console_logins.dart';
-import 'package:flutter_template/util/console/console_qa_config.dart';
+import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
+import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ConsoleScreen extends StatelessWidget {
@@ -23,7 +23,7 @@ class ConsoleScreen extends StatelessWidget {
             Icons.chevron_right,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onTap: () => _navigateTo(context, ConsoleEnvironments()),
+          onTap: () => _navigateTo(context, Routes.environments),
         ),
         ListTile(
           title: Text("Logins"),
@@ -31,7 +31,7 @@ class ConsoleScreen extends StatelessWidget {
             Icons.chevron_right,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onTap: () => _navigateTo(context, ConsoleLogins()),
+          onTap: () => _navigateTo(context, Routes.logins),
         ),
         ListTile(
           title: Text("QA Configs"),
@@ -39,7 +39,7 @@ class ConsoleScreen extends StatelessWidget {
             Icons.chevron_right,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onTap: () => _navigateTo(context, ConsoleQaConfigs()),
+          onTap: () => _navigateTo(context, Routes.qaConfigs),
         ),
       ],
     );
@@ -51,8 +51,7 @@ class ConsoleScreen extends StatelessWidget {
     );
   }
 
-  _navigateTo(BuildContext context, Widget widget) {
-    final route = MaterialPageRoute(builder: (_) => widget);
-    Navigator.of(context).push(route);
+  _navigateTo(BuildContext context, String route) {
+    AutoRouter.of(context).navigateNamed(route);
   }
 }
