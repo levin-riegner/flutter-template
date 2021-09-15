@@ -13,6 +13,17 @@ abstract class Database {
     Hive.registerAdapter<ArticleDbModel>(ArticleDbModelAdapter());
   }
 
+  static Future<Box<T>> openBox<T>(String name) async {
+    try {
+      return await Hive.openBox<T>(name);
+    } catch (e) {
+      if (await Hive.boxExists(name)) {
+        await Hive.deleteBoxFromDisk(name);
+      }
+      return Hive.openBox(name);
+    }
+  }
+
 // No longer using encryption
 // See: https://github.com/hivedb/hive/issues/263
 // Ensures or sets the database encryption key

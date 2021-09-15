@@ -1,8 +1,7 @@
 <!-- omit in toc -->
 # Flutter Template
 
-Flutter template Application to checkout for new projects.
-Now null-safe!
+Flutter template Application to checkout for new projects. Now null-safe!
 <!-- omit in toc -->
 # Table of Contents
 - [Installation](#installation)
@@ -78,7 +77,11 @@ Now null-safe!
   - [Privacy](#privacy)
     - [Apple iOS 14](#apple-ios-14)
     - [GDPR, CCPA and Appstore Requirements](#gdpr-ccpa-and-appstore-requirements)
-  - [TODO:](#todo)
+  - [Tests](#tests)
+    - [Unit tests](#unit-tests)
+    - [Integration tests](#integration-tests)
+  - [Static Code Analysis](#static-code-analysis)
+  - [Next Template Additions](#next-template-additions)
 
 ## Installation
 1. Click the `Use this template` button to create a new repository.
@@ -93,6 +96,7 @@ Now null-safe!
       > Use `./gradlew signingReport` to view the keys information.
    4. Add ITC Team ID and Appstore App ID to iOS apps.
 4. Clear the README file, keeping only the instructions below the `# FlutterTemplate` section.
+5. Remove the `LICENSE.md` file or update accordingly.
 > ❗️ Ensure that all template variables have been changed by searching `levinriegner` and `template` on the project.
 
 ## Features
@@ -189,8 +193,9 @@ On every build, the arb files will auto-generate the corresponding .dart files t
 l10n for Flutter comes with support for [Localizely](https://localizely.com/) to hire a team of translators to manage the app's languages.
 
 #### Using Localizable Strings
-1. Import the auto-generated dart file with the following line: `import 'package:flutter_gen/gen_l10n/strings.dart';`.
-1. Reference localizable strings using `Strings.of(context).yourString`.
+1. Import the auto-generated dart file using the [StringsX](lib/app/l10n/l10n.dart) extension with the following line: `import 'package:flutter_template/app/l10n/l10n.dart';`.
+1. Reference localizable strings using `context.l10n.yourString`.
+> Modifications to the source `arb` file will be automatically generated on every build. Optionally you can also use the following command to generate them: ```flutter gen-l10n```.
 
 ### Accessibility
 #### Images
@@ -529,11 +534,25 @@ Consider requesting a review after the user has opened the app a few times and t
 2. A contact channel must be available for the user to request a complete deletion of all personal data. This also includes data stored in external services such as Google Analytics.
 3. A **Delete Account** option must be provided by the app to remove the user from the platform (both deleting backend data and logging the user out of the app).
 
-### TODO:
-- Unit Test Example
-- Widget Test Example
-- Static Code Analysis
-- Linting
+### Tests
+#### Unit tests
+Unit tests are located inside the `test` folder.
+They can be run using the command `flutter test` and are also executed on every commit by the CI using the Test Workflow.
+
+The project includes the [mocktail](https://pub.dev/packages/mocktail) library to create the required Mocks.
+
+#### Integration tests
+Integration and e2e tests are located inside the `integration_test` folder.
+They require an actual device (or emulator) to be executed. You can run them by using the command `flutter drive --driver=test_driver/integration_test.dart --target=integration_test/your_integration_test_file.dart`;
+
+### Static Code Analysis
+This template includes `flutter_lints` to encourage good coding practices.
+
+The rules are drawn from the [analysis_options](analysis_options.yaml) file which defaults to Dart's language recommendations.
+
+You can also use `flutter analyze` to run analyze the whole project.
+
+### Next Template Additions
 - Review [Mason](https://pub.dev/packages/mason)
 - Review [Pigeon](https://pub.dev/packages/pigeon)
 

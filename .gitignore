@@ -99,6 +99,7 @@ android/private/*
 # Build Files
 **/ios/*.app.dSYM.zip
 **/ios/*.ipa
+**/ios/build/
 
 # GraphQL helpers
 .graphqlconfig
