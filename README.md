@@ -1,8 +1,7 @@
 <!-- omit in toc -->
 # Flutter Template
 
-Flutter template Application to checkout for new projects.
-Now null-safe!
+Flutter template Application to checkout for new projects. Now null-safe!
 <!-- omit in toc -->
 # Table of Contents
 - [Installation](#installation)
@@ -78,7 +77,11 @@ Now null-safe!
   - [Privacy](#privacy)
     - [Apple iOS 14](#apple-ios-14)
     - [GDPR, CCPA and Appstore Requirements](#gdpr-ccpa-and-appstore-requirements)
-  - [TODO:](#todo)
+  - [Tests](#tests)
+    - [Unit tests](#unit-tests)
+    - [Integration tests](#integration-tests)
+  - [Static Code Analysis](#static-code-analysis)
+  - [Next Template Additions](#next-template-additions)
 
 ## Installation
 1. Click the `Use this template` button to create a new repository.
