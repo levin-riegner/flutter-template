@@ -3,8 +3,8 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/presentation/util/styles/dimens.dart';
 import 'package:flutter_template/presentation/util/styles/theme.dart';
 import 'package:flutter_template/util/dependencies.dart';
@@ -100,16 +100,15 @@ class _AppState extends State<App> {
         context: getIt<AppRouter>().navigatorKey.currentState!.context,
         builder: (context) {
           return DSDialog(
-            title: Strings.of(context)!.dialogAppUpdateTitle,
-            description: Strings.of(context)!.dialogAppUpdateDescription,
-            positiveButtonText:
-                Strings.of(context)!.dialogAppUpdateConfirmationButton,
+            title: context.l10n.dialogAppUpdateTitle,
+            description: context.l10n.dialogAppUpdateDescription,
+            positiveButtonText: context.l10n.dialogAppUpdateConfirmationButton,
             positiveCallback: () {
               Flogger.i("Launching update");
               appVersioning.launchUpdate(updateInBackground: isOptionalUpdate);
             },
             negativeButtonText: isOptionalUpdate
-                ? Strings.of(context)!.dialogAppUpdateDismissButton
+                ? context.l10n.dialogAppUpdateDismissButton
                 : null,
             negativeCallback: isOptionalUpdate
                 ? () {
@@ -162,8 +161,9 @@ class _AppState extends State<App> {
       "Received DeepLink with path: ${deepLink.path}",
       object: deepLink,
     );
-    // Navigate    
-    AutoRouter.of(getIt<AppRouter>().navigatorKey.currentState!.context).navigateNamed(deepLink.path);
+    // Navigate
+    AutoRouter.of(getIt<AppRouter>().navigatorKey.currentState!.context)
+        .navigateNamed(deepLink.path);
   }
 
   // endregion

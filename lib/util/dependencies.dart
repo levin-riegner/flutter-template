@@ -57,7 +57,7 @@ abstract class Dependencies {
     // Database
     await Database.init();
     // Open db boxes
-    final articlesBox = await Hive.openBox<ArticleDbModel>(Database.ArticleBox);
+    final articlesBox = await Database.openBox<ArticleDbModel>(Database.ArticleBox);
     // Save user boxes as class var for logout
     _userDataBoxes.addAll([]);
     // Repositories
