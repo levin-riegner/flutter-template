@@ -25,5 +25,5 @@ class _Status {
   });
 
   factory _Status.fromJson(Map<String, dynamic> json) =>
-      _$_StatusFromJson(json);
+      _$StatusFromJson(json);
 }
