@@ -315,9 +315,11 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 #### Domain Models
 These classes model the app's data and are used to communicate between the UI and the Data layers.
 
-They are platform-agnostic and contain business logic.
+They are platform-agnostic and may contain business logic. They extend `Equatable` to implement equals/hashCode and toString() automatically.
 
 [Article model example](lib/data/article/model/article.dart)
+
+> 💡 Consider adding the [Dart Data Class Plugin](https://plugins.jetbrains.com/plugin/12429-dart-data-class) on Android Studio to help adding model boilerplate such as constructors or copyWith.
 
 #### DTO Models
 - Theses clases model the data for specific services (ex: a database or API).

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -39,6 +40,8 @@ abstract class Dependencies {
   }) async {
     // Environment
     getIt.registerSingleton<Environment>(environment);
+    // Equatable (generate toString methods)
+    EquatableConfig.stringify = true;
 
     // AutoRouter
     final appRouter = AppRouter(NavigatorHolder.navigatorKey);

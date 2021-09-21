@@ -1,17 +1,23 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'article.freezed.dart';
+class Article extends Equatable {
+  final String? id;
+  final String? title;
+  final String? description;
+  final String? imageUrl;
+  final String? url;
+  final DateTime? publishedAt;
 
-@freezed
-class Article with _$Article {
-  const Article._();
+  const Article({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.imageUrl,
+    required this.url,
+    required this.publishedAt,
+  });
 
-  const factory Article({
-    String? id,
-    String? title,
-    String? description,
-    String? imageUrl,
-    String? url,
-    DateTime? publishedAt,
-  }) = _Article;
+  @override
+  List<Object?> get props =>
+      [id, title, description, imageUrl, url, publishedAt];
 }

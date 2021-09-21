@@ -84,6 +84,8 @@ dependencies:
   auto_route: ^2.3.2
   # Collection
   collection: ^1.15.0
+  # Equatable
+  equatable: ^2.0.3
 
 dev_dependencies:
   test:
