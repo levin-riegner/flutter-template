@@ -110,3 +110,6 @@ graphql/
 **/*.freezed.dart
 **/*.chopper.dart
 **/*.gr.dart
+
+# Code coverage
+coverage/
