@@ -18,6 +18,8 @@ class UserConfigService {
   }
 
   Future<void> clear() async {
-    await _sharedPreferences.clear();
+    await Future.wait([
+      _sharedPreferences.remove(_kDataCollectionEnabledKey),
+    ]);
   }
 }

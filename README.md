@@ -81,7 +81,9 @@ Flutter template Application to checkout for new projects. Now null-safe!
     - [Unit tests](#unit-tests)
     - [Integration tests](#integration-tests)
   - [Static Code Analysis](#static-code-analysis)
+  - [Code Coverage](#code-coverage)
   - [Next Template Additions](#next-template-additions)
+
 
 ## Installation
 1. Click the `Use this template` button to create a new repository.
@@ -569,6 +571,8 @@ Code coverage results are not pushed to origin as specified in [.gitignore](.git
 ### Next Template Additions
 - Review [Mason](https://pub.dev/packages/mason)
 - Review [Pigeon](https://pub.dev/packages/pigeon)
+
+--------------
 
 # FlutterTemplate
 
