@@ -81,7 +81,9 @@ Flutter template Application to checkout for new projects. Now null-safe!
     - [Unit tests](#unit-tests)
     - [Integration tests](#integration-tests)
   - [Static Code Analysis](#static-code-analysis)
+  - [Code Coverage](#code-coverage)
   - [Next Template Additions](#next-template-additions)
+
 
 ## Installation
 1. Click the `Use this template` button to create a new repository.
@@ -315,9 +317,11 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 #### Domain Models
 These classes model the app's data and are used to communicate between the UI and the Data layers.
 
-They are platform-agnostic and contain business logic.
+They are platform-agnostic and may contain business logic. They extend `Equatable` to implement equals/hashCode and toString() automatically.
 
 [Article model example](lib/data/article/model/article.dart)
+
+> 💡 Consider adding the [Dart Data Class Plugin](https://plugins.jetbrains.com/plugin/12429-dart-data-class) on Android Studio to help adding model boilerplate such as constructors or copyWith.
 
 #### DTO Models
 - Theses clases model the data for specific services (ex: a database or API).
@@ -552,9 +556,23 @@ The rules are drawn from the [analysis_options](analysis_options.yaml) file whic
 
 You can also use `flutter analyze` to run analyze the whole project.
 
+### Code coverage
+
+[lcov](https://github.com/linux-test-project/lcov) can be used to view the test coverage on the project. It can be installed using [homebrew](https://formulae.brew.sh/formula/lcov).
+
+
+1. Execute all tests in the project appending the coverage parameter: `flutter test --coverage`. This will generate a new folder `coverage/` inside the project with the `lcov.info` file report.
+2. Cleanup the report from auto-generated files with `lcov --remove coverage/lcov.info 'lib/*/*.freezed.dart' 'lib/*/*.g' 'lib/*/*.chopper.dart' 'lib/*/*.gr.dart' -o coverage/lcov.info`.
+3. Generate an html page from the report with `genhtml coverage/lcov.info -o coverage/html`.
+4. Open the newly created page `coverage/html/index.html` to view the report.
+
+Code coverage results are not pushed to origin as specified in [.gitignore](.gitignore).
+
 ### Next Template Additions
 - Review [Mason](https://pub.dev/packages/mason)
 - Review [Pigeon](https://pub.dev/packages/pigeon)
+
+--------------
 
 # FlutterTemplate
 
