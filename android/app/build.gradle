@@ -57,7 +57,7 @@ static def generateVersionName() {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -71,7 +71,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.levinriegner.fluttertemplate"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode generateVersionCode()
         versionName generateVersionName()
     }
@@ -104,7 +104,7 @@ android {
         qa {
             dimension "app"
             manifestPlaceholders = [
-                    applicationName: "fluttertemplate QA",
+                    applicationLabel: "fluttertemplate QA",
                     dynamicLinksDomain: "fluttertemplateqa.page.link"
             ]
             applicationIdSuffix ".qa"
@@ -112,7 +112,7 @@ android {
         production {
             dimension "app"
             manifestPlaceholders = [
-                    applicationName: "fluttertemplate",
+                    applicationLabel: "fluttertemplate",
                     dynamicLinksDomain: "fluttertemplate.page.link"
             ]
         }

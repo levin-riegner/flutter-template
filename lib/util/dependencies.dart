@@ -7,7 +7,6 @@ import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
-import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/repository/article_data_repository.dart';
 import 'package:flutter_template/data/article/repository/article_mock_repository.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
@@ -25,7 +24,6 @@ import 'package:hive/hive.dart';
 import 'package:logging_flutter/flogger.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_app_versioning/app_versioning.dart';
-import 'package:shake/shake.dart';
 
 final getIt = GetIt.instance;
 
@@ -65,7 +63,7 @@ abstract class Dependencies {
       useMocks
           ? ArticleMockRepository()
           : ArticleDataRepository(
-              ArticleApiService.create(httpClient),
+              ArticleApiService(httpClient),
               ArticleDbService(articlesBox),
             ),
     );
@@ -125,14 +123,14 @@ abstract class Dependencies {
     setDataCollectionEnabled(dataCollectionEnabled || environment.isInternal);
     // Shake detector for Console
     if (environment.isInternal) {
-      final shakeDetector = ShakeDetector.autoStart(
+      final shakeDetector = ShakeDetector(
         shakeThresholdGravity: 2,
         onPhoneShake: () {
-          appRouter.navigateNamed(
-            Routes.console,
+          appRouter.navigate(
+            const ConsoleRouter(),
           );
         },
-      );
+      )..startListening();
       // Save logs for console
       Flogger.registerListener((record) =>
           LogConsole.add(OutputEvent(record.level, [record.message])));
@@ -147,10 +145,6 @@ abstract class Dependencies {
     Flogger.i("Disposing dependencies");
     // Close Database
     await Hive.close();
-    // Stop listening to Shake
-    if (getIt.get<Environment>().isInternal) {
-      getIt.get<ShakeDetector>().stopListening();
-    }
   }
 
   /// Registers user to dependencies

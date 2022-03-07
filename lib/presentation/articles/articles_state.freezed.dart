@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'articles_state.dart';
 
@@ -20,7 +21,7 @@ class _$ArticlesStateTearOff {
     return const SubscriptionExpired();
   }
 
-  Content content({required DataState<List<Article>, ArticlesError> articles}) {
+  Content content({required DataState<List<Article>, DataError> articles}) {
     return Content(
       articles: articles,
     );
@@ -35,14 +36,20 @@ mixin _$ArticlesState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() subscriptionExpired,
-    required TResult Function(DataState<List<Article>, ArticlesError> articles)
+    required TResult Function(DataState<List<Article>, DataError> articles)
         content,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? subscriptionExpired,
+    TResult Function(DataState<List<Article>, DataError> articles)? content,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? subscriptionExpired,
-    TResult Function(DataState<List<Article>, ArticlesError> articles)? content,
+    TResult Function(DataState<List<Article>, DataError> articles)? content,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -50,6 +57,12 @@ mixin _$ArticlesState {
   TResult map<TResult extends Object?>({
     required TResult Function(SubscriptionExpired value) subscriptionExpired,
     required TResult Function(Content value) content,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SubscriptionExpired value)? subscriptionExpired,
+    TResult Function(Content value)? content,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -109,7 +122,8 @@ class _$SubscriptionExpired implements SubscriptionExpired {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is SubscriptionExpired);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is SubscriptionExpired);
   }
 
   @override
@@ -119,7 +133,7 @@ class _$SubscriptionExpired implements SubscriptionExpired {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() subscriptionExpired,
-    required TResult Function(DataState<List<Article>, ArticlesError> articles)
+    required TResult Function(DataState<List<Article>, DataError> articles)
         content,
   }) {
     return subscriptionExpired();
@@ -127,9 +141,18 @@ class _$SubscriptionExpired implements SubscriptionExpired {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? subscriptionExpired,
+    TResult Function(DataState<List<Article>, DataError> articles)? content,
+  }) {
+    return subscriptionExpired?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? subscriptionExpired,
-    TResult Function(DataState<List<Article>, ArticlesError> articles)? content,
+    TResult Function(DataState<List<Article>, DataError> articles)? content,
     required TResult orElse(),
   }) {
     if (subscriptionExpired != null) {
@@ -145,6 +168,15 @@ class _$SubscriptionExpired implements SubscriptionExpired {
     required TResult Function(Content value) content,
   }) {
     return subscriptionExpired(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SubscriptionExpired value)? subscriptionExpired,
+    TResult Function(Content value)? content,
+  }) {
+    return subscriptionExpired?.call(this);
   }
 
   @override
@@ -169,9 +201,9 @@ abstract class SubscriptionExpired implements ArticlesState {
 abstract class $ContentCopyWith<$Res> {
   factory $ContentCopyWith(Content value, $Res Function(Content) then) =
       _$ContentCopyWithImpl<$Res>;
-  $Res call({DataState<List<Article>, ArticlesError> articles});
+  $Res call({DataState<List<Article>, DataError> articles});
 
-  $DataStateCopyWith<List<Article>, ArticlesError, $Res> get articles;
+  $DataStateCopyWith<List<Article>, DataError, $Res> get articles;
 }
 
 /// @nodoc
@@ -191,14 +223,14 @@ class _$ContentCopyWithImpl<$Res> extends _$ArticlesStateCopyWithImpl<$Res>
       articles: articles == freezed
           ? _value.articles
           : articles // ignore: cast_nullable_to_non_nullable
-              as DataState<List<Article>, ArticlesError>,
+              as DataState<List<Article>, DataError>,
     ));
   }
 
   @override
-  $DataStateCopyWith<List<Article>, ArticlesError, $Res> get articles {
-    return $DataStateCopyWith<List<Article>, ArticlesError, $Res>(
-        _value.articles, (value) {
+  $DataStateCopyWith<List<Article>, DataError, $Res> get articles {
+    return $DataStateCopyWith<List<Article>, DataError, $Res>(_value.articles,
+        (value) {
       return _then(_value.copyWith(articles: value));
     });
   }
@@ -210,7 +242,7 @@ class _$Content implements Content {
   const _$Content({required this.articles});
 
   @override
-  final DataState<List<Article>, ArticlesError> articles;
+  final DataState<List<Article>, DataError> articles;
 
   @override
   String toString() {
@@ -220,15 +252,14 @@ class _$Content implements Content {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Content &&
-            (identical(other.articles, articles) ||
-                const DeepCollectionEquality()
-                    .equals(other.articles, articles)));
+        (other.runtimeType == runtimeType &&
+            other is Content &&
+            const DeepCollectionEquality().equals(other.articles, articles));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(articles);
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(articles));
 
   @JsonKey(ignore: true)
   @override
@@ -239,7 +270,7 @@ class _$Content implements Content {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() subscriptionExpired,
-    required TResult Function(DataState<List<Article>, ArticlesError> articles)
+    required TResult Function(DataState<List<Article>, DataError> articles)
         content,
   }) {
     return content(articles);
@@ -247,9 +278,18 @@ class _$Content implements Content {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? subscriptionExpired,
+    TResult Function(DataState<List<Article>, DataError> articles)? content,
+  }) {
+    return content?.call(articles);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? subscriptionExpired,
-    TResult Function(DataState<List<Article>, ArticlesError> articles)? content,
+    TResult Function(DataState<List<Article>, DataError> articles)? content,
     required TResult orElse(),
   }) {
     if (content != null) {
@@ -269,6 +309,15 @@ class _$Content implements Content {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SubscriptionExpired value)? subscriptionExpired,
+    TResult Function(Content value)? content,
+  }) {
+    return content?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SubscriptionExpired value)? subscriptionExpired,
     TResult Function(Content value)? content,
@@ -283,10 +332,9 @@ class _$Content implements Content {
 
 abstract class Content implements ArticlesState {
   const factory Content(
-      {required DataState<List<Article>, ArticlesError> articles}) = _$Content;
+      {required DataState<List<Article>, DataError> articles}) = _$Content;
 
-  DataState<List<Article>, ArticlesError> get articles =>
-      throw _privateConstructorUsedError;
+  DataState<List<Article>, DataError> get articles;
   @JsonKey(ignore: true)
   $ContentCopyWith<Content> get copyWith => throw _privateConstructorUsedError;
 }

@@ -19,80 +19,77 @@ dependencies:
     sdk: flutter
 
   ## Add your project dependencies here 👇
-  cupertino_icons: ^1.0.2
-  url_launcher: ^6.0.6
+  cupertino_icons: ^1.0.4
+  url_launcher: ^6.0.20
 
   ## Common Dependencies
   # UI
-  cached_network_image: ^3.0.0
+  cached_network_image: ^3.2.0
   # Provider
-  provider: ^5.0.0
+  provider: ^6.0.2
   # RxDart
-  rxdart: ^0.27.1
+  rxdart: ^0.27.3
   # Device Info
-  device_info_plus: ^2.0.1
-  package_info_plus: ^1.0.3
+  device_info_plus: ^3.2.2
+  package_info_plus: ^1.4.0
   # Dependency Injection
-  get_it: ^7.1.3
+  get_it: ^7.2.0
   # Boilerplate generation
-  freezed_annotation: ^0.14.2
-  json_serializable: ^4.1.3
+  freezed_annotation: ^1.1.0
+  json_serializable: ^6.1.4
   # Logging
   logging_flutter:
     git:
       url: https://github.com/levin-riegner/logging_flutter.git
-      ref: release/1.0.0
+      ref: release/1.0.1
   # PaperTrail
   flutter_paper_trail:
     git:
       url: git://github.com/levin-riegner/flutter_paper_trail
-      ref: release/1.0.0
+      ref: release/1.0.1
   # App version tracking
   lr_app_versioning:
     git:
       url: git@github.com:levin-riegner/lr-app-versioning
-      ref: release/1.0.0
+      ref: release/1.0.1
   # Theming
   lr_design_system:
     git:
       url: git@github.com:levin-riegner/flutter-design-system
-      ref: release/0.4.0
+      ref: release/0.5.0
   # Firebase
-  firebase_core: ^1.3.0
-  firebase_analytics: ^8.1.2
-  firebase_crashlytics: ^2.0.6
-  firebase_dynamic_links: ^2.0.6
+  firebase_core: ^1.13.1
+  firebase_analytics: ^9.1.2
+  firebase_crashlytics: ^2.5.3
+  firebase_dynamic_links: ^4.0.8
   # Network
-  chopper: ^4.0.1
+  dio: ^4.0.4
   # Database
-  hive: ^2.0.4
-  hive_flutter: ^1.0.0
+  hive: ^2.0.6
+  hive_flutter: ^1.1.0
   # Secure storage
-  flutter_secure_storage: ^4.2.0
+  flutter_secure_storage: ^5.0.2
   # Translations
   flutter_localizations:
     sdk: flutter
-  # Detect shake to open console
-  shake: ^1.0.1
   # Permissions
-  permission_handler: ^8.1.1
+  permission_handler: ^9.2.0
   # In-app review
-  in_app_review: ^2.0.2
+  in_app_review: ^2.0.4
   # Shared Preferences
-  shared_preferences: ^2.0.6
+  shared_preferences: ^2.0.13
   # Auto route
-  auto_route: ^2.2.0
+  auto_route: ^3.2.4
 
 dev_dependencies:
   test:
   flutter_test:
     sdk: flutter
   # Other build dependencies
-  build_runner: ^2.0.4
-  freezed: ^0.14.2
-  chopper_generator: ^4.0.1
-  hive_generator: ^1.1.0
-  auto_route_generator: ^2.1.0
+  build_runner: ^2.1.7
+  freezed: ^1.1.0
+  hive_generator: ^1.1.2
+  auto_route_generator: ^3.2.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

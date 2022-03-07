@@ -13,7 +13,9 @@ class SettingsPage extends StatelessWidget {
       child: Center(
         child: TextButton(
           child: Text("Navigate to detail"),
-          onPressed: () => AutoRouter.of(context).navigateNamed(Routes.settingsDetails),
+          onPressed: () => AutoRouter.of(context).pushNamed(
+            Routes.settingsDetails,
+          ),
         ),
       ),
     );

@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter_template/data/article/model/article_data_error.dart'
     as data;
 import 'package:flutter_template/data/article/repository/article_repository.dart';
+import 'package:flutter_template/data/shared/model/error/data_error.dart';
 import 'package:flutter_template/presentation/articles/articles_alert.dart';
-import 'package:flutter_template/presentation/articles/articles_error.dart';
 import 'package:flutter_template/presentation/articles/articles_state.dart';
 import 'package:flutter_template/presentation/util/base_bloc.dart';
 import 'package:flutter_template/presentation/util/data_state.dart';
@@ -47,21 +47,28 @@ class ArticlesBloc extends BaseBloc {
           forceRefresh: forceRefresh);
       _state.add(ArticlesState.content(articles: Success(data: articles)));
     } on data.ArticleDataError catch (e) {
-      _state.add(e.when(
-        subscriptionExpired: () {
-          Flogger.info("Subscription Expired");
-          return ArticlesState.subscriptionExpired();
-        },
-        notFound: () {
-          Flogger.info("Content not found for query $kQuery");
-          _alerts.add(QueryNotFound(kQuery));
-          return ArticlesState.content(articles: Success(data: []));
-        },
-        unknown: (error) {
-          Flogger.w("Unknown error getting articles", object: error);
-          return ArticlesState.content(articles: Failure(reason: Unknown()));
-        },
-      ));
+      _state.add(
+        e.when(
+          subscriptionExpired: () {
+            Flogger.info("Subscription Expired");
+            return ArticlesState.subscriptionExpired();
+          },
+        ),
+      );
+    } on DataError catch (e) {
+      _state.add(
+        e.when(
+          notFound: () {
+            Flogger.info("Content not found for query $kQuery");
+            _alerts.add(QueryNotFound(kQuery));
+            return ArticlesState.content(articles: Success(data: []));
+          },
+          unknown: (error) {
+            Flogger.w("Unknown error getting articles", object: error);
+            return ArticlesState.content(articles: Failure(reason: Unknown()));
+          },
+        ),
+      );
     } catch (e) {
       Flogger.w("Unexpected error getting articles", object: e);
       _state.add(ArticlesState.content(articles: Failure(reason: Unknown())));

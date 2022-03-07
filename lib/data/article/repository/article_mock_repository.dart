@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';

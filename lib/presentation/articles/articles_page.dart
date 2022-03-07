@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:flutter_template/app/config/constants.dart';
-import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/presentation/articles/articles_bloc.dart';
@@ -65,7 +64,7 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
                       return _Article(
                         article,
                         () {
-                          AutoRouter.of(context).navigateNamed(
+                          AutoRouter.of(context).pushNamed(
                             Routes.articleDetails(article.id ?? ""),
                           );
                         },

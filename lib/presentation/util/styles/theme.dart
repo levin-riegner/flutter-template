@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 abstract class AppTheme {
   static ThemeData lightTheme() {
@@ -8,9 +9,9 @@ abstract class AppTheme {
       disabledColor: Color(0xFFEFECEA),
       colorScheme: ColorScheme(
         primary: Color(0xFFFEBE10),
-        primaryVariant: Color(0xFFFEBE10),
+        primaryContainer: Color(0xFFFEBE10),
         secondary: Color(0xFFFAA21B),
-        secondaryVariant: Color(0xFFFCE8EB),
+        secondaryContainer: Color(0xFFFCE8EB),
         surface: Color(0xFFFFFFFF),
         background: Color(0xFFFFFFFF),
         error: Color(0xFFFF5F55),
@@ -166,14 +167,13 @@ abstract class AppTheme {
       primaryColor: base.colorScheme.primary,
       primaryColorLight: base.colorScheme.primary,
       primaryColorDark: base.colorScheme.primary,
-      accentColor: base.colorScheme.primary,
       backgroundColor: base.colorScheme.background,
       scaffoldBackgroundColor: base.colorScheme.background,
       bottomAppBarColor: Color(0xFF000000),
       shadowColor: Color(0xFF000000),
       appBarTheme: base.appBarTheme.copyWith(
         elevation: 0,
-        brightness: Brightness.light,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         iconTheme: IconThemeData.fallback().copyWith(
           color: Color(0xFF000000),
         ),
