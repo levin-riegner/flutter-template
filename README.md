@@ -387,8 +387,11 @@ Customise the initial Splash Screen.
 1. Open `LaunchScreen.storyboard` and set the `View` `Background` to match the app color.
 
 #### Android
-1. Open the `launch_background.xml` and set the color to match the app color.
-1. Replace the `launch_logo.png` inside the different `drawable-*hdpi` folders with the app launch logo.
+This project uses the new [Android 12+ Splash Screen](https://developer.android.com/guide/topics/ui/splash-screen).
+1. Create a new Vector Drawable (**xml**) with the app launch logo.
+1. Open the `styles.xml` file.
+1. Set the `windowSplashScreenBackground` color to match the app color.
+2. Set the `windowSplashScreenAnimatedIcon` drawable to the previously created xml logo.
 
 #### Flutter
 Optionally, you can add a [SplashScreen](lib/presentation/splash/splash_screen.dart) as the initial route to display the logo, load initial data or show an animation.

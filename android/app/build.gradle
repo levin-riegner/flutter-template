@@ -116,6 +116,10 @@ android {
             ]
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 flutter {
@@ -123,7 +127,9 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation("androidx.core:core-ktx:1.7.0")
+    // APIs for SplashScreen, including compatibility helpers on devices prior Android 12
+    implementation("androidx.core:core-splashscreen:1.0.0-beta02")
 }
 
 apply plugin: 'com.google.firebase.crashlytics'
