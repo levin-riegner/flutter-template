@@ -603,9 +603,9 @@ FlutterTemplate Flutter Application.
     ```
 
 ## Apple Signing
-- Retrieve the Apple Signing Certificates *inside the ios folder*:
+- Retrieve the Apple Signing Certificates *inside the ios folder* using the shared team login credentials:
     ```
-    fastlane match development --readonly --env qa
+    SPACESHIP_SKIP_2FA_UPGRADE=1 fastlane match development --readonly --env qa
     ```
 
 ## Android Signing
@@ -614,23 +614,16 @@ FlutterTemplate Flutter Application.
     ```
     keystoreFile=../private/keystore.jks
     keystorePassword=XXXXXXXX
-    keyAlias=key_name_goes_here
-    keyPassword=XXXXXXXX
+    keyAlias=YYYYYYY
+    keyPassword=ZZZZZZ
     ```
 3. Add the `keystore.jks` file to the folder.
 
 ## Running from command-line
-
-- Trigger a new build for the chosen platform:
-    ```
-    flutter build target_platform -t lib/main_qa.dart --flavor QA --debug --verbose
-    ```
-    > Replace `target_platform` with `apk` (Android) or `ios` (iOS)
-
-- To run the previous build on a device:
-    ```
-    flutter run -t lib/main_qa.dart --flavor QA --debug
-    ```
+```
+flutter run target_platform -t lib/main_qa.dart --flavor QA --debug
+```
+> Replace `target_platform` with `apk` (Android) or `ios` (iOS)
 
 ## Troubleshooting
 Try the following steps if you are having trouble running the project:
