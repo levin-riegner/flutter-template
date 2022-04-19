@@ -521,6 +521,14 @@ This template supports in-app reviews through the [in_app_review](https://pub.de
 Consider requesting a review after the user has opened the app a few times and triggered a specific set(s) of action(s).
 > Do not trigger the in-app review from a clickable element as it may or may not work depending on the current requests quote and unknown dark-box logic from Apple and Google.
 
+### Permissions
+To request iOS/Android sytem permissions at runtime, use the [permission_handler](https://pub.dev/packages/permission_handler) plugin.
+
+For iOS also perform the following steps.
+1. Enable the permission on the [Podfile](ios/Podfile) by changing its value from `0` to `1`.
+2. Add the appropiate permission usage description to the [Info.plist](ios/Runner/Info.plist).
+3. Enable the permission on the project Capabilities if necessary.
+
 ### Privacy
 #### Apple iOS 14
 - When creating or updating your app on the Appstore, fill the Privacy Questionnaire with all the data the app is persisting.

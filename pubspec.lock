@@ -484,11 +484,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "release/1.0.1"
-      resolved-ref: c8de7c443a3a62f70e098ea22a59d5854519c35b
-      url: "git://github.com/levin-riegner/flutter_paper_trail"
+      ref: master
+      resolved-ref: e81899cb967b32fa39254b5455d6428db02bfdb7
+      url: "https://github.com/metaflowltd/flutter_paper_trail.git"
     source: git
-    version: "0.0.6"
+    version: "0.0.7"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -650,19 +650,19 @@ packages:
     source: hosted
     version: "0.6.3"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.0"
+    version: "4.4.0"
   json_serializable:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: json_serializable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "6.1.6"
   lints:
     dependency: transitive
     description:
@@ -866,14 +866,14 @@ packages:
       name: permission_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.1.6"
+    version: "9.0.2"
   permission_handler_platform_interface:
     dependency: transitive
     description:
       name: permission_handler_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.6.1"
+    version: "3.7.0"
   petitparser:
     dependency: transitive
     description:
@@ -1039,7 +1039,7 @@ packages:
       name: source_helper
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "1.3.2"
   source_map_stack_trace:
     dependency: transitive
     description:
@@ -1300,6 +1300,6 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0"
+  dart: ">=2.14.0 <3.0.0"
+  flutter: ">=2.5.0"
   flutter_sdk: ">=2.0.0 <3.0.0"

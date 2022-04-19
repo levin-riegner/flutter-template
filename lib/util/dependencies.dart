@@ -148,8 +148,10 @@ abstract class Dependencies {
         },
       );
       // Save logs for console
-      Flogger.registerListener((record) =>
-          LogConsole.add(OutputEvent(record.level, [record.message])));
+      Flogger.registerListener((record) => LogConsole.add(
+            OutputEvent(record.level, [record.message]),
+            bufferSize: 1000, // Remember the last X logs
+          ));
       getIt.registerSingleton<ShakeDetector>(shakeDetector);
     }
 
