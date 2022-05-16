@@ -136,7 +136,8 @@ abstract class Dependencies {
     getIt.registerSingleton<UserConfigService>(userConfig);
     // Analytics tracking
     final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
-    setDataCollectionEnabled(dataCollectionEnabled || environment.isInternal);
+    // TODO: Set the default data collection policy for your app
+    setDataCollectionEnabled(dataCollectionEnabled ?? true || environment.isInternal);
     // Shake detector for Console
     if (environment.isInternal) {
       final shakeDetector = ShakeDetector.autoStart(

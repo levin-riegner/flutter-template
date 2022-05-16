@@ -11,48 +11,41 @@ if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
 
-// Signing
-def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file("private/keystore.properties")
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-} else {
-    keystoreProperties.setProperty('keystoreFile', System.getenv('KEYSTORE_FILE'))
-    keystoreProperties.setProperty('keystorePassword', System.getenv('KEYSTORE_PASSWORD'))
-    keystoreProperties.setProperty('keyAlias', System.getenv('KEY_ALIAS'))
-    keystoreProperties.setProperty('keyPassword', System.getenv('KEY_PASSWORD'))
-}
 // Version Code
 // Based on: https://gist.github.com/paramsen/4a92c9230d799caeb3b90897da27a80c
 static def generateVersionCode() {
     def versionCodeOffset = 0 // Update to keep compatibility with existing apps
     def result = "git rev-list HEAD --count".execute().text.trim() // Unix
-    if(result.empty) result = "PowerShell -Command git rev-list HEAD --count".execute().text.trim() // Windows
-    if(result.empty) throw new RuntimeException("Could not generate versionCode")
+    if (result.empty) result = "PowerShell -Command git rev-list HEAD --count".execute().text.trim()
+    // Windows
+    if (result.empty) throw new RuntimeException("Could not generate versionCode")
     return result.toInteger() + versionCodeOffset
 }
 
 // Version Name
 static def generateVersionName() {
     def result = "git rev-parse --abbrev-ref HEAD".execute().text.trim() // Unix
-    if(result.empty) result = "PowerShell -Command git rev-parse HEAD --abbrev-ref".execute().text.trim() // Windows
-    if(result.empty) throw new RuntimeException("Could not generate versionCode")
+    if (result.empty) result = "PowerShell -Command git rev-parse HEAD --abbrev-ref".execute().text.trim()
+    // Windows
+    if (result.empty) throw new RuntimeException("Could not generate versionCode")
     return result.substring(result.lastIndexOf("/") + 1)
+}
+
+// Release signing
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("private/keystore.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} else if (System.getenv('KEYSTORE_FILE') != null) {
+    keystoreProperties.setProperty('keystoreFile', System.getenv('KEYSTORE_FILE'))
+    keystoreProperties.setProperty('keystorePassword', System.getenv('KEYSTORE_PASSWORD'))
+    keystoreProperties.setProperty('keyAlias', System.getenv('KEY_ALIAS'))
+    keystoreProperties.setProperty('keyPassword', System.getenv('KEY_PASSWORD'))
 }
 
 android {
@@ -70,30 +63,41 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.levinriegner.fluttertemplate"
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode generateVersionCode()
         versionName generateVersionName()
     }
 
     signingConfigs {
-        release {
-            storeFile file(keystoreProperties['keystoreFile'])
-            storePassword keystoreProperties['keystorePassword']
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
+        debug {
+            storeFile file("../.debug/debug.jks")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+        if (keystoreProperties.hasProperty("KEYSTORE_FILE")) {
+            release {
+                storeFile file(keystoreProperties['keystoreFile'])
+                storePassword keystoreProperties['keystorePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
         }
     }
 
     buildTypes {
         debug {
             minifyEnabled false
+            signingConfig signingConfigs.debug
         }
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-//            multiDexKeepFile file('multidex-config.txt')
+        if (keystoreProperties.hasProperty("KEYSTORE_FILE")) {
+            release {
+                minifyEnabled true
+                shrinkResources true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                // multiDexKeepFile file('multidex-config.txt')
+                signingConfig signingConfigs.release
+            }
         }
     }
 
@@ -103,7 +107,7 @@ android {
         qa {
             dimension "app"
             manifestPlaceholders = [
-                    applicationName: "fluttertemplate QA",
+                    applicationLabel  : "fluttertemplate QA",
                     dynamicLinksDomain: "fluttertemplateqa.page.link"
             ]
             applicationIdSuffix ".qa"
@@ -111,7 +115,7 @@ android {
         production {
             dimension "app"
             manifestPlaceholders = [
-                    applicationName: "fluttertemplate",
+                    applicationLabel  : "fluttertemplate",
                     dynamicLinksDomain: "fluttertemplate.page.link"
             ]
         }

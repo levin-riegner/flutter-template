@@ -87,6 +87,8 @@ Flutter template Application to checkout for new projects. Now null-safe!
 
 ## Installation
 1. Click the `Use this template` button to create a new repository.
+1. Clear the README file, keeping only the instructions below the `# FlutterTemplate` section.
+1. Remove the `LICENSE.md` file or update accordingly.
 1. Checkout and open with Android Studio.
    1. Find and rename all instances of `com.levinriegner` with the company name, including Android folders.
    2. Find and rename all instances of `fluttertemplate` and `flutter_template` with the actual product name, including folders. 
@@ -97,8 +99,6 @@ Flutter template Application to checkout for new projects. Now null-safe!
    3. Add SHA256 signing to Android apps
       > Use `./gradlew signingReport` to view the keys information.
    4. Add ITC Team ID and Appstore App ID to iOS apps.
-4. Clear the README file, keeping only the instructions below the `# FlutterTemplate` section.
-5. Remove the `LICENSE.md` file or update accordingly.
 > ❗️ Ensure that all template variables have been changed by searching `levinriegner` and `template` on the project.
 
 ## Features
@@ -544,7 +544,7 @@ For iOS also perform the following steps.
 #### GDPR, CCPA and Appstore Requirements
 1. Non-essential data cannot be tracked or persisted without the user's explicit opt-in.
    - A method `setDataCollectionEnabled` is available on the [Dependencies](lib/util/dependencies.dart) file to toggle collection through the different services.
-   - A class [UserConfig](lib/data/shared/service/local/user_config_service.dart) is available with a boolean option to store the user's opt-in. __Defaults to false__.
+   - A class [UserConfig](lib/data/shared/service/local/user_config_service.dart) is available with a boolean option to store the user's opt-in.
    > After the user explicitly opts-in or out of data collection (usually required during signup and login). Persist the choice using `UserConfig` and activate it using `Dependencies.setDataCollectionEnabled`.
 2. A contact channel must be available for the user to request a complete deletion of all personal data. This also includes data stored in external services such as Google Analytics.
 3. A **Delete Account** option must be provided by the app to remove the user from the platform (both deleting backend data and logging the user out of the app).
