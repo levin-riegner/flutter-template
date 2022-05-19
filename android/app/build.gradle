@@ -16,6 +16,22 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
 
+// Release signing
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("private/keystore.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    project.logger.info('Signing Loaded - From local file')
+} else if (System.getenv('KEYSTORE_FILE') != null) {
+    keystoreProperties.setProperty('keystoreFile', System.getenv('KEYSTORE_FILE'))
+    keystoreProperties.setProperty('keystorePassword', System.getenv('KEYSTORE_PASSWORD'))
+    keystoreProperties.setProperty('keyAlias', System.getenv('KEY_ALIAS'))
+    keystoreProperties.setProperty('keyPassword', System.getenv('KEY_PASSWORD'))
+    project.logger.info('Signing Loaded - from env variables')
+} else {
+    project.logger.info('No release signing available')
+}
+
 // Version Code
 // Based on: https://gist.github.com/paramsen/4a92c9230d799caeb3b90897da27a80c
 static def generateVersionCode() {
@@ -36,20 +52,8 @@ static def generateVersionName() {
     return result.substring(result.lastIndexOf("/") + 1)
 }
 
-// Release signing
-def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file("private/keystore.properties")
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-} else if (System.getenv('KEYSTORE_FILE') != null) {
-    keystoreProperties.setProperty('keystoreFile', System.getenv('KEYSTORE_FILE'))
-    keystoreProperties.setProperty('keystorePassword', System.getenv('KEYSTORE_PASSWORD'))
-    keystoreProperties.setProperty('keyAlias', System.getenv('KEY_ALIAS'))
-    keystoreProperties.setProperty('keyPassword', System.getenv('KEY_PASSWORD'))
-}
-
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -75,7 +79,7 @@ android {
             keyAlias "androiddebugkey"
             keyPassword "android"
         }
-        if (keystoreProperties.hasProperty("KEYSTORE_FILE")) {
+        if (keystoreProperties["keystoreFile"] != null) {
             release {
                 storeFile file(keystoreProperties['keystoreFile'])
                 storePassword keystoreProperties['keystorePassword']
@@ -90,7 +94,7 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.debug
         }
-        if (keystoreProperties.hasProperty("KEYSTORE_FILE")) {
+        if (keystoreProperties["keystoreFile"] != null) {
             release {
                 minifyEnabled true
                 shrinkResources true
