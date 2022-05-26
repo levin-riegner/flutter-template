@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_template/data/shared/service/remote/interceptors/api_key_interceptor.dart';
+import 'package:flutter_template/data/shared/service/remote/interceptors/auth_token_interceptor.dart';
+import 'package:flutter_template/data/shared/service/remote/interceptors/curl_interceptor.dart';
 import 'package:flutter_template/data/shared/service/remote/interceptors/logging_interceptor.dart';
-import 'package:flutter_template/data/shared/service/remote/interceptors/token_interceptor.dart';
 
 abstract class Network {
   static Dio createHttpClient(
@@ -18,10 +19,14 @@ abstract class Network {
     ..interceptors.addAll(
         [
           // Add Bearer Token
-          TokenInterceptor(getBearerToken()),
+          AuthTokenInterceptor(getBearerToken()),
+          // Add Basic Auth
+          // AuthBasicInterceptor(base64Credentials),
           // Add API Key
           ApiKeyInterceptor(apiKey),
-          // Curl and logs
+          // Curl
+          CurlInterceptor(),
+          // Logs
           LoggingInterceptor(),
         ],
     );

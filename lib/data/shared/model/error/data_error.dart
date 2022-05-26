@@ -6,7 +6,9 @@ part 'data_error.freezed.dart';
 class DataError with _$DataError implements Exception {
   const factory DataError.unknown({
     Object? error,
-  }) = Unknown;
+  }) = _Unknown;
 
-  const factory DataError.notFound() = NotFound;
+  const factory DataError.apiError({String? reason}) = _ApiError;
+
+  const factory DataError.notFound() = _NotFound;
 }

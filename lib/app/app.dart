@@ -38,7 +38,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with WidgetsBindingObserver {
   final appRouter = getIt<AppRouter>();
   final environment = getIt<Environment>();
-  final shakeDetector = getIt<ShakeDetector>();
+  ShakeDetector? shakeDetector;
 
   late StreamSubscription _dynamicLinksSubscription;
 
@@ -46,6 +46,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     // Register observer to handle Shake detection on different App lifecycles
+    if (environment.isInternal) {
+      shakeDetector = getIt<ShakeDetector>();
+    }
     WidgetsBinding.instance?.addObserver(this);
   }
 
@@ -54,12 +57,12 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     if (environment.isInternal) {
       switch (state) {
         case AppLifecycleState.resumed:
-          shakeDetector.startListening();
+          shakeDetector?.startListening();
           break;
         case AppLifecycleState.inactive:
         case AppLifecycleState.paused:
         case AppLifecycleState.detached:
-          shakeDetector.stopListening();
+          shakeDetector?.stopListening();
           break;
       }
     } else {
