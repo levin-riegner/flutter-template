@@ -185,6 +185,7 @@ abstract class Dependencies {
   /// Clears all local data
   static Future<void> clearAllLocalData() async {
     Flogger.i("Clearing all local data");
+    final preferences = await SharedPreferences.getInstance();
     await Future.wait([
       // Clear user boxes
       // Clearing the whole database won't allow for writing again
@@ -196,6 +197,8 @@ abstract class Dependencies {
       Analytics.logout(),
       // User Configs
       getIt.get<UserConfigService>().clear(),
+      // Shared Preferences
+      preferences.clear(),
     ]);
   }
 

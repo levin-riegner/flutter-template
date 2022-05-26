@@ -599,12 +599,15 @@ FlutterTemplate Flutter Application.
     ```
     flutter pub run build_runner build --delete-conflicting-outputs
     ```
-
+    > You can also use `flutter pub run build_runner watch` to automatically run the build_runner when part files change.
+    
 ## Development Process
-1. Checkout from `master` onto your new feature branch.
-2. Once your feature is ready open a `Pull Request` to master with your changes.
-3. Request someone else to `review` the Pull Request.
-4. Once approved, merge the PR with a `merge commit`.
+1. Create a new feature branch checking out from `master`.
+2. Keep adding commits on the new branch.
+3. Once the feature is ready, open a `Pull Request` to master.
+4. Confirm that all tests from the **test workflow** are passing (there will be a green checkmark next to the commits).
+5. Request someone else to `review` the Pull Request.
+6. Once approved, merge the PR with a `merge commit`.
 
 ## Apple Signing
 - Retrieve the Apple Signing Certificates *inside the ios folder* using the shared team login credentials:
@@ -649,30 +652,33 @@ To create a new release use the GitHub Actions `Internal` and `Release` Flows.
 ### Internal Release (QA)
 1. Checkout from `master` to a new branch named `internal/a.b.c`.
 2. Push to origin.
-3. ☕️ Wait for the workflow to complete...
+3. Wait for the workflow to complete...
 4. **iOS** (Optional): Visit the Appstore Connect portal and submit the new build to **External Testers** (if any).
 - **Android**: Build is uploaded to **Firebase App Distribution**.
 - **iOS**: Build is uploaded to **Testflight**.
 
-
 ### AppStore/PlayStore Release (Production)
 1. Checkout from `master` to a new branch named `release/a.b.c`.
 2. Push to origin.
-3. ☕️ Wait for the workflow to complete...
-4. **iOS** (Optional): Visit the Appstore Connect portal and submit the new build to **External Testers** (if any).
+3. Wait for the workflow to complete...
+4. **iOS** (Optional): Visit the Appstore Connect portal and submit the new build to **External Testers**.
 5. **iOS**: Create a new release on the Appstore Connect portal, select the new build and submit for Review.
 6. **Android**: Navigate to the Production Track on the Google Play Console and submit the new build for Review.
-> Production builds will also be avaiable to internal testers for verification through the same mechanism as the QA builds.
 
-### General
-All flows can also be dispatched manually on the GitHub website:
-- Navigate to the "Actions" tab on the repository.
-- Select the "Workflow" you want to trigger.
-- Press the "Run workflow" button.
-- Select the branch you want to run it from.
-- Press "Run workflow".
+Production builds will also be avaiable to internal testers for verification through the same distribution methods as the internal builds.
 
-An additional **Test Workflow** will also be triggered on every *push* to execute all **Unit Tests** available on the project.
+### Changelog
+A new GitHub Release will be created for each **release branch**, with its correponding version tag.
+
+The [CHANGELOG.md](/CHANGELOG.md) file will also be updated with details from the Pull Requests on that version.
+
+### Additional builds for the same release
+#### Internal
+If you need to upload a new build for the same internal release, first push the changes to **master** and then rebase/merge them on top of the internal branch.
+
+#### Production
+Additional builds cannot be sent for the same production release.
+Simply create a new release branch with an increased version name.
 
 ### Manual Release
 
@@ -691,7 +697,3 @@ An additional **Test Workflow** will also be triggered on every *push* to execut
 8. Keep tapping `Next` and finally `Upload`.
 9. After the upload is completed, navigate to the [Appstore Website](https://appstoreconnect.apple.com/apps/) and wait for the build to be processed.
 10. Once the processing is completed, submit the build to External testers or add any required Internal testers.
-
-### IMPORTANT
-Do not push new commits directly to the release and internal branches, otherwise we might end up with conflicting version codes later on.<br>
-If you need to upload a new build for the same release, always **push the changes to master first** and then rebase them on top of the release/internal branch.
