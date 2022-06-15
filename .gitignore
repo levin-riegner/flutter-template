@@ -116,3 +116,6 @@ graphql/
 
 # Code coverage
 coverage/
+
+# fvm
+.fvm/flutter_sdk
