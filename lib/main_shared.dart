@@ -10,11 +10,7 @@ import 'package:logging_flutter/flogger.dart';
 void mainShared() async {
   // Force Light Theme?
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarBrightness: Brightness.light,
-      statusBarColor: Colors.white,
-      statusBarIconBrightness: Brightness.dark,
-    ),
+    SystemUiOverlayStyle.light,
   );
 
   // Log Global Flutter Errors

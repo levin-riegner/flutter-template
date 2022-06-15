@@ -87,6 +87,8 @@ Flutter template Application to checkout for new projects. Now null-safe!
 
 ## Installation
 1. Click the `Use this template` button to create a new repository.
+1. Clear the README file, keeping only the instructions below the `# FlutterTemplate` section.
+1. Remove the `LICENSE.md` file or update accordingly.
 1. Checkout and open with Android Studio.
    1. Find and rename all instances of `com.levinriegner` with the company name, including Android folders.
    2. Find and rename all instances of `fluttertemplate` and `flutter_template` with the actual product name, including folders. 
@@ -97,8 +99,6 @@ Flutter template Application to checkout for new projects. Now null-safe!
    3. Add SHA256 signing to Android apps
       > Use `./gradlew signingReport` to view the keys information.
    4. Add ITC Team ID and Appstore App ID to iOS apps.
-4. Clear the README file, keeping only the instructions below the `# FlutterTemplate` section.
-5. Remove the `LICENSE.md` file or update accordingly.
 > ❗️ Ensure that all template variables have been changed by searching `levinriegner` and `template` on the project.
 
 ## Features
@@ -387,8 +387,11 @@ Customise the initial Splash Screen.
 1. Open `LaunchScreen.storyboard` and set the `View` `Background` to match the app color.
 
 #### Android
-1. Open the `launch_background.xml` and set the color to match the app color.
-1. Replace the `launch_logo.png` inside the different `drawable-*hdpi` folders with the app launch logo.
+This project uses the new [Android 12+ Splash Screen](https://developer.android.com/guide/topics/ui/splash-screen).
+1. Create a new Vector Drawable (**xml**) with the app launch logo.
+1. Open the `styles.xml` file.
+1. Set the `windowSplashScreenBackground` color to match the app color.
+2. Set the `windowSplashScreenAnimatedIcon` drawable to the previously created xml logo.
 
 #### Flutter
 Optionally, you can add a [SplashScreen](lib/presentation/splash/splash_screen.dart) as the initial route to display the logo, load initial data or show an animation.
@@ -521,6 +524,14 @@ This template supports in-app reviews through the [in_app_review](https://pub.de
 Consider requesting a review after the user has opened the app a few times and triggered a specific set(s) of action(s).
 > Do not trigger the in-app review from a clickable element as it may or may not work depending on the current requests quote and unknown dark-box logic from Apple and Google.
 
+### Permissions
+To request iOS/Android sytem permissions at runtime, use the [permission_handler](https://pub.dev/packages/permission_handler) plugin.
+
+For iOS also perform the following steps.
+1. Enable the permission on the [Podfile](ios/Podfile) by changing its value from `0` to `1`.
+2. Add the appropiate permission usage description to the [Info.plist](ios/Runner/Info.plist).
+3. Enable the permission on the project Capabilities if necessary.
+
 ### Privacy
 #### Apple iOS 14
 - When creating or updating your app on the Appstore, fill the Privacy Questionnaire with all the data the app is persisting.
@@ -533,7 +544,7 @@ Consider requesting a review after the user has opened the app a few times and t
 #### GDPR, CCPA and Appstore Requirements
 1. Non-essential data cannot be tracked or persisted without the user's explicit opt-in.
    - A method `setDataCollectionEnabled` is available on the [Dependencies](lib/util/dependencies.dart) file to toggle collection through the different services.
-   - A class [UserConfig](lib/data/shared/service/local/user_config_service.dart) is available with a boolean option to store the user's opt-in. __Defaults to false__.
+   - A class [UserConfig](lib/data/shared/service/local/user_config_service.dart) is available with a boolean option to store the user's opt-in.
    > After the user explicitly opts-in or out of data collection (usually required during signup and login). Persist the choice using `UserConfig` and activate it using `Dependencies.setDataCollectionEnabled`.
 2. A contact channel must be available for the user to request a complete deletion of all personal data. This also includes data stored in external services such as Google Analytics.
 3. A **Delete Account** option must be provided by the app to remove the user from the platform (both deleting backend data and logging the user out of the app).
@@ -557,9 +568,7 @@ The rules are drawn from the [analysis_options](analysis_options.yaml) file whic
 You can also use `flutter analyze` to run analyze the whole project.
 
 ### Code coverage
-
 [lcov](https://github.com/linux-test-project/lcov) can be used to view the test coverage on the project. It can be installed using [homebrew](https://formulae.brew.sh/formula/lcov).
-
 
 1. Execute all tests in the project appending the coverage parameter: `flutter test --coverage`. This will generate a new folder `coverage/` inside the project with the `lcov.info` file report.
 2. Cleanup the report from auto-generated files with `lcov --remove coverage/lcov.info 'lib/*/*.freezed.dart' 'lib/*/*.g' 'lib/*/*.chopper.dart' 'lib/*/*.gr.dart' -o coverage/lcov.info`.
@@ -590,11 +599,20 @@ FlutterTemplate Flutter Application.
     ```
     flutter pub run build_runner build --delete-conflicting-outputs
     ```
+    > You can also use `flutter pub run build_runner watch` to automatically run the build_runner when part files change.
+    
+## Development Process
+1. Create a new feature branch checking out from `master`.
+2. Keep adding commits on the new branch.
+3. Once the feature is ready, open a `Pull Request` to master.
+4. Confirm that all tests from the **test workflow** are passing (there will be a green checkmark next to the commits).
+5. Request someone else to `review` the Pull Request.
+6. Once approved, merge the PR with a `merge commit`.
 
 ## Apple Signing
-- Retrieve the Apple Signing Certificates *inside the ios folder*:
+- Retrieve the Apple Signing Certificates *inside the ios folder* using the shared team login credentials:
     ```
-    fastlane match development --readonly --env qa
+    SPACESHIP_SKIP_2FA_UPGRADE=1 fastlane match development --readonly --env qa
     ```
 
 ## Android Signing
@@ -603,23 +621,16 @@ FlutterTemplate Flutter Application.
     ```
     keystoreFile=../private/keystore.jks
     keystorePassword=XXXXXXXX
-    keyAlias=key_name_goes_here
-    keyPassword=XXXXXXXX
+    keyAlias=YYYYYYY
+    keyPassword=ZZZZZZ
     ```
 3. Add the `keystore.jks` file to the folder.
 
 ## Running from command-line
-
-- Trigger a new build for the chosen platform:
-    ```
-    flutter build target_platform -t lib/main_qa.dart --flavor QA --debug --verbose
-    ```
-    > Replace `target_platform` with `apk` (Android) or `ios` (iOS)
-
-- To run the previous build on a device:
-    ```
-    flutter run -t lib/main_qa.dart --flavor QA --debug
-    ```
+```
+flutter run target_platform -t lib/main_qa.dart --flavor QA --debug
+```
+> Replace `target_platform` with `apk` (Android) or `ios` (iOS)
 
 ## Troubleshooting
 Try the following steps if you are having trouble running the project:
@@ -641,30 +652,33 @@ To create a new release use the GitHub Actions `Internal` and `Release` Flows.
 ### Internal Release (QA)
 1. Checkout from `master` to a new branch named `internal/a.b.c`.
 2. Push to origin.
-3. ☕️ Wait for the workflow to complete...
+3. Wait for the workflow to complete...
 4. **iOS** (Optional): Visit the Appstore Connect portal and submit the new build to **External Testers** (if any).
 - **Android**: Build is uploaded to **Firebase App Distribution**.
 - **iOS**: Build is uploaded to **Testflight**.
 
-
 ### AppStore/PlayStore Release (Production)
 1. Checkout from `master` to a new branch named `release/a.b.c`.
 2. Push to origin.
-3. ☕️ Wait for the workflow to complete...
-4. **iOS** (Optional): Visit the Appstore Connect portal and submit the new build to **External Testers** (if any).
+3. Wait for the workflow to complete...
+4. **iOS** (Optional): Visit the Appstore Connect portal and submit the new build to **External Testers**.
 5. **iOS**: Create a new release on the Appstore Connect portal, select the new build and submit for Review.
 6. **Android**: Navigate to the Production Track on the Google Play Console and submit the new build for Review.
-> Production builds will also be avaiable to internal testers for verification through the same mechanism as the QA builds.
 
-### General
-All flows can also be dispatched manually on the GitHub website:
-- Navigate to the "Actions" tab on the repository.
-- Select the "Workflow" you want to trigger.
-- Press the "Run workflow" button.
-- Select the branch you want to run it from.
-- Press "Run workflow".
+Production builds will also be avaiable to internal testers for verification through the same distribution methods as the internal builds.
 
-An additional **Test Workflow** will also be triggered on every *push* to execute all **Unit Tests** available on the project.
+### Changelog
+A new GitHub Release will be created for each **release branch**, with its correponding version tag.
+
+The [CHANGELOG.md](/CHANGELOG.md) file will also be updated with details from the Pull Requests on that version.
+
+### Additional builds for the same release
+#### Internal
+If you need to upload a new build for the same internal release, first push the changes to **master** and then rebase/merge them on top of the internal branch.
+
+#### Production
+Additional builds cannot be sent for the same production release.
+Simply create a new release branch with an increased version name.
 
 ### Manual Release
 
@@ -683,7 +697,3 @@ An additional **Test Workflow** will also be triggered on every *push* to execut
 8. Keep tapping `Next` and finally `Upload`.
 9. After the upload is completed, navigate to the [Appstore Website](https://appstoreconnect.apple.com/apps/) and wait for the build to be processed.
 10. Once the processing is completed, submit the build to External testers or add any required Internal testers.
-
-### IMPORTANT
-Do not push new commits directly to the release and internal branches, otherwise we might end up with conflicting version codes later on.<br>
-If you need to upload a new build for the same release, always **push the changes to master first** and then rebase them on top of the release/internal branch.

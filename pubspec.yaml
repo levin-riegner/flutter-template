@@ -36,7 +36,7 @@ dependencies:
   get_it: ^7.2.0
   # Boilerplate generation
   freezed_annotation: ^0.14.3
-  json_serializable: ^5.0.0
+  json_annotation: ^4.4.0
   # Logging
   logging_flutter:
     git:
@@ -45,8 +45,8 @@ dependencies:
   # PaperTrail
   flutter_paper_trail:
     git:
-      url: git://github.com/levin-riegner/flutter_paper_trail
-      ref: release/1.0.1
+      url: https://github.com/metaflowltd/flutter_paper_trail.git
+      ref: master
   # App version tracking
   lr_app_versioning:
     git:
@@ -75,7 +75,7 @@ dependencies:
   # Detect shake to open console
   shake: ^1.0.1
   # Permissions
-  permission_handler: ^8.1.6
+  permission_handler: ^9.0.2
   # In-app review
   in_app_review: ^2.0.2
   # Shared Preferences
@@ -98,6 +98,7 @@ dev_dependencies:
   # Other build dependencies
   build_runner: ^2.1.2
   freezed: ^0.14.5
+  json_serializable: ^6.1.4
   chopper_generator: # TODO: Was ^4.0.1. Bump when available https://github.com/lejard-h/chopper/issues/294
     git:
       url: https://github.com/luis901101/chopper.git

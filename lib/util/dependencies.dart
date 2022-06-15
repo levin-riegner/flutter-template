@@ -136,9 +136,10 @@ abstract class Dependencies {
     getIt.registerSingleton<UserConfigService>(userConfig);
     // Analytics tracking
     final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
-    setDataCollectionEnabled(dataCollectionEnabled || environment.isInternal);
+    // TODO: Set the default data collection policy for your app
+    setDataCollectionEnabled(dataCollectionEnabled ?? true || environment.internal);
     // Shake detector for Console
-    if (environment.isInternal) {
+    if (environment.internal) {
       final shakeDetector = ShakeDetector.autoStart(
         shakeThresholdGravity: 2,
         onPhoneShake: () {
@@ -148,8 +149,10 @@ abstract class Dependencies {
         },
       );
       // Save logs for console
-      Flogger.registerListener((record) =>
-          LogConsole.add(OutputEvent(record.level, [record.message])));
+      Flogger.registerListener((record) => LogConsole.add(
+            OutputEvent(record.level, [record.message]),
+            bufferSize: 1000, // Remember the last X logs
+          ));
       getIt.registerSingleton<ShakeDetector>(shakeDetector);
     }
 
@@ -162,7 +165,7 @@ abstract class Dependencies {
     // Close Database
     await Hive.close();
     // Stop listening to Shake
-    if (getIt.get<Environment>().isInternal) {
+    if (getIt.get<Environment>().internal) {
       getIt.get<ShakeDetector>().stopListening();
     }
   }
@@ -182,6 +185,7 @@ abstract class Dependencies {
   /// Clears all local data
   static Future<void> clearAllLocalData() async {
     Flogger.i("Clearing all local data");
+    final preferences = await SharedPreferences.getInstance();
     await Future.wait([
       // Clear user boxes
       // Clearing the whole database won't allow for writing again
@@ -193,6 +197,8 @@ abstract class Dependencies {
       Analytics.logout(),
       // User Configs
       getIt.get<UserConfigService>().clear(),
+      // Shared Preferences
+      preferences.clear(),
     ]);
   }
 

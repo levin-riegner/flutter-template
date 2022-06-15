@@ -9,8 +9,8 @@ class UserConfigService {
 
   static const String _kDataCollectionEnabledKey = "dataCollectionEnabled";
 
-  Future<bool> isDataCollectionEnabled() async {
-    return _sharedPreferences.getBool(_kDataCollectionEnabledKey) ?? false;
+  Future<bool?> isDataCollectionEnabled() async {
+    return _sharedPreferences.getBool(_kDataCollectionEnabledKey);
   }
 
   Future<void> saveDataCollectionEnabled(bool isEnabled) async {
