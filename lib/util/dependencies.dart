@@ -137,9 +137,9 @@ abstract class Dependencies {
     // Analytics tracking
     final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
     // TODO: Set the default data collection policy for your app
-    setDataCollectionEnabled(dataCollectionEnabled ?? true || environment.isInternal);
+    setDataCollectionEnabled(dataCollectionEnabled ?? true || environment.internal);
     // Shake detector for Console
-    if (environment.isInternal) {
+    if (environment.internal) {
       final shakeDetector = ShakeDetector.autoStart(
         shakeThresholdGravity: 2,
         onPhoneShake: () {
@@ -165,7 +165,7 @@ abstract class Dependencies {
     // Close Database
     await Hive.close();
     // Stop listening to Shake
-    if (getIt.get<Environment>().isInternal) {
+    if (getIt.get<Environment>().internal) {
       getIt.get<ShakeDetector>().stopListening();
     }
   }

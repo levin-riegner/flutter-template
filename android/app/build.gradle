@@ -21,13 +21,13 @@ def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file("private/keystore.properties")
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-    project.logger.info('Signing Loaded - From local file')
+    project.logger.info('Signing loaded from local file')
 } else if (System.getenv('KEYSTORE_FILE') != null) {
     keystoreProperties.setProperty('keystoreFile', System.getenv('KEYSTORE_FILE'))
     keystoreProperties.setProperty('keystorePassword', System.getenv('KEYSTORE_PASSWORD'))
     keystoreProperties.setProperty('keyAlias', System.getenv('KEY_ALIAS'))
     keystoreProperties.setProperty('keyPassword', System.getenv('KEY_PASSWORD'))
-    project.logger.info('Signing Loaded - from env variables')
+    project.logger.info('Signing loaded from env variables')
 } else {
     project.logger.info('No release signing available')
 }
