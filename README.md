@@ -1,89 +1,6 @@
-<!-- omit in toc -->
 # Flutter Template
 
 Flutter template Application to checkout for new projects. Now null-safe!
-<!-- omit in toc -->
-# Table of Contents
-- [Installation](#installation)
-- [Features](#features)
-  - [Fonts](#fonts)
-  - [Images](#images)
-  - [Navigation](#navigation)
-    - [The App Router](#the-app-router)
-    - [The Wrappers](#the-wrappers)
-    - [The Routes](#the-routes)
-    - [Access AutoRouter.of and navigate](#access-autorouterof-and-navigate)
-    - [Deeplinks](#deeplinks)
-  - [Localization](#localization)
-    - [Translating Texts](#translating-texts)
-    - [Adding new languages](#adding-new-languages)
-    - [Integrating 3rd party translation service](#integrating-3rd-party-translation-service)
-    - [Using Localizable Strings](#using-localizable-strings)
-  - [Accessibility](#accessibility)
-    - [Images](#images-1)
-    - [Texts](#texts)
-    - [Buttons](#buttons)
-    - [Errors](#errors)
-    - [Widget tree order](#widget-tree-order)
-    - [Testing Accessibility](#testing-accessibility)
-  - [Theming](#theming)
-  - [Analytics](#analytics)
-  - [App Environments](#app-environments)
-    - [Configuring Environments](#configuring-environments)
-    - [Constants](#constants)
-  - [Dependency Injection](#dependency-injection)
-  - [Logging](#logging)
-  - [Firebase](#firebase)
-  - [Crashlytics](#crashlytics)
-  - [Models](#models)
-    - [Domain Models](#domain-models)
-    - [DTO Models](#dto-models)
-    - [UI Models](#ui-models)
-  - [Network](#network)
-  - [Database](#database)
-    - [Encryption](#encryption)
-  - [Secure Storage](#secure-storage)
-  - [WebViews](#webviews)
-  - [No Internet Connection](#no-internet-connection)
-  - [Launch Screen](#launch-screen)
-    - [iOS](#ios)
-    - [Android](#android)
-    - [Flutter](#flutter)
-  - [Architecture](#architecture)
-    - [Bloc](#bloc)
-    - [Repository Pattern](#repository-pattern)
-      - [Mocks](#mocks)
-  - [Error Handling](#error-handling)
-    - [One-Time Alerts](#one-time-alerts)
-    - [State Errors](#state-errors)
-    - [Empty States](#empty-states)
-  - [Other](#other)
-    - [App Dispose](#app-dispose)
-    - [Logout](#logout)
-    - [Register User](#register-user)
-    - [Hiding the keyboard when navigating out of the screen](#hiding-the-keyboard-when-navigating-out-of-the-screen)
-    - [App version](#app-version)
-  - [CI/CD Integration](#cicd-integration)
-    - [Fastlane](#fastlane)
-      - [Android](#android-1)
-      - [iOS](#ios-1)
-    - [Github Actions](#github-actions)
-  - [QA Console](#qa-console)
-  - [App Update](#app-update)
-    - [Version Bomb](#version-bomb)
-    - [Optional Updates](#optional-updates)
-  - [Version Tracker](#version-tracker)
-  - [App Review](#app-review)
-  - [Privacy](#privacy)
-    - [Apple iOS 14](#apple-ios-14)
-    - [GDPR, CCPA and Appstore Requirements](#gdpr-ccpa-and-appstore-requirements)
-  - [Tests](#tests)
-    - [Unit tests](#unit-tests)
-    - [Integration tests](#integration-tests)
-  - [Static Code Analysis](#static-code-analysis)
-  - [Code Coverage](#code-coverage)
-  - [Next Template Additions](#next-template-additions)
-
 
 ## Installation
 1. Click the `Use this template` button to create a new repository.
@@ -577,6 +494,11 @@ You can also use `flutter analyze` to run analyze the whole project.
 
 Code coverage results are not pushed to origin as specified in [.gitignore](.gitignore).
 
+### Flutter version manager
+This template uses [fvm](https://fvm.app/) to:
+- Enforce a single flutter sdk version among different developers and build machines.
+- Ease the process of switching between different projects using other versions.
+
 ### Next Template Additions
 - Review [Mason](https://pub.dev/packages/mason)
 - Review [Pigeon](https://pub.dev/packages/pigeon)
@@ -588,6 +510,11 @@ Code coverage results are not pushed to origin as specified in [.gitignore](.git
 FlutterTemplate Flutter Application.
 
 ## Getting Started
+
+1. Get the project's flutter version using [fvm](https://fvm.app/).
+   ```bash
+   fvm install
+   ```
 
 1. Get the project dependencies with the following commands:
     ```
@@ -608,6 +535,9 @@ FlutterTemplate Flutter Application.
 4. Confirm that all tests from the **test workflow** are passing (there will be a green checkmark next to the commits).
 5. Request someone else to `review` the Pull Request.
 6. Once approved, merge the PR with a `merge commit`.
+
+## Changing the flutter sdk
+To set a different flutter version for the project, run `fvm use x.y.z`.
 
 ## Apple Signing
 - Retrieve the Apple Signing Certificates *inside the ios folder* using the shared team login credentials:
@@ -636,9 +566,7 @@ flutter run target_platform -t lib/main_qa.dart --flavor QA --debug
 Try the following steps if you are having trouble running the project:
 
 ### General
-- Ensure your local flutter version matches the version range specified in the `pubspec.yaml`.<br/>
-    You can check your current version by running `flutter --version`.<br/>
-    If you need to update your Flutter SDK use `flutter upgrade`.
+- Run `fvm install` to ensure you are using the correct version of the flutter sdk.
 - Run Flutter Clean `flutter clean`.
 
 ### iOS
