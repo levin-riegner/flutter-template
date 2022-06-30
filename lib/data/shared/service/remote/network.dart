@@ -25,7 +25,9 @@ abstract class Network {
           // Add API Key
           ApiKeyInterceptor(apiKey),
           // Curl
-          CurlInterceptor(),
+          CurlInterceptor(
+            logPrint: (message) => Flogger.d("Curl", object: message),
+          ),
           // Logs
           LoggingInterceptor(
             logPrint: (message) => Flogger.d("Dio", object: message),

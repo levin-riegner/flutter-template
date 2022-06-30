@@ -8,7 +8,14 @@ class CurlInterceptor extends Interceptor {
   final bool? printOnSuccess;
   final bool convertFormData;
 
-  CurlInterceptor({this.printOnSuccess, this.convertFormData = true});
+  /// Log printer; defaults to console with log("").
+  void Function(String message) logPrint;
+
+  CurlInterceptor({
+    this.printOnSuccess,
+    this.convertFormData = true,
+    this.logPrint = log,
+  });
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
@@ -19,9 +26,9 @@ class CurlInterceptor extends Interceptor {
 
   @override
   void onResponse(
-      Response response,
-      ResponseInterceptorHandler handler,
-      ) {
+    Response response,
+    ResponseInterceptorHandler handler,
+  ) {
     if (printOnSuccess != null && printOnSuccess == true) {
       _renderCurlRepresentation(response.requestOptions);
     }
@@ -32,9 +39,9 @@ class CurlInterceptor extends Interceptor {
   void _renderCurlRepresentation(RequestOptions requestOptions) {
     // add a breakpoint here so all errors can break
     try {
-      log(_cURLRepresentation(requestOptions));
+      logPrint(_cURLRepresentation(requestOptions));
     } catch (err) {
-      log('unable to create a CURL representation of the requestOptions');
+      logPrint('unable to create a CURL representation of the requestOptions');
     }
   }
 
