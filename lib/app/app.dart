@@ -13,21 +13,20 @@ import 'package:flutter_template/presentation/util/styles/theme.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/tools/qa_config.dart';
 import 'package:logging_flutter/flogger.dart';
-import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_app_versioning/app_versioning.dart';
 import 'package:lr_design_system/config/ds_app.dart';
 import 'package:lr_design_system/config/ds_config.dart';
 import 'package:lr_design_system/views/ds_dialog.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:shake/shake.dart' as shake;
+import 'package:shake/shake.dart';
 
 import 'navigation/router/app_router.gr.dart';
 
 class App extends StatefulWidget {
   final bool isSessionAvailable;
 
-  App({
+  const App({
     Key? key,
     required this.isSessionAvailable,
   }) : super(key: key);
@@ -39,7 +38,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with WidgetsBindingObserver {
   final appRouter = getIt<AppRouter>();
   final environment = getIt<Environment>();
-  shake.ShakeDetector? shakeDetector;
+  ShakeDetector? shakeDetector;
 
   late StreamSubscription _dynamicLinksSubscription;
 
@@ -48,7 +47,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     super.initState();
     // Register observer to handle Shake detection on different App lifecycles
     if (environment.internal) {
-      shakeDetector = getIt<shake.ShakeDetector>();
+      shakeDetector = getIt<ShakeDetector>();
     }
     WidgetsBinding.instance.addObserver(this);
   }
@@ -95,7 +94,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             showSemanticsDebugger:
                 context.watch<QaConfig>().showSemanticsDebugger,
             debugShowCheckedModeBanner: false,
-            localizationsDelegates: [
+            localizationsDelegates: const [
               Strings.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
@@ -105,7 +104,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             theme: AppTheme.lightTheme(),
             routerDelegate: appRouter.delegate(
               initialRoutes: [
-                BottomNavigationRoute(),
+                const BottomNavigationRoute(),
               ],
               navigatorObservers: kReleaseMode
                   ? () => [
@@ -212,4 +211,4 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-}articles_bloc.dart
+}

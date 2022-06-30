@@ -12,14 +12,14 @@ import 'package:logging_flutter/flogger.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ArticlesBloc extends BaseBloc {
-  static const kQuery = "XCH";
+  static const kQuery = "Flutter";
 
   // Repository
   final ArticleRepository _articlesRepository;
 
   // Observables
   final _state = BehaviorSubject<ArticlesState>.seeded(
-      ArticlesState.content(articles: Idle()));
+      const ArticlesState.content(articles: Idle()));
 
   Stream<ArticlesState> get state => _state.stream;
 
@@ -41,7 +41,7 @@ class ArticlesBloc extends BaseBloc {
 
   // region Private
   Future<void> _getArticles({bool forceRefresh = false}) async {
-    _state.add(ArticlesState.content(articles: Loading()));
+    _state.add(const ArticlesState.content(articles: Loading()));
     try {
       final articles = await _articlesRepository.getArticles(kQuery,
           forceRefresh: forceRefresh);
@@ -51,7 +51,7 @@ class ArticlesBloc extends BaseBloc {
         e.when(
           subscriptionExpired: () {
             Flogger.info("Subscription Expired");
-            return ArticlesState.subscriptionExpired();
+            return const ArticlesState.subscriptionExpired();
           },
         ),
       );
@@ -60,22 +60,25 @@ class ArticlesBloc extends BaseBloc {
         e.when(
           notFound: () {
             Flogger.info("Content not found for query $kQuery");
-            _alerts.add(QueryNotFound(kQuery));
-            return ArticlesState.content(articles: Success(data: []));
+            _alerts.add(const QueryNotFound(kQuery));
+            return const ArticlesState.content(articles: Success(data: []));
           },
           apiError: (reason) {
             Flogger.w("Api error getting articles", object: reason);
-            return ArticlesState.content(articles: Failure(reason: DataError.apiError(reason: reason)));
+            return ArticlesState.content(
+                articles: Failure(reason: DataError.apiError(reason: reason)));
           },
           unknown: (error) {
             Flogger.w("Unknown error getting articles", object: error);
-            return ArticlesState.content(articles: Failure(reason: DataError.unknown(error: error)));
+            return ArticlesState.content(
+                articles: Failure(reason: DataError.unknown(error: error)));
           },
         ),
       );
     } catch (e) {
       Flogger.w("Unexpected error getting articles", object: e);
-      _state.add(ArticlesState.content(articles: Failure(reason: DataError.unknown(error: e))));
+      _state.add(ArticlesState.content(
+          articles: Failure(reason: DataError.unknown(error: e))));
     }
   }
 

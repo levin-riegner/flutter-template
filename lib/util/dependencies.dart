@@ -136,7 +136,8 @@ abstract class Dependencies {
     // Analytics tracking
     final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
     // TODO: Set the default data collection policy for your app
-    setDataCollectionEnabled(dataCollectionEnabled ?? true || environment.internal);
+    setDataCollectionEnabled(
+        dataCollectionEnabled ?? true || environment.internal);
     // Shake detector for Console
     if (environment.internal) {
       final shakeDetector = shake.ShakeDetector.autoStart(

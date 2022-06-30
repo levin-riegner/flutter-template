@@ -3,20 +3,20 @@ import 'package:flutter_template/data/shared/service/remote/interceptors/api_key
 import 'package:flutter_template/data/shared/service/remote/interceptors/auth_token_interceptor.dart';
 import 'package:flutter_template/data/shared/service/remote/interceptors/curl_interceptor.dart';
 import 'package:flutter_template/data/shared/service/remote/interceptors/logging_interceptor.dart';
+import 'package:logging_flutter/flogger.dart';
 
 abstract class Network {
   static Dio createHttpClient(
     final String baseUrl,
     final String apiKey,
-    Future<String?> getBearerToken(),
+    Future<String?> Function() getBearerToken,
   ) {
     // Create Dio Client
     final dio = Dio(
       BaseOptions(
-        baseUrl: baseUrl, 
+        baseUrl: baseUrl,
       ),
-    )
-    ..interceptors.addAll(
+    )..interceptors.addAll(
         [
           // Add Bearer Token
           AuthTokenInterceptor(getBearerToken()),
@@ -27,9 +27,11 @@ abstract class Network {
           // Curl
           CurlInterceptor(),
           // Logs
-          LoggingInterceptor(),
+          LoggingInterceptor(
+            logPrint: (message) => Flogger.d("Dio", object: message),
+          ),
         ],
-    );
+      );
 
     return dio;
   }

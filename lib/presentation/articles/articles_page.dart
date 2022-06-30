@@ -17,6 +17,8 @@ import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 import 'package:lr_design_system/views/ds_loading_indicator.dart';
 
 class ArticlesPage extends StatefulWidget {
+  const ArticlesPage({Key? key}) : super(key: key);
+
   @override
   _ArticlesPageState createState() => _ArticlesPageState();
 }
@@ -49,14 +51,16 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
           final state = snapshot.data!;
           return state.when(
             subscriptionExpired: () {
-              return Text("Please renew your subscription");
+              return const Text("Please renew your subscription");
             },
             content: (content) {
               return content.when(
                 idle: () => Container(),
                 loading: () => _Loading(),
                 success: (articles) {
-                  if (articles.isEmpty) return DSEmptyView(useScaffold: false);
+                  if (articles.isEmpty) {
+                    return const DSEmptyView(useScaffold: false);
+                  }
                   return ListView.builder(
                     itemCount: articles.length,
                     itemBuilder: (context, position) {
@@ -89,7 +93,7 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
         title: Text(context.l10n.articlesTitle),
         actions: [
           IconButton(
-            icon: Icon(Icons.star),
+            icon: const Icon(Icons.star),
             onPressed: () async {
               // In-app review
               try {
@@ -108,7 +112,7 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
           ),
           Padding(
             padding: EdgeInsets.all(Dimens.of(context).marginMedium),
-            child: DSAppVersion(),
+            child: const DSAppVersion(),
           )
         ],
       ),
@@ -120,7 +124,7 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
 class _Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: DSLoadingIndicator(),
     );
   }

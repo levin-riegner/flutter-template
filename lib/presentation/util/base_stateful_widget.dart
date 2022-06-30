@@ -25,7 +25,11 @@ abstract class BaseState<T extends StatefulWidget, B extends BaseBloc>
     _disposeSubscriptions();
   }
 
-  _disposeSubscriptions() => disposeBag.forEach((e) => e.cancel());
+  _disposeSubscriptions() {
+    for (final subscription in disposeBag) {
+      subscription.cancel();
+    }
+  }
 }
 
 extension DisposeBag on StreamSubscription {

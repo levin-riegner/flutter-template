@@ -97,8 +97,8 @@ class LoggingInterceptor extends Interceptor {
           logPrint('╔ ${err.type.toString()}');
           _printResponse(err.response!);
         }
-        _printLine('╚');
-        logPrint('');
+        // _printLine('╚');
+        // logPrint('');
       } else {
         _printBoxed(header: 'DioError ║ ${err.type}', text: err.message);
       }
@@ -121,16 +121,16 @@ class LoggingInterceptor extends Interceptor {
       logPrint('║');
       _printResponse(response);
       logPrint('║');
-      _printLine('╚');
+      // _printLine('╚');
     }
     super.onResponse(response, handler);
   }
 
   void _printBoxed({String? header, String? text}) {
-    logPrint('');
+    // logPrint('');
     logPrint('╔╣ $header');
     logPrint('║  $text');
-    _printLine('╚');
+    // _printLine('╚');
   }
 
   void _printResponse(Response response) {
@@ -272,6 +272,6 @@ class LoggingInterceptor extends Interceptor {
     logPrint('╔ $header ');
     map.forEach(
             (dynamic key, dynamic value) => _printKV(key.toString(), value));
-    _printLine('╚');
+    // _printLine('╚');
   }
 }

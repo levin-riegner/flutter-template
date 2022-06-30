@@ -6,7 +6,6 @@ import 'package:flutter_template/data/article/service/local/article_db_service.d
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
 import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
-import 'package:flutter_template/data/shared/service/local/cache_policy_service.dart';
 import 'package:logging_flutter/flogger.dart';
 
 class ArticleDataRepository implements ArticleRepository {
@@ -20,6 +19,8 @@ class ArticleDataRepository implements ArticleRepository {
 
   @override
   Future<List<Article>> getArticles(String query, {bool? forceRefresh}) async {
+    Flogger.i(
+        "Getting articles for query $query. Force refresh: $forceRefresh");
     final dbArticles = (await _dbService.getArticles(query))
         .map((e) => e.toArticle())
         .toList();

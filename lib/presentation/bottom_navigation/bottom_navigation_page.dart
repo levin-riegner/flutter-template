@@ -15,13 +15,13 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     return AutoTabsScaffold(
       routes: [
         ArticlesRouter(),
-        SettingsRouter(),
+        const SettingsRouter(),
       ],
       bottomNavigationBuilder: (context, tabsRouter) {
         return BottomNavigationBar(
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.article,

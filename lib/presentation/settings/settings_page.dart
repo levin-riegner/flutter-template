@@ -9,13 +9,11 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: TextButton(
-          child: Text("Navigate to detail"),
-          onPressed: () => AutoRouter.of(context).pushNamed(
-            Routes.settingsDetails,
-          ),
+    return Center(
+      child: TextButton(
+        child: const Text("Navigate to detail"),
+        onPressed: () => AutoRouter.of(context).pushNamed(
+          Routes.settingsDetails,
         ),
       ),
     );

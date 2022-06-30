@@ -3,11 +3,11 @@ import 'package:flutter/services.dart';
 
 abstract class AppTheme {
   static ThemeData lightTheme() {
-    final defaultTextColor = Color(0xFF000000);
+    const defaultTextColor = Color(0xFF000000);
     // Basic Config
     final base = ThemeData.light().copyWith(
-      disabledColor: Color(0xFFEFECEA),
-      colorScheme: ColorScheme(
+      disabledColor: const Color(0xFFEFECEA),
+      colorScheme: const ColorScheme(
         primary: Color(0xFFFEBE10),
         primaryContainer: Color(0xFFFEBE10),
         secondary: Color(0xFFFAA21B),
@@ -22,7 +22,7 @@ abstract class AppTheme {
         onError: Color(0xFF000000),
         brightness: Brightness.light,
       ),
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
         headline1: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 36,
@@ -169,23 +169,23 @@ abstract class AppTheme {
       primaryColorDark: base.colorScheme.primary,
       backgroundColor: base.colorScheme.background,
       scaffoldBackgroundColor: base.colorScheme.background,
-      bottomAppBarColor: Color(0xFF000000),
-      shadowColor: Color(0xFF000000),
+      bottomAppBarColor: const Color(0xFF000000),
+      shadowColor: const Color(0xFF000000),
       appBarTheme: base.appBarTheme.copyWith(
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
-        iconTheme: IconThemeData.fallback().copyWith(
-          color: Color(0xFF000000),
+        iconTheme: const IconThemeData.fallback().copyWith(
+          color: const Color(0xFF000000),
         ),
-        actionsIconTheme: IconThemeData.fallback().copyWith(
-          color: Color(0xFF000000),
+        actionsIconTheme: const IconThemeData.fallback().copyWith(
+          color: const Color(0xFF000000),
         ),
-        color: Color(0xFFFEBE10),
+        color: const Color(0xFFFEBE10),
       ),
       bottomNavigationBarTheme: base.bottomNavigationBarTheme.copyWith(
-        backgroundColor: Color(0xFF000000),
-        selectedItemColor: Color(0xFFFEBE10),
-        unselectedItemColor: Color(0xFFFFFFFF).withOpacity(0.6),
+        backgroundColor: const Color(0xFF000000),
+        selectedItemColor: const Color(0xFFFEBE10),
+        unselectedItemColor: const Color(0xFFFFFFFF).withOpacity(0.6),
         showSelectedLabels: true,
         showUnselectedLabels: true,
         selectedLabelStyle: base.textTheme.overline,
@@ -193,7 +193,8 @@ abstract class AppTheme {
         elevation: 0,
       ),
       tooltipTheme: base.tooltipTheme.copyWith(
-        textStyle: base.textTheme.overline?.copyWith(color: Color(0xFFFFFFFF)),
+        textStyle:
+            base.textTheme.overline?.copyWith(color: const Color(0xFFFFFFFF)),
       ),
       cardColor: base.colorScheme.background,
       dividerColor: base.disabledColor,
@@ -201,13 +202,14 @@ abstract class AppTheme {
         elevation: 0.0,
         color: base.colorScheme.surface,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: base.colorScheme.onPrimary.withOpacity(.3), width: 1.0),
+          side: BorderSide(
+              color: base.colorScheme.onPrimary.withOpacity(.3), width: 1.0),
           borderRadius: BorderRadius.zero,
         ),
       ),
       snackBarTheme: base.snackBarTheme.copyWith(
         elevation: 0.0,
-        shape: BeveledRectangleBorder(),
+        shape: const BeveledRectangleBorder(),
         backgroundColor: base.colorScheme.onBackground,
         contentTextStyle: base.textTheme.caption?.copyWith(
           color: base.colorScheme.background,

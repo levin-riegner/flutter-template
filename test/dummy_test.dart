@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('Dummy test', () {
-    final trueBoolean = true;
+    const trueBoolean = true;
     expect(trueBoolean, true);
   });
 }
