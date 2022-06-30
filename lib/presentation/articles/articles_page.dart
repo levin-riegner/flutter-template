@@ -102,11 +102,11 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
                   inAppReview.requestReview();
                 } else {
                   inAppReview.openStoreListing(
-                    appStoreId: Constants.APPSTORE_APP_ID,
+                    appStoreId: Constants.appstoreAppId,
                   );
                 }
               } catch (e) {
-                Flogger.i("Error requesting app review", object: e);
+                Flogger.i("Error requesting app review: $e");
               }
             },
           ),

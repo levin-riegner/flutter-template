@@ -26,11 +26,12 @@ abstract class Network {
           ApiKeyInterceptor(apiKey),
           // Curl
           CurlInterceptor(
-            logPrint: (message) => Flogger.d("Curl", object: message),
+            logPrint: (message) => Flogger.d(message, loggerName: "Curl"),
           ),
           // Logs
           LoggingInterceptor(
-            logPrint: (message) => Flogger.d("Dio", object: message),
+            logPrint: (message) =>
+                Flogger.d(message.toString(), loggerName: "Dio"),
           ),
         ],
       );

@@ -7,9 +7,7 @@ abstract class BaseApiService {
   Exception mapToError(Object exception) {
     if (exception is DioError) {
       Flogger.i(
-        "Dio Error has occurred while making a request with status code",
-        object:
-            "${exception.response?.statusCode} || ${exception.response?.statusMessage}",
+        "Dio Error has occurred while making a request with status code: ${exception.response?.statusCode} || ${exception.response?.statusMessage}",
       );
 
       switch (exception.response?.statusCode) {
@@ -30,8 +28,7 @@ abstract class BaseApiService {
       }
     } else {
       Flogger.i(
-        "An unknown error has occurred while making a request",
-        object: exception,
+        "An unknown error has occurred while making a request - $exception",
       );
       return DataError.unknown(error: exception);
     }

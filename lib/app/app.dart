@@ -126,7 +126,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     // Check App Update Available
     final appVersioning = getIt.get<AppVersioning>();
     final appUpdateInfo = await appVersioning.getAppUpdateInfo();
-    Flogger.i("Got app update info", object: appUpdateInfo);
+    Flogger.i("Got app update info: $appUpdateInfo");
     final isOptionalUpdate =
         appUpdateInfo.updateType != AppUpdateType.Mandatory;
     if (appUpdateInfo.isUpdateAvailable) {
@@ -162,8 +162,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   // Push
   void _initPushNotifications() async {
     PermissionStatus status = await Permission.notification.status;
+    Flogger.i("Push notifications status: $status");
     if (status.isGranted) {
-      Flogger.i("Init Push Notifications: Granted");
       // TODO: Register with push service
     }
   }
@@ -173,14 +173,11 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     // Register Dynamic Link Callback
     _dynamicLinksSubscription = FirebaseDynamicLinks.instance.onLink.listen(
       (event) {
+        Flogger.i("Received dynamic link: $event");
         final Uri deepLink = event.link;
-
         _onDeepLink(deepLink);
       },
-      onError: (error) => Flogger.w(
-        "Error getting dynamic link",
-        object: error,
-      ),
+      onError: (error) => Flogger.w("Error getting dynamic link $error"),
     );
 
     // Check if app was opened by a Dynamic Link
@@ -188,15 +185,12 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         await FirebaseDynamicLinks.instance.getInitialLink();
     final Uri? deepLink = data?.link;
     if (deepLink != null) {
+      Flogger.i("Received dynamic link opening the app: $data");
       _onDeepLink(deepLink);
     }
   }
 
   void _onDeepLink(Uri deepLink) {
-    Flogger.i(
-      "Received DeepLink with path: ${deepLink.path}",
-      object: deepLink,
-    );
     // Navigate
     AutoRouter.of(getIt<AppRouter>().navigatorKey.currentState!.context)
         .navigateNamed(deepLink.path);

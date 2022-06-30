@@ -26,12 +26,12 @@ class CachePolicyService {
   }
 }
 
-enum CachePolicyModel { Articles }
+enum CachePolicyModel { articles }
 
 extension CachePolicyModelX on CachePolicyModel {
   int refreshPeriodInMs() {
     switch (this) {
-      case CachePolicyModel.Articles:
+      case CachePolicyModel.articles:
         return 24 * 60 * 60 * 1000; // Every 24h
     }
   }

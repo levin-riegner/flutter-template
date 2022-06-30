@@ -40,10 +40,11 @@ abstract class Analytics {
   //    parameters: {AnalyticsParameter.itemId: item.id},
   //  );
   trackEvent({required String eventName, Map<String, dynamic>? parameters}) {
-    Flogger.info(eventName, object: parameters);
+    Flogger.i("Analytics Event $eventName with params: $parameters");
     if (kReleaseMode) {
       // Track in Analytics Services
-      FirebaseAnalytics.instance.logEvent(name: eventName, parameters: parameters);
+      FirebaseAnalytics.instance
+          .logEvent(name: eventName, parameters: parameters);
     }
   }
 }

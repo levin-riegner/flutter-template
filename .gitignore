@@ -49,7 +49,7 @@ app.*.map.json
 android/private/*
 
 # iOS Appstore API Key
-api_key.json
+apiKey.json
 
 # Fastlane
 **/fastlane/report.xml

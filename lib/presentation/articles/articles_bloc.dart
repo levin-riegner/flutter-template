@@ -50,7 +50,7 @@ class ArticlesBloc extends BaseBloc {
       _state.add(
         e.when(
           subscriptionExpired: () {
-            Flogger.info("Subscription Expired");
+            Flogger.i("Subscription Expired");
             return const ArticlesState.subscriptionExpired();
           },
         ),
@@ -59,24 +59,24 @@ class ArticlesBloc extends BaseBloc {
       _state.add(
         e.when(
           notFound: () {
-            Flogger.info("Content not found for query $kQuery");
+            Flogger.i("Content not found for query $kQuery");
             _alerts.add(const QueryNotFound(kQuery));
             return const ArticlesState.content(articles: Success(data: []));
           },
           apiError: (reason) {
-            Flogger.w("Api error getting articles", object: reason);
+            Flogger.w("Api error getting articles: $reason");
             return ArticlesState.content(
                 articles: Failure(reason: DataError.apiError(reason: reason)));
           },
           unknown: (error) {
-            Flogger.w("Unknown error getting articles", object: error);
+            Flogger.w("Unknown error getting articles: $error");
             return ArticlesState.content(
                 articles: Failure(reason: DataError.unknown(error: error)));
           },
         ),
       );
     } catch (e) {
-      Flogger.w("Unexpected error getting articles", object: e);
+      Flogger.w("Unexpected error getting articles: $e");
       _state.add(ArticlesState.content(
           articles: Failure(reason: DataError.unknown(error: e))));
     }

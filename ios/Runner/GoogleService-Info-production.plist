@@ -6,7 +6,7 @@
 	<string>930871121577-cm72ibv4j7o4vituvs5rbrc075quqp8t.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.930871121577-cm72ibv4j7o4vituvs5rbrc075quqp8t</string>
-	<key>API_KEY</key>
+	<key>apiKey</key>
 	<string>AIzaSyBeyATAmddj_EmpP1V6qvpp8CdXVZSpZSg</string>
 	<key>GCM_SENDER_ID</key>
 	<string>930871121577</string>

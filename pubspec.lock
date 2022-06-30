@@ -720,12 +720,10 @@ packages:
   logging_flutter:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "release/1.0.1"
-      resolved-ref: "0fefd95b1eb3866ffea42a127dc32509bb91dd22"
-      url: "https://github.com/levin-riegner/logging_flutter.git"
-    source: git
-    version: "1.0.1"
+      path: "../logging_flutter"
+      relative: true
+    source: path
+    version: "2.0.0"
   lr_app_versioning:
     dependency: "direct main"
     description:

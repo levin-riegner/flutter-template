@@ -1,17 +1,35 @@
 {
-    "dart.flutterSdkPath": ".fvm/flutter_sdk",
-    // Remove .fvm files from search
-    "search.exclude": {
-      "**/.fvm": true
-    },
-    // Remove from file watching
-    "files.watcherExclude": {
-      "**/.fvm": true
-    },
-    // Fix actions on save
-    "editor.codeActionsOnSave": {
-      "source.fixAll": true
-   },
-   // Format on save
-   "editor.formatOnSave": true
-  }
+  // Use Flutter SDK from fvm
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
+  // Remove .fvm files from search
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  // Remove from file watching
+  "files.watcherExclude": {
+    "**/.fvm": true
+  },
+  // Fix actions on save
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  // Format on save
+  "editor.formatOnSave": true,
+  // Exclude files from explorer
+  "files.exclude": {
+    // Exclude auto-generated files
+    "**/*.g.dart": true,
+    "**/*.freezed.dart": true,
+    "**/*.gr.dart": true,
+    // Exclude Flutter tash
+    ".flutter-plugins": true,
+    ".flutter-plugins-dependencies": true,
+    ".packages": true,
+    "build": true,
+    ".metadata": true,
+    // Exclude Android Studio stuff
+    ".idea": true,
+    ".run": true,
+    "flutter_template.iml": true
+  },
+}
