@@ -12,7 +12,6 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
-  flutter_sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -36,7 +35,7 @@ dependencies:
   get_it: ^7.2.0
   # Boilerplate generation
   freezed_annotation: ^1.1.0
-  json_serializable: ^6.1.4
+  json_annotation: ^4.5.0
   # Logging
   logging_flutter:
     git:
@@ -45,8 +44,8 @@ dependencies:
   # PaperTrail
   flutter_paper_trail:
     git:
-      url: git://github.com/levin-riegner/flutter_paper_trail
-      ref: release/1.0.1
+      url: https://github.com/metaflowltd/flutter_paper_trail.git
+      ref: master
   # App version tracking
   lr_app_versioning:
     git:
@@ -80,16 +79,28 @@ dependencies:
   shared_preferences: ^2.0.13
   # Auto route
   auto_route: ^3.2.4
+  # Collection
+  collection: ^1.15.0
+  # Equatable
+  equatable: ^2.0.3
+  # Shake (open qa console)
+  shake: ^2.1.0
 
 dev_dependencies:
   test:
   flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_driver:
     sdk: flutter
   # Other build dependencies
   build_runner: ^2.1.7
   freezed: ^1.1.0
   hive_generator: ^1.1.2
   auto_route_generator: ^3.2.3
+  json_serializable: ^6.2.0
+  flutter_lints: ^1.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -11,53 +11,49 @@ if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
 
-// Signing
+// Release signing
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file("private/keystore.properties")
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-} else {
+    project.logger.info('Signing loaded from local file')
+} else if (System.getenv('KEYSTORE_FILE') != null) {
     keystoreProperties.setProperty('keystoreFile', System.getenv('KEYSTORE_FILE'))
     keystoreProperties.setProperty('keystorePassword', System.getenv('KEYSTORE_PASSWORD'))
     keystoreProperties.setProperty('keyAlias', System.getenv('KEY_ALIAS'))
     keystoreProperties.setProperty('keyPassword', System.getenv('KEY_PASSWORD'))
+    project.logger.info('Signing loaded from env variables')
+} else {
+    project.logger.info('No release signing available')
 }
+
 // Version Code
 // Based on: https://gist.github.com/paramsen/4a92c9230d799caeb3b90897da27a80c
 static def generateVersionCode() {
     def versionCodeOffset = 0 // Update to keep compatibility with existing apps
     def result = "git rev-list HEAD --count".execute().text.trim() // Unix
-    if(result.empty) result = "PowerShell -Command git rev-list HEAD --count".execute().text.trim() // Windows
-    if(result.empty) throw new RuntimeException("Could not generate versionCode")
+    if (result.empty) result = "PowerShell -Command git rev-list HEAD --count".execute().text.trim()
+    // Windows
+    if (result.empty) throw new RuntimeException("Could not generate versionCode")
     return result.toInteger() + versionCodeOffset
 }
 
 // Version Name
 static def generateVersionName() {
     def result = "git rev-parse --abbrev-ref HEAD".execute().text.trim() // Unix
-    if(result.empty) result = "PowerShell -Command git rev-parse HEAD --abbrev-ref".execute().text.trim() // Windows
-    if(result.empty) throw new RuntimeException("Could not generate versionCode")
+    if (result.empty) result = "PowerShell -Command git rev-parse HEAD --abbrev-ref".execute().text.trim()
+    // Windows
+    if (result.empty) throw new RuntimeException("Could not generate versionCode")
     return result.substring(result.lastIndexOf("/") + 1)
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -71,30 +67,41 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.levinriegner.fluttertemplate"
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode generateVersionCode()
         versionName generateVersionName()
     }
 
     signingConfigs {
-        release {
-            storeFile file(keystoreProperties['keystoreFile'])
-            storePassword keystoreProperties['keystorePassword']
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
+        debug {
+            storeFile file("../.debug/debug.jks")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+        if (keystoreProperties["keystoreFile"] != null) {
+            release {
+                storeFile file(keystoreProperties['keystoreFile'])
+                storePassword keystoreProperties['keystorePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
         }
     }
 
     buildTypes {
         debug {
             minifyEnabled false
+            signingConfig signingConfigs.debug
         }
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-            multiDexKeepFile file('multidex-config.txt')
+        if (keystoreProperties["keystoreFile"] != null) {
+            release {
+                minifyEnabled true
+                shrinkResources true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                // multiDexKeepFile file('multidex-config.txt')
+                signingConfig signingConfigs.release
+            }
         }
     }
 
@@ -117,6 +124,10 @@ android {
             ]
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 flutter {
@@ -124,5 +135,9 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation("androidx.core:core-ktx:1.7.0")
+    // APIs for SplashScreen, including compatibility helpers on devices prior Android 12
+    implementation("androidx.core:core-splashscreen:1.0.0-beta02")
 }
+
+apply plugin: 'com.google.firebase.crashlytics'

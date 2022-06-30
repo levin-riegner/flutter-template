@@ -24,5 +24,6 @@ class _Status {
     this.message,
   });
 
-  factory _Status.fromJson(Map<String, dynamic> json) => _$StatusFromJson(json);
+  factory _Status.fromJson(Map<String, dynamic> json) =>
+      _$StatusFromJson(json);
 }

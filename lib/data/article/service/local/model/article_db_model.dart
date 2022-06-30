@@ -35,6 +35,7 @@ class ArticleDbModel extends HiveObject {
 
   Article toArticle() {
     return Article(
+      id: null,
       title: title,
       description: description,
       imageUrl: imageUrl,

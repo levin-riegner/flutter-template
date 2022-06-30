@@ -63,15 +63,19 @@ class ArticlesBloc extends BaseBloc {
             _alerts.add(QueryNotFound(kQuery));
             return ArticlesState.content(articles: Success(data: []));
           },
+          apiError: (reason) {
+            Flogger.w("Api error getting articles", object: reason);
+            return ArticlesState.content(articles: Failure(reason: DataError.apiError(reason: reason)));
+          },
           unknown: (error) {
             Flogger.w("Unknown error getting articles", object: error);
-            return ArticlesState.content(articles: Failure(reason: Unknown()));
+            return ArticlesState.content(articles: Failure(reason: DataError.unknown(error: error)));
           },
         ),
       );
     } catch (e) {
       Flogger.w("Unexpected error getting articles", object: e);
-      _state.add(ArticlesState.content(articles: Failure(reason: Unknown())));
+      _state.add(ArticlesState.content(articles: Failure(reason: DataError.unknown(error: e))));
     }
   }
 

@@ -5,9 +5,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template/app/config/environment.dart';
+import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/presentation/util/styles/dimens.dart';
 import 'package:flutter_template/presentation/util/styles/theme.dart';
 import 'package:flutter_template/util/dependencies.dart';
@@ -20,6 +20,7 @@ import 'package:lr_design_system/config/ds_config.dart';
 import 'package:lr_design_system/views/ds_dialog.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:shake/shake.dart' as shake;
 
 import 'navigation/router/app_router.gr.dart';
 
@@ -38,7 +39,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with WidgetsBindingObserver {
   final appRouter = getIt<AppRouter>();
   final environment = getIt<Environment>();
-  ShakeDetector? shakeDetector;
+  shake.ShakeDetector? shakeDetector;
 
   late StreamSubscription _dynamicLinksSubscription;
 
@@ -46,15 +47,15 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     // Register observer to handle Shake detection on different App lifecycles
-    if (environment.isInternal) {
-      shakeDetector = getIt<ShakeDetector>();
+    if (environment.internal) {
+      shakeDetector = getIt<shake.ShakeDetector>();
     }
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (environment.isInternal) {
+    if (environment.internal) {
       switch (state) {
         case AppLifecycleState.resumed:
           shakeDetector?.startListening();
@@ -136,16 +137,15 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         context: getIt<AppRouter>().navigatorKey.currentState!.context,
         builder: (context) {
           return DSDialog(
-            title: Strings.of(context)!.dialogAppUpdateTitle,
-            description: Strings.of(context)!.dialogAppUpdateDescription,
-            positiveButtonText:
-                Strings.of(context)!.dialogAppUpdateConfirmationButton,
+            title: context.l10n.dialogAppUpdateTitle,
+            description: context.l10n.dialogAppUpdateDescription,
+            positiveButtonText: context.l10n.dialogAppUpdateConfirmationButton,
             positiveCallback: () {
               Flogger.i("Launching update");
               appVersioning.launchUpdate(updateInBackground: isOptionalUpdate);
             },
             negativeButtonText: isOptionalUpdate
-                ? Strings.of(context)!.dialogAppUpdateDismissButton
+                ? context.l10n.dialogAppUpdateDismissButton
                 : null,
             negativeCallback: isOptionalUpdate
                 ? () {
@@ -209,7 +209,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   void dispose() {
     Dependencies.dispose();
     _dynamicLinksSubscription.cancel();
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-}
+}articles_bloc.dart

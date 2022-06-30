@@ -48,6 +48,9 @@ app.*.map.json
 # Android Private Keys
 android/private/*
 
+# iOS Appstore API Key
+api_key.json
+
 # Fastlane
 **/fastlane/report.xml
 
@@ -99,6 +102,7 @@ android/private/*
 # Build Files
 **/ios/*.app.dSYM.zip
 **/ios/*.ipa
+**/ios/build/
 
 # GraphQL helpers
 .graphqlconfig
@@ -109,3 +113,9 @@ graphql/
 **/*.freezed.dart
 **/*.chopper.dart
 **/*.gr.dart
+
+# Code coverage
+coverage/
+
+# fvm
+.fvm/flutter_sdk

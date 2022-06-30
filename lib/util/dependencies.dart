@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -24,11 +25,13 @@ import 'package:hive/hive.dart';
 import 'package:logging_flutter/flogger.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_app_versioning/app_versioning.dart';
+import 'package:shake/shake.dart' as shake;
+import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
 
 abstract class Dependencies {
-  static List<Box> _userDataBoxes = [];
+  static final List<Box> _userDataBoxes = [];
 
   static Future<void> register({
     required Environment environment,
@@ -37,6 +40,8 @@ abstract class Dependencies {
   }) async {
     // Environment
     getIt.registerSingleton<Environment>(environment);
+    // Equatable (generate toString methods)
+    EquatableConfig.stringify = true;
 
     // AutoRouter
     final appRouter = AppRouter(NavigatorHolder.navigatorKey);
@@ -46,6 +51,15 @@ abstract class Dependencies {
     // Secure Storage
     final secureStorage = SecureStorage();
     getIt.registerSingleton<SecureStorage>(secureStorage);
+    // Shared Preferences
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // Clear Secure Storage on first run to prevent persistence across uninstall/reinstall
+    if (sharedPreferences.getBool("first_run") ?? true) {
+      await Future.wait([
+        sharedPreferences.setBool("first_run", false),
+        secureStorage.deleteAll(),
+      ]);
+    }
     // HttpClient
     final httpClient = Network.createHttpClient(
       environment.apiBaseUrl,
@@ -55,7 +69,8 @@ abstract class Dependencies {
     // Database
     await Database.init();
     // Open db boxes
-    final articlesBox = await Hive.openBox<ArticleDbModel>(Database.ArticleBox);
+    final articlesBox =
+        await Database.openBox<ArticleDbModel>(Database.ArticleBox);
     // Save user boxes as class var for logout
     _userDataBoxes.addAll([]);
     // Repositories
@@ -102,11 +117,11 @@ abstract class Dependencies {
     }
     // App Versioning
     final appVersioning = AppVersioning.firebaseService(
-      remoteConfigKeys: RemoteConfigKeys(
+      remoteConfigKeys: const RemoteConfigKeys(
         minimumIosVersionKey: "minimumIosVersion",
         minimumAndroidVersionKey: "minimumAndroidVersion",
       ),
-      updateConfig: UpdateConfig(
+      updateConfig: const UpdateConfig(
         appStoreAppId: Constants.APPSTORE_APP_ID,
         playStoreAppId: Constants.PLAYSTORE_APP_ID,
         appstoreCountryCode: 'US',
@@ -116,14 +131,15 @@ abstract class Dependencies {
     // Version tracking
     await appVersioning.tracker.track();
     // User Configs
-    final userConfig = UserConfigService();
+    final userConfig = UserConfigService(sharedPreferences);
     getIt.registerSingleton<UserConfigService>(userConfig);
     // Analytics tracking
     final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
-    setDataCollectionEnabled(dataCollectionEnabled || environment.isInternal);
+    // TODO: Set the default data collection policy for your app
+    setDataCollectionEnabled(dataCollectionEnabled ?? true || environment.internal);
     // Shake detector for Console
-    if (environment.isInternal) {
-      final shakeDetector = ShakeDetector(
+    if (environment.internal) {
+      final shakeDetector = shake.ShakeDetector.autoStart(
         shakeThresholdGravity: 2,
         onPhoneShake: () {
           appRouter.navigate(
@@ -132,9 +148,11 @@ abstract class Dependencies {
         },
       )..startListening();
       // Save logs for console
-      Flogger.registerListener((record) =>
-          LogConsole.add(OutputEvent(record.level, [record.message])));
-      getIt.registerSingleton<ShakeDetector>(shakeDetector);
+      Flogger.registerListener((record) => LogConsole.add(
+            OutputEvent(record.level, [record.message]),
+            bufferSize: 1000, // Remember the last X logs
+          ));
+      getIt.registerSingleton<shake.ShakeDetector>(shakeDetector);
     }
 
     // endregion
@@ -145,6 +163,10 @@ abstract class Dependencies {
     Flogger.i("Disposing dependencies");
     // Close Database
     await Hive.close();
+    // Stop listening to Shake
+    if (getIt.get<Environment>().internal) {
+      getIt.get<shake.ShakeDetector>().stopListening();
+    }
   }
 
   /// Registers user to dependencies
@@ -162,6 +184,7 @@ abstract class Dependencies {
   /// Clears all local data
   static Future<void> clearAllLocalData() async {
     Flogger.i("Clearing all local data");
+    final preferences = await SharedPreferences.getInstance();
     await Future.wait([
       // Clear user boxes
       // Clearing the whole database won't allow for writing again
@@ -173,6 +196,8 @@ abstract class Dependencies {
       Analytics.logout(),
       // User Configs
       getIt.get<UserConfigService>().clear(),
+      // Shared Preferences
+      preferences.clear(),
     ]);
   }
 

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/strings.dart';
+import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/model/article.dart';
@@ -31,7 +31,7 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
         queryNotFound: (query) {
           return AlertService.instance()!.showAlert(
             context: context,
-            message: Strings.of(context)!.noArticlesFound(query),
+            message: context.l10n.noArticlesFound(query),
           );
         },
       );
@@ -86,7 +86,7 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.of(context)!.articlesTitle),
+        title: Text(context.l10n.articlesTitle),
         actions: [
           IconButton(
             icon: Icon(Icons.star),
@@ -143,7 +143,7 @@ class _Article extends StatelessWidget {
               if (_article.imageUrl != null)
                 Semantics(
                   child: CachedNetworkImage(imageUrl: _article.imageUrl!),
-                  label: Strings.of(context)!.articleThumbnailAlt,
+                  label: context.l10n.articleThumbnailAlt,
                 ),
               Dimens.of(context).boxMedium,
               Text(_article.title!),
