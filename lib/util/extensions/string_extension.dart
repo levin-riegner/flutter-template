@@ -6,7 +6,7 @@ extension StringExtension on String {
     if (length <= count) {
       return this;
     } else {
-      return this.substring(length - count);
+      return substring(length - count);
     }
   }
 

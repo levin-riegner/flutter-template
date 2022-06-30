@@ -1,5 +1,4 @@
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 abstract class Database {

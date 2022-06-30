@@ -111,7 +111,7 @@ android {
         qa {
             dimension "app"
             manifestPlaceholders = [
-                    applicationLabel  : "fluttertemplate QA",
+                    applicationLabel: "fluttertemplate QA",
                     dynamicLinksDomain: "fluttertemplateqa.page.link"
             ]
             applicationIdSuffix ".qa"
@@ -119,7 +119,7 @@ android {
         production {
             dimension "app"
             manifestPlaceholders = [
-                    applicationLabel  : "fluttertemplate",
+                    applicationLabel: "fluttertemplate",
                     dynamicLinksDomain: "fluttertemplate.page.link"
             ]
         }

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:device_info/device_info.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_paper_trail/flutter_paper_trail.dart';
 import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
 import 'package:flutter_template/util/dependencies.dart';

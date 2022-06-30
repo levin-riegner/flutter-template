@@ -18,29 +18,29 @@ dependencies:
     sdk: flutter
 
   ## Add your project dependencies here 👇
-  cupertino_icons: ^1.0.2
-  url_launcher: ^6.0.10
+  cupertino_icons: ^1.0.4
+  url_launcher: ^6.0.20
 
   ## Common Dependencies
   # UI
-  cached_network_image: ^3.1.0
+  cached_network_image: ^3.2.0
   # Provider
-  provider: ^6.0.0
+  provider: ^6.0.2
   # RxDart
-  rxdart: ^0.27.2
+  rxdart: ^0.27.3
   # Device Info
-  device_info_plus: ^2.1.0
-  package_info_plus: ^1.0.6
+  device_info_plus: ^3.2.2
+  package_info_plus: ^1.4.0
   # Dependency Injection
   get_it: ^7.2.0
   # Boilerplate generation
-  freezed_annotation: ^0.14.3
-  json_annotation: ^4.4.0
+  freezed_annotation: ^1.1.0
+  json_annotation: ^4.5.0
   # Logging
   logging_flutter:
     git:
       url: https://github.com/levin-riegner/logging_flutter.git
-      ref: release/1.0.0
+      ref: release/1.0.1
   # PaperTrail
   flutter_paper_trail:
     git:
@@ -50,41 +50,41 @@ dependencies:
   lr_app_versioning:
     git:
       url: git@github.com:levin-riegner/lr-app-versioning
-      ref: release/1.0.0
+      ref: release/1.0.1
   # Theming
   lr_design_system:
     git:
       url: git@github.com:levin-riegner/flutter-design-system
-      ref: release/0.4.0
+      ref: release/0.5.0
   # Firebase
-  firebase_core: ^1.6.0
-  firebase_analytics: ^8.3.2
-  firebase_crashlytics: ^2.2.1
-  firebase_dynamic_links: ^2.0.9
+  firebase_core: ^1.13.1
+  firebase_analytics: ^9.1.2
+  firebase_crashlytics: ^2.5.3
+  firebase_dynamic_links: ^4.0.8
   # Network
-  chopper: ^4.0.1
+  dio: ^4.0.4
   # Database
-  hive: ^2.0.4
+  hive: ^2.0.6
   hive_flutter: ^1.1.0
   # Secure storage
-  flutter_secure_storage: ^4.2.1
+  flutter_secure_storage: ^5.0.2
   # Translations
   flutter_localizations:
     sdk: flutter
-  # Detect shake to open console
-  shake: ^1.0.1
   # Permissions
-  permission_handler: ^9.0.2
+  permission_handler: ^9.2.0
   # In-app review
-  in_app_review: ^2.0.2
+  in_app_review: ^2.0.4
   # Shared Preferences
-  shared_preferences: ^2.0.7
+  shared_preferences: ^2.0.13
   # Auto route
-  auto_route: ^2.3.2
+  auto_route: ^3.2.4
   # Collection
   collection: ^1.15.0
   # Equatable
   equatable: ^2.0.3
+  # Shake (open qa console)
+  shake: ^2.1.0
 
 dev_dependencies:
   test:
@@ -95,16 +95,11 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   # Other build dependencies
-  build_runner: ^2.1.2
-  freezed: ^0.14.5
-  json_serializable: ^6.1.4
-  chopper_generator: # TODO: Was ^4.0.1. Bump when available https://github.com/lejard-h/chopper/issues/294
-    git:
-      url: https://github.com/luis901101/chopper.git
-      ref: analyzer_upgrade
-      path: chopper_generator
-  hive_generator: ^1.1.1
-  auto_route_generator: ^2.3.2
+  build_runner: ^2.1.7
+  freezed: ^1.1.0
+  hive_generator: ^1.1.2
+  auto_route_generator: ^3.2.3
+  json_serializable: ^6.2.0
   flutter_lints: ^1.0.4
 
 # For information on the generic Dart part of this file, see the

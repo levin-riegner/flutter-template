@@ -5,7 +5,7 @@ abstract class AppDimens {
   static const double kArticleCardHeight = 275;
 
   static DimensData regular() {
-    return DimensData(
+    return const DimensData(
       marginXxxSmall: 1.5,
       marginXxSmall: 1.5,
       marginXSmall: 3,

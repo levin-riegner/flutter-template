@@ -1,14 +1,16 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/presentation/util/styles/dimens.dart';
 import 'package:flutter_template/presentation/util/styles/theme.dart';
 import 'package:flutter_template/util/dependencies.dart';
-import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:flutter_template/util/tools/qa_config.dart';
 import 'package:logging_flutter/flogger.dart';
 import 'package:lr_app_versioning/app_versioning.dart';
@@ -17,13 +19,14 @@ import 'package:lr_design_system/config/ds_config.dart';
 import 'package:lr_design_system/views/ds_dialog.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:shake/shake.dart';
 
 import 'navigation/router/app_router.gr.dart';
 
 class App extends StatefulWidget {
   final bool isSessionAvailable;
 
-  App({
+  const App({
     Key? key,
     required this.isSessionAvailable,
   }) : super(key: key);
@@ -32,8 +35,40 @@ class App extends StatefulWidget {
   _AppState createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with WidgetsBindingObserver {
   final appRouter = getIt<AppRouter>();
+  final environment = getIt<Environment>();
+  ShakeDetector? shakeDetector;
+
+  late StreamSubscription _dynamicLinksSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    // Register observer to handle Shake detection on different App lifecycles
+    if (environment.internal) {
+      shakeDetector = getIt<ShakeDetector>();
+    }
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (environment.internal) {
+      switch (state) {
+        case AppLifecycleState.resumed:
+          shakeDetector?.startListening();
+          break;
+        case AppLifecycleState.inactive:
+        case AppLifecycleState.paused:
+        case AppLifecycleState.detached:
+          shakeDetector?.stopListening();
+          break;
+      }
+    } else {
+      super.didChangeAppLifecycleState(state);
+    }
+  }
 
   @override
   void didChangeDependencies() {
@@ -59,7 +94,7 @@ class _AppState extends State<App> {
             showSemanticsDebugger:
                 context.watch<QaConfig>().showSemanticsDebugger,
             debugShowCheckedModeBanner: false,
-            localizationsDelegates: [
+            localizationsDelegates: const [
               Strings.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
@@ -69,12 +104,13 @@ class _AppState extends State<App> {
             theme: AppTheme.lightTheme(),
             routerDelegate: appRouter.delegate(
               initialRoutes: [
-                BottomNavigationRoute(),
+                const BottomNavigationRoute(),
               ],
               navigatorObservers: kReleaseMode
                   ? () => [
                         FirebaseAnalyticsObserver(
-                            analytics: Analytics.firebaseAnalytics),
+                          analytics: FirebaseAnalytics.instance,
+                        ),
                       ]
                   : AutoRouterDelegate.defaultNavigatorObserversBuilder,
             ),
@@ -135,16 +171,16 @@ class _AppState extends State<App> {
   // region Dynamic Links
   void _initDynamicLinks() async {
     // Register Dynamic Link Callback
-    FirebaseDynamicLinks.instance.onLink(
-      onSuccess: (PendingDynamicLinkData? dynamicLink) async {
-        final Uri? deepLink = dynamicLink?.link;
-        if (deepLink != null) {
-          _onDeepLink(deepLink);
-        }
+    _dynamicLinksSubscription = FirebaseDynamicLinks.instance.onLink.listen(
+      (event) {
+        final Uri deepLink = event.link;
+
+        _onDeepLink(deepLink);
       },
-      onError: (OnLinkErrorException e) async {
-        Flogger.w("Error getting dynamic link: ${e.message}", object: e);
-      },
+      onError: (error) => Flogger.w(
+        "Error getting dynamic link",
+        object: error,
+      ),
     );
 
     // Check if app was opened by a Dynamic Link
@@ -171,6 +207,8 @@ class _AppState extends State<App> {
   @override
   void dispose() {
     Dependencies.dispose();
+    _dynamicLinksSubscription.cancel();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 }

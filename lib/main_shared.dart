@@ -21,7 +21,7 @@ void mainShared() async {
 
   // Run Zoned App
   runZonedGuarded<Future<void>>(() async {
-    runApp(App(isSessionAvailable: false));
+    runApp(const App(isSessionAvailable: false));
   }, (Object error, StackTrace stackTrace) {
     // Catch and log crashes
     Flogger.e('Unhandled error', object: error, stackTrace: stackTrace);

@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/config/environment.dart';
-import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/util/dependencies.dart';
 
 class ConsoleEnvironments extends StatefulWidget {
+  const ConsoleEnvironments({Key? key}) : super(key: key);
+
   @override
   _ConsoleEnvironmentsState createState() => _ConsoleEnvironmentsState();
 }
@@ -18,7 +19,7 @@ class _ConsoleEnvironmentsState extends State<ConsoleEnvironments> {
     final environments = Environment.values();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Environments"),
+        title: const Text("Environments"),
       ),
       body: ListView.builder(
         itemCount: environments.length,

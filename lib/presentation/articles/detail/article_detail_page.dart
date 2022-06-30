@@ -8,10 +8,11 @@ class ArticleDetailPage extends StatefulWidget {
   final String? url;
 
   const ArticleDetailPage({
+    Key? key,
     @PathParam("id") required this.id,
     this.title,
     this.url,
-  });
+  }) : super(key: key);
 
   @override
   _ArticleDetailPageState createState() => _ArticleDetailPageState();

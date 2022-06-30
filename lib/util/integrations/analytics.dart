@@ -5,29 +5,31 @@ import 'package:logging_flutter/flogger.dart';
 abstract class Analytics {
   const Analytics._();
 
-  static final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
-
   static Future<void> identify(String userId, String email) async {
     Flogger.i("Identifying user for Analytics");
     if (kReleaseMode) {
-      await firebaseAnalytics.setUserId(userId);
+      await FirebaseAnalytics.instance.setUserId(
+        id: userId,
+      );
     }
   }
 
   static Future<void> setCollectionEnabled(bool enabled) async {
     Flogger.i("Setting Analytics collection enabled? $enabled");
-    await firebaseAnalytics.setAnalyticsCollectionEnabled(enabled);
+    await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(enabled);
   }
 
   static Future<void> logout() async {
     Flogger.i("Clearing user from Analytics");
-    firebaseAnalytics.setUserId(null);
+    FirebaseAnalytics.instance.setUserId(
+      id: null,
+    );
   }
 
   static setCurrentScreenName(String screenName) {
     Flogger.i("Setting current screen name to: $screenName");
     if (kReleaseMode) {
-      firebaseAnalytics.setCurrentScreen(screenName: screenName);
+      FirebaseAnalytics.instance.setCurrentScreen(screenName: screenName);
     }
   }
 
@@ -41,7 +43,7 @@ abstract class Analytics {
     Flogger.info(eventName, object: parameters);
     if (kReleaseMode) {
       // Track in Analytics Services
-      firebaseAnalytics.logEvent(name: eventName, parameters: parameters);
+      FirebaseAnalytics.instance.logEvent(name: eventName, parameters: parameters);
     }
   }
 }

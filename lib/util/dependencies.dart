@@ -8,7 +8,6 @@ import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
-import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/repository/article_data_repository.dart';
 import 'package:flutter_template/data/article/repository/article_mock_repository.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
@@ -26,7 +25,7 @@ import 'package:hive/hive.dart';
 import 'package:logging_flutter/flogger.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_app_versioning/app_versioning.dart';
-import 'package:shake/shake.dart';
+import 'package:shake/shake.dart' as shake;
 import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
@@ -79,7 +78,7 @@ abstract class Dependencies {
       useMocks
           ? ArticleMockRepository()
           : ArticleDataRepository(
-              ArticleApiService.create(httpClient),
+              ArticleApiService(httpClient),
               ArticleDbService(articlesBox),
             ),
     );
@@ -137,23 +136,24 @@ abstract class Dependencies {
     // Analytics tracking
     final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
     // TODO: Set the default data collection policy for your app
-    setDataCollectionEnabled(dataCollectionEnabled ?? true || environment.internal);
+    setDataCollectionEnabled(
+        dataCollectionEnabled ?? true || environment.internal);
     // Shake detector for Console
     if (environment.internal) {
-      final shakeDetector = ShakeDetector.autoStart(
+      final shakeDetector = shake.ShakeDetector.autoStart(
         shakeThresholdGravity: 2,
         onPhoneShake: () {
-          appRouter.navigateNamed(
-            Routes.console,
+          appRouter.navigate(
+            const ConsoleRouter(),
           );
         },
-      );
+      )..startListening();
       // Save logs for console
       Flogger.registerListener((record) => LogConsole.add(
             OutputEvent(record.level, [record.message]),
             bufferSize: 1000, // Remember the last X logs
           ));
-      getIt.registerSingleton<ShakeDetector>(shakeDetector);
+      getIt.registerSingleton<shake.ShakeDetector>(shakeDetector);
     }
 
     // endregion
@@ -166,7 +166,7 @@ abstract class Dependencies {
     await Hive.close();
     // Stop listening to Shake
     if (getIt.get<Environment>().internal) {
-      getIt.get<ShakeDetector>().stopListening();
+      getIt.get<shake.ShakeDetector>().stopListening();
     }
   }
 

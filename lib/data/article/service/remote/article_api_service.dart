@@ -1,18 +1,30 @@
-import 'package:chopper/chopper.dart';
-import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_template/data/shared/service/remote/base_api_service.dart';
 import 'package:flutter_template/data/shared/service/remote/endpoints.dart';
 
-part 'article_api_service.chopper.dart';
+class ArticleApiService extends BaseApiService {
+  final Dio client;
 
-@ChopperApi()
-abstract class ArticleApiService extends ChopperService {
+  ArticleApiService(this.client);
 
-  static ArticleApiService create(ChopperClient client) =>
-      _$ArticleApiService(client);
+  Future<Response<String>> getArticles(String query) {
+    try {
+      return client.get(
+        Endpoints.articles,
+        queryParameters: {"q": query},
+      );
+    } catch (ex) {
+      throw mapToError(ex);
+    }
+  }
 
-  @Get(path: Endpoints.articles)
-  Future<Response<ArticlesApiResponse>> getArticles(@Query("q") String query);
-
-  @Get(path: "${Endpoints.articles}/{id}")
-  Future<Response<ArticleApiModel>> getArticle(@Path() String id);
+  Future<Response<String>> getArticle(String id) {
+    try {
+      return client.get(
+        "${Endpoints.articles}/$id",
+      );
+    } catch (ex) {
+      throw mapToError(ex);
+    }
+  }
 }

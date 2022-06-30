@@ -7,7 +7,7 @@ import 'package:flutter_template/util/dependencies.dart';
 import 'package:provider/provider.dart';
 
 class ArticleWrapperPage extends StatelessWidget {
-  ArticleWrapperPage({
+  const ArticleWrapperPage({
     Key? key,
   }) : super(key: key);
 
@@ -26,7 +26,7 @@ class ArticleWrapperPage extends StatelessWidget {
           dispose: (context, bloc) => bloc.dispose(),
         )
       ],
-      child: AutoRouter(),
+      child: const AutoRouter(),
     );
   }
 }
