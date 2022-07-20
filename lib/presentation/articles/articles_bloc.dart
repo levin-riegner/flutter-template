@@ -8,7 +8,7 @@ import 'package:flutter_template/presentation/articles/articles_alert.dart';
 import 'package:flutter_template/presentation/articles/articles_state.dart';
 import 'package:flutter_template/presentation/util/base_bloc.dart';
 import 'package:flutter_template/presentation/util/data_state.dart';
-import 'package:logging_flutter/flogger.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ArticlesBloc extends BaseBloc {

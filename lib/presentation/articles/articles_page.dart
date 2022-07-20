@@ -9,7 +9,7 @@ import 'package:flutter_template/presentation/articles/articles_bloc.dart';
 import 'package:flutter_template/presentation/articles/articles_state.dart';
 import 'package:flutter_template/presentation/util/base_stateful_widget.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:logging_flutter/flogger.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_design_system/utils/alert_service.dart';
 import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/views/ds_app_version.dart';

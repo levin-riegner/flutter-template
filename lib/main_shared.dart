@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_template/app/app.dart';
-import 'package:logging_flutter/flogger.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 
 void mainShared() async {
   // Force Light Theme?

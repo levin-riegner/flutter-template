@@ -3,7 +3,7 @@ import 'package:flutter_template/data/shared/service/remote/interceptors/api_key
 import 'package:flutter_template/data/shared/service/remote/interceptors/auth_token_interceptor.dart';
 import 'package:flutter_template/data/shared/service/remote/interceptors/curl_interceptor.dart';
 import 'package:flutter_template/data/shared/service/remote/interceptors/logging_interceptor.dart';
-import 'package:logging_flutter/flogger.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 
 abstract class Network {
   static Dio createHttpClient(

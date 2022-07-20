@@ -1,6 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:logging_flutter/flogger.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 
 abstract class Analytics {
   const Analytics._();

@@ -12,7 +12,7 @@ import 'package:flutter_template/presentation/util/styles/dimens.dart';
 import 'package:flutter_template/presentation/util/styles/theme.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/tools/qa_config.dart';
-import 'package:logging_flutter/flogger.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_app_versioning/app_versioning.dart';
 import 'package:lr_design_system/config/ds_app.dart';
 import 'package:lr_design_system/config/ds_config.dart';
@@ -57,6 +57,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     if (environment.internal) {
       switch (state) {
         case AppLifecycleState.resumed:
+          shakeDetector?.stopListening();
           shakeDetector?.startListening();
           break;
         case AppLifecycleState.inactive:

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_template/data/shared/model/error/data_error.dart';
 import 'package:flutter_template/data/shared/service/remote/model/api_error_response.dart';
-import 'package:logging_flutter/flogger.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 
 abstract class BaseApiService {
   Exception mapToError(Object exception) {

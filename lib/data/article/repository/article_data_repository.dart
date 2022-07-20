@@ -6,7 +6,7 @@ import 'package:flutter_template/data/article/service/local/article_db_service.d
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
 import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
-import 'package:logging_flutter/flogger.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 
 class ArticleDataRepository implements ArticleRepository {
   final ArticleApiService _apiService;
