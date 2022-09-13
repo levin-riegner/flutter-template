@@ -8,15 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/l10n/l10n.dart';
-import 'package:flutter_template/presentation/util/styles/dimens.dart';
-import 'package:flutter_template/presentation/util/styles/theme.dart';
+import 'package:flutter_template/presentation/shared/design_system/utils/theme.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_dialog.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/tools/qa_config.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:lr_app_versioning/app_versioning.dart';
-import 'package:lr_design_system/config/ds_app.dart';
-import 'package:lr_design_system/config/ds_config.dart';
-import 'package:lr_design_system/views/ds_dialog.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shake/shake.dart';
@@ -81,14 +78,12 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return DSApp(
-      dimens: AppDimens.regular(),
-      config: DSConfig.fallback(),
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => QaConfig()),
-        ],
-        child: Builder(builder: (context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => QaConfig()),
+      ],
+      child: Builder(
+        builder: (context) {
           return MaterialApp.router(
             debugShowMaterialGrid:
                 context.watch<QaConfig>().debugShowMaterialGrid,
@@ -117,7 +112,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             ),
             routeInformationParser: appRouter.defaultRouteParser(),
           );
-        }),
+        },
       ),
     );
   }

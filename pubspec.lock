@@ -16,12 +16,12 @@ packages:
     source: hosted
     version: "3.4.1"
   another_flushbar:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: another_flushbar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.29"
+    version: "1.12.29"
   archive:
     dependency: transitive
     description:
@@ -184,12 +184,12 @@ packages:
     source: hosted
     version: "1.16.0"
   connectivity_plus:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: connectivity_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.5"
+    version: "2.3.6+1"
   connectivity_plus_linux:
     dependency: transitive
     description:
@@ -217,7 +217,7 @@ packages:
       name: connectivity_plus_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.2"
+    version: "1.2.3"
   connectivity_plus_windows:
     dependency: transitive
     description:
@@ -720,10 +720,10 @@ packages:
   logging_flutter:
     dependency: "direct main"
     description:
-      path: "../logging_flutter"
-      relative: true
-    source: path
-    version: "2.0.0"
+      name: logging_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   lr_app_versioning:
     dependency: "direct main"
     description:
@@ -742,15 +742,6 @@ packages:
       url: "git@github.com:levin-riegner/lr-core.git"
     source: git
     version: "0.0.1"
-  lr_design_system:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: "release/0.5.0"
-      resolved-ref: "745768c319a620ee65fb7fb035cf3593ad90bf91"
-      url: "git@github.com:levin-riegner/flutter-design-system"
-    source: git
-    version: "0.1.3"
   matcher:
     dependency: transitive
     description:
@@ -1408,7 +1399,7 @@ packages:
     source: hosted
     version: "1.1.0"
   webview_flutter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter
       url: "https://pub.dartlang.org"
@@ -1420,21 +1411,21 @@ packages:
       name: webview_flutter_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.14"
+    version: "2.10.0"
   webview_flutter_platform_interface:
     dependency: transitive
     description:
       name: webview_flutter_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.1"
+    version: "1.9.3"
   webview_flutter_wkwebview:
     dependency: transitive
     description:
       name: webview_flutter_wkwebview
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.1"
+    version: "2.9.4"
   win32:
     dependency: transitive
     description:

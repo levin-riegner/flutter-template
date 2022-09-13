@@ -1,20 +1,20 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/app/config/constants.dart';
+import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/presentation/articles/articles_bloc.dart';
 import 'package:flutter_template/presentation/articles/articles_state.dart';
-import 'package:flutter_template/presentation/util/base_stateful_widget.dart';
+import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
+import 'package:flutter_template/presentation/shared/design_system/utils/dimens.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_app_version.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_loading_indicator.dart';
+import 'package:flutter_template/presentation/shared/util/base_stateful_widget.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:logging_flutter/logging_flutter.dart';
-import 'package:lr_design_system/utils/alert_service.dart';
-import 'package:lr_design_system/utils/dimens.dart';
-import 'package:lr_design_system/views/ds_app_version.dart';
-import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
-import 'package:lr_design_system/views/ds_loading_indicator.dart';
 
 class ArticlesPage extends StatefulWidget {
   const ArticlesPage({Key? key}) : super(key: key);
@@ -110,9 +110,9 @@ class _ArticlesPageState extends BaseState<ArticlesPage, ArticlesBloc> {
               }
             },
           ),
-          Padding(
-            padding: EdgeInsets.all(Dimens.of(context).marginMedium),
-            child: const DSAppVersion(),
+          const Padding(
+            padding: EdgeInsets.all(Dimens.marginMedium),
+            child: DSAppVersion(),
           )
         ],
       ),
@@ -141,7 +141,7 @@ class _Article extends StatelessWidget {
     return Card(
       child: InkWell(
         child: Padding(
-          padding: EdgeInsets.all(Dimens.of(context).marginMedium),
+          padding: const EdgeInsets.all(Dimens.marginMedium),
           child: Column(
             children: [
               if (_article.imageUrl != null)
@@ -149,7 +149,7 @@ class _Article extends StatelessWidget {
                   child: CachedNetworkImage(imageUrl: _article.imageUrl!),
                   label: context.l10n.articleThumbnailAlt,
                 ),
-              Dimens.of(context).boxMedium,
+              Dimens.boxMedium,
               Text(_article.title!),
             ],
           ),

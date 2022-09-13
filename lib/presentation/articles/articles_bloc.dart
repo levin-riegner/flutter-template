@@ -6,8 +6,8 @@ import 'package:flutter_template/data/article/repository/article_repository.dart
 import 'package:flutter_template/data/shared/model/error/data_error.dart';
 import 'package:flutter_template/presentation/articles/articles_alert.dart';
 import 'package:flutter_template/presentation/articles/articles_state.dart';
-import 'package:flutter_template/presentation/util/base_bloc.dart';
-import 'package:flutter_template/presentation/util/data_state.dart';
+import 'package:flutter_template/presentation/shared/util/base_bloc.dart';
+import 'package:flutter_template/presentation/shared/util/data_state.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 

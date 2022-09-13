@@ -18,11 +18,11 @@ dependencies:
     sdk: flutter
 
   ## Add your project dependencies here 👇
-  cupertino_icons: ^1.0.4
   url_launcher: ^6.0.20
-
-  ## Common Dependencies
   # UI
+  cupertino_icons: ^1.0.4
+  another_flushbar: ^1.12.29
+  # Cached images
   cached_network_image: ^3.2.0
   # Provider
   provider: ^6.0.2
@@ -37,11 +37,7 @@ dependencies:
   freezed_annotation: ^1.1.0
   json_annotation: ^4.5.0
   # Logging
-  logging_flutter:
-    # git:
-    #   url: https://github.com/levin-riegner/logging_flutter.git
-    #   ref: release/1.0.1
-    path: ../logging_flutter/
+  logging_flutter: ^2.0.1
   # PaperTrail
   flutter_paper_trail:
     git:
@@ -52,11 +48,6 @@ dependencies:
     git:
       url: git@github.com:levin-riegner/lr-app-versioning
       ref: release/1.0.1
-  # Theming
-  lr_design_system:
-    git:
-      url: git@github.com:levin-riegner/flutter-design-system
-      ref: release/0.5.0
   # Firebase
   firebase_core: ^1.13.1
   firebase_analytics: ^9.1.2
@@ -86,6 +77,10 @@ dependencies:
   equatable: ^2.0.3
   # Shake (open qa console)
   shake: ^2.1.0
+  # Connectivity
+  connectivity_plus: ^2.3.6+1
+  # WebView
+  webview_flutter: ^3.0.4
 
 dev_dependencies:
   test:
