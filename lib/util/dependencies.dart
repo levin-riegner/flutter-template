@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:app_versioning/app_versioning.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -23,9 +24,8 @@ import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:logging_flutter/logging_flutter.dart';
-import 'package:lr_app_versioning/app_versioning.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shake/shake.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
 
@@ -106,9 +106,9 @@ abstract class Dependencies {
       );
       Flogger.registerListener((record) {
         if (record.loggerName == defaultLoggerName) {
-          // TODO: Consider priting curls or http requests filtering user data
           PaperTrail.logRecord(record.message, record.level);
         }
+        // TODO: Consider priting curls or http requests filtering user data
       });
       // Register Crashlytics listener
       Flogger.registerListener((record) {

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_versioning/app_versioning.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -13,7 +14,6 @@ import 'package:flutter_template/presentation/shared/design_system/views/ds_dial
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/tools/qa_config.dart';
 import 'package:logging_flutter/logging_flutter.dart';
-import 'package:lr_app_versioning/app_versioning.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shake/shake.dart';

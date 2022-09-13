@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_route/empty_router_widgets.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/app/navigation/wrappers/article_wrapper_page.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';

@@ -23,7 +23,12 @@
     ".metadata": true,
     // Exclude Android Studio stuff
     ".idea": true,
-    ".run": true
+    ".run": true,
+    "android/.gradle": true,
+    "android/.idea": true,
+    "android/gradlew.bat": true,
+    "android/gradlew": true,
+    "**/**.iml": true
   },
   // Fix actions on save
   "editor.codeActionsOnSave": {

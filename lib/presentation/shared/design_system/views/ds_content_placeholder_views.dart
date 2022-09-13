@@ -37,7 +37,6 @@ class DSErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Localise
     return _ContentPlaceholderScreen(
       useScaffold: useScaffold,
       scaffoldTitle: scaffoldTitle ?? context.l10n.error,

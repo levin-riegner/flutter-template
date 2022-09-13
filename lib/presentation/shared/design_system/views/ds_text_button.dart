@@ -4,7 +4,7 @@ import 'package:flutter_template/presentation/shared/design_system/utils/dimens.
 
 import 'ds_loading_indicator.dart';
 
-// TODO: Refactor class (move to DSButton)
+// TODO: Refactor class (move to ds_button.dart)
 class DSTextButton extends StatelessWidget {
   final String text;
   final double? width;
@@ -50,6 +50,7 @@ class DSTextButton extends StatelessWidget {
                 color: loadingColor ?? Theme.of(context).colorScheme.primary)
             : CupertinoButton(
                 padding: EdgeInsets.all(horizontalMargin),
+                onPressed: (enabled && !isLoading) ? onPressed : null,
                 child: Text(
                   forceUpperCase ? text.toUpperCase() : text,
                   style: textStyle ??
@@ -60,7 +61,6 @@ class DSTextButton extends StatelessWidget {
                               : (disabledTextColor ??
                                   Theme.of(context).disabledColor)),
                 ),
-                onPressed: (enabled && !isLoading) ? onPressed : null,
               ),
       ),
     );
