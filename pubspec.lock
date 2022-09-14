@@ -28,7 +28,7 @@ packages:
       path: "."
       ref: "1.0.2"
       resolved-ref: "14a62b00eb013ced9102c9a27af5f43f7ea68b2a"
-      url: "git@github.com:levin-riegner/lr-app-versioning"
+      url: "https://github.com/levin-riegner/lr-app-versioning"
     source: git
     version: "1.0.2"
   archive:

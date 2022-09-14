@@ -46,7 +46,7 @@ dependencies:
   # App version tracking
   app_versioning:
     git:
-      url: git@github.com:levin-riegner/lr-app-versioning
+      url: https://github.com/levin-riegner/lr-app-versioning
       ref: 1.0.2
   # Firebase
   firebase_core: ^1.13.1

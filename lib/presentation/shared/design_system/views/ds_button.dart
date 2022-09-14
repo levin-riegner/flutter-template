@@ -1,11 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/dimens.dart';
 
 import 'ds_loading_indicator.dart';
 
-// TODO: Refactor class
-// 1 - Remove DSButton
-// 2 - Replace deprecated FlatButton
 class DSPrimaryButton extends StatelessWidget {
   final String text;
   final double width;
@@ -43,61 +41,6 @@ class DSPrimaryButton extends StatelessWidget {
       disabledTextColor:
           Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
       loadingColor: Theme.of(context).colorScheme.onPrimary,
-      forceUpperCase: forceUpperCase,
-      borderRadius: borderRadius,
-      contentPadding: contentPadding,
-    );
-  }
-}
-
-class DSButton extends StatelessWidget {
-  final String text;
-  final double width;
-  final bool isLoading;
-  final bool enabled;
-  final VoidCallback? onPressed;
-  final bool forceUpperCase;
-  final Color backgroundColor;
-  final Color textColor;
-  final Color? disabledBackgroundColor;
-  final Color? disabledTextColor;
-  final Color? loadingColor;
-  final double? borderRadius;
-  final EdgeInsetsGeometry? contentPadding;
-
-  const DSButton({
-    Key? key,
-    required this.text,
-    required this.backgroundColor,
-    required this.textColor,
-    this.onPressed,
-    this.isLoading = false,
-    this.enabled = true,
-    this.width = double.infinity,
-    this.forceUpperCase = true,
-    this.disabledBackgroundColor,
-    this.disabledTextColor,
-    this.borderRadius,
-    this.loadingColor,
-    this.contentPadding,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return _BaseButton(
-      text: text,
-      onPressed: onPressed,
-      isLoading: isLoading,
-      enabled: enabled,
-      width: width,
-      borderSide: BorderSide.none,
-      defaultColor: backgroundColor,
-      disabledColor: disabledBackgroundColor ??
-          Theme.of(context).colorScheme.primary.withOpacity(0.25),
-      defaultTextColor: textColor,
-      disabledTextColor: disabledTextColor ??
-          Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
-      loadingColor: loadingColor ?? Theme.of(context).colorScheme.onPrimary,
       forceUpperCase: forceUpperCase,
       borderRadius: borderRadius,
       contentPadding: contentPadding,
@@ -153,6 +96,69 @@ class DSOutlineButton extends StatelessWidget {
   }
 }
 
+class DSTextButton extends StatelessWidget {
+  final String text;
+  final double? width;
+  final bool isLoading;
+  final bool enabled;
+  final VoidCallback? onPressed;
+  final Alignment alignment;
+  final double horizontalMargin;
+
+  final Color? loadingColor;
+  final double? height;
+  final TextStyle? textStyle;
+  final Color? defaultTextColor;
+  final Color? disabledTextColor;
+  final bool forceUpperCase;
+
+  const DSTextButton({
+    Key? key,
+    required this.text,
+    this.onPressed,
+    this.isLoading = false,
+    this.enabled = true,
+    this.width,
+    this.alignment = Alignment.centerLeft,
+    this.horizontalMargin = 0.0,
+    this.loadingColor,
+    this.height,
+    this.textStyle,
+    this.defaultTextColor,
+    this.disabledTextColor,
+    this.forceUpperCase = true,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height ?? Dimens.buttonHeight,
+      child: Align(
+        alignment: alignment,
+        child: isLoading
+            ? DSLoadingIndicator(
+                color: loadingColor ?? Theme.of(context).colorScheme.primary)
+            : CupertinoButton(
+                padding: EdgeInsets.all(horizontalMargin),
+                onPressed: (enabled && !isLoading) ? onPressed : null,
+                child: Text(
+                  forceUpperCase ? text.toUpperCase() : text,
+                  style: textStyle ??
+                      Theme.of(context).textTheme.button!.copyWith(
+                            color: enabled
+                                ? (defaultTextColor ??
+                                    Theme.of(context).colorScheme.primary)
+                                : (disabledTextColor ??
+                                    Theme.of(context).disabledColor),
+                          ),
+                ),
+              ),
+      ),
+    );
+  }
+}
+
 class _BaseButton extends StatelessWidget {
   final String text;
   final double width;
@@ -173,37 +179,64 @@ class _BaseButton extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const _BaseButton({
+    Key? key,
     required this.text,
     required this.isLoading,
     required this.enabled,
     required this.width,
     required this.borderSide,
-    this.onPressed,
     required this.loadingColor,
-    this.height,
-    this.borderRadius,
     required this.defaultColor,
     required this.disabledColor,
-    this.textStyle,
     required this.defaultTextColor,
     required this.disabledTextColor,
     required this.forceUpperCase,
     this.contentPadding,
-  });
+    this.height,
+    this.textStyle,
+    this.borderRadius,
+    this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
       height: height ?? Dimens.buttonHeight,
-      child: FlatButton(
-        shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(borderRadius ?? Dimens.radiusMedium),
-          side: borderSide,
+      child: TextButton(
+        style: ButtonStyle(
+          shape: MaterialStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                borderRadius ?? Dimens.radiusMedium,
+              ),
+              side: borderSide,
+            ),
+          ),
+          foregroundColor: MaterialStateProperty.resolveWith(
+            (states) {
+              if (states.contains(MaterialState.disabled)) {
+                return disabledTextColor ??
+                    Theme.of(context).colorScheme.onSurface.withOpacity(.30);
+              } else {
+                return disabledTextColor;
+              }
+            },
+          ),
+          backgroundColor: MaterialStateProperty.resolveWith(
+            (states) {
+              if (states.contains(MaterialState.disabled)) {
+                return isLoading ? (defaultColor) : (disabledColor);
+              } else {
+                return defaultColor;
+              }
+            },
+          ),
+          overlayColor: MaterialStatePropertyAll(
+            (!enabled || isLoading) ? const Color.fromARGB(0, 0, 0, 0) : null,
+          ),
         ),
-        color: defaultColor,
-        textColor: defaultTextColor,
+        onPressed: (enabled && !isLoading) ? onPressed : null,
         child: Center(
           child: isLoading
               ? DSLoadingIndicator(
@@ -216,16 +249,7 @@ class _BaseButton extends StatelessWidget {
                     style: textStyle,
                   ),
                 ),
-        ),
-        disabledColor: isLoading ? (defaultColor) : (disabledColor),
-        disabledTextColor: disabledTextColor ??
-            Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
-        onPressed: (enabled && !isLoading) ? onPressed : null,
-        highlightColor:
-            (!enabled || isLoading) ? const Color.fromARGB(0, 0, 0, 0) : null,
-        splashColor: (!enabled || isLoading)
-            ? const Color.fromARGB(0, 0, 0, 0)
-            : null, // null == default
+        ), // null == default
       ),
     );
   }

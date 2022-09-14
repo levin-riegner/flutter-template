@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_text_button.dart';
 
 class DSDialog extends StatelessWidget {
   final String? title;

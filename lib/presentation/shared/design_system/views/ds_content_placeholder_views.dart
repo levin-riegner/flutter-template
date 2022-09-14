@@ -3,7 +3,6 @@ import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_app_bar.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_text_button.dart';
 
 class DSErrorView extends StatelessWidget {
   final bool useScaffold;
