@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:app_versioning/app_versioning.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -22,10 +23,8 @@ import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
-import 'package:logging_flutter/flogger.dart';
 import 'package:logging_flutter/logging_flutter.dart';
-import 'package:lr_app_versioning/app_versioning.dart';
-import 'package:shake/shake.dart' as shake;
+import 'package:shake/shake.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
@@ -63,14 +62,14 @@ abstract class Dependencies {
     // HttpClient
     final httpClient = Network.createHttpClient(
       environment.apiBaseUrl,
-      Constants.API_KEY,
+      Constants.apiKey,
       () => secureStorage.getUserAuthToken(),
     );
     // Database
     await Database.init();
     // Open db boxes
     final articlesBox =
-        await Database.openBox<ArticleDbModel>(Database.ArticleBox);
+        await Database.openBox<ArticleDbModel>(Database.articleBox);
     // Save user boxes as class var for logout
     _userDataBoxes.addAll([]);
     // Repositories
@@ -93,10 +92,12 @@ abstract class Dependencies {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
     }
     // Logging
+    const defaultLoggerName = "App";
     if (isDebugBuild) {
-      Flogger.showDebugLogs(true);
+      Flogger.init(config: const FloggerConfig(loggerName: defaultLoggerName));
       Flogger.registerListener((record) => log(record.message));
     } else {
+      Flogger.init(config: const FloggerConfig(showDebugLogs: false));
       // Init PaperTrail
       await PaperTrail.init(
         hostName: environment.loggingUrl,
@@ -104,13 +105,14 @@ abstract class Dependencies {
         port: environment.loggingPort,
       );
       Flogger.registerListener((record) {
-        if (!record.mightContainSensitiveData) {
+        if (record.loggerName == defaultLoggerName) {
           PaperTrail.logRecord(record.message, record.level);
         }
+        // TODO: Consider priting curls or http requests filtering user data
       });
       // Register Crashlytics listener
       Flogger.registerListener((record) {
-        if (!record.mightContainSensitiveData) {
+        if (record.loggerName == defaultLoggerName) {
           FirebaseCrashlytics.instance.log(record.message);
         }
       });
@@ -122,8 +124,8 @@ abstract class Dependencies {
         minimumAndroidVersionKey: "minimumAndroidVersion",
       ),
       updateConfig: const UpdateConfig(
-        appStoreAppId: Constants.APPSTORE_APP_ID,
-        playStoreAppId: Constants.PLAYSTORE_APP_ID,
+        appStoreAppId: Constants.appstoreAppId,
+        playStoreAppId: Constants.playstoreAppId,
         appstoreCountryCode: 'US',
       ),
     );
@@ -140,7 +142,7 @@ abstract class Dependencies {
         dataCollectionEnabled ?? true || environment.internal);
     // Shake detector for Console
     if (environment.internal) {
-      final shakeDetector = shake.ShakeDetector.autoStart(
+      final shakeDetector = ShakeDetector.autoStart(
         shakeThresholdGravity: 2,
         onPhoneShake: () {
           appRouter.navigate(
@@ -153,7 +155,7 @@ abstract class Dependencies {
             OutputEvent(record.level, [record.message]),
             bufferSize: 1000, // Remember the last X logs
           ));
-      getIt.registerSingleton<shake.ShakeDetector>(shakeDetector);
+      getIt.registerSingleton<ShakeDetector>(shakeDetector);
     }
 
     // endregion
@@ -166,7 +168,7 @@ abstract class Dependencies {
     await Hive.close();
     // Stop listening to Shake
     if (getIt.get<Environment>().internal) {
-      getIt.get<shake.ShakeDetector>().stopListening();
+      getIt.get<ShakeDetector>().stopListening();
     }
   }
 

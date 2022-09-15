@@ -60,5 +60,39 @@
   "dialogAppUpdateConfirmationButton": "Update",
   "@dialogAppUpdateConfirmationButton": {},
   "dialogAppUpdateDismissButton": "Not Now",
-  "@dialogAppUpdateDismissButton": {}
+  "@dialogAppUpdateDismissButton": {},
+  "error": "Error",
+  "defaultErrorPageTitle": "It seems something has broken!",
+  "@defaultErrorPageTitle": {
+    "description": "Text for an unexpected error"
+  },
+  "defaultErrorPageDescription": "Let's help get you back",
+  "@defaultErrorPageDescription": {
+    "description": "Text for an unexpected error"
+  },
+  "defaultEmptyPageTitle": "Nothing to see here",
+  "@defaultEmptyPageTitle": {
+    "description": "Text for an unexpected empty page"
+  },
+  "defaultEmptyPageDescription": "It seems this page has no content...",
+  "@defaultEmptyPageDescription": {
+    "description": "Text for an unexpected empty page"
+  },
+  "defaultNoInternetPageTitle": "Whoops!",
+  "@defaultNoInternetPageTitle": {
+    "description": "Text for a page that failed to load due to no internet connection"
+  },
+  "defaultNoInternetPageDescription": "Slow or no internet connection.\nPlease check your internet settings.",
+  "@defaultNoInternetPageDescription": {
+    "description": "Text for a page that failed to load due to no internet connection"
+  },
+  "refreshAction": "Refresh",
+  "@refreshAction": {
+    "description": "Text for a button that refreshes the page"
+  },
+  "backAction": "Go Back",
+  "@backAction": {
+    "description": "Text for a button that takes the user back to the previous page"
+  }
+
 }

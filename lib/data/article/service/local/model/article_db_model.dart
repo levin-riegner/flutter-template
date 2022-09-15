@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 
 part 'article_db_model.g.dart';
 
-@HiveType(typeId: Database.ArticleHiveType)
+@HiveType(typeId: Database.articleHiveType)
 class ArticleDbModel extends HiveObject {
   // Never re-use the same index for new fields
   // https://docs.hivedb.dev/#/custom-objects/generate_adapter?id=updating-a-class
@@ -40,7 +40,9 @@ class ArticleDbModel extends HiveObject {
       description: description,
       imageUrl: imageUrl,
       url: url,
-      publishedAt: publishedAt!= null ? DateTime.fromMillisecondsSinceEpoch(publishedAt!) : null,
+      publishedAt: publishedAt != null
+          ? DateTime.fromMillisecondsSinceEpoch(publishedAt!)
+          : null,
     );
   }
 

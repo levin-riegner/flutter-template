@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/views/ds_inapp_webview.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_inapp_webview.dart';
 
 class ArticleDetailPage extends StatefulWidget {
   final String id;

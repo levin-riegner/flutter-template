@@ -41,14 +41,14 @@ class LoggingInterceptor extends Interceptor {
 
   LoggingInterceptor(
       {this.request = false,
-        this.requestHeader = false,
-        this.requestBody = false,
-        this.responseHeader = false,
-        this.responseBody = false,
-        this.error = true,
-        this.maxWidth = 90,
-        this.compact = true,
-        this.logPrint = print});
+      this.requestHeader = false,
+      this.requestBody = false,
+      this.responseHeader = false,
+      this.responseBody = false,
+      this.error = true,
+      this.maxWidth = 90,
+      this.compact = true,
+      this.logPrint = print});
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -91,7 +91,7 @@ class LoggingInterceptor extends Interceptor {
         final uri = err.response?.requestOptions.uri;
         _printBoxed(
             header:
-            'DioError ║ Status: ${err.response?.statusCode} ${err.response?.statusMessage}',
+                'DioError ║ Status: ${err.response?.statusCode} ${err.response?.statusMessage}',
             text: uri.toString());
         if (err.response != null && err.response?.data != null) {
           logPrint('╔ ${err.type.toString()}');
@@ -152,7 +152,7 @@ class LoggingInterceptor extends Interceptor {
     final method = response.requestOptions.method;
     _printBoxed(
         header:
-        'Response ║ $method ║ Status: ${response.statusCode} ${response.statusMessage}',
+            'Response ║ $method ║ Status: ${response.statusCode} ${response.statusMessage}',
         text: uri.toString());
   }
 
@@ -162,8 +162,8 @@ class LoggingInterceptor extends Interceptor {
     _printBoxed(header: 'Request ║ $method ', text: uri.toString());
   }
 
-  void _printLine([String pre = '', String suf = '╝']) =>
-      logPrint('$pre${'═' * maxWidth}$suf');
+  // void _printLine([String pre = '', String suf = '╝']) =>
+  //     logPrint('$pre${'═' * maxWidth}$suf');
 
   void _printKV(String? key, Object? v) {
     final pre = '╟ $key: ';
@@ -189,11 +189,11 @@ class LoggingInterceptor extends Interceptor {
   String _indent([int tabCount = initialTab]) => tabStep * tabCount;
 
   void _printPrettyMap(
-      Map data, {
-        int tabs = initialTab,
-        bool isListItem = false,
-        bool isLast = false,
-      }) {
+    Map data, {
+    int tabs = initialTab,
+    bool isListItem = false,
+    bool isLast = false,
+  }) {
     var _tabs = tabs;
     final isRoot = _tabs == initialTab;
     final initialIndent = _indent(_tabs);
@@ -258,8 +258,8 @@ class LoggingInterceptor extends Interceptor {
 
   bool _canFlattenMap(Map map) {
     return map.values
-        .where((dynamic val) => val is Map || val is List)
-        .isEmpty &&
+            .where((dynamic val) => val is Map || val is List)
+            .isEmpty &&
         map.toString().length < maxWidth;
   }
 
@@ -271,7 +271,7 @@ class LoggingInterceptor extends Interceptor {
     if (map == null || map.isEmpty) return;
     logPrint('╔ $header ');
     map.forEach(
-            (dynamic key, dynamic value) => _printKV(key.toString(), value));
+        (dynamic key, dynamic value) => _printKV(key.toString(), value));
     // _printLine('╚');
   }
 }

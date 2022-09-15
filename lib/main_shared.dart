@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_template/app/app.dart';
-import 'package:logging_flutter/flogger.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 
 void mainShared() async {
   // Force Light Theme?
@@ -24,11 +24,11 @@ void mainShared() async {
     runApp(const App(isSessionAvailable: false));
   }, (Object error, StackTrace stackTrace) {
     // Catch and log crashes
-    Flogger.e('Unhandled error', object: error, stackTrace: stackTrace);
-    // Log stack trace separately (for better external visualization)
-    Flogger.e("Stack trace: ${stackTrace.toString().replaceAll("\n", " ")}");
+    Flogger.e("Unhandled error: $error", stackTrace: stackTrace);
     if (kReleaseMode) {
       FirebaseCrashlytics.instance.recordError(error, stackTrace);
+      // Log stack trace separately (for better external visualization)
+      Flogger.e("Stack trace: ${stackTrace.toString().replaceAll("\n", " ")}");
     }
   });
 }

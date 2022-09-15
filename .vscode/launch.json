@@ -24,6 +24,18 @@
             "program": "lib/main_mock.dart"
         },
         {
+            "name": "attach-staging",
+            "request": "attach",
+            "type": "dart",
+            "program": "lib/main_qa.dart"
+        },
+        {
+            "name": "attach-production",
+            "request": "attach",
+            "type": "dart",
+            "program": "lib/main_prod.dart"
+        },
+        {
             "name": "prod-debug",
             "request": "launch",
             "type": "dart",

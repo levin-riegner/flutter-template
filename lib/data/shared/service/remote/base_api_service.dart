@@ -1,15 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_template/data/shared/model/error/data_error.dart';
 import 'package:flutter_template/data/shared/service/remote/model/api_error_response.dart';
-import 'package:logging_flutter/flogger.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 
 abstract class BaseApiService {
   Exception mapToError(Object exception) {
     if (exception is DioError) {
       Flogger.i(
-        "Dio Error has occurred while making a request with status code",
-        object:
-            "${exception.response?.statusCode} || ${exception.response?.statusMessage}",
+        "Dio Error has occurred while making a request with status code: ${exception.response?.statusCode} || ${exception.response?.statusMessage}",
       );
 
       switch (exception.response?.statusCode) {
@@ -30,8 +28,7 @@ abstract class BaseApiService {
       }
     } else {
       Flogger.i(
-        "An unknown error has occurred while making a request",
-        object: exception,
+        "An unknown error has occurred while making a request - $exception",
       );
       return DataError.unknown(error: exception);
     }
