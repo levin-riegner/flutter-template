@@ -10,7 +10,9 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.10'
         // Crashlytics
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
+        // Performance Monitoring
+        classpath 'com.google.firebase:perf-plugin:1.4.1'
     }
 }
 

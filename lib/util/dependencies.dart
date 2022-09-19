@@ -4,6 +4,7 @@ import 'package:app_versioning/app_versioning.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
@@ -64,6 +65,7 @@ abstract class Dependencies {
       environment.apiBaseUrl,
       Constants.apiKey,
       () => secureStorage.getUserAuthToken(),
+      debugMode: isDebugBuild,
     );
     // Database
     await Database.init();
@@ -90,6 +92,12 @@ abstract class Dependencies {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
     } else {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    }
+    // Performance Monitoring
+    if (isDebugBuild) {
+      await FirebasePerformance.instance.setPerformanceCollectionEnabled(false);
+    } else {
+      await FirebasePerformance.instance.setPerformanceCollectionEnabled(true);
     }
     // Logging
     const defaultLoggerName = "App";
@@ -207,7 +215,7 @@ abstract class Dependencies {
   /// Enable or Disable Analytics Collection as per GDPR / CCPA compliance
   /// Call this method after requesting GDPR / CCPA permission
   static Future<void> setDataCollectionEnabled(bool enabled) async {
-    Flogger.i("Setting data collection enabled");
+    Flogger.i("Set data collection enabled");
     await Future.wait([
       // Toggle collection to 3rd party services
       Analytics.setCollectionEnabled(enabled),

@@ -37,4 +37,6 @@
   },
   // Format on save
   "editor.formatOnSave": true,
+  // XML format
+  "xml.format.splitAttributes": true,
 }

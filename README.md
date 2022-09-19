@@ -548,6 +548,15 @@ For iOS also perform the following steps.
 2. Add the appropiate permission usage description to the [Info.plist](ios/Runner/Info.plist).
 3. Enable the permission on the project Capabilities if necessary.
 
+### Performance Monitoring
+
+The project includes [Firebase Remote Config](https://firebase.google.com/docs/perf-mon) to automatically collect and monitor the following performance metrics:
+
+- App start time, and foreground/background times.
+- HTTPS Network requests (via [dio_firebase_performance](https://pub.dev/packages/dio_firebase_performance)).
+
+You can also add custom monitoring code to measure performance for other metrics. To learn more about custom code traces visit the [Firebase Performance Monitoring](https://firebase.google.com/docs/perf-mon/custom-code-traces?platform=flutter) documentation.
+
 ### Privacy
 
 #### Apple iOS 14
