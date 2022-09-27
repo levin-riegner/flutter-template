@@ -15,6 +15,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 // Release signing
 def keystoreProperties = new Properties()
@@ -67,7 +68,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.levinriegner.fluttertemplate"
         minSdkVersion 23
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode generateVersionCode()
         versionName generateVersionName()
     }
@@ -93,6 +94,10 @@ android {
         debug {
             minifyEnabled false
             signingConfig signingConfigs.debug
+            manifestPlaceholders.firebasePerformanceLogCatEnabled = true
+            firebaseCrashlytics {
+                mappingFileUploadEnabled = false
+            }
         }
         if (keystoreProperties["keystoreFile"] != null) {
             release {
@@ -101,6 +106,7 @@ android {
                 proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
                 // multiDexKeepFile file('multidex-config.txt')
                 signingConfig signingConfigs.release
+                manifestPlaceholders.firebasePerformanceLogCatEnabled = false
             }
         }
     }
@@ -110,18 +116,14 @@ android {
     productFlavors {
         qa {
             dimension "app"
-            manifestPlaceholders = [
-                    applicationLabel: "fluttertemplate QA",
-                    dynamicLinksDomain: "fluttertemplateqa.page.link"
-            ]
+            manifestPlaceholders.applicationLabel = "fluttertemplate QA"
+            manifestPlaceholders.dynamicLinksDomain = "fluttertemplateqa.page.link"
             applicationIdSuffix ".qa"
         }
         production {
             dimension "app"
-            manifestPlaceholders = [
-                    applicationLabel: "fluttertemplate",
-                    dynamicLinksDomain: "fluttertemplate.page.link"
-            ]
+            manifestPlaceholders.applicationLabel = "fluttertemplate"
+            manifestPlaceholders.dynamicLinksDomain = "fluttertemplate.page.link"
         }
     }
     compileOptions {
@@ -135,9 +137,9 @@ flutter {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.core:core-ktx:1.9.0")
     // APIs for SplashScreen, including compatibility helpers on devices prior Android 12
-    implementation("androidx.core:core-splashscreen:1.0.0-beta02")
+    implementation("androidx.core:core-splashscreen:1.0.0")
 }
 
 apply plugin: 'com.google.firebase.crashlytics'
