@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
-import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ArticleDataRepository implements ArticleRepository {
@@ -27,8 +24,7 @@ class ArticleDataRepository implements ArticleRepository {
     if (dbArticles.isNotEmpty && !forceRefresh!) {
       return dbArticles;
     } else {
-      final articlesResponse = ArticlesApiResponse.fromJson(
-          json.decode((await _apiService.getArticles(query)).data!));
+      final articlesResponse = await _apiService.getArticles(query);
 
       final articles =
           articlesResponse.articles?.map((e) => e.toArticle()).toList();
