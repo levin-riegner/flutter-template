@@ -1,8 +1,7 @@
 class WebViewUrls {
-
   final String _baseUrl;
 
-  WebViewUrls(this._baseUrl);
+  const WebViewUrls(this._baseUrl);
 
   String get about => "$_baseUrl/about";
 
@@ -13,5 +12,4 @@ class WebViewUrls {
   String get termsAndConditions => "$_baseUrl/terms";
 
   String get privacyPolicy => "$_baseUrl/privacy";
-
 }
