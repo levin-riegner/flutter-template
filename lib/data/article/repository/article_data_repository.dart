@@ -15,13 +15,16 @@ class ArticleDataRepository implements ArticleRepository {
   );
 
   @override
-  Future<List<Article>> getArticles(String query, {bool? forceRefresh}) async {
+  Future<List<Article>> getArticles(
+    String query, {
+    bool forceRefresh = false,
+  }) async {
     Flogger.i(
         "Getting articles for query $query. Force refresh: $forceRefresh");
     final dbArticles = (await _dbService.getArticles(query))
         .map((e) => e.toArticle())
         .toList();
-    if (dbArticles.isNotEmpty && !forceRefresh!) {
+    if (dbArticles.isNotEmpty && !forceRefresh) {
       return dbArticles;
     } else {
       final articlesResponse = await _apiService.getArticles(query);
