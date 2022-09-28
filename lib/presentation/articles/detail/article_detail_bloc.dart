@@ -1,8 +1,17 @@
-import 'package:flutter_template/presentation/shared/util/base_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-class ArticleDetailBloc extends BaseBloc {
-  ArticleDetailBloc();
+class ArticleDetailBloc extends HydratedBloc {
+  ArticleDetailBloc() : super(null);
 
   @override
-  void dispose() {}
+  fromJson(Map<String, dynamic> json) {
+    // TODO: implement fromJson
+    throw UnimplementedError();
+  }
+
+  @override
+  Map<String, dynamic>? toJson(state) {
+    // TODO: implement toJson
+    throw UnimplementedError();
+  }
 }

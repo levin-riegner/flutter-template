@@ -4,6 +4,5 @@ part 'articles_alert.freezed.dart';
 
 @freezed
 class ArticlesAlert with _$ArticlesAlert {
-
   const factory ArticlesAlert.queryNotFound(String query) = QueryNotFound;
 }

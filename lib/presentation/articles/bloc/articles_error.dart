@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'article_data_error.freezed.dart';
+part 'articles_error.freezed.dart';
 
 @freezed
-class ArticleDataError with _$ArticleDataError {
+class ArticlesError with _$ArticlesError {
   const factory ArticleDataError.subscriptionExpired() = SubscriptionExpired;
 }

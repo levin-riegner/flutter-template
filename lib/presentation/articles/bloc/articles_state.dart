@@ -7,9 +7,7 @@ part 'articles_state.freezed.dart';
 
 @freezed
 class ArticlesState with _$ArticlesState {
-  const factory ArticlesState.subscriptionExpired() = SubscriptionExpired;
-
-  const factory ArticlesState.content({
-    required DataState<List<Article>, DataError> articles,
-  }) = Content;
+  const factory ArticlesState({
+    required DataState<List<Article>, DataError> currentState,
+  }) = _ArticlesState;
 }
