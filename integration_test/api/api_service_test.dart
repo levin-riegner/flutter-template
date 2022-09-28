@@ -38,7 +38,7 @@ void main() async {
     });
     testWidgets('should return more than 0 articles for a valid query',
         (WidgetTester tester) async {
-      final articles = await apiService.getArticles("btc");
+      final articles = await apiService.getArticles("flutter");
       assert(articles.articles!.isNotEmpty);
       assert(articles.totalResults! > 0);
     });

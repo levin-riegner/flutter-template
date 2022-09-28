@@ -18,16 +18,9 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
       : super(const ArticlesState.articlesList(data: DataState.idle())) {
     on<ArticlesEvent>((event, emit) async {
       await event.when(
-        fetch: () => _getArticles(emit),
-        refresh: () => _refresh(emit),
+        fetch: (forceRefresh) => _getArticles(emit, forceRefresh: forceRefresh),
       );
     });
-    // Perform initial fetch
-    add(const ArticlesEvent.fetch());
-  }
-
-  Future<void> _refresh(Emitter<ArticlesState> emit) async {
-    _getArticles(emit, forceRefresh: true);
   }
 
   Future<void> _getArticles(
