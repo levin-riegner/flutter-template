@@ -2,113 +2,68 @@ import 'dart:async';
 
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/data/shared/model/error/data_error.dart';
-import 'package:flutter_template/presentation/articles/bloc/articles_error.dart'
-    as data;
+import 'package:flutter_template/presentation/articles/bloc/articles_error.dart';
 import 'package:flutter_template/presentation/articles/bloc/articles_event.dart';
 import 'package:flutter_template/presentation/articles/bloc/articles_state.dart';
 import 'package:flutter_template/presentation/shared/util/data_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
-class ArticlesBloc extends HydratedBloc<ArticlesEvent, ArticlesState> {
+class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   static const kQuery = "Flutter";
 
-  // Repository
   final ArticleRepository _articlesRepository;
 
   ArticlesBloc(this._articlesRepository)
-      :
-        // Initial state
-        super(
-          const ArticlesState(
-            currentState: Idle(),
-          ),
-        ) {
-    // Capture events to emit new state
-    on<ArticlesEvent>((event, emit) {
-      event.when(
+      : super(const ArticlesState.articlesList(data: DataState.idle())) {
+    on<ArticlesEvent>((event, emit) async {
+      await event.when(
         fetch: () => _getArticles(emit),
-        refresh: () => refresh(emit),
+        refresh: () => _refresh(emit),
       );
     });
+    // Perform initial fetch
+    add(const ArticlesEvent.fetch());
   }
 
-  // region Public
-
-  @override
-  ArticlesState? fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
-  }
-
-  @override
-  Map<String, dynamic>? toJson(ArticlesState state) {
-    // TODO: implement toJson
-    throw UnimplementedError();
-  }
-
-  Future<void> refresh(Emitter<ArticlesState> emit) async {
+  Future<void> _refresh(Emitter<ArticlesState> emit) async {
     _getArticles(emit, forceRefresh: true);
   }
 
-  // endregion
-
-  // region Private
   Future<void> _getArticles(
     Emitter<ArticlesState> emit, {
     bool forceRefresh = false,
   }) async {
-    emit(
-      const ArticlesState(
-        currentState: Loading(),
-      ),
-    );
+    Flogger.i("Get articles for query $kQuery and forceRefresh $forceRefresh");
+    emit(const ArticlesState.articlesList(data: DataState.loading()));
 
     try {
       final articles = await _articlesRepository.getArticles(kQuery,
           forceRefresh: forceRefresh);
-      emit(
-        ArticlesState(
-          currentState: Success(data: articles),
-        ),
-      );
-    } on data.ArticleDataError catch (e) {
-      emit(
-        e.when(
-          subscriptionExpired: () {
-            Flogger.i("Subscription Expired");
-            return const ArticlesState(
-              currentState: Failure(
-                reason: DataError.unknown(),
-              ),
-            );
-          },
-        ),
-      );
+      emit(ArticlesState.articlesList(data: DataState.success(data: articles)));
     } on DataError catch (e) {
       emit(
         e.when(
           notFound: () {
             Flogger.i("Content not found for query $kQuery");
-            return const ArticlesState(
-              currentState: Success(
-                data: [],
-              ),
+            return const ArticlesState.articlesList(
+              data: DataState.success(data: []),
             );
           },
           apiError: (reason) {
             Flogger.w("Api error getting articles: $reason");
-            return ArticlesState(
-              currentState: Failure(
-                reason: DataError.apiError(reason: reason),
-              ),
+            return ArticlesState.articlesList(
+              data: DataState.failure(
+                  reason: reason?.contains("expired") == true
+                      ? const ArticlesError.subscriptionExpired()
+                      : ArticlesError.unknown(reason: reason)),
             );
           },
           unknown: (error) {
             Flogger.w("Unknown error getting articles: $error");
-            return ArticlesState(
-              currentState: Failure(
-                reason: DataError.unknown(error: error),
+            return ArticlesState.articlesList(
+              data: DataState.failure(
+                reason: ArticlesError.unknown(reason: error.toString()),
               ),
             );
           },
@@ -117,14 +72,12 @@ class ArticlesBloc extends HydratedBloc<ArticlesEvent, ArticlesState> {
     } catch (e) {
       Flogger.w("Unexpected error getting articles: $e");
       emit(
-        ArticlesState(
-          currentState: Failure(
-            reason: DataError.unknown(error: e),
+        ArticlesState.articlesList(
+          data: DataState.failure(
+            reason: ArticlesError.unknown(reason: e.toString()),
           ),
         ),
       );
     }
   }
-
-  // endregion
 }

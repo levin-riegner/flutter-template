@@ -4,5 +4,6 @@ part 'articles_error.freezed.dart';
 
 @freezed
 class ArticlesError with _$ArticlesError {
-  const factory ArticleDataError.subscriptionExpired() = SubscriptionExpired;
+  const factory ArticlesError.subscriptionExpired() = _SubscriptionExpired;
+  const factory ArticlesError.unknown({String? reason}) = _Unknown;
 }

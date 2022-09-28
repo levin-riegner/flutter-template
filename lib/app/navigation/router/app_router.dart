@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
-import 'package:flutter_template/app/navigation/wrappers/article_wrapper_page.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
 import 'package:flutter_template/presentation/bottom_navigation/bottom_navigation_page.dart';
@@ -22,7 +21,7 @@ import 'package:flutter_template/util/console/console_screen.dart';
         AutoRoute(
           path: Routes.articles,
           name: "ArticlesRouter",
-          page: ArticleWrapperPage,
+          page: EmptyRouterPage,
           children: [
             AutoRoute(path: "", page: ArticlesPage),
             AutoRoute(path: ":id", page: ArticleDetailPage),

@@ -26,12 +26,9 @@
   "@articleThumbnailAlt": {
     "description": "Alt text for the articles thumbnails"
   },
-  "noArticlesFound": "No articles found for the text {query}",
+  "noArticlesFound": "No articles found",
   "@noArticlesFound": {
-    "description": "No articles found alert text",
-    "placeholders": {
-      "query": {}
-    }
+    "description": "No articles found alert text"
   },
   "contentCardOrganizationsLabel": "{count, plural, =0{Unknown organizations} =1{Organization: {organizations}} other{Organizations: {organizations}}}",
   "@contentCardOrganizationsLabel": {
