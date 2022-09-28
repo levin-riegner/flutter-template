@@ -79,5 +79,21 @@
             ],
             "program": "lib/main_qa.dart"
         },
+        {
+            "name": "test",
+            "request": "launch",
+            "type": "dart",
+            "program": "test"
+        },
+        {
+            "name": "integration-test",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "QA"
+            ],
+            "program": "integration_test"
+        },
     ]
 }
