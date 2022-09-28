@@ -593,7 +593,7 @@ You can also add custom monitoring code to measure performance for other metrics
 Unit tests are located inside the `test` folder.
 They can be run using the command `flutter test` and are also executed on every commit by the CI using the Test Workflow.
 
-The project includes the [mocktail](https://pub.dev/packages/mocktail) library to create the required Mocks.
+The project includes the [mocktail](https://pub.dev/packages/mocktail) library to create the required Mocks and [bloc_test](https://pub.dev/packages/bloc_test) to test BLoCs.
 
 #### Integration tests
 
