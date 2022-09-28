@@ -596,7 +596,7 @@ The project includes the [mocktail](https://pub.dev/packages/mocktail) library t
 #### Integration tests
 
 Integration and e2e tests are located inside the `integration_test` folder.
-They require an actual device (or emulator) to be executed. You can run them by using the command `flutter drive --driver=test_driver/integration_test.dart --target=integration_test/your_integration_test_file.dart`;
+They require an actual device (or emulator) to be executed. You can run them by using the command `flutter test integration_test --flavor qa -d deviceId`;
 
 ### Static Code Analysis
 
