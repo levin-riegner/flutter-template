@@ -286,7 +286,7 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 > To execute the build runner use the following command: <br>
 `flutter pub run build_runner build --delete-conflicting-outputs`.
 
-> 💡 **TIP**: You can hide the auto-generated files in Android Studio by going to Preferences > Editor > File Types. <br> Now look for "Ignore files and folders" field at the bottom and append `*.g.dart;*.freezed.dart;*.chopper.dart;*.gr.dart`;
+> 💡 **TIP**: You can hide the auto-generated files in Android Studio by going to Preferences > Editor > File Types. <br> Now look for "Ignore files and folders" field at the bottom and append `*.g.dart;*.freezed.dart;*.gr.dart`;
 
 > 💡 **TIP**: To automatically auto-generate part classes when the code changes use the command `flutter packages pub run build_runner watch` on a console tab and leave it running there.
 
@@ -319,14 +319,16 @@ They are platform-agnostic and may contain business logic. They extend `Equatabl
 
 ### Network
 
-API communication is defined using [Chopper](https://pub.dev/packages/chopper) and requests/responses serialized with [Json Serializable](https://pub.dev/packages/json_serializable).
+API communication is defined using [Dio](https://pub.dev/packages/dio) and requests/responses can be serialized with [Json Serializable](https://pub.dev/packages/json_serializable).
 
 You can see an example with [ArticleApiService](lib/data/article/service/remote/article_api_service.dart)
 
 A [Network](lib/data/shared/service/remote/network.dart) class is provided wih the basic definition for an HTTP Client. It includes:
 
-- Logging HTTP Requests as CURL.
+- Logging HTTP requests.
+- Printing requests as CURL.
 - Adding the Authorization Token to all requests.
+- Adding an API Key to all requests.
 
 ### Database
 
@@ -611,7 +613,7 @@ You can also use `flutter analyze` to run analyze the whole project.
 [lcov](https://github.com/linux-test-project/lcov) can be used to view the test coverage on the project. It can be installed using [homebrew](https://formulae.brew.sh/formula/lcov).
 
 1. Execute all tests in the project appending the coverage parameter: `flutter test --coverage`. This will generate a new folder `coverage/` inside the project with the `lcov.info` file report.
-2. Cleanup the report from auto-generated files with `lcov --remove coverage/lcov.info 'lib/*/*.freezed.dart' 'lib/*/*.g' 'lib/*/*.chopper.dart' 'lib/*/*.gr.dart' -o coverage/lcov.info`.
+2. Cleanup the report from auto-generated files with `lcov --remove coverage/lcov.info 'lib/*/*.freezed.dart' 'lib/*/*.g' 'lib/*/*.gr.dart' -o coverage/lcov.info`.
 3. Generate an html page from the report with `genhtml coverage/lcov.info -o coverage/html`.
 4. Open the newly created page `coverage/html/index.html` to view the report.
 
