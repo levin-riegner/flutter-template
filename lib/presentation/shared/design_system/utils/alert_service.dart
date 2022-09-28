@@ -4,17 +4,10 @@ import 'package:flutter/material.dart';
 class AlertService {
   AlertService._();
 
-  static AlertService? _instance;
-
-  static AlertService? instance() {
-    _instance ??= AlertService._();
-    return _instance;
-  }
-
   static const int _durationSeconds = 3;
   static const int _durationWithActionsSeconds = 6;
 
-  showAlert({
+  static void showAlert({
     required BuildContext context,
     required String message,
     String? title,
@@ -67,6 +60,7 @@ class AlertService {
           onTap: (_) => onAction!(),
           mainButton: (onAction != null && actionText != null)
               ? TextButton(
+                  onPressed: onAction,
                   child: Text(
                     actionText,
                     style: Theme.of(context).textTheme.button!.apply(
@@ -76,7 +70,6 @@ class AlertService {
                                 .onPrimary
                                 .withOpacity(0.5)),
                   ),
-                  onPressed: onAction,
                 )
               : null,
         ).show(context);

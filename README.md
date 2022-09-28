@@ -64,8 +64,12 @@ IMPORTANT NOTES:
 
 Wrappers are similar to middlewares, they are often used for scoping state management solutions such as Providers and BLoCs. To wrap a route:
 
-1. Create the desired Wrapper class at [lib/app/navigation/wrappers](lib/app/navigation/wrappers) and implement your solution within the `build` method.
-2. Head to [app_router.dart](lib/app/navigation/router/app_router.dart) and replace the corresponding AutoRoute's page with your previously created Wrapper.
+Create the desired Wrapper by implementing `AutoRouteWrapper` inside your page within the `wrappedRoute` method (check the [ArticleDetailPage](lib/presentation/articles/detail/article_detail_page.dart) for an example).
+
+Alternatively, you can also wrap a group of child routes by creating a new AutoRoute "WrapperPage":
+
+1. Create the desired Wrapper as an `StatelessWidget` and implement your solution within the `build` method. The last `child` should always be an `AutoRouter` widget.
+2. Head to [app_router.dart](lib/app/navigation/router/app_router.dart) and replace the corresponding AutoRoute's page with your previously created page.
 3. Run the code generation tool. [Click here to know how to do it](#models).
 
 IMPORTANT NOTES:
@@ -394,7 +398,11 @@ This page is entirely optional and is no longer part of the OS app launch proces
 
 #### Bloc
 
-- Blocs expose data to the UI and contain the presentation logic. This data can be exposed as Streams to notify changes to the UI.
+This project uses the [flutter_bloc library](https://pub.dev/packages/flutter_bloc) to enforce the BLoC pattern.
+
+- Blocs expose data to the UI and contain the presentation logic. This data (known as state) is exposed as a single Streams to notify changes to the UI.
+- Widgets listen to the Bloc's state and update the UI accordingly.
+- Widgets emit events to the Bloc to trigger actions that update the state.
 - Blocs are created on the widget tree by wrapping all the child widgets that need to access the bloc. These process is done on the [Router](lib/app/navigation/router.dart) class.
 
 Check the [ArticlesBloc](lib/presentation/articles/articles_bloc.dart) for an example.
@@ -421,15 +429,14 @@ Mocks will also be used for all the UI tests in the project.
 
 1. The Repository handles the errors from the different data sources and throws the appropiate data errors for the model type.<br>
 See the example with [ArticleDataError](lib/data/article/model/article_data_error.dart) throw inside [ArticleDataRepository](lib/data/article/repository/article_data_repository.dart) dependending on the results from the different data sources.
-1. The Bloc catches the data errors and converts them as One-Time Errors (for example to show a popup once) or as part of the State.
+1. The Bloc catches the data errors and converts them as part of the State.
 
 #### One-Time Alerts
 
-Alerts can be used to show non-blocking errors for a few seconds to the user.
+Alerts can be used to show non-blocking errors for a few seconds to the user. These can take the form of a SnackBar, a Dialog, etc. Use the [AlertService](lib/presentation/shared/design_system/utils/alert_service.dart) to show these alerts.
 
-A bloc should expose an `alerts` Stream where the view can subscribe and show the alert appropiately. The `AlertService` is provided by the Design System library to show alerts in the form of a dismissable banner.
-
-See the example with the [ArticlesBloc](lib/presentation/articles/articles_bloc.dart), [ArticlesAlert](lib/presentation/articles/articles_alert.dart) and [ArticlesPage](lib/presentation/articles/articles_page.dart).
+Alerts are shown depending on the state. Use the `BlocListener` in the widget tree to listen to the state changes and show the alert when necessary.
+See the example with [ArticlesPage](lib/presentation/articles/articles_page.dart).
 
 > ❗️ Alerts not necessary mean errors, they can also be used for example to show confirmation to user actions.
 

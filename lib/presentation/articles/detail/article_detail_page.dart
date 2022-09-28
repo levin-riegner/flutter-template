@@ -1,8 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/data/article/repository/article_repository.dart';
+import 'package:flutter_template/presentation/articles/detail/article_detail_bloc.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_inapp_webview.dart';
+import 'package:flutter_template/util/dependencies.dart';
+import 'package:provider/provider.dart';
 
-class ArticleDetailPage extends StatefulWidget {
+class ArticleDetailPage extends StatelessWidget implements AutoRouteWrapper {
   final String id;
   final String? title;
   final String? url;
@@ -15,10 +19,17 @@ class ArticleDetailPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ArticleDetailPageState createState() => _ArticleDetailPageState();
-}
+  Widget wrappedRoute(BuildContext context) {
+    return Provider<ArticleDetailBloc>(
+      create: (context) => ArticleDetailBloc(
+        id,
+        getIt<ArticleRepository>(),
+      ),
+      dispose: (context, bloc) => bloc.close(),
+      child: this,
+    );
+  }
 
-class _ArticleDetailPageState extends State<ArticleDetailPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -28,9 +39,9 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         return true; // Continue with pop
       },
       child: InAppWebView(
-        urlNotifier: ValueNotifier(widget.url ?? "https://levinriegner.com"),
+        urlNotifier: ValueNotifier(url ?? "https://levinriegner.com"),
         useScaffold: true,
-        title: widget.title,
+        title: title,
       ),
     );
   }

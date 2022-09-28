@@ -82,6 +82,9 @@ dependencies:
   connectivity_plus: ^2.3.6
   # WebView
   webview_flutter: ^3.0.4
+  # BLoC
+  hydrated_bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
 
 dev_dependencies:
   test:
