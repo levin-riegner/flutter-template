@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
 import 'package:flutter_template/data/shared/service/remote/base_api_service.dart';
 import 'package:flutter_template/data/shared/service/remote/endpoints.dart';
 
@@ -7,22 +8,13 @@ class ArticleApiService extends BaseApiService {
 
   ArticleApiService(this.client);
 
-  Future<Response<String>> getArticles(String query) {
+  Future<ArticlesApiResponse> getArticles(String query) async {
     try {
-      return client.get(
+      final response = await client.get(
         Endpoints.articles,
         queryParameters: {"q": query},
       );
-    } catch (ex) {
-      throw mapToError(ex);
-    }
-  }
-
-  Future<Response<String>> getArticle(String id) {
-    try {
-      return client.get(
-        "${Endpoints.articles}/$id",
-      );
+      return ArticlesApiResponse.fromJson(response.data);
     } catch (ex) {
       throw mapToError(ex);
     }

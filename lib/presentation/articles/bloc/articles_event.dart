@@ -4,7 +4,6 @@ part 'articles_event.freezed.dart';
 
 @freezed
 class ArticlesEvent with _$ArticlesEvent {
-  const factory ArticlesEvent.fetch() = ArticlesEventFetch;
-
-  const factory ArticlesEvent.refresh() = ArticlesEventRefresh;
+  const factory ArticlesEvent.fetch({@Default(false) bool forceRefresh}) =
+      ArticlesEventFetch;
 }

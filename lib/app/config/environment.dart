@@ -23,7 +23,7 @@ class Environment {
 
   factory Environment.staging() {
     // TODO: Replace with your constants
-    return Environment._(
+    return const Environment._(
       appId: "com.levinriegner.fluttertemplate.qa",
       appName: "FlutterTemplate QA",
       apiBaseUrl: "https://newsapi.org/v2",
@@ -37,7 +37,7 @@ class Environment {
 
   factory Environment.production() {
     // TODO: Replace with your constants
-    return Environment._(
+    return const Environment._(
       appId: "com.levinriegner.fluttertemplate",
       appName: "FlutterTemplate",
       apiBaseUrl: "https://newsapi.org/v2",

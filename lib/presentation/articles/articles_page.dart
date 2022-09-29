@@ -28,7 +28,7 @@ class ArticlesPage extends StatelessWidget implements AutoRouteWrapper {
     return Provider<ArticlesBloc>(
       create: (context) => ArticlesBloc(
         getIt<ArticleRepository>(),
-      ),
+      )..add(const ArticlesEvent.fetch()),
       dispose: (context, bloc) => bloc.close(),
       child: this,
     );
@@ -38,7 +38,9 @@ class ArticlesPage extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     final body = RefreshIndicator(
       onRefresh: () {
-        context.read<ArticlesBloc>().add(const ArticlesEvent.refresh());
+        context
+            .read<ArticlesBloc>()
+            .add(const ArticlesEvent.fetch(forceRefresh: true));
         return Future.value();
       },
       child: BlocBuilder<ArticlesBloc, ArticlesState>(
@@ -74,7 +76,7 @@ class ArticlesPage extends StatelessWidget implements AutoRouteWrapper {
                     useScaffold: false,
                     onRefresh: () => context
                         .read<ArticlesBloc>()
-                        .add(const ArticlesEvent.refresh()),
+                        .add(const ArticlesEvent.fetch(forceRefresh: true)),
                   );
                 },
               );

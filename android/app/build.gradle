@@ -16,6 +16,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.firebase-perf'
+apply plugin: 'com.google.firebase.crashlytics'
 
 // Release signing
 def keystoreProperties = new Properties()
@@ -141,5 +142,3 @@ dependencies {
     // APIs for SplashScreen, including compatibility helpers on devices prior Android 12
     implementation("androidx.core:core-splashscreen:1.0.0")
 }
-
-apply plugin: 'com.google.firebase.crashlytics'
