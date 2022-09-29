@@ -647,14 +647,13 @@ FlutterTemplate Flutter Application.
 
 1. Get the project dependencies with the following commands:
 
-    ```
-    flutter pub upgrade
+    ```bash
     flutter pub get
     ```
 
 2. Generate the missing `*.*.dart` part files from [built_value](https://pub.dev/packages/built_value#examples):
 
-    ```
+    ```bash
     flutter pub run build_runner build --delete-conflicting-outputs
     ```
 
