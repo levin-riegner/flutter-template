@@ -57,8 +57,8 @@ dependencies:
   # Network
   dio: ^4.0.4
   # Database
-  hive: ^2.0.6
-  hive_flutter: ^1.1.0
+  isar: ^3.0.2
+  isar_flutter_libs: ^3.0.2
   # Secure storage
   flutter_secure_storage: ^6.0.0
   # Translations
@@ -98,7 +98,7 @@ dev_dependencies:
   # Other build dependencies
   build_runner: ^2.1.7
   freezed: ^2.1.0
-  hive_generator: ^1.1.2
+  isar_generator: ^3.0.2
   auto_route_generator: ^5.0.2
   json_serializable: ^6.3.1
 

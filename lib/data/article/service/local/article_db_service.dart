@@ -1,29 +1,33 @@
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
-import 'package:hive/hive.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:isar/isar.dart';
 
 class ArticleDbService {
-  final Box<ArticleDbModel> _articlesBox;
+  final IsarCollection<ArticleDbModel> _collection;
 
-  ArticleDbService(this._articlesBox);
+  ArticleDbService(this._collection);
 
   Future<List<ArticleDbModel>> getArticles(String? query) async {
-    return _articlesBox.values
-        .where((e) => query != null
-            ? e.title!.contains(query) || e.description!.contains(query)
-            : true)
-        .toList();
+    if (query != null && query.isNotEmpty) {
+      return _collection
+          .filter()
+          .titleContains(query, caseSensitive: false)
+          .or()
+          .descriptionContains(query, caseSensitive: false)
+          .findAll();
+    } else {
+      return _collection.where().findAll();
+    }
   }
 
   Stream<List<ArticleDbModel>> articles() {
-    return _articlesBox
-        .watch()
-        .map((event) => _articlesBox.values.toList())
-        .startWith(_articlesBox.values.toList());
+    return _collection
+        .watchLazy(fireImmediately: true)
+        .asyncMap((_) => _collection.where().findAll());
   }
 
   Future<void> saveArticles(List<ArticleDbModel> articles) async {
-    await _articlesBox.addAll(articles);
+    await _collection.isar.writeTxn(() async {
+      await _collection.putAll(articles);
+    });
   }
-
 }

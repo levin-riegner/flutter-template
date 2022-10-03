@@ -1,29 +1,20 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_template/data/article/model/article.dart';
-import 'package:flutter_template/data/shared/service/local/database.dart';
-import 'package:hive/hive.dart';
+import 'package:isar/isar.dart';
 
 part 'article_db_model.g.dart';
 
-@HiveType(typeId: Database.articleHiveType)
-class ArticleDbModel extends HiveObject {
-  // Never re-use the same index for new fields
-  // https://docs.hivedb.dev/#/custom-objects/generate_adapter?id=updating-a-class
-  static const int _titleIndex = 0;
-  static const int _descriptionIndex = 1;
-  static const int _imageUrlIndex = 2;
-  static const int _urlIndex = 3;
-  static const int _publishedAtIndex = 4;
-
-  @HiveField(_titleIndex)
-  String? title;
-  @HiveField(_descriptionIndex)
-  String? description;
-  @HiveField(_imageUrlIndex)
-  String? imageUrl;
-  @HiveField(_urlIndex)
-  String? url;
-  @HiveField(_publishedAtIndex)
-  int? publishedAt;
+@collection
+@Name("Article")
+// ignore: must_be_immutable
+class ArticleDbModel extends Equatable {
+  Id id = Isar.autoIncrement;
+  @Index()
+  final String? title;
+  final String? description;
+  final String? imageUrl;
+  final String? url;
+  final int? publishedAt;
 
   ArticleDbModel({
     this.title,
@@ -55,4 +46,7 @@ class ArticleDbModel extends HiveObject {
       publishedAt: article.publishedAt?.millisecondsSinceEpoch,
     );
   }
+
+  @override
+  List<Object?> get props => [title, description, imageUrl, url, publishedAt];
 }

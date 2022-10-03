@@ -2,29 +2,29 @@ import 'package:flutter_template/data/article/service/local/article_db_service.d
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:isar/isar.dart';
 
 import '../integration_test_shared.dart';
 
-/// Tests the local db services with the Hive Database
+/// Tests the local db services with the Isar Database
 void main() async {
   final binding = ensureInitialized();
-  await Hive.initFlutter();
 
   group("Articles DB Service", () {
-    late Box<ArticleDbModel> box;
+    late Isar isar;
+    late IsarCollection<ArticleDbModel> collection;
     late ArticleDbService dbService;
     // Runs before each test
     setUp(() async {
-      Hive.registerAdapter<ArticleDbModel>(ArticleDbModelAdapter());
-      box = await Hive.openBox<ArticleDbModel>(Database.articleBox);
-      await box.clear();
-      dbService = ArticleDbService(box);
+      isar = await Database.init();
+      collection = isar.articleDbModels;
+      await isar.writeTxn(() async => await collection.clear());
+      dbService = ArticleDbService(collection);
     });
     // Runs after each test
     tearDown(() async {
-      await box.clear();
-      Hive.resetAdapters();
+      await isar.writeTxn(() async => await collection.clear());
+      await isar.close();
     });
     // Database
     testWidgets('should return all articles', (WidgetTester tester) async {
