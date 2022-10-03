@@ -332,12 +332,12 @@ A [Network](lib/data/shared/service/remote/network.dart) class is provided wih t
 
 ### Database
 
-This project includes the [Hive](https://pub.dev/packages/hive) Database.
+This project includes the [Isar](https://pub.dev/packages/isar) Database.
 
-Each data class is stored into a **Box** which is the equivalent of a Table/Collection.
+Each db model is annotated as a @collection which creates all the required auto-generated code.
 
-- DB Model adapters need to be register in the global [Database](lib/data/shared/service/local/database.dart) class.
-- Boxes are opened in the [Dependencies](lib/util/dependencies.dart) and injected to the different services.
+- DB Model collections need to be register in the global [Database](lib/data/shared/service/local/database.dart) class.
+- Collections are retrieved in the [Dependencies](lib/util/dependencies.dart) and injected to the different services.
 
 [Articles DB Service Example](lib/data/article/service/local/article_db_service.dart)
 

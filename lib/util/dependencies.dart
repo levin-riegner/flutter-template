@@ -23,7 +23,7 @@ import 'package:flutter_template/data/shared/service/remote/network.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
+import 'package:isar/isar.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:shake/shake.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,7 +31,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 final getIt = GetIt.instance;
 
 abstract class Dependencies {
-  static final List<Box> _userDataBoxes = [];
+  static final List<IsarCollection> _userDataCollections = [];
 
   static Future<void> register({
     required Environment environment,
@@ -68,19 +68,18 @@ abstract class Dependencies {
       debugMode: isDebugBuild,
     );
     // Database
-    await Database.init();
-    // Open db boxes
-    final articlesBox =
-        await Database.openBox<ArticleDbModel>(Database.articleBox);
-    // Save user boxes as class var for logout
-    _userDataBoxes.addAll([]);
+    final isar = await Database.init();
+    // Open db collections
+    final articlesCollection = isar.articleDbModels;
+    // Save user collections as class var for logout
+    _userDataCollections.addAll([]); // TODO: Add user collections here
     // Repositories
     getIt.registerSingleton<ArticleRepository>(
       useMocks
           ? ArticleMockRepository()
           : ArticleDataRepository(
               ArticleApiService(httpClient),
-              ArticleDbService(articlesBox),
+              ArticleDbService(articlesCollection),
             ),
     );
 
@@ -173,7 +172,7 @@ abstract class Dependencies {
   static Future<void> dispose() async {
     Flogger.i("Disposing dependencies");
     // Close Database
-    await Hive.close();
+    await Isar.getInstance()?.close();
     // Stop listening to Shake
     if (getIt.get<Environment>().internal) {
       getIt.get<ShakeDetector>().stopListening();
@@ -200,7 +199,7 @@ abstract class Dependencies {
       // Clear user boxes
       // Clearing the whole database won't allow for writing again
       // without closing the app or re-opening boxes
-      ..._userDataBoxes.map((e) => e.clear()),
+      ..._userDataCollections.map((e) => e.clear()),
       // Secure storage
       getIt.get<SecureStorage>().deleteAll(),
       // Analytics
