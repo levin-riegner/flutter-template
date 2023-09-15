@@ -13,11 +13,11 @@ You can use [this template](https://docs.google.com/spreadsheets/d/1yEgTKGOUVgUl
 - Parameter names must be in `snake_case`.
 - Parameter values can use any format.
 
-Event and Parameter names are case sensitive. For example, `my_event` and `My_Event` are considered different events. Use only letters, numbers, and underscores. Don't use spaces. Do not use reserved names for prefixes, event, parameters and properties. You can see the full list of reserved names [here](https://support.google.com/analytics/answer/13316687?hl=en).
+Event and Parameter names are case sensitive. For example, `my_event` and `My_Event` are considered different events. Use only letters, numbers, and underscores. Don't use spaces. Do not use reserved names for prefixes, events, parameters and properties. You can see the full list of reserved names [here](https://support.google.com/analytics/answer/13316687?hl=en).
 
 ### Automatically Collected Events
 
-Some events automatically collected by the Google Analytics SDK.
+Some events are automatically collected by the Google Analytics SDK.
 These relate to the app's lifecycle, interactions with Google services (notifications, in-app purchases, etc.), and OS-level events (app updates, etc.)
 You can see the full list [here](https://support.google.com/analytics/answer/9234069?hl=en).
 
@@ -27,7 +27,6 @@ Recommended events are not sent automatically and require a manual implementatio
 
 | Event Name | Parameters | Description |
 | ---------- | ---------- | ----------- |
-| `app_open` | | The app is opened. |
 | `login` | `method` | The user logs in. |
 | `sign_up` | `method` | The user signs up. |
 | `share` | `content_type`, `item_id` | The user shares content. |
