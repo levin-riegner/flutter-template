@@ -9,42 +9,54 @@ You can use [this template](https://docs.google.com/spreadsheets/d/1yEgTKGOUVgUl
 
 ### Style Guide
 
-- Event names must be in `snake_case`.
+- Event names must be in `snake_case` and must start with a letter.
 - Parameter names must be in `snake_case`.
-- Parameter values should be in `snake_case`, but may be in other formats if necessary.
+- Parameter values can use any format.
+
+Event and Parameter names are case sensitive. For example, `my_event` and `My_Event` are considered different events. Use only letters, numbers, and underscores. Don't use spaces. Do not use reserved names for prefixes, event, parameters and properties. You can see the full list of reserved names [here](https://support.google.com/analytics/answer/13316687?hl=en).
+
+### Automatically Collected Events
+
+Some events automatically collected by the Google Analytics SDK.
+These relate to the app's lifecycle, interactions with Google services (notifications, in-app purchases, etc.), and OS-level events (app updates, etc.)
+You can see the full list [here](https://support.google.com/analytics/answer/9234069?hl=en).
 
 ### Recommended Events
 
-The following events are recommended for all apps:
+Recommended events are not sent automatically and require a manual implementation. These should use the predefined names and parameters to get the most from Google's actual and future reporting capabilities, features and integrations. See some relevant examples below:
 
 | Event Name | Parameters | Description |
 | ---------- | ---------- | ----------- |
 | `app_open` | | The app is opened. |
 | `login` | `method` | The user logs in. |
 | `sign_up` | `method` | The user signs up. |
-| `delete_account` | | The user deletes their account. |
-| `logout` | | The user logs out. |
 | `share` | `content_type`, `item_id` | The user shares content. |
 | `search` | `search_term` | The user searches for content. |
-| `url_view` | `url` | The user views a URL. |
 | `screen_view` | `firebase_screen`, `firebase_screen_class` | The user views a screen. |
 | `campaign_details` | `source`, `medium`, `campaign` | The user opens the app with a link containing UTM parameters. |
 
-Some of the above events are already defined in the Google Analytics SDK. You can see the full list of pre-defined GA events [here](https://support.google.com/analytics/answer/9267735?hl=en).
-
-Other events are automatically collected by the Google Analytics SDK. You can see the full list [here](https://support.google.com/analytics/answer/9234069?hl=en).
+You can see the full list of pre-defined GA events [here](https://support.google.com/analytics/answer/9267735?hl=en).
 
 ### Custom Events
 
 Before you create a custom event, make sure the event you want to create isn't already collected through an automatically collected event or recommended as a recommended event. It's always better to use an existing event because these events automatically populate dimensions and metrics that are used in your reports.
 
-The event name should describe what you intend to measure with the event. For example, if you're measuring donations, the name might be "donate".
+The Event Name should describe what you intend to measure with the event. For example, if you're measuring donations, the name might be "donate".
 
-The event parameters of a custom event provide more information about the action that took place.
+The Event Parameters should provide more information about the action that took place.
 
-To access the different values assigned to an event parameter in your reports, you should create a custom dimension or metric. A custom dimension or metric lets you see the information you collected from an event parameter. For example, if you set up a 'value' event parameter, you could create a custom metric called 'Value' that allows you to see each value assigned to the event parameter.
+Before creating a new parameter, make sure there is no existing option that can match the information you want to send. Some parameters already populate [existing dimensions and metrics](https://support.google.com/analytics/answer/9143382) from Google Analytics. If you need to create a new parameter, you must also create a [custom dimension or metric](https://support.google.com/analytics/answer/10075209?) in order to access the data in the reports. For example, if you set up a 'cat_type' event parameter, you should create a custom metric called 'Cat Type' which allows you to see each value assigned to the event parameter.
 
-As a best practice, prefer multiple events with fewer parameters over fewer events with more parameters. This makes it easier to analyze the data in your reports.
+As a best practice, prefer multiple events with fewer parameters over fewer events with more parameters. This makes it easier to analyze the data in your reports and requires less custom dimensions.
+
+The following list contains custom events that can be useful in most apps:
+
+| Event Name | Parameters | Description |
+| ---------- | ---------- | ----------- |
+| `app_open` | | The app is opened. |
+| `delete_account` | | The user deletes their account. |
+| `logout` | | The user logs out. |
+| `url_view` | `url` | The user views a URL. |
 
 You can see more information about custom events [here](https://support.google.com/analytics/answer/12229021?hl=en).
 
@@ -74,9 +86,10 @@ You can see more information about user properties [here](https://support.google
 - Parameters are capped at 25 per event.
 - Parameter Names must be 40 characters or less.
 - Parameter Values must be 100 characters or less.
-- User properties are capped at 25.
+- Event-scoped custom dimensions are capped at 50.
 - User property Names must be 24 characters or less.
 - User property Values must be 36 characters or less.
+- User-scoped custom dimensions are capped at 25.
 
 You can see the full list of limits [here](https://support.google.com/analytics/answer/9267744?hl=en).
 
