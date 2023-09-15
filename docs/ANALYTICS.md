@@ -23,7 +23,7 @@ You can see the full list [here](https://support.google.com/analytics/answer/923
 
 ### Recommended Events
 
-Recommended events are not sent automatically and require a manual implementation. These should use the predefined names and parameters to get the most from Google's actual and future reporting capabilities, features and integrations. See some relevant examples below:
+Recommended events are not sent automatically and require a manual implementation. These should use the predefined names and parameters to get the most out of Google's current and future reporting capabilities, features and integrations. See some relevant examples below:
 
 | Event Name | Parameters | Description |
 | ---------- | ---------- | ----------- |
@@ -66,6 +66,18 @@ Screen views should be tracked using the `screen_view` event. The `firebase_scre
 - `firebase_screen` is a string that represents the resolved URL of the screen, without placeholders. For example, if the route path is `/home/items/:id`, the value should be `home/items/123`.
 - `firebase_screen_class` is a string that represents the name of the first widget created for the route. For example `ItemDetailPage`.
 
+### Campaigns
+
+Campaigns are used to track the source of a user's acquisition. For example, if a user clicks on a deeplink or a push notification, the campaign parameters (also known as UTM parameters) will be added to the link. When the user opens the app, the campaign parameters should be sent to Google Analytics.
+
+- Use the `campaign_details` event to track the campaign.
+- `source` is the referrer of the campaign. For example, `substack`.
+- `medium` is the delivery medium of the campaign. For example, `email`.
+- `campaign` is the name of the campaign. For example, `summer_sale`.
+- Use the `app_open` event after the `campaign_details` event to mark the campaign as source of the user's engagement.
+
+All parameters are optional. You can see more information about campaigns [here](https://support.google.com/analytics/answer/11242841?hl=en).
+
 ### User Properties
 
 User properties are attributes that describe groups of your user base, such as their language preferences or geographic locations. You can use user properties to define audiences.
@@ -98,6 +110,9 @@ Analytics must be disabled by default, and opted in to comply with GDPR.
 The user should be asked for permission to collect analytics data when they register/login or open the app.
 
 If the events are also used for tracking purposes (ie: facebook ads), the user must also opt-in to tracking before collecting any data.
+
+When permission is granted, we can send the `user_id` property to Google Analytics. This allows us to view events for that user in a linear sequence, and to see the user's path through the app.
+After the user logs out, the `user_id` should be cleared.
 
 ## Visualizing Data
 
