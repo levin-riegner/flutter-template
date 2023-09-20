@@ -5,6 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_template/app/app.dart';
+import 'package:flutter_template/app/navigation/navigator_holder.dart';
+import 'package:flutter_template/app/navigation/router/app_router.dart';
+import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 void mainShared({
@@ -27,8 +30,15 @@ void mainShared({
     );
     // Register Dependencies
     await registerDependencies();
+    // Create Router
+    final router = AppRouterBuilder.buildRouter(
+      navigatorKey: NavigatorHolder.navigatorKey,
+      initialLocation: const ArticleRoute().location,
+      debugLog: true,
+    );
     // Run App
-    runApp(const App(
+    runApp(App(
+      router: router,
       isSessionAvailable: false,
     ));
     // Remove native launch screen and begin Flutter take over

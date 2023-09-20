@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
-import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
+import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
@@ -21,6 +21,7 @@ import 'package:flutter_template/data/shared/service/remote/network.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:isar/isar.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:path_provider/path_provider.dart';
@@ -40,10 +41,6 @@ abstract class Dependencies {
     getIt.registerSingleton<Environment>(environment);
     // Equatable (generate toString methods)
     EquatableConfig.stringify = true;
-
-    // AutoRouter
-    final appRouter = AppRouter(NavigatorHolder.navigatorKey);
-    getIt.registerSingleton<AppRouter>(appRouter);
 
     // Configs
     // Secure Storage
@@ -152,8 +149,8 @@ abstract class Dependencies {
       final shakeDetector = ShakeDetector.autoStart(
         shakeThresholdGravity: 2,
         onPhoneShake: () {
-          appRouter.navigate(
-            const ConsoleRouter(),
+          NavigatorHolder.context?.go(
+            ConsoleRoute().location,
           );
         },
       )..startListening();

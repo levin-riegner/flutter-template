@@ -68,7 +68,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.levinriegner.fluttertemplate"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 33
         versionCode generateVersionCode()
         versionName generateVersionName()
@@ -140,5 +140,5 @@ flutter {
 dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     // APIs for SplashScreen, including compatibility helpers on devices prior Android 12
-    implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }

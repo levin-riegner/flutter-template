@@ -1,29 +1,28 @@
 import 'dart:async';
 
 import 'package:app_versioning/app_versioning.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/l10n/l10n.dart';
+import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/theme.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_dialog.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/tools/qa_config.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shake/shake.dart';
 
-import 'navigation/router/app_router.gr.dart';
-
 class App extends StatefulWidget {
+  final GoRouter router;
   final bool isSessionAvailable;
 
   const App({
     Key? key,
+    required this.router,
     required this.isSessionAvailable,
   }) : super(key: key);
 
@@ -32,7 +31,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> with WidgetsBindingObserver {
-  final appRouter = getIt<AppRouter>();
   final environment = getIt<Environment>();
   ShakeDetector? shakeDetector;
 
@@ -98,19 +96,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             ],
             supportedLocales: Strings.supportedLocales,
             theme: AppTheme.lightTheme(),
-            routerDelegate: appRouter.delegate(
-              initialRoutes: [
-                const BottomNavigationRoute(),
-              ],
-              navigatorObservers: kReleaseMode
-                  ? () => [
-                        FirebaseAnalyticsObserver(
-                          analytics: FirebaseAnalytics.instance,
-                        ),
-                      ]
-                  : AutoRouterDelegate.defaultNavigatorObserversBuilder,
-            ),
-            routeInformationParser: appRouter.defaultRouteParser(),
+            routerConfig: widget.router,
           );
         },
       ),
@@ -126,10 +112,10 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     final isOptionalUpdate =
         appUpdateInfo.updateType != AppUpdateType.Mandatory;
     if (appUpdateInfo.isUpdateAvailable) {
-      if (getIt<AppRouter>().navigatorKey.currentState?.context == null) return;
+      if (NavigatorHolder.navigatorKey.currentState?.context == null) return;
       Flogger.i("Showing app update dialog");
       showDialog(
-        context: getIt<AppRouter>().navigatorKey.currentState!.context,
+        context: NavigatorHolder.navigatorKey.currentState!.context,
         builder: (context) {
           return DSDialog(
             title: context.l10n.dialogAppUpdateTitle,
@@ -145,7 +131,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             negativeCallback: isOptionalUpdate
                 ? () {
                     Flogger.i("Optional updated dismissed");
-                    AutoRouter.of(context).pop();
+                    Navigator.of(context).pop();
                   }
                 : null,
           );
@@ -188,8 +174,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   void _onDeepLink(Uri deepLink) {
     // Navigate
-    AutoRouter.of(getIt<AppRouter>().navigatorKey.currentState!.context)
-        .navigateNamed(deepLink.path);
+    // AutoRouter.of(getIt<AppRouter>().navigatorKey.currentState!.context)
+    //     .navigateNamed(deepLink.path);
   }
 
   // endregion
