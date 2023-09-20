@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_route/empty_router_widgets.dart';
 import 'package:flutter_template/app/navigation/routes.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
@@ -11,16 +10,23 @@ import 'package:flutter_template/util/console/console_logins.dart';
 import 'package:flutter_template/util/console/console_qa_config.dart';
 import 'package:flutter_template/util/console/console_screen.dart';
 
-@AdaptiveAutoRouter(
-  replaceInRouteName: "Page,Route",
-  routes: <AutoRoute>[
+@AutoRouterConfig(replaceInRouteName: "Page,Route")
+class AppRouter extends $AppRouter {
+  AppRouter({
+    super.navigatiorKey,
+  });
+
+  @override
+  RouteType get defaultRouteType => const RouteType.cupertino();
+
+  @override
+  final List<AutoRoute> routes = [
     AutoRoute(
       path: Routes.home,
       page: BottomNavigationPage,
       children: [
         AutoRoute(
           path: Routes.articles,
-          name: "ArticlesRouter",
           page: EmptyRouterPage,
           children: [
             AutoRoute(path: "", page: ArticlesPage),
@@ -30,7 +36,6 @@ import 'package:flutter_template/util/console/console_screen.dart';
         ),
         AutoRoute(
           path: Routes.settings,
-          name: "SettingsRouter",
           page: EmptyRouterPage,
           children: [
             AutoRoute(path: "", page: SettingsPage),
@@ -41,7 +46,6 @@ import 'package:flutter_template/util/console/console_screen.dart';
     ),
     AutoRoute(
       path: Routes.console,
-      name: "ConsoleRouter",
       page: EmptyRouterPage,
       children: [
         AutoRoute(
@@ -63,6 +67,10 @@ import 'package:flutter_template/util/console/console_screen.dart';
         RedirectRoute(path: "*", redirectTo: "")
       ],
     ),
-  ],
-)
-class $AppRouter {}
+  ];
+}
+
+@RoutePage()
+class EmptyRouterPage extends AutoRouter {
+  const EmptyRouterPage({super.key});
+}

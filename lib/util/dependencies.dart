@@ -10,8 +10,6 @@ import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/router/app_router.gr.dart';
-import 'package:flutter_template/data/article/repository/article_data_repository.dart';
-import 'package:flutter_template/data/article/repository/article_mock_repository.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
@@ -25,6 +23,7 @@ import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
 import 'package:isar/isar.dart';
 import 'package:logging_flutter/logging_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shake/shake.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,7 +34,6 @@ abstract class Dependencies {
 
   static Future<void> register({
     required Environment environment,
-    required bool useMocks,
     required bool isDebugBuild,
   }) async {
     // Environment
@@ -67,20 +65,22 @@ abstract class Dependencies {
       () => secureStorage.getUserAuthToken(),
       debugMode: isDebugBuild,
     );
+    // Get Application directory
+    final applicationDirectory = await getApplicationDocumentsDirectory();
     // Database
-    final isar = await Database.init();
+    final isar = await Database.init(
+      directory: applicationDirectory.path,
+    );
     // Open db collections
     final articlesCollection = isar.articleDbModels;
     // Save user collections as class var for logout
     _userDataCollections.addAll([]); // TODO: Add user collections here
     // Repositories
     getIt.registerSingleton<ArticleRepository>(
-      useMocks
-          ? ArticleMockRepository()
-          : ArticleDataRepository(
-              ArticleApiService(httpClient),
-              ArticleDbService(articlesCollection),
-            ),
+      ArticleRepository(
+        ArticleApiService(httpClient),
+        ArticleDbService(articlesCollection),
+      ),
     );
 
     // region Integrations

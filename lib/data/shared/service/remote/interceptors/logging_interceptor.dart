@@ -85,13 +85,13 @@ class LoggingInterceptor extends Interceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     if (error) {
-      if (err.type == DioErrorType.response) {
+      if (err.type == DioExceptionType.badResponse) {
         final uri = err.response?.requestOptions.uri;
         _printBoxed(
             header:
-                'DioError ║ Status: ${err.response?.statusCode} ${err.response?.statusMessage}',
+                'DioException ║ Status: ${err.response?.statusCode} ${err.response?.statusMessage}',
             text: uri.toString());
         if (err.response != null && err.response?.data != null) {
           logPrint('╔ ${err.type.toString()}');
@@ -100,7 +100,7 @@ class LoggingInterceptor extends Interceptor {
         // _printLine('╚');
         // logPrint('');
       } else {
-        _printBoxed(header: 'DioError ║ ${err.type}', text: err.message);
+        _printBoxed(header: 'DioException ║ ${err.type}', text: err.message);
       }
     }
     super.onError(err, handler);
@@ -194,10 +194,10 @@ class LoggingInterceptor extends Interceptor {
     bool isListItem = false,
     bool isLast = false,
   }) {
-    var _tabs = tabs;
-    final isRoot = _tabs == initialTab;
-    final initialIndent = _indent(_tabs);
-    _tabs++;
+    var tabIndex = tabs;
+    final isRoot = tabIndex == initialTab;
+    final initialIndent = _indent(tabIndex);
+    tabIndex++;
 
     if (isRoot || isListItem) logPrint('║$initialIndent{');
 
@@ -209,31 +209,31 @@ class LoggingInterceptor extends Interceptor {
       }
       if (value is Map) {
         if (compact && _canFlattenMap(value)) {
-          logPrint('║${_indent(_tabs)} $key: $value${!isLast ? ',' : ''}');
+          logPrint('║${_indent(tabs)} $key: $value${!isLast ? ',' : ''}');
         } else {
-          logPrint('║${_indent(_tabs)} $key: {');
-          _printPrettyMap(value, tabs: _tabs);
+          logPrint('║${_indent(tabs)} $key: {');
+          _printPrettyMap(value, tabs: tabs);
         }
       } else if (value is List) {
         if (compact && _canFlattenList(value)) {
-          logPrint('║${_indent(_tabs)} $key: ${value.toString()}');
+          logPrint('║${_indent(tabs)} $key: ${value.toString()}');
         } else {
-          logPrint('║${_indent(_tabs)} $key: [');
-          _printList(value, tabs: _tabs);
-          logPrint('║${_indent(_tabs)} ]${isLast ? '' : ','}');
+          logPrint('║${_indent(tabs)} $key: [');
+          _printList(value, tabs: tabs);
+          logPrint('║${_indent(tabs)} ]${isLast ? '' : ','}');
         }
       } else {
         final msg = value.toString().replaceAll('\n', '');
-        final indent = _indent(_tabs);
+        final indent = _indent(tabs);
         final linWidth = maxWidth - indent.length;
         if (msg.length + indent.length > linWidth) {
           final lines = (msg.length / linWidth).ceil();
           for (var i = 0; i < lines; ++i) {
             logPrint(
-                '║${_indent(_tabs)} ${msg.substring(i * linWidth, math.min<int>(i * linWidth + linWidth, msg.length))}');
+                '║${_indent(tabs)} ${msg.substring(i * linWidth, math.min<int>(i * linWidth + linWidth, msg.length))}');
           }
         } else {
-          logPrint('║${_indent(_tabs)} $key: $msg${!isLast ? ',' : ''}');
+          logPrint('║${_indent(tabs)} $key: $msg${!isLast ? ',' : ''}');
         }
       }
     });

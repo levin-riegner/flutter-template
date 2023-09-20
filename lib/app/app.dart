@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:app_versioning/app_versioning.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -60,6 +59,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         case AppLifecycleState.inactive:
         case AppLifecycleState.paused:
         case AppLifecycleState.detached:
+        case AppLifecycleState.hidden:
           shakeDetector?.stopListening();
           break;
       }
@@ -167,23 +167,23 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   // region Dynamic Links
   void _initDynamicLinks() async {
     // Register Dynamic Link Callback
-    _dynamicLinksSubscription = FirebaseDynamicLinks.instance.onLink.listen(
-      (event) {
-        Flogger.i("Received dynamic link: $event");
-        final Uri deepLink = event.link;
-        _onDeepLink(deepLink);
-      },
-      onError: (error) => Flogger.w("Error getting dynamic link $error"),
-    );
+    // _dynamicLinksSubscription = FirebaseDynamicLinks.instance.onLink.listen(
+    //   (event) {
+    //     Flogger.i("Received dynamic link: $event");
+    //     final Uri deepLink = event.link;
+    //     _onDeepLink(deepLink);
+    //   },
+    //   onError: (error) => Flogger.w("Error getting dynamic link $error"),
+    // );
 
-    // Check if app was opened by a Dynamic Link
-    final PendingDynamicLinkData? data =
-        await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri? deepLink = data?.link;
-    if (deepLink != null) {
-      Flogger.i("Received dynamic link opening the app: $data");
-      _onDeepLink(deepLink);
-    }
+    // // Check if app was opened by a Dynamic Link
+    // final PendingDynamicLinkData? data =
+    //     await FirebaseDynamicLinks.instance.getInitialLink();
+    // final Uri? deepLink = data?.link;
+    // if (deepLink != null) {
+    //   Flogger.i("Received dynamic link opening the app: $data");
+    //   _onDeepLink(deepLink);
+    // }
   }
 
   void _onDeepLink(Uri deepLink) {

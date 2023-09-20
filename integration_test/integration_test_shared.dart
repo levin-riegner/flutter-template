@@ -13,12 +13,12 @@ Future<IntegrationTestWidgetsFlutterBinding> initAppAndEnsureInitialized({
   bool useMocks = true,
 }) async {
   environment ??= Environment.staging();
-  await Dependencies.register(
-    environment: environment,
-    useMocks: useMocks,
-    isDebugBuild: true,
+  mainShared(
+    registerDependencies: () => Dependencies.register(
+      environment: environment!,
+      isDebugBuild: true,
+    ),
   );
-  mainShared();
   return ensureInitialized();
 }
 

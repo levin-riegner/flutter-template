@@ -1,4 +1,4 @@
-import 'package:flutter_template/data/article/repository/article_data_repository.dart';
+import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
@@ -15,7 +15,7 @@ void main() {
   group("Get Articles", () {
     final dbService = _MockDbService();
     final apiService = _MockApiService();
-    final articleRepository = ArticleDataRepository(apiService, dbService);
+    final articleRepository = ArticleRepository(apiService, dbService);
     setUp(() {
       reset(dbService);
       reset(apiService);
