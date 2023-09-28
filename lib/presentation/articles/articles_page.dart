@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/app/l10n/l10n.dart';
-import 'package:flutter_template/app/navigation/routes.dart';
+import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/presentation/articles/bloc/articles_bloc.dart';
@@ -13,6 +12,7 @@ import 'package:flutter_template/presentation/shared/design_system/utils/dimens.
 import 'package:flutter_template/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_loading_indicator.dart';
 import 'package:flutter_template/util/dependencies.dart';
+import 'package:flutter_template/util/extensions/context_extension.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
@@ -63,8 +63,11 @@ class ArticlesView extends StatelessWidget {
                           Flogger.i(
                               "Navigate to article with id ${article.id}");
                           context.go(
-                            ArticleDetailRoute(id: article.id ?? "1234")
-                                .location,
+                            ArticleDetailRoute(
+                              context.router,
+                              id: "4321",
+                              url: article.url!,
+                            ).location,
                           );
                         },
                       );

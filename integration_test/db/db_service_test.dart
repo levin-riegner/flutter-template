@@ -3,6 +3,7 @@ import 'package:flutter_template/data/article/service/local/model/article_db_mod
 import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../integration_test_shared.dart';
 
@@ -16,7 +17,8 @@ void main() async {
     late ArticleDbService dbService;
     // Runs before each test
     setUp(() async {
-      isar = await Database.init();
+      final directory = await getApplicationDocumentsDirectory();
+      isar = await Database.init(directory: directory.path);
       collection = isar.articleDbModels;
       await isar.writeTxn(() async => await collection.clear());
       dbService = ArticleDbService(collection);

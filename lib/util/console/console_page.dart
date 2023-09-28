@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/navigation/routes.dart';
+import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
-class ConsoleScreen extends StatelessWidget {
-  const ConsoleScreen({Key? key}) : super(key: key);
+class ConsolePage extends StatelessWidget {
+  const ConsolePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +43,14 @@ class ConsoleScreen extends StatelessWidget {
           ),
           onTap: () => _navigateTo(context, ConsoleQaConfigsRoute().location),
         ),
+        ListTile(
+          title: const Text("Deeplinks"),
+          trailing: Icon(
+            Icons.chevron_right,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          onTap: () => _navigateTo(context, ConsoleDeeplinksRoute().location),
+        ),
       ],
     );
     return Scaffold(
@@ -54,6 +62,6 @@ class ConsoleScreen extends StatelessWidget {
   }
 
   _navigateTo(BuildContext context, String route) {
-    GoRouter.of(context).go(route);
+    GoRouter.of(context).push(route);
   }
 }

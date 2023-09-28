@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/config/constants.dart';
-import 'package:flutter_template/app/navigation/routes.dart';
+import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({
+class BottomNavigationPage extends StatelessWidget {
+  const BottomNavigationPage({
     required this.navigationShell,
     super.key,
   });
@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              context.push(const SettingsRoute().location);
+              context.push(SettingsRoute().location);
             },
             icon: const Icon(Icons.settings),
           ),

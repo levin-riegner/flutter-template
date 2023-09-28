@@ -5,9 +5,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_template/app/app.dart';
+import 'package:flutter_template/app/config/environment.dart';
+import 'package:flutter_template/app/navigation/deeplink_manager.dart';
+import 'package:flutter_template/app/navigation/listener/analytics_route_listener.dart';
+import 'package:flutter_template/app/navigation/listener/theme_route_listener.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
+import 'package:flutter_template/app/navigation/redirect/console_route_redirect.dart';
+import 'package:flutter_template/app/navigation/redirect/default_route_redirect.dart';
 import 'package:flutter_template/app/navigation/router/app_router.dart';
-import 'package:flutter_template/app/navigation/routes.dart';
+import 'package:flutter_template/app/navigation/router/app_routes.dart';
+import 'package:flutter_template/presentation/shared/adaptive_theme/adaptive_theme_cubit.dart';
+import 'package:flutter_template/util/dependencies.dart';
+import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 void mainShared({
@@ -32,14 +41,27 @@ void mainShared({
     await registerDependencies();
     // Create Router
     final router = AppRouterBuilder.buildRouter(
-      navigatorKey: NavigatorHolder.navigatorKey,
-      initialLocation: const ArticleRoute().location,
-      debugLog: true,
+      rootNavigatorKey: NavigatorHolder.rootNavigatorKey,
+      redirects: [
+        ConsoleRouteRedirect(
+          internalBuild: getIt.get<Environment>().internal,
+        ),
+        const DefaultRouteRedirect(),
+      ],
+      initialLocation: ArticlesRoute().location,
     );
     // Run App
+    final themeCubit = AdaptiveThemeCubit();
+    // TODO: Encapsulate app creation and app state
     runApp(App(
       router: router,
       isSessionAvailable: false,
+      deepLinkManager: getIt<DeepLinkManager>(),
+      routeListeners: [
+        AnalyticsRouteListener(Analytics.instance),
+        ThemeRouteListener(themeCubit),
+      ],
+      themeCubit: themeCubit,
     ));
     // Remove native launch screen and begin Flutter take over
     widgetsBinding.allowFirstFrame();

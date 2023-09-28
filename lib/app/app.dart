@@ -2,13 +2,19 @@ import 'dart:async';
 
 import 'package:app_versioning/app_versioning.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/l10n/l10n.dart';
+import 'package:flutter_template/app/navigation/deeplink_manager.dart';
+import 'package:flutter_template/app/navigation/listener/route_listener.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
+import 'package:flutter_template/presentation/shared/adaptive_theme/adaptive_theme_cubit.dart';
+import 'package:flutter_template/presentation/shared/adaptive_theme/adaptive_theme_state.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/theme.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_dialog.dart';
 import 'package:flutter_template/util/dependencies.dart';
+import 'package:flutter_template/util/extensions/go_router_extension.dart';
 import 'package:flutter_template/util/tools/qa_config.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
@@ -19,11 +25,17 @@ import 'package:shake/shake.dart';
 class App extends StatefulWidget {
   final GoRouter router;
   final bool isSessionAvailable;
+  final DeepLinkManager deepLinkManager;
+  final List<RouteListener> routeListeners;
+  final AdaptiveThemeCubit themeCubit;
 
   const App({
     Key? key,
     required this.router,
     required this.isSessionAvailable,
+    required this.deepLinkManager,
+    required this.routeListeners,
+    required this.themeCubit,
   }) : super(key: key);
 
   @override
@@ -34,7 +46,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   final environment = getIt<Environment>();
   ShakeDetector? shakeDetector;
 
-  late StreamSubscription _dynamicLinksSubscription;
+  StreamSubscription? _deepLinkSubscription;
 
   @override
   void initState() {
@@ -43,7 +55,28 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     if (environment.internal) {
       shakeDetector = getIt<ShakeDetector>();
     }
+    // Lifecycle observer
     WidgetsBinding.instance.addObserver(this);
+    // Deeplinks
+    _deepLinkSubscription =
+        widget.deepLinkManager.deeplink.listen(onDeeplinkReceived);
+    // Router listener
+    widget.router.routerDelegate.addListener(_onRouteChanged);
+  }
+
+  void _onRouteChanged() {
+    final location = widget.router.location();
+    final path = widget.router.fullPath();
+    final name = widget.router.routeName();
+    Flogger.i(
+        "On route changed with location: $location, path: $path, name: $name");
+    for (final listener in widget.routeListeners) {
+      listener.onRouteChanged(
+        location: location.toString(),
+        path: path,
+        name: name,
+      );
+    }
   }
 
   @override
@@ -71,7 +104,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     super.didChangeDependencies();
     _checkAppUpdateAvailable();
     _initPushNotifications();
-    _initDynamicLinks();
   }
 
   @override
@@ -79,9 +111,15 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => QaConfig()),
+        Provider<AdaptiveThemeCubit>(
+          create: (context) => widget.themeCubit,
+          dispose: (context, cubit) => cubit.close(),
+        ),
       ],
-      child: Builder(
-        builder: (context) {
+      child: BlocBuilder<AdaptiveThemeCubit, AdaptiveThemeState>(
+        bloc: widget.themeCubit,
+        buildWhen: (previous, current) => previous.name != current.name,
+        builder: (context, adaptiveThemeState) {
           return MaterialApp.router(
             debugShowMaterialGrid:
                 context.watch<QaConfig>().debugShowMaterialGrid,
@@ -96,6 +134,10 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             ],
             supportedLocales: Strings.supportedLocales,
             theme: AppTheme.lightTheme(),
+            darkTheme: AppTheme.darkTheme(),
+            themeMode: adaptiveThemeState == AdaptiveThemeState.light
+                ? ThemeMode.light
+                : ThemeMode.dark,
             routerConfig: widget.router,
           );
         },
@@ -112,10 +154,10 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     final isOptionalUpdate =
         appUpdateInfo.updateType != AppUpdateType.Mandatory;
     if (appUpdateInfo.isUpdateAvailable) {
-      if (NavigatorHolder.navigatorKey.currentState?.context == null) return;
+      if (NavigatorHolder.context == null) return;
       Flogger.i("Showing app update dialog");
       showDialog(
-        context: NavigatorHolder.navigatorKey.currentState!.context,
+        context: NavigatorHolder.context!,
         builder: (context) {
           return DSDialog(
             title: context.l10n.dialogAppUpdateTitle,
@@ -150,40 +192,20 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     }
   }
 
-  // region Dynamic Links
-  void _initDynamicLinks() async {
-    // Register Dynamic Link Callback
-    // _dynamicLinksSubscription = FirebaseDynamicLinks.instance.onLink.listen(
-    //   (event) {
-    //     Flogger.i("Received dynamic link: $event");
-    //     final Uri deepLink = event.link;
-    //     _onDeepLink(deepLink);
-    //   },
-    //   onError: (error) => Flogger.w("Error getting dynamic link $error"),
-    // );
-
-    // // Check if app was opened by a Dynamic Link
-    // final PendingDynamicLinkData? data =
-    //     await FirebaseDynamicLinks.instance.getInitialLink();
-    // final Uri? deepLink = data?.link;
-    // if (deepLink != null) {
-    //   Flogger.i("Received dynamic link opening the app: $data");
-    //   _onDeepLink(deepLink);
-    // }
+  @visibleForTesting
+  void onDeeplinkReceived(String? deeplink) async {
+    if (deeplink == null) return;
+    if (!context.mounted) return;
+    // Navigate to deep link
+    Flogger.i("Navigating to deep link: $deeplink");
+    widget.router.go(deeplink);
   }
-
-  void _onDeepLink(Uri deepLink) {
-    // Navigate
-    // AutoRouter.of(getIt<AppRouter>().navigatorKey.currentState!.context)
-    //     .navigateNamed(deepLink.path);
-  }
-
-  // endregion
 
   @override
   void dispose() {
     Dependencies.dispose();
-    _dynamicLinksSubscription.cancel();
+    _deepLinkSubscription?.cancel();
+    widget.router.routerDelegate.removeListener(_onRouteChanged);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

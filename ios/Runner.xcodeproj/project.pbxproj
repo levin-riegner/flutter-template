@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -52,8 +52,8 @@
 		EC62E3E5F5D7F626477D3BBD /* Pods-Runner.release-production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-production.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-production.xcconfig"; sourceTree = "<group>"; };
 		FA1314B825827A18003A820B /* GoogleService-Info-qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-qa.plist"; sourceTree = "<group>"; };
 		FA1314B925827A18003A820B /* GoogleService-Info-production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-production.plist"; sourceTree = "<group>"; };
-		FACD48ED2678B5170071EBA8 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
-		FACD48EE2678B5830071EBA8 /* Runner-qa.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "Runner-qa.entitlements"; sourceTree = "<group>"; };
+		FA6F26502ABB76E80091F636 /* QA.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = QA.entitlements; sourceTree = "<group>"; };
+		FA6F26512ABB76FE0091F636 /* Production.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Production.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,8 +112,8 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
-				FACD48EE2678B5830071EBA8 /* Runner-qa.entitlements */,
-				FACD48ED2678B5170071EBA8 /* Runner.entitlements */,
+				FA6F26502ABB76E80091F636 /* QA.entitlements */,
+				FA6F26512ABB76FE0091F636 /* Production.entitlements */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -172,7 +172,7 @@
 		97C146E61CF9000F007C117D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					97C146ED1CF9000F007C117D = {
@@ -235,10 +235,12 @@
 		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Thin Binary";
 			outputPaths = (
@@ -249,6 +251,7 @@
 		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -521,10 +524,14 @@
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BRANCH_DOMAIN = template.app.link;
+				BRANCH_DOMAIN_ALTERNATE = "template-alternate.app.link";
+				BRANCH_KEY = key_live_muorhE6h0Pqde8HzkIZzZpmmBsgYgD15;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Runner/Production.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEEPLINK_SCHEME = template;
 				DEVELOPMENT_TEAM = 7WR4848QS6;
 				DISPLAY_NAME = FlutterTemplate;
 				ENABLE_BITCODE = NO;
@@ -559,9 +566,13 @@
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BRANCH_DOMAIN = "template.test-app.link";
+				BRANCH_DOMAIN_ALTERNATE = "template-alternate.test-app.link";
+				BRANCH_KEY = key_test_eqcsoCWl3Mtnp8Qwc7hsMfbhDvg1fGha;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Runner/Runner-qa.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Runner/QA.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				DEEPLINK_SCHEME = templateqa;
 				DEVELOPMENT_TEAM = 7WR4848QS6;
 				DISPLAY_NAME = "FlutterTemplate QA";
 				ENABLE_BITCODE = NO;
@@ -650,10 +661,14 @@
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BRANCH_DOMAIN = "template.test-app.link";
+				BRANCH_DOMAIN_ALTERNATE = "template-alternate.test-app.link";
+				BRANCH_KEY = key_test_eqcsoCWl3Mtnp8Qwc7hsMfbhDvg1fGha;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Runner/Runner-qa.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Runner/QA.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEEPLINK_SCHEME = templateqa;
 				DEVELOPMENT_TEAM = 7WR4848QS6;
 				DISPLAY_NAME = "FlutterTemplate QA";
 				ENABLE_BITCODE = NO;
@@ -740,9 +755,13 @@
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BRANCH_DOMAIN = template.app.link;
+				BRANCH_DOMAIN_ALTERNATE = "template-alternate.app.link";
+				BRANCH_KEY = key_live_muorhE6h0Pqde8HzkIZzZpmmBsgYgD15;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Runner/Production.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				DEEPLINK_SCHEME = template;
 				DEVELOPMENT_TEAM = 7WR4848QS6;
 				DISPLAY_NAME = FlutterTemplate;
 				ENABLE_BITCODE = NO;

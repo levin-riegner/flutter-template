@@ -8,8 +8,9 @@ import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/config/environment.dart';
+import 'package:flutter_template/app/navigation/deeplink_manager.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
-import 'package:flutter_template/app/navigation/routes.dart';
+import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
 import 'package:flutter_template/data/shared/service/local/user_config_service.dart';
 import 'package:flutter_template/data/shared/service/remote/network.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
+import 'package:flutter_template/util/integrations/branch_api.dart';
 import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -37,11 +39,15 @@ abstract class Dependencies {
     required Environment environment,
     required bool isDebugBuild,
   }) async {
+    // Logging
+    _initLogging(
+      debugBuild: isDebugBuild,
+      internalEnvironment: environment.internal,
+    );
     // Environment
     getIt.registerSingleton<Environment>(environment);
     // Equatable (generate toString methods)
     EquatableConfig.stringify = true;
-
     // Configs
     // Secure Storage
     final secureStorage = SecureStorage();
@@ -95,32 +101,6 @@ abstract class Dependencies {
     } else {
       await FirebasePerformance.instance.setPerformanceCollectionEnabled(true);
     }
-    // Logging
-    const defaultLoggerName = "App";
-    if (isDebugBuild) {
-      Flogger.init(config: const FloggerConfig(loggerName: defaultLoggerName));
-      Flogger.registerListener((record) => log(record.message));
-    } else {
-      Flogger.init(config: const FloggerConfig(showDebugLogs: false));
-      // Init PaperTrail
-      await PaperTrail.init(
-        hostName: environment.loggingUrl,
-        programName: environment.appName,
-        port: environment.loggingPort,
-      );
-      Flogger.registerListener((record) {
-        if (record.loggerName == defaultLoggerName) {
-          PaperTrail.logRecord(record.message, record.level);
-        }
-        // TODO: Consider priting curls or http requests filtering user data
-      });
-      // Register Crashlytics listener
-      Flogger.registerListener((record) {
-        if (record.loggerName == defaultLoggerName) {
-          FirebaseCrashlytics.instance.log(record.message);
-        }
-      });
-    }
     // App Versioning
     final appVersioning = AppVersioning.firebaseService(
       remoteConfigKeys: const RemoteConfigKeys(
@@ -141,6 +121,29 @@ abstract class Dependencies {
     getIt.registerSingleton<UserConfigService>(userConfig);
     // Analytics tracking
     final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
+    // Deeplinks
+    final deepLinkManager = DeepLinkManager(
+      uriScheme: environment.deepLinkScheme,
+    );
+    getIt.registerSingleton<DeepLinkManager>(deepLinkManager);
+    // Branch
+    // DEV: Enable to test that the integration works
+    // if (isDebugBuild) {
+    //   FlutterBranchSdk.validateSDKIntegration();
+    // }
+    final branchApi = BranchApi(
+      environment.deepLinkScheme,
+      onDeepLink: (uri) => deepLinkManager.handleDeepLink(uri),
+      onUtmParameters: (source, medium, campaign) {
+        Analytics.instance.trackUtmParameters(
+          source: source,
+          medium: medium,
+          campaign: campaign,
+        );
+      },
+    );
+    getIt.registerSingleton<BranchApi>(branchApi);
+    branchApi.initBranchSession();
     // TODO: Set the default data collection policy for your app
     setDataCollectionEnabled(
         dataCollectionEnabled ?? true || environment.internal);
@@ -149,20 +152,61 @@ abstract class Dependencies {
       final shakeDetector = ShakeDetector.autoStart(
         shakeThresholdGravity: 2,
         onPhoneShake: () {
-          NavigatorHolder.context?.go(
+          NavigatorHolder.context?.push(
             ConsoleRoute().location,
           );
         },
       )..startListening();
-      // Save logs for console
-      Flogger.registerListener((record) => LogConsole.add(
-            OutputEvent(record.level, [record.message]),
-            bufferSize: 1000, // Remember the last X logs
-          ));
       getIt.registerSingleton<ShakeDetector>(shakeDetector);
     }
 
     // endregion
+  }
+
+  static void _initLogging({
+    required bool debugBuild,
+    required bool internalEnvironment,
+  }) {
+    const defaultLoggerName = "App";
+    if (debugBuild) {
+      Flogger.init(config: const FloggerConfig(loggerName: defaultLoggerName));
+      Flogger.registerListener((record) {
+        log(record.printable());
+        if (record.stackTrace != null) log(record.stackTrace.toString());
+      });
+    } else {
+      Flogger.init(
+        config: const FloggerConfig(
+          loggerName: defaultLoggerName,
+          showDebugLogs: false,
+        ),
+      );
+      // TODO: Register Datadog listener
+      // Register Crashlytics log listener
+      Flogger.registerListener((record) {
+        if (record.loggerName == defaultLoggerName) {
+          FirebaseCrashlytics.instance.log(record.printable());
+        }
+      });
+      // Register Crashlytics error listener
+      Flogger.registerListener((record) {
+        if (record.level == Level.SEVERE) {
+          FirebaseCrashlytics.instance.recordError(
+            record.printable(),
+            record.stackTrace,
+          );
+        }
+      });
+    }
+    // Save logs for console
+    if (internalEnvironment || debugBuild) {
+      Flogger.registerListener(
+        (record) => LogConsole.add(
+          OutputEvent(record.level, [record.printable()]),
+          bufferSize: 1000, // Remember the last X logs
+        ),
+      );
+    }
   }
 
   /// Dispose all Dependencies
@@ -174,6 +218,10 @@ abstract class Dependencies {
     if (getIt.get<Environment>().internal) {
       getIt.get<ShakeDetector>().stopListening();
     }
+    // Dispose DeepLink listener
+    getIt.get<DeepLinkManager>().dispose();
+    // Dispose Branch listener
+    getIt.get<BranchApi>().dispose();
   }
 
   /// Registers user to dependencies

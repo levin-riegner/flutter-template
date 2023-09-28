@@ -72,6 +72,8 @@ android {
         targetSdkVersion 33
         versionCode generateVersionCode()
         versionName generateVersionName()
+        manifestPlaceholders.branchKey = "key_live_muorhE6h0Pqde8HzkIZzZpmmBsgYgD15"
+        manifestPlaceholders.branchKeyTest = "key_test_eqcsoCWl3Mtnp8Qwc7hsMfbhDvg1fGha"
     }
 
     signingConfigs {
@@ -118,13 +120,19 @@ android {
         qa {
             dimension "app"
             manifestPlaceholders.applicationLabel = "fluttertemplate QA"
-            manifestPlaceholders.dynamicLinksDomain = "fluttertemplateqa.page.link"
+            manifestPlaceholders.branchTestMode = true
+            manifestPlaceholders.deepLinkScheme = "templateqa"
+            manifestPlaceholders.branchDomain = "template.test-app.link"
+            manifestPlaceholders.branchDomainAlternate = "template-alternate.test-app.link"
             applicationIdSuffix ".qa"
         }
         production {
             dimension "app"
             manifestPlaceholders.applicationLabel = "fluttertemplate"
-            manifestPlaceholders.dynamicLinksDomain = "fluttertemplate.page.link"
+            manifestPlaceholders.branchTestMode = false
+            manifestPlaceholders.deepLinkScheme = "template"
+            manifestPlaceholders.branchDomain = "template.app.link"
+            manifestPlaceholders.branchDomainAlternate = "template-alternate.app.link"
         }
     }
     compileOptions {
