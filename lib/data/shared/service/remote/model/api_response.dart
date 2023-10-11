@@ -8,7 +8,6 @@ class ApiResponse<T> {
   final int? totalResults;
   final List<T>? data;
 
-  // @JsonSerializable(fieldRename: FieldRename.snake)
   const ApiResponse({
     this.status,
     this.totalResults,

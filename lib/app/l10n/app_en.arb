@@ -1,67 +1,23 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
-  "welcome": "Welcome {firstName}",
-  "@welcome": {
-    "description": "Initial welcome message",
-    "placeholders": {
-      "firstName": {}
-    }
-  },
-  "newMessages": "{newMessages, plural, =0 {No new messages} =1 {One new message} other {{newMessages} new messages}}",
-  "@newMessages": {
-    "type": "text",
-    "description": "Number of new messages in inbox.",
-    "placeholders": {
-      "newMessages": {}
-    }
-  },
-  "articlesTitle": "Your content digest",
-  "@articlesTitle": {
-    "description": "Articles screen title"
-  },
-  "articleThumbnailAlt": "Article Thumbnail",
-  "@articleThumbnailAlt": {
-    "description": "Alt text for the articles thumbnails"
-  },
-  "noArticlesFound": "No articles found",
-  "@noArticlesFound": {
-    "description": "No articles found alert text"
-  },
-  "contentCardOrganizationsLabel": "{count, plural, =0{Unknown organizations} =1{Organization: {organizations}} other{Organizations: {organizations}}}",
-  "@contentCardOrganizationsLabel": {
-    "description": "Comma-separated list of organization names.",
-    "placeholders": {
-      "count": {},
-      "organizations": {
-        "type": "String",
-        "example": "AmeriCares, Ford Foundation"
-      }
-    }
-  },
-  "savedNewsArticlesPageTitle": "All saved news articles ({count})",
-  "@savedNewsArticlesPageTitle": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
   "dialogAppUpdateTitle": "Update Available",
-  "@dialogAppUpdateTitle": {},
+  "@dialogAppUpdateTitle": {
+    "description": "Title for the app update dialog"
+  },
   "dialogAppUpdateDescription": "A new version of fluttertemplate is available. Please update now.",
-  "@dialogAppUpdateDescription": {},
+  "@dialogAppUpdateDescription": {
+    "description": "Description for the app update dialog"
+  },
   "dialogAppUpdateConfirmationButton": "Update",
-  "@dialogAppUpdateConfirmationButton": {},
+  "@dialogAppUpdateConfirmationButton": {
+    "description": "Button to confirm the app update"
+  },
   "dialogAppUpdateDismissButton": "Not Now",
-  "@dialogAppUpdateDismissButton": {},
-  "error": "Error",
-  "defaultErrorPageTitle": "It seems something has broken!",
-  "@defaultErrorPageTitle": {
-    "description": "Text for an unexpected error"
+  "@dialogAppUpdateDismissButton": {
+    "description": "Button to dismiss the app update"
+  },
+  "defaultErrorMessage": "Woops something went wrong, please try again later.",
+  "@defaultErrorMessage": {
+    "description": "Default error text for an unknown error"
   },
   "defaultErrorPageDescription": "Let's help get you back",
   "@defaultErrorPageDescription": {
@@ -83,13 +39,60 @@
   "@defaultNoInternetPageDescription": {
     "description": "Text for a page that failed to load due to no internet connection"
   },
-  "refreshAction": "Refresh",
-  "@refreshAction": {
+  "error": "Error",
+  "@error": {
+    "description": "Generic title for an error"
+  },
+  "refresh": "Refresh",
+  "@refresh": {
     "description": "Text for a button that refreshes the page"
   },
-  "backAction": "Go Back",
-  "@backAction": {
+  "back": "Go Back",
+  "@back": {
     "description": "Text for a button that takes the user back to the previous page"
+  },
+  "networkErrorNotFound": "Not found",
+  "@networkErrorNotFound": {
+    "description": "Error message for item not found on the server"
+  },
+  "networkErrorNoInternet": "No Internet Connection\nPlease check your internet settings.",
+  "@networkErrorNoInternet": {
+    "description": "Error message for no internet connection"
+  },
+  "networkErrorBadInternet": "Slow or no internet connection\nPlease check your connection and try again.",
+  "@networkErrorBadInternet": {
+    "description": "Error message for weak or limited internet connection"
+  },
+  "networkErrorServerTimeout": "The server is taking too long to respond.\nPlease try again later.",
+  "@networkErrorServerTimeout": {
+    "description": "Error message for when the server is overloaded"
+  },
+  "networkErrorBadCertificate": "The server certificate is invalid.\nPlease try again later.",
+  "@networkErrorBadCertificate": {
+    "description": "Error message caused by an incorrect server certificate"
+  },
+  "loggedOutAlertTitle": "You have been logged out",
+  "@loggedOutAlertTitle": {
+    "description": "Alert title for a forced logout"
+  },
+  "loggedOutAlertDescription": "Please login again with your credentials",
+  "@loggedOutAlertDescription": {
+    "description": "Alert description for a forced logout"
+  },
+  "alertMessagePushNotificationPermanentlyDenied": "Push notifications disabled. You can always enable them in your device settings.",
+  "@alertMessagePushNotificationPermanentlyDenied": {
+    "description": "Alert message when push notifications are permanently disabled"
+  },
+  "openSettingsButton": "Open Settings",
+  "@openSettingsButton": {
+    "description": "Button to open the device's app settings"
+  },
+  "pushNotificationDeeplinkButton": "View",
+  "@pushNotificationDeeplinkButton": {
+    "description": "Button to open a push notification deeplink when the app is foregrounded"
+  },
+  "passwordField" : "Password",
+  "@passwordField": {
+    "description": "Label for a password field"
   }
-
 }

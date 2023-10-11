@@ -56,7 +56,7 @@ class FirebasePerformanceInterceptor extends Interceptor {
   }
 
   @override
-  Future onError(DioError err, ErrorInterceptorHandler handler) async {
+  Future onError(DioException err, ErrorInterceptorHandler handler) async {
     try {
       final requestKey = err.requestOptions.extra.hashCode;
       final metric = _map[requestKey];

@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:app_versioning/app_versioning.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,18 +14,20 @@ import 'package:flutter_template/app/navigation/router/app_router.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/presentation/shared/adaptive_theme/adaptive_theme_cubit.dart';
 import 'package:flutter_template/presentation/shared/adaptive_theme/adaptive_theme_state.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/theme.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_dialog.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/theme_factory.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/extensions/go_router_extension.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
+import 'package:flutter_template/util/integrations/app_updater.dart';
+import 'package:flutter_template/util/integrations/branch_api.dart';
+import 'package:flutter_template/util/integrations/notifications/push_notifications_helper.dart';
 import 'package:flutter_template/util/tools/qa_config.dart';
+import 'package:flutter_template/util/tools/shake_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:shake/shake.dart';
+import 'package:rxdart/rxdart.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -43,9 +42,11 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       ArticlesRoute().location;
 
   late final Environment environment = getIt<Environment>();
-  late final ShakeDetector? shakeDetector =
-      environment.internal ? getIt<ShakeDetector>() : null;
+  late final AppUpdater appUpdater = getIt<AppUpdater>();
   late final DeepLinkManager deepLinkManager = getIt<DeepLinkManager>();
+  late final BranchApi branchApi = getIt<BranchApi>();
+  late final PushNotificationsHelper pushNotificationsHelper =
+      getIt<PushNotificationsHelper>();
   late final AdaptiveThemeCubit themeCubit = AdaptiveThemeCubit();
   late final GoRouter router = AppRouterBuilder.buildRouter(
     rootNavigatorKey: NavigatorHolder.rootNavigatorKey,
@@ -69,17 +70,31 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     ),
   ];
 
-  StreamSubscription? _deepLinkSubscription;
+  final CompositeSubscription _subscriptions = CompositeSubscription();
 
   @override
   void initState() {
     super.initState();
+    // Track Analytics
+    Analytics.instance.track(AnalyticsEvent.appOpen());
     // Lifecycle observer
     WidgetsBinding.instance.addObserver(this);
-    // Deeplinks
-    _deepLinkSubscription = deepLinkManager.deeplink.listen(onDeeplinkReceived);
+    // App updater
+    appUpdater.performUpdateIfAvailable();
     // Router listener
     router.routerDelegate.addListener(_onRouteChanged);
+    // Deeplinks
+    _subscriptions.add(
+      deepLinkManager.deeplink.listen(onDeeplinkReceived),
+    );
+    // Push Notifications
+    _subscriptions.add(
+      pushNotificationsHelper
+          .subscribeToToken(pushNotificationsHelper.saveInstallation),
+    );
+    _subscriptions.add(
+      pushNotificationsHelper.subscribeToMessages(branchApi.handleBranchLink),
+    );
   }
 
   @override
@@ -87,26 +102,18 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     if (environment.internal) {
       switch (state) {
         case AppLifecycleState.resumed:
-          shakeDetector?.stopListening();
-          shakeDetector?.startListening();
+          ShakeManager.startListening();
           break;
         case AppLifecycleState.inactive:
         case AppLifecycleState.paused:
         case AppLifecycleState.detached:
         case AppLifecycleState.hidden:
-          shakeDetector?.stopListening();
+          ShakeManager.stopListening();
           break;
       }
     } else {
       super.didChangeAppLifecycleState(state);
     }
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _checkAppUpdateAvailable();
-    _initPushNotifications();
   }
 
   @override
@@ -135,57 +142,10 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void dispose() {
     Dependencies.dispose();
-    _deepLinkSubscription?.cancel();
+    _subscriptions.clear();
     router.routerDelegate.removeListener(_onRouteChanged);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  // Versioning
-  void _checkAppUpdateAvailable() async {
-    // Check App Update Available
-    final appVersioning = getIt.get<AppVersioning>();
-    final appUpdateInfo = await appVersioning.getAppUpdateInfo();
-    Flogger.i("Got app update info: $appUpdateInfo");
-    final isOptionalUpdate =
-        appUpdateInfo.updateType != AppUpdateType.Mandatory;
-    if (appUpdateInfo.isUpdateAvailable) {
-      if (NavigatorHolder.context == null) return;
-      Flogger.i("Showing app update dialog");
-      showDialog(
-        context: NavigatorHolder.context!,
-        builder: (context) {
-          return DSDialog(
-            title: context.l10n.dialogAppUpdateTitle,
-            description: context.l10n.dialogAppUpdateDescription,
-            positiveButtonText: context.l10n.dialogAppUpdateConfirmationButton,
-            positiveCallback: () {
-              Flogger.i("Launching update");
-              appVersioning.launchUpdate(updateInBackground: isOptionalUpdate);
-            },
-            negativeButtonText: isOptionalUpdate
-                ? context.l10n.dialogAppUpdateDismissButton
-                : null,
-            negativeCallback: isOptionalUpdate
-                ? () {
-                    Flogger.i("Optional updated dismissed");
-                    Navigator.of(context).pop();
-                  }
-                : null,
-          );
-        },
-        barrierDismissible: isOptionalUpdate,
-      );
-    }
-  }
-
-  // Push
-  void _initPushNotifications() async {
-    PermissionStatus status = await Permission.notification.status;
-    Flogger.i("Push notifications status: $status");
-    if (status.isGranted) {
-      // TODO: Register with push service
-    }
   }
 
   // Route Observers
@@ -242,8 +202,8 @@ class AppView extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: Strings.supportedLocales,
-      theme: AppTheme.lightTheme(),
-      darkTheme: AppTheme.darkTheme(),
+      theme: ThemeFactory.lightTheme(),
+      darkTheme: ThemeFactory.darkTheme(),
       themeMode: themeMode,
       routerConfig: routerConfig,
     );

@@ -21,7 +21,7 @@ class DSAppVersion extends StatelessWidget {
           style: textStyle ??
               Theme.of(context)
                   .textTheme
-                  .overline!
+                  .labelSmall!
                   .copyWith(color: Theme.of(context).disabledColor),
         );
       },

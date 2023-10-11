@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_bloc.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_inapp_webview.dart';
+import 'package:flutter_template/presentation/shared/design_system/utils/inapp_webview.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:provider/provider.dart';
 
@@ -18,16 +18,30 @@ class ArticleDetailPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget wrappedRoute(BuildContext context) {
+  Widget build(BuildContext context) {
     return Provider<ArticleDetailBloc>(
       create: (context) => ArticleDetailBloc(
         id,
         getIt<ArticleRepository>(),
       ),
       dispose: (context, bloc) => bloc.close(),
-      child: this,
+      child: ArticleDetailView(
+        url: url,
+        title: title,
+      ),
     );
   }
+}
+
+class ArticleDetailView extends StatelessWidget {
+  final String url;
+  final String? title;
+
+  const ArticleDetailView({
+    super.key,
+    required this.url,
+    this.title,
+  });
 
   @override
   Widget build(BuildContext context) {

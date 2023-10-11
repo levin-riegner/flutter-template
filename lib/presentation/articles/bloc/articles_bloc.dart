@@ -36,18 +36,18 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
       emit(ArticlesState.articlesList(data: DataState.success(data: articles)));
     } on DataError catch (e) {
       emit(
-        e.when(
+        e.maybeWhen(
           notFound: () {
             Flogger.i("Content not found for query $kQuery");
             return const ArticlesState.articlesList(
               data: DataState.success(data: []),
             );
           },
-          apiError: (reason) {
+          apiError: (code, reason) {
             Flogger.w("Api error getting articles: $reason");
             return ArticlesState.articlesList(
               data: DataState.failure(
-                  reason: reason?.contains("expired") == true
+                  reason: reason.contains("expired") == true
                       ? const ArticlesError.subscriptionExpired()
                       : ArticlesError.unknown(reason: reason)),
             );
@@ -57,6 +57,13 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
             return ArticlesState.articlesList(
               data: DataState.failure(
                 reason: ArticlesError.unknown(reason: error.toString()),
+              ),
+            );
+          },
+          orElse: () {
+            return ArticlesState.articlesList(
+              data: DataState.failure(
+                reason: ArticlesError.unknown(reason: e.toString()),
               ),
             );
           },

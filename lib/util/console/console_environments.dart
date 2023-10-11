@@ -24,7 +24,7 @@ class _ConsoleEnvironmentsState extends State<ConsoleEnvironments> {
         itemBuilder: (context, index) {
           final environment = environments[index];
           return RadioListTile<Environment>(
-            title: Text(environment.name),
+            title: Text(environment.environmentName),
             value: environment,
             groupValue: currentEnvironment,
             onChanged: (environment) => _setEnvironment(context, environment!),

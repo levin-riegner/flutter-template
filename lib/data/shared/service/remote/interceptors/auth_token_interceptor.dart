@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 class AuthTokenInterceptor extends Interceptor {
-  final Future<String?> getBearerToken;
+  final Future<String?> Function() getBearerToken;
 
   AuthTokenInterceptor(this.getBearerToken);
 
@@ -10,10 +10,10 @@ class AuthTokenInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final token = await getBearerToken;
+    final token = await getBearerToken();
 
     if (token != null) {
-      options.headers["Authorization"] = token;
+      options.headers["Authorization"] = "Bearer $token";
     }
 
     super.onRequest(options, handler);

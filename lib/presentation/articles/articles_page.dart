@@ -7,8 +7,8 @@ import 'package:flutter_template/data/article/repository/article_repository.dart
 import 'package:flutter_template/presentation/articles/bloc/articles_bloc.dart';
 import 'package:flutter_template/presentation/articles/bloc/articles_event.dart';
 import 'package:flutter_template/presentation/articles/bloc/articles_state.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_loading_indicator.dart';
 import 'package:flutter_template/util/dependencies.dart';
@@ -96,7 +96,7 @@ class ArticlesView extends StatelessWidget {
                 if (data.isEmpty) {
                   AlertService.showAlert(
                     context: context,
-                    message: context.l10n.noArticlesFound,
+                    message: "No articles found",
                   );
                 }
               },
@@ -134,7 +134,7 @@ class _ArticleView extends StatelessWidget {
             children: [
               if (_article.imageUrl != null)
                 Semantics(
-                  label: context.l10n.articleThumbnailAlt,
+                  label: "Alt content",
                   child: CachedNetworkImage(imageUrl: _article.imageUrl!),
                 ),
               Dimens.boxMedium,
