@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:app_versioning/app_versioning.dart';
+import 'package:devicelocale/devicelocale.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -19,11 +20,15 @@ import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
 import 'package:flutter_template/data/shared/service/local/user_config_service.dart';
 import 'package:flutter_template/data/shared/service/remote/network.dart';
+import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
+import 'package:flutter_template/util/extensions/context_extension.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:flutter_template/util/integrations/branch_api.dart';
 import 'package:flutter_template/util/integrations/papertrail.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/intl_standalone.dart';
 import 'package:isar/isar.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:path_provider/path_provider.dart';
@@ -61,11 +66,36 @@ abstract class Dependencies {
         secureStorage.deleteAll(),
       ]);
     }
+    // System directories
+    final tempDirectory = await getTemporaryDirectory();
+
+    // Init date format with locale
+    Intl.systemLocale = await findSystemLocale();
+    final preferredLocales = await Devicelocale.preferredLanguages;
+
     // HttpClient
     final httpClient = Network.createHttpClient(
       environment.apiBaseUrl,
-      Constants.apiKey,
-      () => secureStorage.getUserAuthToken(),
+      apiKey: Constants.apiKey,
+      locale: preferredLocales?.join(",") ?? "en",
+      cacheDirectory: tempDirectory.path,
+      getBearerToken: secureStorage.getUserAuthToken,
+      onUnauthorized: () async {
+        Flogger.i("Clearing user and navigating to login screen");
+        await Dependencies.clearAllLocalUserData();
+        final context = NavigatorHolder.rootNavigatorKey.currentState!.context;
+        if (!context.mounted) return;
+        context.router.go("/");
+        // Give some time for the navigation to complete and show alert
+        await Future.delayed(const Duration(milliseconds: 500));
+        if (!context.mounted) return;
+        AlertService.showAlert(
+          context: context,
+          title: context.l10n.loggedOutAlertTitle,
+          message: context.l10n.loggedOutAlertDescription,
+          type: AlertType.error,
+        );
+      },
       debugMode: isDebugBuild,
     );
     // Get Application directory
@@ -237,7 +267,7 @@ abstract class Dependencies {
   }
 
   /// Clears all local data
-  static Future<void> clearAllLocalData() async {
+  static Future<void> clearAllLocalUserData() async {
     Flogger.i("Clearing all local data");
     final preferences = await SharedPreferences.getInstance();
     await Future.wait([

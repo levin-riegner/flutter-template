@@ -87,7 +87,7 @@ class LoggingInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (error) {
-      if (err.type == DioExceptionType.badResponse) {
+      if (err.type == DioExceptionType.unknown) {
         final uri = err.response?.requestOptions.uri;
         _printBoxed(
             header:
@@ -194,10 +194,10 @@ class LoggingInterceptor extends Interceptor {
     bool isListItem = false,
     bool isLast = false,
   }) {
-    var tabIndex = tabs;
-    final isRoot = tabIndex == initialTab;
-    final initialIndent = _indent(tabIndex);
-    tabIndex++;
+    var tabs0 = tabs;
+    final isRoot = tabs0 == initialTab;
+    final initialIndent = _indent(tabs0);
+    tabs0++;
 
     if (isRoot || isListItem) logPrint('║$initialIndent{');
 
@@ -209,31 +209,31 @@ class LoggingInterceptor extends Interceptor {
       }
       if (value is Map) {
         if (compact && _canFlattenMap(value)) {
-          logPrint('║${_indent(tabs)} $key: $value${!isLast ? ',' : ''}');
+          logPrint('║${_indent(tabs0)} $key: $value${!isLast ? ',' : ''}');
         } else {
-          logPrint('║${_indent(tabs)} $key: {');
-          _printPrettyMap(value, tabs: tabs);
+          logPrint('║${_indent(tabs0)} $key: {');
+          _printPrettyMap(value, tabs: tabs0);
         }
       } else if (value is List) {
         if (compact && _canFlattenList(value)) {
-          logPrint('║${_indent(tabs)} $key: ${value.toString()}');
+          logPrint('║${_indent(tabs0)} $key: ${value.toString()}');
         } else {
-          logPrint('║${_indent(tabs)} $key: [');
-          _printList(value, tabs: tabs);
-          logPrint('║${_indent(tabs)} ]${isLast ? '' : ','}');
+          logPrint('║${_indent(tabs0)} $key: [');
+          _printList(value, tabs: tabs0);
+          logPrint('║${_indent(tabs0)} ]${isLast ? '' : ','}');
         }
       } else {
         final msg = value.toString().replaceAll('\n', '');
-        final indent = _indent(tabs);
+        final indent = _indent(tabs0);
         final linWidth = maxWidth - indent.length;
         if (msg.length + indent.length > linWidth) {
           final lines = (msg.length / linWidth).ceil();
           for (var i = 0; i < lines; ++i) {
             logPrint(
-                '║${_indent(tabs)} ${msg.substring(i * linWidth, math.min<int>(i * linWidth + linWidth, msg.length))}');
+                '║${_indent(tabs0)} ${msg.substring(i * linWidth, math.min<int>(i * linWidth + linWidth, msg.length))}');
           }
         } else {
-          logPrint('║${_indent(tabs)} $key: $msg${!isLast ? ',' : ''}');
+          logPrint('║${_indent(tabs0)} $key: $msg${!isLast ? ',' : ''}');
         }
       }
     });

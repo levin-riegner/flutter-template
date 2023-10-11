@@ -90,6 +90,33 @@
   "backAction": "Go Back",
   "@backAction": {
     "description": "Text for a button that takes the user back to the previous page"
+  },
+  "networkErrorNotFound": "Not found",
+  "@networkErrorNotFound": {
+    "description": "Error message for item not found on the server"
+  },
+  "networkErrorNoInternet": "No Internet Connection\nPlease check your internet settings.",
+  "@networkErrorNoInternet": {
+    "description": "Error message for no internet connection"
+  },
+  "networkErrorBadInternet": "Slow or no internet connection\nPlease check your connection and try again.",
+  "@networkErrorBadInternet": {
+    "description": "Error message for weak or limited internet connection"
+  },
+  "networkErrorServerTimeout": "The server is taking too long to respond.\nPlease try again later.",
+  "@networkErrorServerTimeout": {
+    "description": "Error message for when the server is overloaded"
+  },
+  "networkErrorBadCertificate": "The server certificate is invalid.\nPlease try again later.",
+  "@networkErrorBadCertificate": {
+    "description": "Error message caused by an incorrect server certificate"
+  },
+  "loggedOutAlertTitle": "You have been logged out",
+  "@loggedOutAlertTitle": {
+    "description": "Alert title for a forced logout"
+  },
+  "loggedOutAlertDescription": "Please login again with your credentials",
+  "@loggedOutAlertDescription": {
+    "description": "Alert description for a forced logout"
   }
-
 }

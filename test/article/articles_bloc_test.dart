@@ -54,9 +54,9 @@ void main() {
       final unknownException = Exception("Unknown");
       final unknownDataError = DataError.unknown(error: unknownException);
       const notFoundError = DataError.notFound();
-      const apiError = DataError.apiError(reason: "Api error");
-      const expiredError =
-          DataError.apiError(reason: "your subscription has expired");
+      const apiError = DataError.apiError(reason: "Api error", code: 405);
+      const expiredError = DataError.apiError(
+          reason: "your subscription has expired", code: 403);
       blocTest<ArticlesBloc, ArticlesState>(
         'should emit [loading, failure(unknown)] when articles are not fetched successfully',
         setUp: () => when(() => mockRepository.getArticles(any()))

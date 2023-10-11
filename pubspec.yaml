@@ -18,6 +18,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  intl: any
 
   ## Add your project dependencies here 👇
   # Architecture
@@ -28,6 +29,8 @@ dependencies:
   go_router: ^10.2.0
   # Data Management
   dio: ^5.3.2
+  dio_cache_interceptor: ^3.4.4
+  dio_cache_interceptor_hive_store: ^3.2.1
   isar: ^3.0.2
   isar_flutter_libs: ^3.0.2
   flutter_secure_storage: ^9.0.0
@@ -62,6 +65,7 @@ dependencies:
     git:
       url: https://github.com/levin-riegner/lr-app-versioning
       ref: 1.0.5
+  devicelocale: ^0.7.0
   # Plus Plugins
   device_info_plus: ^9.0.3
   package_info_plus: ^4.1.0

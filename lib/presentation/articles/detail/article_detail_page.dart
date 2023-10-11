@@ -18,16 +18,30 @@ class ArticleDetailPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget wrappedRoute(BuildContext context) {
+  Widget build(BuildContext context) {
     return Provider<ArticleDetailBloc>(
       create: (context) => ArticleDetailBloc(
         id,
         getIt<ArticleRepository>(),
       ),
       dispose: (context, bloc) => bloc.close(),
-      child: this,
+      child: ArticleDetailView(
+        url: url,
+        title: title,
+      ),
     );
   }
+}
+
+class ArticleDetailView extends StatelessWidget {
+  final String url;
+  final String? title;
+
+  const ArticleDetailView({
+    super.key,
+    required this.url,
+    this.title,
+  });
 
   @override
   Widget build(BuildContext context) {

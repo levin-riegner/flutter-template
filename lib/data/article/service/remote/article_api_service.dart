@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
-import 'package:flutter_template/data/shared/service/remote/base_api_service.dart';
+import 'package:flutter_template/data/shared/service/remote/api_response_mapper.dart';
 import 'package:flutter_template/data/shared/service/remote/endpoints.dart';
 
-class ArticleApiService extends BaseApiService {
+class ArticleApiService with ApiResponseMapper {
   final Dio client;
 
   ArticleApiService(this.client);
