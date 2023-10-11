@@ -1,64 +1,20 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
-  "welcome": "Welcome {firstName}",
-  "@welcome": {
-    "description": "Initial welcome message",
-    "placeholders": {
-      "firstName": {}
-    }
-  },
-  "newMessages": "{newMessages, plural, =0 {No new messages} =1 {One new message} other {{newMessages} new messages}}",
-  "@newMessages": {
-    "type": "text",
-    "description": "Number of new messages in inbox.",
-    "placeholders": {
-      "newMessages": {}
-    }
-  },
-  "articlesTitle": "Your content digest",
-  "@articlesTitle": {
-    "description": "Articles screen title"
-  },
-  "articleThumbnailAlt": "Article Thumbnail",
-  "@articleThumbnailAlt": {
-    "description": "Alt text for the articles thumbnails"
-  },
-  "noArticlesFound": "No articles found",
-  "@noArticlesFound": {
-    "description": "No articles found alert text"
-  },
-  "contentCardOrganizationsLabel": "{count, plural, =0{Unknown organizations} =1{Organization: {organizations}} other{Organizations: {organizations}}}",
-  "@contentCardOrganizationsLabel": {
-    "description": "Comma-separated list of organization names.",
-    "placeholders": {
-      "count": {},
-      "organizations": {
-        "type": "String",
-        "example": "AmeriCares, Ford Foundation"
-      }
-    }
-  },
-  "savedNewsArticlesPageTitle": "All saved news articles ({count})",
-  "@savedNewsArticlesPageTitle": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
   "dialogAppUpdateTitle": "Update Available",
-  "@dialogAppUpdateTitle": {},
+  "@dialogAppUpdateTitle": {
+    "description": "Title for the app update dialog"
+  },
   "dialogAppUpdateDescription": "A new version of fluttertemplate is available. Please update now.",
-  "@dialogAppUpdateDescription": {},
+  "@dialogAppUpdateDescription": {
+    "description": "Description for the app update dialog"
+  },
   "dialogAppUpdateConfirmationButton": "Update",
-  "@dialogAppUpdateConfirmationButton": {},
+  "@dialogAppUpdateConfirmationButton": {
+    "description": "Button to confirm the app update"
+  },
   "dialogAppUpdateDismissButton": "Not Now",
-  "@dialogAppUpdateDismissButton": {},
-  "error": "Error",
+  "@dialogAppUpdateDismissButton": {
+    "description": "Button to dismiss the app update"
+  },
   "defaultErrorMessage": "Woops something went wrong, please try again later.",
   "@defaultErrorMessage": {
     "description": "Default error text for an unknown error"
@@ -83,12 +39,16 @@
   "@defaultNoInternetPageDescription": {
     "description": "Text for a page that failed to load due to no internet connection"
   },
+  "error": "Error",
+  "@error": {
+    "description": "Generic title for an error"
+  },
   "refresh": "Refresh",
   "@refresh": {
     "description": "Text for a button that refreshes the page"
   },
-  "backAction": "Go Back",
-  "@backAction": {
+  "back": "Go Back",
+  "@back": {
     "description": "Text for a button that takes the user back to the previous page"
   },
   "networkErrorNotFound": "Not found",
