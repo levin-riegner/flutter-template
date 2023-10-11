@@ -40,7 +40,7 @@ Alternatively, you can run `flutter gen-l10n` to generate the files manually.
 
 ### Using Localizable Strings
 
-1. Import the auto-generated dart file using the [StringsX](/lib/app/l10n/l10n.dart) extension with the following line: `import 'package:global_citizen/app/l10n/l10n.dart';`.
+1. Import the auto-generated dart file using the [StringsX](/lib/app/l10n/l10n.dart) extension with the following line: `import 'package:flutter_template/app/l10n/l10n.dart';`.
 1. Reference localizable strings using `context.l10n.yourString`.
 
 > Modifications to the source `arb` file will be automatically generated on every build. Optionally you can also use the following command to generate them: `flutter gen-l10n`.
@@ -556,7 +556,7 @@ This project leverages the [pigeon](https://pub.dev/packages/pigeon) package to 
   - Dart to native messages are defined using the `@HostApi()` annotation. Native to Dart messages are defined using the `@FlutterApi()` annotation.
 
 - Navigate to the Android and iOS generated files and add the necessary code to make them work.
-- Add the new channel to the [AppDelegate](/ios/Runner/AppDelegate.swift) and [MainActivity](/android/app/src/main/kotlin/org/globalcitizen/app/MainActivity.kt) files.
+- Add the new channel to the [AppDelegate](/ios/Runner/AppDelegate.swift) and [MainActivity](/android/app/src/main/kotlin/com/levinriegner/flutter_template/MainActivity.kt) files.
 - Use the generated dart file in [/lib/util/channels](/lib/util/channels) to access the generated methods to send messages to the native code.
 
 Visit the [pigeon example](https://github.com/flutter/packages/tree/main/packages/pigeon/example) project for more information.
