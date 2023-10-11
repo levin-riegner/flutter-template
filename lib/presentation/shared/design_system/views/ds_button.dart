@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/dimens.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 
 import 'ds_loading_indicator.dart';
 
@@ -145,7 +145,7 @@ class DSTextButton extends StatelessWidget {
                 child: Text(
                   forceUpperCase ? text.toUpperCase() : text,
                   style: textStyle ??
-                      Theme.of(context).textTheme.button!.copyWith(
+                      Theme.of(context).textTheme.labelLarge!.copyWith(
                             color: enabled
                                 ? (defaultTextColor ??
                                     Theme.of(context).colorScheme.primary)
@@ -167,11 +167,9 @@ class _BaseButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   final Color? loadingColor;
-  final double? height;
   final double? borderRadius;
   final Color defaultColor;
   final Color disabledColor;
-  final TextStyle? textStyle;
   final BorderSide borderSide;
   final Color defaultTextColor;
   final Color? disabledTextColor;
@@ -192,8 +190,6 @@ class _BaseButton extends StatelessWidget {
     required this.disabledTextColor,
     required this.forceUpperCase,
     this.contentPadding,
-    this.height,
-    this.textStyle,
     this.borderRadius,
     this.onPressed,
   }) : super(key: key);
@@ -202,13 +198,13 @@ class _BaseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: height ?? Dimens.buttonHeight,
+      height: Dimens.buttonHeight,
       child: TextButton(
         style: ButtonStyle(
           shape: MaterialStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
-                borderRadius ?? Dimens.radiusMedium,
+                borderRadius ?? Dimens.buttonRadius,
               ),
               side: borderSide,
             ),
@@ -246,7 +242,6 @@ class _BaseButton extends StatelessWidget {
                   padding: contentPadding ?? EdgeInsets.zero,
                   child: Text(
                     forceUpperCase ? text.toUpperCase() : text,
-                    style: textStyle,
                   ),
                 ),
         ), // null == default

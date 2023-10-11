@@ -1,6 +1,6 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/dimens.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 import 'package:flutter_template/util/extensions/context_extension.dart';
 
 class AlertService {
@@ -83,7 +83,7 @@ class AlertService {
               : null,
           borderRadius: borderRadius ??
               BorderRadius.circular(
-                Dimens.radiusXLarge,
+                Dimens.snackBarBorderRadius,
               ),
           isDismissible: true,
           shouldIconPulse: false,

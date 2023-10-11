@@ -329,6 +329,28 @@ This project uses [flutter_animate](https://pub.dev/flutter_animate) package to 
 
 Make sure to add the app version somewhere on the user settings/profile so we can communicate more effectively with users. You can use the [DSAppVersion](/lib/presentation/shared/design_system/views/ds_app_version.dart) widget for that.
 
+### Pagination
+
+The project includes a set of widgets and classes to handle pagination.
+
+- [PaginatedRequest](/lib/data/shared/model/paginated_request.dart): Defines the pagination parameters.
+- [Paginated](/lib/data/shared/model/paginated.dart): Wraps the response from the data layer with the pagination parameters.
+- [PaginationCubit](/lib/presentation/shared/design_system/utils/pagination/pagination_cubit.dart): Handles the pagination logic and exposes the Paginated data.
+- [PaginationState](/lib/presentation/shared/design_system/utils/pagination/pagination_state.dart): Contains the different states for the pagination.
+- [PaginationWidget](/lib/presentation/shared/design_system/utils/pagination/pagination_widget.dart): Contains the raw UI pagination logic without any customisation.
+- [DSPaginationView](/lib/presentation/shared/design_system/views/ds_pagination_view.dart): Contains custom UI views on top of the PaginationWidget for reuse.
+
+When adding pagination to a screen follow these steps:
+
+1. Create a new Bloc for the screen and extend the [PaginationCubit](/lib/presentation/shared/design_system/utils/pagination/pagination_cubit.dart).
+2. Create a new Widget for the screen and add the [DSPaginationView](/lib/presentation/shared/design_system/views/ds_pagination_view.dart) as a child.
+
+### Forms
+
+When creating forms, use the [FormResponsiveBody](/lib/presentation/shared/design_system/utils/form_responsive_body.dart) widget to wrap the form. This widget will automatically handle the keyboard and scroll on smaller screens.
+
+Also consider using the [DSInternetRequired](/lib/presentation/shared/design_system/views/ds_internet_required.dart) widget to handle situations where the user has no internet connection.
+
 ## CI/CD Integration
 
 ### Fastlane
@@ -438,6 +460,42 @@ The project includes [Firebase Remote Config](https://firebase.google.com/docs/r
 Use the [remote_config.dart](/lib/util/integrations/remote_config.dart) class to access the remote config values or add new ones.
 
 Make sure all remote config values are updated and added on both the Staging and Production Firebase projects.
+
+## Deeplinks
+
+The project supports **Branch** deeplinks, using both Uri Schemes and App/Universal Links.
+
+When a deeplink is received, UTM parameters are tracked to the Analytics services.
+
+Deeplinks navigation is handled inside the [app.dart](/lib/app/app.dart) file.
+
+All deeplink paths can be found in the [SCREENS.md](/docs/SCREENS.md) document.
+
+You can simulate tapping on a deeplink by using the following commands:
+
+Android
+
+  ```bash
+  adb shell am start -a android.intent.action.VIEW -d DEEPLINK_URL
+  ```
+
+On an Android emulator you can also use the SMS Messages app.
+
+iOS
+
+  ```bash
+  xcrun simctl openurl booted DEEPLINK_URL
+  ```
+
+On a physical iOS device you can also use the Notes app.
+
+Deeplinks will not be processed until the GDPR consent has been accepted. You can set a different behaviour by calling `FlutterBranchSdk.disableTracking(false)` earlier.
+
+For more information check out the [flutter_branch_sdk](https://pub.dev/packages/flutter_branch_sdk) package and the [Branch Dashboard](https://dashboard.branch.io/).
+
+### Sharing
+
+To share app content, use the [BranchShareHelper](/lib/util/integrations/branch_share.dart) class. It will automatically create a Branch Universal Object (BUO) and share it using the native share sheet from the [share_plus](https://pub.dev/packages/share_plus) plugin.
 
 ## Privacy
 

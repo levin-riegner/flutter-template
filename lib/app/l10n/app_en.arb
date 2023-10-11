@@ -59,9 +59,9 @@
   "dialogAppUpdateDismissButton": "Not Now",
   "@dialogAppUpdateDismissButton": {},
   "error": "Error",
-  "defaultErrorPageTitle": "It seems something has broken!",
-  "@defaultErrorPageTitle": {
-    "description": "Text for an unexpected error"
+  "defaultErrorMessage": "Woops something went wrong, please try again later.",
+  "@defaultErrorMessage": {
+    "description": "Default error text for an unknown error"
   },
   "defaultErrorPageDescription": "Let's help get you back",
   "@defaultErrorPageDescription": {
@@ -83,8 +83,8 @@
   "@defaultNoInternetPageDescription": {
     "description": "Text for a page that failed to load due to no internet connection"
   },
-  "refreshAction": "Refresh",
-  "@refreshAction": {
+  "refresh": "Refresh",
+  "@refresh": {
     "description": "Text for a button that refreshes the page"
   },
   "backAction": "Go Back",
@@ -130,5 +130,9 @@
   "pushNotificationDeeplinkButton": "View",
   "@pushNotificationDeeplinkButton": {
     "description": "Button to open a push notification deeplink when the app is foregrounded"
+  },
+  "passwordField" : "Password",
+  "@passwordField": {
+    "description": "Label for a password field"
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/dimens.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 
 class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -20,7 +20,7 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: Theme.of(context)
             .textTheme
-            .headline4!
+            .headlineMedium!
             .copyWith(color: Theme.of(context).colorScheme.onPrimary),
       ),
       leading: backEnabled

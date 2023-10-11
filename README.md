@@ -1,6 +1,7 @@
 # Flutter Template
 
-Flutter template Application to checkout for new projects. Now null-safe!
+Flutter template Application to checkout for new projects.
+Check the [docs/](/docs/) folder for all the features and documentation.
 
 ## Installation
 
@@ -10,13 +11,15 @@ Flutter template Application to checkout for new projects. Now null-safe!
 1. Checkout and open with Android Studio.
    1. Find and rename all instances of `com.levinriegner` with the company name, including Android folders.
    2. Find and rename all instances of `fluttertemplate` and `flutter_template` with the actual product name, including folders.
-3. Setup Key Signing by following the CI instructions below.
-2. Create a new Firebase project and update the Google Services files.
+1. Setup Key Signing by following the CI instructions below.
+1. Create a new Firebase project and update the Google Services files.
    1. Create Android app for QA and Production environments.
    2. Create iOS app for QA and Production environments.
    3. Add SHA256 signing to Android apps
       > Use `./gradlew signingReport` to view the keys information.
    4. Add ITC Team ID and Appstore App ID to iOS apps.
+1. Update or remove the Branch.io setup.
+1. Update or remove the DataDog setup.
 
 > ❗️ Ensure that all template variables have been changed by searching `levinriegner` and `template` on the project.
 

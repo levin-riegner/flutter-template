@@ -1,4 +1,6 @@
-class WebViewUrls {
+import 'package:equatable/equatable.dart';
+
+class WebViewUrls extends Equatable {
   final String _baseUrl;
 
   const WebViewUrls(this._baseUrl);
@@ -12,4 +14,7 @@ class WebViewUrls {
   String get termsAndConditions => "$_baseUrl/terms";
 
   String get privacyPolicy => "$_baseUrl/privacy";
+
+  @override
+  List<Object?> get props => [_baseUrl];
 }

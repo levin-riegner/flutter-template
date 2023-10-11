@@ -27,6 +27,7 @@ import 'package:flutter_template/util/extensions/context_extension.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:flutter_template/util/integrations/app_updater.dart';
 import 'package:flutter_template/util/integrations/branch_api.dart';
+import 'package:flutter_template/util/integrations/branch_share.dart';
 import 'package:flutter_template/util/integrations/datadog.dart';
 import 'package:flutter_template/util/integrations/notifications/push_notifications_api_service.dart';
 import 'package:flutter_template/util/integrations/notifications/push_notifications_helper.dart';
@@ -127,6 +128,9 @@ abstract class Dependencies {
       ),
     );
 
+    // Firebase
+    await Firebase.initializeApp();
+
     // App Versioning
     final appVersioning = AppVersioning.firebaseService(
       remoteConfigKeys: const RemoteConfigKeys(
@@ -177,6 +181,9 @@ abstract class Dependencies {
     );
     getIt.registerSingleton<BranchApi>(branchApi);
     branchApi.initBranchSession();
+    getIt.registerSingleton<BranchShareHelper>(
+      BranchShareHelper(uriScheme: environment.deepLinkScheme),
+    );
 
     // Push Notifications
     getIt.registerSingleton<PushNotificationsHelper>(
@@ -195,8 +202,6 @@ abstract class Dependencies {
       environment: environment.environmentName,
     );
 
-    // Firebase
-    await Firebase.initializeApp();
     // Crashlytics
     if (isDebugBuild) {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);

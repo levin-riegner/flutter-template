@@ -8,7 +8,7 @@ import 'package:flutter_template/presentation/articles/bloc/articles_bloc.dart';
 import 'package:flutter_template/presentation/articles/bloc/articles_event.dart';
 import 'package:flutter_template/presentation/articles/bloc/articles_state.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/dimens.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_loading_indicator.dart';
 import 'package:flutter_template/util/dependencies.dart';

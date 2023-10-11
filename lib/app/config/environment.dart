@@ -44,7 +44,7 @@ class Environment extends Equatable {
     // TODO: Replace with your constants
     return const Environment._(
       environmentName: "Production",
-      internal: true,
+      internal: false,
       appId: AppId(
         androidAppId: "com.levinriegner.fluttertemplate.qa",
         iosAppId: "com.levinriegner.fluttertemplate.qa",

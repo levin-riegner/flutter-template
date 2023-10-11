@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/l10n/l10n.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/dimens.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_app_bar.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
+import 'package:flutter_template/util/extensions/context_extension.dart';
 
 class DSErrorView extends StatelessWidget {
   final bool useScaffold;
@@ -11,7 +10,6 @@ class DSErrorView extends StatelessWidget {
   final Widget? iconView;
   final String? refreshButtonText;
   final VoidCallback onRefresh;
-  final VoidCallback? onBack;
   final String? title;
   final String? description;
   final TextStyle? titleTextStyle;
@@ -22,11 +20,10 @@ class DSErrorView extends StatelessWidget {
     Key? key,
     this.useScaffold = false,
     this.scaffoldTitle,
-    this.expanded = true,
+    this.expanded = false,
     this.iconView,
     this.refreshButtonText,
     required this.onRefresh,
-    this.onBack,
     this.title,
     this.description,
     this.titleTextStyle,
@@ -41,12 +38,11 @@ class DSErrorView extends StatelessWidget {
       scaffoldTitle: scaffoldTitle ?? context.l10n.error,
       expanded: expanded,
       iconView: iconView,
-      fallbackIcon: Icons.warning,
-      title: title ?? context.l10n.defaultErrorPageTitle,
+      fallbackIcon: null,
+      title: title ?? context.l10n.defaultErrorMessage,
       description: description ?? context.l10n.defaultErrorPageDescription,
       refreshButtonText: refreshButtonText,
       onRefresh: onRefresh,
-      onBack: onBack,
       titleTextStyle: titleTextStyle,
       descriptionTextStyle: descriptionTextStyle,
       contentPadding: contentPadding,
@@ -59,8 +55,8 @@ class DSEmptyView extends StatelessWidget {
   final String? scaffoldTitle;
   final bool expanded;
   final Widget? iconView;
-  final VoidCallback? onRefresh;
-  final VoidCallback? onBack;
+  final String? actionButtonText;
+  final VoidCallback? onAction;
   final String? title;
   final String? description;
   final TextStyle? titleTextStyle;
@@ -71,10 +67,10 @@ class DSEmptyView extends StatelessWidget {
     Key? key,
     this.useScaffold = false,
     this.scaffoldTitle,
-    this.expanded = true,
+    this.expanded = false,
     this.iconView,
-    this.onRefresh,
-    this.onBack,
+    this.actionButtonText,
+    this.onAction,
     this.title,
     this.description,
     this.titleTextStyle,
@@ -89,11 +85,11 @@ class DSEmptyView extends StatelessWidget {
       scaffoldTitle: scaffoldTitle ?? '',
       expanded: expanded,
       iconView: iconView,
-      fallbackIcon: Icons.insert_drive_file,
-      title: title ?? context.l10n.defaultEmptyPageTitle,
+      fallbackIcon: null,
+      title: title,
       description: description ?? context.l10n.defaultEmptyPageDescription,
-      onRefresh: onRefresh,
-      onBack: onBack,
+      refreshButtonText: actionButtonText,
+      onRefresh: onAction,
       titleTextStyle: titleTextStyle,
       descriptionTextStyle: descriptionTextStyle,
       contentPadding: contentPadding,
@@ -107,7 +103,6 @@ class DSNoInternetView extends StatelessWidget {
   final bool expanded;
   final Widget? iconView;
   final VoidCallback? onRefresh;
-  final VoidCallback? onBack;
   final String? title;
   final String? description;
   final TextStyle? titleTextStyle;
@@ -118,10 +113,9 @@ class DSNoInternetView extends StatelessWidget {
     Key? key,
     this.useScaffold = false,
     this.scaffoldTitle,
-    this.expanded = true,
+    this.expanded = false,
     this.iconView,
     this.onRefresh,
-    this.onBack,
     this.title,
     this.description,
     this.titleTextStyle,
@@ -140,7 +134,6 @@ class DSNoInternetView extends StatelessWidget {
       title: title ?? context.l10n.defaultNoInternetPageTitle,
       description: description ?? context.l10n.defaultNoInternetPageDescription,
       onRefresh: onRefresh,
-      onBack: onBack,
       titleTextStyle: titleTextStyle,
       descriptionTextStyle: descriptionTextStyle,
       contentPadding: contentPadding,
@@ -155,11 +148,10 @@ class _ContentPlaceholderScreen extends StatelessWidget {
   final Widget? iconView;
   final IconData? fallbackIcon;
   final bool expanded;
-  final String title;
-  final String description;
+  final String? title;
+  final String? description;
   final String? refreshButtonText;
   final VoidCallback? onRefresh;
-  final VoidCallback? onBack;
   final TextStyle? titleTextStyle;
   final TextStyle? descriptionTextStyle;
   final EdgeInsetsGeometry? contentPadding;
@@ -175,11 +167,10 @@ class _ContentPlaceholderScreen extends StatelessWidget {
     required this.description,
     this.refreshButtonText,
     required this.onRefresh,
-    required this.onBack,
     this.titleTextStyle,
     this.descriptionTextStyle,
     this.contentPadding,
-  })  : assert(fallbackIcon != null || iconView != null),
+  })  : assert(title != null || description != null),
         super(key: key);
 
   @override
@@ -192,17 +183,14 @@ class _ContentPlaceholderScreen extends StatelessWidget {
       description: description,
       refreshButtonText: refreshButtonText,
       onRefresh: onRefresh,
-      onBack: onBack,
       titleTextStyle: titleTextStyle,
       descriptionTextStyle: descriptionTextStyle,
       contentPadding: contentPadding,
     );
     return useScaffold
         ? Scaffold(
-            appBar: DSAppBar(
-              title: scaffoldTitle,
-              backEnabled: onBack != null,
-              onBack: onBack,
+            appBar: AppBar(
+              title: Text(scaffoldTitle),
             ),
             body: body,
           )
@@ -216,11 +204,10 @@ class _ContentPlaceholderBody extends StatelessWidget {
   final Widget? iconView;
   final IconData? icon;
   final bool expanded;
-  final String title;
-  final String description;
+  final String? title;
+  final String? description;
   final String? refreshButtonText;
   final VoidCallback? onRefresh;
-  final VoidCallback? onBack;
   final TextStyle? titleTextStyle;
   final TextStyle? descriptionTextStyle;
   final EdgeInsetsGeometry? contentPadding;
@@ -234,12 +221,10 @@ class _ContentPlaceholderBody extends StatelessWidget {
     required this.description,
     this.refreshButtonText,
     required this.onRefresh,
-    required this.onBack,
     required this.titleTextStyle,
     required this.descriptionTextStyle,
     this.contentPadding,
-  })  : assert(icon != null || iconView != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -247,48 +232,47 @@ class _ContentPlaceholderBody extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        iconView ??
-            Icon(
-              icon,
-              size: kIconHeight,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-        const SizedBox(height: Dimens.marginMedium),
-        Text(
-          title,
-          style: titleTextStyle ?? Theme.of(context).textTheme.headline4,
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: Dimens.marginMedium),
-        Text(
-          description,
-          style: descriptionTextStyle ?? Theme.of(context).textTheme.bodyText2,
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: Dimens.marginMedium),
+        if (iconView != null || icon != null) ...[
+          iconView ??
+              Icon(
+                icon,
+                size: kIconHeight,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+          const SizedBox(height: Dimens.marginMedium),
+        ],
+        if (title != null) ...[
+          Text(
+            title!,
+            style: titleTextStyle ?? Theme.of(context).textTheme.displayMedium,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: Dimens.marginMedium),
+        ],
+        if (description != null) ...[
+          Text(
+            description!,
+            style:
+                descriptionTextStyle ?? Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: Dimens.marginMedium),
+        ],
       ],
     );
 
-    return Center(
-      child: Padding(
-        padding: contentPadding ?? const EdgeInsets.all(Dimens.marginLarge),
+    return Padding(
+      padding: contentPadding ?? const EdgeInsets.all(Dimens.marginLarge),
+      child: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             expanded ? Expanded(child: content) : content,
             if (onRefresh != null)
               DSPrimaryButton(
-                text: refreshButtonText ?? context.l10n.refreshAction,
+                text: refreshButtonText ?? context.l10n.refresh,
                 onPressed: onRefresh,
               ),
-            if (onBack != null)
-              Padding(
-                padding: const EdgeInsets.only(top: Dimens.marginSmall),
-                child: DSTextButton(
-                  text: context.l10n.backAction,
-                  onPressed: onBack,
-                  alignment: Alignment.center,
-                ),
-              )
           ],
         ),
       ),

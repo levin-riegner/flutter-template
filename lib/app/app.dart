@@ -14,7 +14,7 @@ import 'package:flutter_template/app/navigation/router/app_router.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/presentation/shared/adaptive_theme/adaptive_theme_cubit.dart';
 import 'package:flutter_template/presentation/shared/adaptive_theme/adaptive_theme_state.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/theme.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/theme_factory.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/extensions/go_router_extension.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
@@ -202,8 +202,8 @@ class AppView extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: Strings.supportedLocales,
-      theme: AppTheme.lightTheme(),
-      darkTheme: AppTheme.darkTheme(),
+      theme: ThemeFactory.lightTheme(),
+      darkTheme: ThemeFactory.darkTheme(),
       themeMode: themeMode,
       routerConfig: routerConfig,
     );
