@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "dart-code.flutter",
+        "dart-code.dart-code",
+        "diemasmichiels.emulate",
+        "github.copilot",
+        "davidanson.vscode-markdownlint",
+        "yzhang.markdown-all-in-one",
+        "felixangelov.bloc",
+        "maptz.regionfolder"
+    ]
+}

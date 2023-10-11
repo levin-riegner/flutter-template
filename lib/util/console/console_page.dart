@@ -1,10 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/navigation/routes.dart';
+import 'package:flutter_template/app/navigation/router/app_routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
-class ConsoleScreen extends StatelessWidget {
-  const ConsoleScreen({Key? key}) : super(key: key);
+class ConsolePage extends StatelessWidget {
+  const ConsolePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,8 @@ class ConsoleScreen extends StatelessWidget {
             Icons.chevron_right,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onTap: () => _navigateTo(context, Routes.environments),
+          onTap: () =>
+              _navigateTo(context, ConsoleEnvironmentsRoute().location),
         ),
         ListTile(
           title: const Text("Logins"),
@@ -32,7 +33,7 @@ class ConsoleScreen extends StatelessWidget {
             Icons.chevron_right,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onTap: () => _navigateTo(context, Routes.logins),
+          onTap: () => _navigateTo(context, ConsoleLoginsRoute().location),
         ),
         ListTile(
           title: const Text("QA Configs"),
@@ -40,7 +41,15 @@ class ConsoleScreen extends StatelessWidget {
             Icons.chevron_right,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onTap: () => _navigateTo(context, Routes.qaConfigs),
+          onTap: () => _navigateTo(context, ConsoleQaConfigsRoute().location),
+        ),
+        ListTile(
+          title: const Text("Deeplinks"),
+          trailing: Icon(
+            Icons.chevron_right,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          onTap: () => _navigateTo(context, ConsoleDeeplinksRoute().location),
         ),
       ],
     );
@@ -53,6 +62,6 @@ class ConsoleScreen extends StatelessWidget {
   }
 
   _navigateTo(BuildContext context, String route) {
-    AutoRouter.of(context).navigateNamed(route);
+    GoRouter.of(context).push(route);
   }
 }

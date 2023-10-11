@@ -28,17 +28,16 @@
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>fluttertemplate</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.levinriegner.fluttertemplate</string>
-				<string>com.levinriegner.fluttertemplate.qa</string>
-			</array>
-		</dict>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>$(DEEPLINK_SCHEME)</string>
+            </array>
+        </dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
@@ -67,5 +66,16 @@
 	<true/>
 	<key>FirebaseAutomaticScreenReportingEnabled</key>
 	<false/>
+    <key>FlutterDeepLinkingEnabled</key>
+    <true/>
+    <key>branch_key</key>
+    <string>$(BRANCH_KEY)</string>
+    <key>branch_universal_link_domains</key>
+    <array>
+        <string>$(BRANCH_DOMAIN)</string>
+        <string>$(BRANCH_DOMAIN_ALTERNATE)</string>
+    </array>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_bloc.dart';
@@ -6,16 +5,16 @@ import 'package:flutter_template/presentation/shared/design_system/views/ds_inap
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:provider/provider.dart';
 
-class ArticleDetailPage extends StatelessWidget implements AutoRouteWrapper {
+class ArticleDetailPage extends StatelessWidget {
   final String id;
+  final String url;
   final String? title;
-  final String? url;
 
   const ArticleDetailPage({
     Key? key,
-    @PathParam("id") required this.id,
+    required this.id,
+    required this.url,
     this.title,
-    this.url,
   }) : super(key: key);
 
   @override
@@ -39,7 +38,7 @@ class ArticleDetailPage extends StatelessWidget implements AutoRouteWrapper {
         return true; // Continue with pop
       },
       child: InAppWebView(
-        urlNotifier: ValueNotifier(url ?? "https://levinriegner.com"),
+        initialUrl: url,
         useScaffold: true,
         title: title,
       ),

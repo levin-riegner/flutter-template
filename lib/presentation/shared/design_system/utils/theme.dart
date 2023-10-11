@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 abstract class AppTheme {
+  // TODO: Refactor Theme
   static ThemeData lightTheme() {
     const defaultTextColor = Color(0xFF000000);
     // Basic Config
@@ -23,7 +24,7 @@ abstract class AppTheme {
         brightness: Brightness.light,
       ),
       textTheme: const TextTheme(
-        headline1: TextStyle(
+        displayLarge: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 36,
           letterSpacing: 0,
@@ -33,7 +34,7 @@ abstract class AppTheme {
           fontFamily: "Algebra",
           fontFamilyFallback: ["Roboto"],
         ),
-        headline2: TextStyle(
+        displayMedium: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 30,
           letterSpacing: 0,
@@ -43,7 +44,7 @@ abstract class AppTheme {
           fontFamily: "Algebra",
           fontFamilyFallback: ["Roboto"],
         ),
-        headline3: TextStyle(
+        displaySmall: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 26,
           letterSpacing: 0,
@@ -53,7 +54,7 @@ abstract class AppTheme {
           fontFamily: "Algebra",
           fontFamilyFallback: ["Roboto"],
         ),
-        headline4: TextStyle(
+        headlineMedium: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 22,
           letterSpacing: 0,
@@ -63,7 +64,7 @@ abstract class AppTheme {
           fontFamily: "Algebra",
           fontFamilyFallback: ["Roboto"],
         ),
-        headline5: TextStyle(
+        headlineSmall: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 18,
           letterSpacing: 0,
@@ -73,7 +74,7 @@ abstract class AppTheme {
           fontFamily: "Algebra",
           fontFamilyFallback: ["Roboto"],
         ),
-        headline6: TextStyle(
+        titleLarge: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 18,
           letterSpacing: 0,
@@ -83,7 +84,7 @@ abstract class AppTheme {
           fontFamily: "Algebra",
           fontFamilyFallback: ["Roboto"],
         ),
-        subtitle1: TextStyle(
+        titleMedium: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 18,
           letterSpacing: 0,
@@ -93,7 +94,7 @@ abstract class AppTheme {
           fontFamily: "Algebra",
           fontFamilyFallback: ["Roboto"],
         ),
-        subtitle2: TextStyle(
+        titleSmall: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 18,
           letterSpacing: 0,
@@ -103,7 +104,7 @@ abstract class AppTheme {
           fontFamily: "Algebra",
           fontFamilyFallback: ["Roboto"],
         ),
-        bodyText1: TextStyle(
+        bodyLarge: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 16,
           letterSpacing: 0,
@@ -113,7 +114,7 @@ abstract class AppTheme {
           fontFamily: "Algebra",
           fontFamilyFallback: ["Roboto"],
         ),
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 16,
           letterSpacing: 0,
@@ -123,7 +124,7 @@ abstract class AppTheme {
           fontFamily: "Algebra",
           fontFamilyFallback: ["Roboto"],
         ),
-        caption: TextStyle(
+        bodySmall: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 14,
           letterSpacing: 0,
@@ -133,7 +134,7 @@ abstract class AppTheme {
           fontFamily: "Akkurat",
           fontFamilyFallback: ["Roboto"],
         ),
-        button: TextStyle(
+        labelLarge: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 16,
           letterSpacing: 0,
@@ -143,7 +144,7 @@ abstract class AppTheme {
           fontFamily: "Algebra",
           fontFamilyFallback: ["Roboto"],
         ),
-        overline: TextStyle(
+        labelSmall: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 12,
           letterSpacing: 0,
@@ -167,9 +168,7 @@ abstract class AppTheme {
       primaryColor: base.colorScheme.primary,
       primaryColorLight: base.colorScheme.primary,
       primaryColorDark: base.colorScheme.primary,
-      backgroundColor: base.colorScheme.background,
       scaffoldBackgroundColor: base.colorScheme.background,
-      bottomAppBarColor: const Color(0xFF000000),
       shadowColor: const Color(0xFF000000),
       appBarTheme: base.appBarTheme.copyWith(
         elevation: 0,
@@ -188,13 +187,13 @@ abstract class AppTheme {
         unselectedItemColor: const Color(0xFFFFFFFF).withOpacity(0.6),
         showSelectedLabels: true,
         showUnselectedLabels: true,
-        selectedLabelStyle: base.textTheme.overline,
-        unselectedLabelStyle: base.textTheme.overline,
+        selectedLabelStyle: base.textTheme.labelSmall,
+        unselectedLabelStyle: base.textTheme.labelSmall,
         elevation: 0,
       ),
       tooltipTheme: base.tooltipTheme.copyWith(
         textStyle:
-            base.textTheme.overline?.copyWith(color: const Color(0xFFFFFFFF)),
+            base.textTheme.labelSmall?.copyWith(color: const Color(0xFFFFFFFF)),
       ),
       cardColor: base.colorScheme.background,
       dividerColor: base.disabledColor,
@@ -211,10 +210,226 @@ abstract class AppTheme {
         elevation: 0.0,
         shape: const BeveledRectangleBorder(),
         backgroundColor: base.colorScheme.onBackground,
-        contentTextStyle: base.textTheme.caption?.copyWith(
+        contentTextStyle: base.textTheme.bodySmall?.copyWith(
           color: base.colorScheme.background,
         ),
       ),
+      bottomAppBarTheme: const BottomAppBarTheme(color: Color(0xFF000000)),
+    );
+  }
+
+  static ThemeData darkTheme() {
+    const defaultTextColor = Color(0xFF000000);
+    // Basic Config
+    final base = ThemeData.dark().copyWith(
+      disabledColor: const Color(0xFFEFECEA),
+      colorScheme: const ColorScheme(
+        primary: Color(0xFFFEBE10),
+        primaryContainer: Color(0xFFFEBE10),
+        secondary: Color(0xFFFAA21B),
+        secondaryContainer: Color(0xFF000000),
+        surface: Color(0xFF000000),
+        background: Color(0xFF000000),
+        error: Color(0xFFFF5F55),
+        onPrimary: Color(0xFF000000),
+        onSecondary: Color(0xFF000000),
+        onSurface: Color(0xFF000000),
+        onBackground: Color(0xFF000000),
+        onError: Color(0xFF000000),
+        brightness: Brightness.dark,
+      ),
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 36,
+          letterSpacing: 0,
+          height: 1.4,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Algebra",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        displayMedium: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 30,
+          letterSpacing: 0,
+          height: 1.4,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Algebra",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        displaySmall: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 26,
+          letterSpacing: 0,
+          height: 1.4,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Algebra",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        headlineMedium: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 22,
+          letterSpacing: 0,
+          height: 1.4,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Algebra",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        headlineSmall: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 18,
+          letterSpacing: 0,
+          height: 1.4,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Algebra",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        titleLarge: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 18,
+          letterSpacing: 0,
+          height: 1.4,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Algebra",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        titleMedium: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 18,
+          letterSpacing: 0,
+          height: 1.6,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Algebra",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        titleSmall: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 18,
+          letterSpacing: 0,
+          height: 1.6,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Algebra",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        bodyLarge: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 16,
+          letterSpacing: 0,
+          height: 1.6,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Algebra",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        bodyMedium: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 16,
+          letterSpacing: 0,
+          height: 1.6,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Algebra",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        bodySmall: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 14,
+          letterSpacing: 0,
+          height: 1.4,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Akkurat",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        labelLarge: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 16,
+          letterSpacing: 0,
+          height: 1.6,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Algebra",
+          fontFamilyFallback: ["Roboto"],
+        ),
+        labelSmall: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 12,
+          letterSpacing: 0,
+          height: 1.4,
+          color: defaultTextColor,
+          fontStyle: FontStyle.normal,
+          fontFamily: "Akkurat",
+          fontFamilyFallback: ["Roboto"],
+        ),
+      ),
+    );
+    // Other Configs
+    return base.copyWith(
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      textSelectionTheme: base.textSelectionTheme.copyWith(
+        cursorColor: base.colorScheme.primary,
+        selectionColor: base.colorScheme.primary,
+        selectionHandleColor: base.colorScheme.primary,
+      ),
+      splashColor: base.disabledColor,
+      primaryColor: base.colorScheme.primary,
+      primaryColorLight: base.colorScheme.primary,
+      primaryColorDark: base.colorScheme.primary,
+      scaffoldBackgroundColor: base.colorScheme.background,
+      shadowColor: const Color(0xFF000000),
+      appBarTheme: base.appBarTheme.copyWith(
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        iconTheme: const IconThemeData.fallback().copyWith(
+          color: const Color(0xFF000000),
+        ),
+        actionsIconTheme: const IconThemeData.fallback().copyWith(
+          color: const Color(0xFF000000),
+        ),
+        color: const Color(0xFFFEBE10),
+      ),
+      bottomNavigationBarTheme: base.bottomNavigationBarTheme.copyWith(
+        backgroundColor: const Color(0xFF000000),
+        selectedItemColor: const Color(0xFFFEBE10),
+        unselectedItemColor: const Color(0xFFFFFFFF).withOpacity(0.6),
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        selectedLabelStyle: base.textTheme.labelSmall,
+        unselectedLabelStyle: base.textTheme.labelSmall,
+        elevation: 0,
+      ),
+      tooltipTheme: base.tooltipTheme.copyWith(
+        textStyle:
+            base.textTheme.labelSmall?.copyWith(color: const Color(0xFFFFFFFF)),
+      ),
+      cardColor: base.colorScheme.background,
+      dividerColor: base.disabledColor,
+      cardTheme: base.cardTheme.copyWith(
+        elevation: 0.0,
+        color: base.colorScheme.surface,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+              color: base.colorScheme.onPrimary.withOpacity(.3), width: 1.0),
+          borderRadius: BorderRadius.zero,
+        ),
+      ),
+      snackBarTheme: base.snackBarTheme.copyWith(
+        elevation: 0.0,
+        shape: const BeveledRectangleBorder(),
+        backgroundColor: base.colorScheme.onBackground,
+        contentTextStyle: base.textTheme.bodySmall?.copyWith(
+          color: base.colorScheme.background,
+        ),
+      ),
+      bottomAppBarTheme: const BottomAppBarTheme(color: Color(0xFF000000)),
     );
   }
 }

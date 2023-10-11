@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/data/shared/model/error/data_error.dart';
 import 'package:flutter_template/presentation/articles/bloc/articles_error.dart';
 import 'package:flutter_template/presentation/articles/bloc/articles_event.dart';
 import 'package:flutter_template/presentation/articles/bloc/articles_state.dart';
 import 'package:flutter_template/presentation/shared/util/data_state.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {

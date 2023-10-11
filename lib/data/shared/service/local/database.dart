@@ -2,10 +2,15 @@ import 'package:flutter_template/data/article/service/local/model/article_db_mod
 import 'package:isar/isar.dart';
 
 abstract class Database {
-  static Future<Isar> init() async {
+  static Future<Isar> init({
+    required String directory,
+  }) async {
     // Register all the model adapters here 👇
-    return await Isar.open([
-      ArticleDbModelSchema,
-    ]);
+    return await Isar.open(
+      [
+        ArticleDbModelSchema,
+      ],
+      directory: directory,
+    );
   }
 }

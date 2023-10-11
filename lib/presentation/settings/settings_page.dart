@@ -1,6 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/navigation/routes.dart';
+import 'package:flutter_template/app/navigation/router/app_routes.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({
@@ -9,11 +9,25 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: TextButton(
-        child: const Text("Navigate to detail"),
-        onPressed: () => AutoRouter.of(context).pushNamed(
-          Routes.settingsDetails,
+    return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go(ArticlesRoute().location);
+            }
+          },
+        ),
+        title: const Text("Settings"),
+      ),
+      body: Center(
+        child: FilledButton(
+          child: const Text("Account Details"),
+          onPressed: () {
+            context.push(AccountDetailsRoute(username: "Alex").location);
+          },
         ),
       ),
     );

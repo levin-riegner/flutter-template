@@ -223,8 +223,6 @@ The environment setup can be found on:
 
 > More info about environment setup can be found [in this document](https://www.notion.so/App-Environments-01422cd3d1d74aec8fb8e4b3f4fd14fb).
 
-An additional **Mock** [entry file](lib/main_mock.dart) is available for testing and better prototyping.
-
 > Android Studio & Visual Studio Run Configurations are available inside the .run/ and .vscode/ folders respectively.
 
 For internal environments (such as Staging) a Banner will be shown on the top end part of the screen to easily identify the app against the production version. This can be configured in the [App](lib/app/app.dart) file.

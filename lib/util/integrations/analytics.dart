@@ -36,7 +36,7 @@ class Analytics {
   String? _lastTrackedScreenName;
   Future<void> setCurrentScreen({
     required String name,
-    required String screenClass,
+    required String? screenClass,
   }) async {
     if (_lastTrackedScreenName == name) {
       return;
@@ -45,7 +45,7 @@ class Analytics {
     if (_kReleaseMode) {
       await FirebaseAnalytics.instance.setCurrentScreen(
         screenName: name,
-        screenClassOverride: screenClass,
+        screenClassOverride: screenClass ?? "Flutter",
       );
     } else {
       Flogger.i("Setting current screen name: $name with class: $screenClass");

@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'webview_urls.dart';
 
-class Environment {
+class Environment extends Equatable {
   final String appId;
   final String appName;
   final String apiBaseUrl;
@@ -9,6 +11,7 @@ class Environment {
   final int loggingPort;
   final bool internal;
   final String name;
+  final String deepLinkScheme;
 
   const Environment._({
     required this.appId,
@@ -19,6 +22,7 @@ class Environment {
     required this.loggingPort,
     required this.internal,
     required this.name,
+    required this.deepLinkScheme,
   });
 
   factory Environment.staging() {
@@ -32,6 +36,7 @@ class Environment {
       loggingPort: 12345,
       internal: true,
       name: "Staging",
+      deepLinkScheme: "templateqa",
     );
   }
 
@@ -46,6 +51,7 @@ class Environment {
       loggingPort: 12345,
       internal: true,
       name: "Production",
+      deepLinkScheme: "template",
     );
   }
 
@@ -57,21 +63,15 @@ class Environment {
   }
 
   @override
-  bool operator ==(Object other) {
-    if (other is Environment) {
-      if (name == other.name &&
-          appId == other.appId &&
-          appName == other.appName &&
-          internal == other.internal) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
-
-  @override
-  int get hashCode => name.hashCode;
+  List<Object?> get props => [
+        appId,
+        appName,
+        apiBaseUrl,
+        webViewUrls,
+        loggingUrl,
+        loggingPort,
+        internal,
+        name,
+        deepLinkScheme,
+      ];
 }
