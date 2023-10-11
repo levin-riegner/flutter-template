@@ -8,6 +8,7 @@ class UserConfigService {
   const UserConfigService(this._sharedPreferences);
 
   static const String _kDataCollectionEnabledKey = "dataCollectionEnabled";
+  static const String _kPushPermissionRequestedKey = "pushPermissionRequested";
 
   Future<bool?> isDataCollectionEnabled() async {
     return _sharedPreferences.getBool(_kDataCollectionEnabledKey);
@@ -17,9 +18,18 @@ class UserConfigService {
     _sharedPreferences.setBool(_kDataCollectionEnabledKey, isEnabled);
   }
 
+  Future<bool> isPushPermissionRequested() async {
+    return _sharedPreferences.getBool(_kPushPermissionRequestedKey) ?? false;
+  }
+
+  Future<void> savePushPermissionRequested(bool isRequested) async {
+    _sharedPreferences.setBool(_kPushPermissionRequestedKey, isRequested);
+  }
+
   Future<void> clear() async {
     await Future.wait([
       _sharedPreferences.remove(_kDataCollectionEnabledKey),
+      _sharedPreferences.remove(_kPushPermissionRequestedKey),
     ]);
   }
 }

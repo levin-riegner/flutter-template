@@ -62,6 +62,22 @@ Deeplinks are supported by default, as long as the path and query paramaters mat
 
 A deeplink may navigate to a route at the root level, which would otherwise be pushed when navigating from the app. In this case, navigating back from the deeplink will exit the app.
 
+You can simulate tapping on a deeplink by using the following commands:
+
+Android
+
+  ```bash
+  adb shell am start -a android.intent.action.VIEW -d DEEPLINK_URL
+  ```
+
+On an Android emulator it's also useful to use the Messages app for deeplinks.
+
+iOS
+
+  ```bash
+  xcrun simctl openurl booted DEEPLINK_URL
+  ```
+
 ## Navigation
 
 The most common methods for navigating between screens are `go` and `push`:

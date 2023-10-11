@@ -42,15 +42,15 @@ dependencies:
   webview_flutter: ^4.2.4
   # 3rd Party Services
   flutter_branch_sdk: ^6.8.0
-  flutter_paper_trail:
-    git:
-      url: https://github.com/metaflowltd/flutter_paper_trail.git
-      ref: master
+  datadog_flutter_plugin: ^1.6.2
   # Firebase
   firebase_core: ^2.16.0
   firebase_analytics: ^10.5.0
   firebase_crashlytics: ^3.3.6
   firebase_performance: ^0.9.2+6
+  firebase_remote_config: ^4.2.7
+  firebase_messaging: ^14.6.6
+  google_api_availability: ^5.0.0
   # Utilities
   url_launcher: ^6.0.20
   flutter_custom_tabs: ^1.2.1

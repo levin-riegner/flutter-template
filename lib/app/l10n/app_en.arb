@@ -118,5 +118,17 @@
   "loggedOutAlertDescription": "Please login again with your credentials",
   "@loggedOutAlertDescription": {
     "description": "Alert description for a forced logout"
+  },
+  "alertMessagePushNotificationPermanentlyDenied": "Push notifications disabled. You can always enable them in your device settings.",
+  "@alertMessagePushNotificationPermanentlyDenied": {
+    "description": "Alert message when push notifications are permanently disabled"
+  },
+  "openSettingsButton": "Open Settings",
+  "@openSettingsButton": {
+    "description": "Button to open the device's app settings"
+  },
+  "pushNotificationDeeplinkButton": "View",
+  "@pushNotificationDeeplinkButton": {
+    "description": "Button to open a push notification deeplink when the app is foregrounded"
   }
 }
