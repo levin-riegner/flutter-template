@@ -25,7 +25,7 @@ class ConsolePage extends StatelessWidget {
             color: Theme.of(context).colorScheme.primary,
           ),
           onTap: () =>
-              _navigateTo(context, ConsoleEnvironmentsRoute().location),
+              _navigateTo(context, const ConsoleEnvironmentsRoute().location),
         ),
         ListTile(
           title: const Text("Logins"),
@@ -33,7 +33,8 @@ class ConsolePage extends StatelessWidget {
             Icons.chevron_right,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onTap: () => _navigateTo(context, ConsoleLoginsRoute().location),
+          onTap: () =>
+              _navigateTo(context, const ConsoleLoginsRoute().location),
         ),
         ListTile(
           title: const Text("QA Configs"),
@@ -41,7 +42,8 @@ class ConsolePage extends StatelessWidget {
             Icons.chevron_right,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onTap: () => _navigateTo(context, ConsoleQaConfigsRoute().location),
+          onTap: () =>
+              _navigateTo(context, const ConsoleQaConfigRoute().location),
         ),
         ListTile(
           title: const Text("Deeplinks"),
@@ -49,7 +51,8 @@ class ConsolePage extends StatelessWidget {
             Icons.chevron_right,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onTap: () => _navigateTo(context, ConsoleDeeplinksRoute().location),
+          onTap: () =>
+              _navigateTo(context, const ConsoleDeeplinksRoute().location),
         ),
       ],
     );

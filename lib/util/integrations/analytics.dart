@@ -43,8 +43,10 @@ class Analytics {
     _lastTrackedScreenName = name;
     if (_kReleaseMode) {
       await FirebaseAnalytics.instance.setCurrentScreen(
-        screenName: name,
-        screenClassOverride: screenClass ?? "Flutter",
+        screenName: _truncateParameterValue(name),
+        screenClassOverride: screenClass != null
+            ? _truncateParameterValue(screenClass)
+            : "Flutter",
       );
     } else {
       Flogger.i("Setting current screen name: $name with class: $screenClass");

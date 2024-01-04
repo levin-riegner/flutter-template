@@ -12,8 +12,6 @@ import 'package:flutter_template/presentation/shared/design_system/utils/alert_s
 import 'package:flutter_template/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_loading_indicator.dart';
 import 'package:flutter_template/util/dependencies.dart';
-import 'package:flutter_template/util/extensions/context_extension.dart';
-import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ArticlesPage extends StatelessWidget {
@@ -62,13 +60,10 @@ class ArticlesView extends StatelessWidget {
                         () {
                           Flogger.i(
                               "Navigate to article with id ${article.id}");
-                          context.go(
-                            ArticleDetailRoute(
-                              context.router,
-                              id: "4321",
-                              url: article.url!,
-                            ).location,
-                          );
+                          ArticleDetailRoute(
+                            aid: "4321",
+                            url: article.url!,
+                          ).go(context);
                         },
                       );
                     },

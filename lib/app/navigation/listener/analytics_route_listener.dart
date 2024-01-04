@@ -12,7 +12,7 @@ class AnalyticsRouteListener implements RouteListener {
     required String path,
     String? name,
   }) {
-    Analytics.instance.setCurrentScreen(
+    _analytics.setCurrentScreen(
       name: location,
       screenClass: name,
     );

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/config/constants.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_app_review/in_app_review.dart';
-import 'package:logging_flutter/logging_flutter.dart';
 
 class BottomNavigationPage extends StatelessWidget {
   const BottomNavigationPage({
     required this.navigationShell,
-    super.key,
-  });
+    required this.children,
+    Key? key,
+  }) : super(key: key ?? const ValueKey<String>('BottomNavigationPage'));
 
   /// The navigation shell and container for the branch Navigators.
   final StatefulNavigationShell navigationShell;
+
+  /// The children (branch Navigators) to display in the bottom navigation bar
+  /// ([AnimatedBranchContainer]).
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
@@ -21,38 +23,14 @@ class BottomNavigationPage extends StatelessWidget {
         title: const Text("Flutter Template"),
         actions: [
           IconButton(
-            icon: const Icon(Icons.star),
-            onPressed: () async {
-              // In-app review
-              // TODO: Move to helper
-              try {
-                final InAppReview inAppReview = InAppReview.instance;
-                if (await inAppReview.isAvailable()) {
-                  inAppReview.requestReview();
-                } else {
-                  inAppReview.openStoreListing(
-                    appStoreId: Constants.appstoreAppId,
-                  );
-                }
-              } catch (e) {
-                Flogger.i("Error requesting app review: $e");
-              }
-            },
-          ),
-          IconButton(
             onPressed: () {
               context.push(SettingsRoute().location);
             },
             icon: const Icon(Icons.settings),
           ),
-          // TODO: Move to settings
-          // const Padding(
-          //   padding: EdgeInsets.all(Dimens.marginMedium),
-          //   child: DSAppVersion(),
-          // )
         ],
       ),
-      body: navigationShell,
+      body: children[navigationShell.currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
