@@ -6,7 +6,7 @@ import 'package:flutter_template/data/shared/service/remote/model/api_error_resp
 import 'package:logging_flutter/logging_flutter.dart';
 
 mixin ApiResponseMapper {
-  Exception mapToError(Object exception) {
+  DataError mapToError(Object exception) {
     if (exception is DioException) {
       final statusCode = exception.response?.statusCode;
       if (statusCode != null) {

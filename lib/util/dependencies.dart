@@ -24,6 +24,7 @@ import 'package:flutter_template/data/shared/service/local/user_config_service.d
 import 'package:flutter_template/data/shared/service/remote/network.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
 import 'package:flutter_template/util/extensions/context_extension.dart';
+import 'package:flutter_template/util/extensions/go_router_extension.dart';
 import 'package:flutter_template/util/integrations/analytics.dart';
 import 'package:flutter_template/util/integrations/app_updater.dart';
 import 'package:flutter_template/util/integrations/branch_api.dart';
@@ -93,8 +94,8 @@ abstract class Dependencies {
       cacheDirectory: tempDirectory.path,
       getBearerToken: secureStorage.getUserAuthToken,
       onUnauthorized: () async {
-        Flogger.i("Clearing user and navigating to login screen");
-        await Dependencies.clearAllLocalUserData();
+        Flogger.i("On Unauthorized");
+        await Dependencies.clearAllUserData();
         final context = NavigatorHolder.rootNavigatorKey.currentState!.context;
         if (!context.mounted) return;
         context.router.go("/");
@@ -229,8 +230,12 @@ abstract class Dependencies {
           final router =
               NavigatorHolder.rootNavigatorKey.currentState?.context.router;
           if (router != null) {
-            Flogger.i("Opening console");
-            router.push(ConsoleRoute().location);
+            if (router.fullPath().startsWith(ConsoleRoute().location)) {
+              Flogger.i("Console is already open");
+            } else {
+              Flogger.i("Opening console");
+              router.push(ConsoleRoute().location);
+            }
           }
         },
       );
@@ -319,14 +324,19 @@ abstract class Dependencies {
   }
 
   /// Clears all local data
-  static Future<void> clearAllLocalUserData() async {
+  /// Call this method after logout
+  static Future<void> clearAllUserData() async {
     Flogger.i("Clearing all local data");
     FlutterBranchSdk.logout();
     await Future.wait([
       // Clear user boxes
       // Clearing the whole database won't allow for writing again
       // without closing the app or re-opening boxes
-      ..._userDataCollections.map((e) => e.clear()),
+      ..._userDataCollections.map(
+        (e) => e.isar.writeTxn(() async {
+          e.clear();
+        }),
+      ),
       // Secure storage
       getIt.get<SecureStorage>().deleteAll(),
       // Analytics

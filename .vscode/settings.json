@@ -32,8 +32,8 @@
   },
   // Fix actions on save
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.organizeImports": true
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
   },
   // Format on save
   "editor.formatOnSave": true,

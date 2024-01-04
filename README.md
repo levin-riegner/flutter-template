@@ -6,7 +6,6 @@ Check the [docs/](/docs/) folder for all the features and documentation.
 ## Installation
 
 1. Click the `Use this template` button to create a new repository.
-1. Clear the README file, keeping only the instructions below the `# FlutterTemplate` section.
 1. Remove the `LICENSE.md` file or update accordingly.
 1. Checkout and open with Android Studio.
    1. Find and rename all instances of `com.levinriegner` with the company name, including Android folders.
@@ -20,6 +19,7 @@ Check the [docs/](/docs/) folder for all the features and documentation.
    4. Add ITC Team ID and Appstore App ID to iOS apps.
 1. Update or remove the Branch.io setup.
 1. Update or remove the DataDog setup.
+1. Clear the README file, keeping only the instructions below the `# FlutterTemplate` section.
 
 > ❗️ Ensure that all template variables have been changed by searching `levinriegner` and `template` on the project.
 
@@ -182,7 +182,7 @@ Try the following steps if you are having trouble running the project:
 - Remove Pods folder `rm -rf ios/Pods`.
 - Update Pods repository `pod repo update`.
 
-### Flutter resources
+## Flutter resources
 
 - [Flutter Documentation](https://flutter.dev/docs).
 - [Flutter Learn](https://flutter.dev/learn).
@@ -191,6 +191,6 @@ Try the following steps if you are having trouble running the project:
 - [Dart Language](https://dart.dev/guides/language).
 - [Dart Style Conventions](https://dart.dev/guides/language/effective-dart/style) and [Flutter Style Conventions](https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo).
 
-### Other Relevant repositories
+## Related repositories
 
 - [Flutter Template](https://github.com/levin-riegner/flutter-template): The template used to create this project.

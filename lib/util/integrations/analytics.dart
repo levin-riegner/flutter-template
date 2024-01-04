@@ -3,16 +3,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_template/util/tools/analytics_event.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
-// Expose AnalyticsEvents to avoid the double import
+// Expose AnalyticsEvents to avoid the double import when tracking events
 export 'package:flutter_template/util/tools/analytics_event.dart';
 
 class Analytics {
-  static Analytics? _instance;
-
   static const bool _kReleaseMode = kReleaseMode;
 
   Analytics._();
 
+  static Analytics? _instance;
   static Analytics get instance => _instance ??= Analytics._();
 
   static Future<void> identify(String userId, String email) async {
@@ -63,9 +62,9 @@ class Analytics {
     );
     if (_kReleaseMode) {
       await FirebaseAnalytics.instance.logCampaignDetails(
-        source: source,
-        medium: medium,
-        campaign: campaign,
+        source: _truncateParameterValue(source),
+        medium: _truncateParameterValue(medium),
+        campaign: _truncateParameterValue(campaign),
       );
       await FirebaseAnalytics.instance.logAppOpen();
     }
@@ -74,11 +73,36 @@ class Analytics {
   Future<void> track(AnalyticsEvent event) async {
     if (_kReleaseMode) {
       await FirebaseAnalytics.instance.logEvent(
-        name: event.name,
-        parameters: event.parameters,
+        name: _truncateParameterKey(event.name),
+        parameters: event.parameters?.map(
+          (key, value) => MapEntry(
+            _truncateParameterKey(key),
+            value is String ? _truncateParameterValue(value) : value,
+          ),
+        ),
       );
     } else {
       Flogger.i("Track $event");
     }
   }
+
+  //#region Google Analytics Utils
+  static const int _kGAMaxParameterKeyLength = 40;
+  static const int _kGAMaxParameterValueLength = 100;
+
+  static String _truncateParameterKey(String key) {
+    if (key.length > _kGAMaxParameterKeyLength) {
+      return key.substring(0, _kGAMaxParameterKeyLength);
+    }
+    return key;
+  }
+
+  static String _truncateParameterValue(String value) {
+    if (value.length > _kGAMaxParameterValueLength) {
+      return value.substring(0, _kGAMaxParameterValueLength);
+    }
+    return value;
+  }
+
+  //#endregion
 }

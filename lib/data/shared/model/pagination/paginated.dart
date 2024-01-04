@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_template/data/shared/model/pagination_model.dart';
+import 'package:flutter_template/data/shared/model/pagination/pagination_model.dart';
 
 class Paginated<T> extends Equatable {
   final List<T>? data;

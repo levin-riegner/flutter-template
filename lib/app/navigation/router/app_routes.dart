@@ -96,7 +96,10 @@ enum AppRouteData {
 
   factory AppRouteData.fromParentPath(String parentPath, String relativePath) {
     return values.firstWhere(
-      (e) => e.parentPath == parentPath && e.relativePath == relativePath,
+      (e) =>
+          e.parentPath == parentPath &&
+          e.relativePath.replaceAll("/", "") ==
+              relativePath.replaceAll("/", ""),
     );
   }
 
