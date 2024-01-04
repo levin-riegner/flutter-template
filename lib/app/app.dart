@@ -56,7 +56,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       ),
       const DefaultRouteRedirect(),
     ],
-    initialLocation: ArticlesRoute().location,
+    initialLocation: initialLocation,
   );
   late final List<RouteListener> routeListeners = [
     AnalyticsRouteListener(Analytics.instance),

@@ -333,8 +333,8 @@ Make sure to add the app version somewhere on the user settings/profile so we ca
 
 The project includes a set of widgets and classes to handle pagination.
 
-- [PaginatedRequest](/lib/data/shared/model/paginated_request.dart): Defines the pagination parameters.
-- [Paginated](/lib/data/shared/model/paginated.dart): Wraps the response from the data layer with the pagination parameters.
+- [PaginatedRequest](/lib/data/shared/model/pagination/paginated_request.dart): Defines the pagination parameters.
+- [Paginated](/lib/data/shared/model/pagination/paginated.dart): Wraps the response from the data layer with the pagination parameters.
 - [PaginationCubit](/lib/presentation/shared/design_system/utils/pagination/pagination_cubit.dart): Handles the pagination logic and exposes the Paginated data.
 - [PaginationState](/lib/presentation/shared/design_system/utils/pagination/pagination_state.dart): Contains the different states for the pagination.
 - [PaginationWidget](/lib/presentation/shared/design_system/utils/pagination/pagination_widget.dart): Contains the raw UI pagination logic without any customisation.

@@ -68,7 +68,7 @@ abstract class ThemeFactory {
       appBarTheme: base.appBarTheme.copyWith(
         centerTitle: true,
         elevation: Dimens.zero,
-        systemOverlayStyle: darkSystemUIOverlayStyle,
+        systemOverlayStyle: lightSystemUIOverlayStyle,
         iconTheme: base.iconTheme.copyWith(
           color: base.colorScheme.onBackground,
         ),
@@ -146,7 +146,7 @@ abstract class ThemeFactory {
       appBarTheme: base.appBarTheme.copyWith(
         centerTitle: true,
         elevation: Dimens.zero,
-        systemOverlayStyle: lightSystemUIOverlayStyle,
+        systemOverlayStyle: darkSystemUIOverlayStyle,
         iconTheme: base.iconTheme.copyWith(
           color: base.colorScheme.onBackground,
         ),

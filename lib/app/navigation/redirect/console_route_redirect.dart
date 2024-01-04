@@ -18,7 +18,7 @@ class ConsoleRouteRedirect implements RouteRedirect {
     GoRouterState state,
   ) {
     if (state.matchedLocation == AppRouteData.console.fullPath &&
-        internalBuild) {
+        !internalBuild) {
       // Redirect console to default location if not allowed
       return "/";
     }

@@ -62,7 +62,7 @@ This method will be called when the app is disposed.
 
 ### Logout
 
-Delete all user-related data and references inside the `clearAllLocalUserData()` function on the [Dependencies](/lib/util/dependencies.dart) class.
+Delete all user-related data and references inside the `clearAllUserData()` function on the [Dependencies](/lib/util/dependencies.dart) class.
 
 > ❗️ Make sure to call this method upon your logout event.
 
