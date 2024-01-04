@@ -11,7 +11,7 @@ import '../integration_test_shared.dart';
 
 /// Tests the remote api services with the API
 void main() async {
-  final binding = await initAppAndEnsureInitialized();
+  final _ = await initAppAndEnsureInitialized();
   late Dio httpClient;
 
   // Runs before each test
@@ -20,8 +20,11 @@ void main() async {
     final secureStorage = SecureStorage();
     httpClient = Network.createHttpClient(
       environment.apiBaseUrl,
-      Constants.apiKey,
-      () => secureStorage.getUserAuthToken(),
+      apiKey: Constants.apiKey,
+      locale: "en-US",
+      cacheDirectory: "/",
+      getBearerToken: () => secureStorage.getUserAuthToken(),
+      onUnauthorized: () async => {},
       debugMode: true,
     );
   });
