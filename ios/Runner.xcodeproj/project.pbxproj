@@ -144,7 +144,7 @@
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
 				C8F5F85BE278E0F61C6C4AB9 /* [CP] Check Pods Manifest.lock */,
-				9740EEB61CF901F6004384FC /* Run Script */,
+				9740EEB61CF901F6004384FC /* Flutter XCode Backend */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
@@ -249,7 +249,7 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
 		};
-		9740EEB61CF901F6004384FC /* Run Script */ = {
+		9740EEB61CF901F6004384FC /* Flutter XCode Backend */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -257,12 +257,12 @@
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = "Flutter XCode Backend";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
 		};
 		C8F5F85BE278E0F61C6C4AB9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -324,7 +324,7 @@
 		};
 		FA65B614259C974400B7BECB /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -338,7 +338,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "${PODS_ROOT}/FirebaseCrashlytics/run\n";
 		};
@@ -358,11 +358,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "GOOGLE_SERVICE_INFO_PLIST_FROM=\"${PROJECT_DIR}/${TARGET_NAME}/${FIREBASE_CONFIG_FILE}.plist\"\nBUILD_APP_DIR=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\"\nGOOGLE_SERVICE_INFO_PLIST_TO=\"${BUILD_APP_DIR}/GoogleService-Info.plist\"\necho \"Copying ${GOOGLE_SERVICE_INFO_PLIST_FROM} to final destination: ${GOOGLE_SERVICE_INFO_PLIST_TO}\"\ncp \"${GOOGLE_SERVICE_INFO_PLIST_FROM}\" \"${GOOGLE_SERVICE_INFO_PLIST_TO}\"\n";
+			shellScript = "GOOGLE_SERVICE_INFO_PLIST_FROM=\"${PROJECT_DIR}/Runner/${FIREBASE_CONFIG_FILE}.plist\"\nBUILD_APP_DIR=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\"\nGOOGLE_SERVICE_INFO_PLIST_TO=\"${BUILD_APP_DIR}/GoogleService-Info.plist\"\necho \"Copying ${GOOGLE_SERVICE_INFO_PLIST_FROM} to final destination: ${GOOGLE_SERVICE_INFO_PLIST_TO}\"\ncp \"${GOOGLE_SERVICE_INFO_PLIST_FROM}\" \"${GOOGLE_SERVICE_INFO_PLIST_TO}\"\n";
 		};
 		FA65B689259C99D700B7BECB /* Upload dSYMs to Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -374,9 +374,9 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp \"${PROJECT_DIR}/${TARGET_NAME}/${FIREBASE_CONFIG_FILE}.plist\" -p ios \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\n";
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp \"${PROJECT_DIR}/Runner/${FIREBASE_CONFIG_FILE}.plist\" -p ios \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
