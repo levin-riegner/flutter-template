@@ -9,4 +9,7 @@ abstract class AppColors {
   static const white = Color(0xFFFFFFFF);
   static const error = Color(0xFFFF5F55);
   static const disabled = Color(0xFFB5B5B5);
+
+  // Opacity
+  static const tapOpacity = 0.4;
 }

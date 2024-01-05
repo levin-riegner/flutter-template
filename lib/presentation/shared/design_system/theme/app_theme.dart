@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 
 abstract class AppTheme {
+  const AppTheme._();
+
   static ButtonThemeData buttonTheme(
     ButtonThemeData base, {
     required Color borderColor,

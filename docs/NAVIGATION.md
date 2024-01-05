@@ -107,4 +107,16 @@ To add a new route in the app, follow these steps:
 4. Document the new route in the [SCREENS.md](/docs/SCREENS.md) file.
 5. Navigate to the route using `MyNewRoute().go(context)`.
 
-## TODO: Animations
+## Animations
+
+Page transitions can be animated by overriding the `buildPage` method in the route class.
+
+The [animations](https://pub.dev/packages/animations) is a 1st-party Flutter package that provides a collection of ready-made Material animations that can be used to animate the page transitions.
+
+A helper class [PageTransitions](/lib/app/navigation/router/page_transitions.dart) is provided to capture and re-use the different page transitions in the app.
+
+> ♻️ When navigating to a new route with the same page transition as the current one, the animation will not be triggered because the widget tree remains the same. To avoid this, use the `key` parameter in the animation widget to tell Flutter that it is a new widget and the animation should be triggered for the new page as well.
+
+Branch animations can be provided using [flutter_animate](https://pub.dev/packages/flutter_animate) or regular Flutter widgets. Add the animation directly on the build method of the page widget.
+
+The [AnimatedBranchContainer](/lib/presentation/shared/design_system/utils/animated_branch_container.dart) widget provides a fade animation when switching between branches.

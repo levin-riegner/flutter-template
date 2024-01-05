@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
+import 'package:flutter_template/presentation/shared/design_system/utils/animated_branch_container.dart';
 import 'package:go_router/go_router.dart';
 
+// Example: https://github.com/flutter/packages/blob/main/packages/go_router_builder/example/lib/stateful_shell_route_example.dart
 class BottomNavigationPage extends StatelessWidget {
   const BottomNavigationPage({
     required this.navigationShell,
@@ -24,13 +26,16 @@ class BottomNavigationPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              context.push(SettingsRoute().location);
+              const SettingsRoute().push(context);
             },
             icon: const Icon(Icons.settings),
           ),
         ],
       ),
-      body: children[navigationShell.currentIndex],
+      body: AnimatedBranchContainer(
+        currentIndex: navigationShell.currentIndex,
+        children: children,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(

@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
+import 'package:flutter_template/app/navigation/router/page_transitions.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/blank_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
@@ -245,8 +246,13 @@ class SettingsRoute extends GoRouteData {
   const SettingsRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const SettingsPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return PageTransitions.sharedAxisX(
+      context: context,
+      state: state,
+      key: const ValueKey("SettingsRouteTransition"),
+      child: const SettingsPage(),
+    );
   }
 }
 
@@ -255,6 +261,18 @@ class AccountDetailsRoute extends GoRouteData {
   const AccountDetailsRoute({
     this.name,
   });
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return PageTransitions.sharedAxisX(
+      context: context,
+      state: state,
+      key: const ValueKey("AccountDetailsRouteTransition"),
+      child: AccountDetailsPage(
+        name: name,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context, GoRouterState state) {

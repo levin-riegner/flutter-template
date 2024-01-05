@@ -104,7 +104,7 @@ Accessibility can also be tested on iOS by using the [XCode Accessibility Scanne
 
 The app has two themes: Dark and Light. These are applied throughout the app in an interactive way via [AdaptiveThemeCubit](/lib/presentation/shared/adaptive_theme/adaptive_theme_cubit.dart).
 
-The app will switch to the corresponding theme depending on the currently displayed screen via [ThemeRouteListener](/lib/app/navigation/listener/theme_route_listener.dart).
+To switch between themes, create a new RouteListener and set the new theme using `AdaptiveThemeCubit.of(context).setLight/DarkTheme` based on the constant route `name` or `path` values.
 
 ### Theme Extensions
 
@@ -324,6 +324,8 @@ This page is entirely optional and is no longer part of the OS app launch proces
 ### Animations
 
 This project uses [flutter_animate](https://pub.dev/flutter_animate) package to add animations to Widgets. To use it, simply import the package and add `animate()` method at the end of the Widget that will be animated. Add the animation effect inside the `effects` parameter.
+
+A constants class [Anims](/lib/presentation/shared/design_system/theme/anims.dart) is provided to define the different the Duration and Curves used for all animations in the app.
 
 ### App version
 

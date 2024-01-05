@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-class Dimens {
+abstract class Dimens {
+  const Dimens._();
+
   // Zero
   static const double zero = 0.0;
 

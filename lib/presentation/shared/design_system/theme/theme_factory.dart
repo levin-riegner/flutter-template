@@ -6,6 +6,8 @@ import 'package:flutter_template/presentation/shared/design_system/theme/app_the
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 
 abstract class ThemeFactory {
+  const ThemeFactory._();
+
   static SystemUiOverlayStyle lightSystemUIOverlayStyle =
       SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: Colors.transparent,

@@ -40,6 +40,9 @@ dependencies:
   another_flushbar: ^1.12.29
   cached_network_image: ^3.2.0
   webview_flutter: ^4.2.4
+  # Animations
+  animations: ^2.0.8
+  flutter_animate: ^4.3.0
   # 3rd Party Services
   flutter_branch_sdk: ^6.8.0
   datadog_flutter_plugin: ^1.6.2
@@ -87,7 +90,6 @@ dev_dependencies:
     sdk: flutter
   mocktail: ^1.0.0
   bloc_test: ^9.1.4
-  build_verify: ^3.1.0
   # Static Code Analysis
   flutter_lints: ^2.0.3
   # Code generation
