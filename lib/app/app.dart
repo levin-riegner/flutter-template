@@ -6,7 +6,6 @@ import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/app/navigation/deeplink_manager.dart';
 import 'package:flutter_template/app/navigation/listener/analytics_route_listener.dart';
 import 'package:flutter_template/app/navigation/listener/route_listener.dart';
-import 'package:flutter_template/app/navigation/listener/theme_route_listener.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/redirect/console_route_redirect.dart';
 import 'package:flutter_template/app/navigation/redirect/default_route_redirect.dart';
@@ -39,7 +38,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with WidgetsBindingObserver {
   String get initialLocation =>
       deepLinkManager.getCurrentDeeplink(consume: false) ??
-      ArticlesRoute().location;
+      const ArticlesRoute().location;
 
   late final Environment environment = getIt<Environment>();
   late final AppUpdater appUpdater = getIt<AppUpdater>();
@@ -60,7 +59,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   );
   late final List<RouteListener> routeListeners = [
     AnalyticsRouteListener(Analytics.instance),
-    ThemeRouteListener(themeCubit),
   ];
   late final List<SingleChildWidget> providers = [
     ChangeNotifierProvider(create: (_) => QaConfig()),

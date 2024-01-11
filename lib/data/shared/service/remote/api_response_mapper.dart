@@ -6,7 +6,7 @@ import 'package:flutter_template/data/shared/service/remote/model/api_error_resp
 import 'package:logging_flutter/logging_flutter.dart';
 
 mixin ApiResponseMapper {
-  DataError mapToError(Object exception) {
+  DataError mapToError(Object exception, StackTrace? stackTrace) {
     if (exception is DioException) {
       final statusCode = exception.response?.statusCode;
       if (statusCode != null) {
@@ -75,6 +75,9 @@ mixin ApiResponseMapper {
       }
     } else {
       Flogger.i("Exception api response with error $exception");
+      if (stackTrace != null) {
+        Flogger.w(stackTrace.toString().replaceAll("\n", " "));
+      }
       return DataError.unknown(error: exception);
     }
   }

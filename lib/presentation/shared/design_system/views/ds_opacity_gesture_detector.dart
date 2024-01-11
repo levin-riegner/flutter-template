@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/anims.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/app_colors.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/conditional_parent_widget.dart';
 
 class DSOpacityGestureDetector extends StatefulWidget {
@@ -24,9 +26,9 @@ class DSOpacityGestureDetector extends StatefulWidget {
 
 class _DSOpacityGestureDetectorState extends State<DSOpacityGestureDetector> {
   static const double _maxOpacity = 1;
-  static const double _minOpacity = 0.4;
-  static const _animationCurve = Curves.easeInOutCubic;
-  static const _animationDuration = Duration(milliseconds: 200);
+  static const double _minOpacity = AppColors.tapOpacity;
+  static const _animationCurve = Anims.tapCurve;
+  static const _animationDuration = Anims.tapDuration;
 
   double opacity = _maxOpacity;
   @override

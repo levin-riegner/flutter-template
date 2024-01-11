@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
-import 'package:flutter_template/util/extensions/context_extension.dart';
-import 'package:go_router/go_router.dart';
 
 class BlankPage extends StatelessWidget {
   const BlankPage({super.key});
@@ -13,15 +11,12 @@ class BlankPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FilledButton(
-            child: const Text("Open Article"),
+            child: const Text("Open Article Full Screen"),
             onPressed: () {
-              context.go(
-                ArticleDetailRoute(
-                  context.router,
-                  id: "4321",
-                  url: "https://www.levinriegner.com/home",
-                ).location,
-              );
+              const ArticleBlankDetailRoute(
+                aid: "4321",
+                url: "https://www.levinriegner.com/home",
+              ).go(context);
             },
           ),
           FilledButton(

@@ -19,10 +19,6 @@ extension GoRouterExtension on GoRouter {
 
   String? routeName() {
     final route = _currentMatchList().last.route;
-    if (route is GoRoute) {
-      return route.name;
-    } else {
-      return null;
-    }
+    return route.name;
   }
 }

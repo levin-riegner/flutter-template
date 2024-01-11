@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/anims.dart';
 
 class AccountDetailsPage extends StatelessWidget {
   final String? name;
@@ -12,7 +14,10 @@ class AccountDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Account Details")),
       body: Center(
-        child: Text("Name: $name"),
+        child: Text("Name: $name").animate().rotate(
+              duration: Anims.defaultDuration,
+              curve: Anims.defaultCurve,
+            ),
       ),
     );
   }

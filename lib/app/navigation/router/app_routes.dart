@@ -1,250 +1,301 @@
-import 'dart:ui';
-
-import 'package:flutter_template/util/extensions/go_router_extension.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_template/app/navigation/navigator_holder.dart';
+import 'package:flutter_template/app/navigation/router/page_transitions.dart';
+import 'package:flutter_template/presentation/articles/articles_page.dart';
+import 'package:flutter_template/presentation/articles/blank_page.dart';
+import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
+import 'package:flutter_template/presentation/authentication/login/login_page.dart';
+import 'package:flutter_template/presentation/bottom_navigation/bottom_navigation_page.dart';
+import 'package:flutter_template/presentation/settings/account_details_page.dart';
+import 'package:flutter_template/presentation/settings/settings_page.dart';
+import 'package:flutter_template/util/console/console_deeplinks.dart';
+import 'package:flutter_template/util/console/console_environments.dart';
+import 'package:flutter_template/util/console/console_logins.dart';
+import 'package:flutter_template/util/console/console_page.dart';
+import 'package:flutter_template/util/console/console_qa_config.dart';
 import 'package:go_router/go_router.dart';
 
-/// This enum contains all routes of the app and
-/// matches 1-to-1 with all routes in the GoRouter.
-enum AppRouteData {
-  //#region Console
-  console._(
-    name: "ConsolePage",
-    parentPath: null,
-    relativePath: ConsoleRoute.path,
-    brightness: Brightness.dark,
-  ),
-  consoleEnvironments._(
-    name: "ConsoleEnvironmentsPage",
-    parentPath: ConsoleRoute.path,
-    relativePath: ConsoleEnvironmentsRoute.path,
-    brightness: Brightness.dark,
-  ),
-  consoleLogins._(
-    name: "ConsoleLoginsPage",
-    parentPath: ConsoleRoute.path,
-    relativePath: ConsoleLoginsRoute.path,
-    brightness: Brightness.dark,
-  ),
-  consoleQaConfigs._(
-    name: "ConsoleQaConfigsPage",
-    parentPath: ConsoleRoute.path,
-    relativePath: ConsoleQaConfigsRoute.path,
-    brightness: Brightness.dark,
-  ),
-  consoleDeeplinks._(
-    name: "ConsoleDeeplinksPage",
-    parentPath: ConsoleRoute.path,
-    relativePath: ConsoleDeeplinksRoute.path,
-    brightness: Brightness.dark,
-  ),
-  //#endregion
-  //#region Example
-  articles._(
-    name: "ArticlesPage",
-    parentPath: null,
-    relativePath: ArticlesRoute.path,
-    brightness: Brightness.light,
-  ),
-  articleDetail._(
-    name: "ArticleDetailPage",
-    parentPath: ArticlesRoute.path,
-    relativePath: ArticleDetailRoute.path,
-    brightness: Brightness.light,
-  ),
-  blank._(
-    name: "BlankPage",
-    parentPath: null,
-    relativePath: "/blank",
-    brightness: Brightness.dark,
-  ),
-  articleBlankDetail._(
-    name: "ArticleBlankDetailPage",
-    parentPath: "/blank",
-    relativePath: ArticleDetailRoute.path,
-    brightness: Brightness.light,
-  ),
-  settings._(
-    name: "SettingsPage",
-    parentPath: null,
-    relativePath: SettingsRoute.path,
-    brightness: Brightness.dark,
-  ),
-  accountDetails._(
-    name: "AccountDetailsPage",
-    parentPath: SettingsRoute.path,
-    relativePath: AccountDetailsRoute.path,
-    brightness: Brightness.dark,
-  ),
-  //#endregion
-  ;
-
-  final String name;
-  final String? parentPath;
-  final String relativePath;
-  final Brightness brightness;
-
-  const AppRouteData._({
-    required this.name,
-    required this.parentPath,
-    required this.relativePath,
-    required this.brightness,
-  });
-
-  factory AppRouteData.fromFullPath(String path) {
-    return values.firstWhere((e) => e.fullPath == path);
-  }
-
-  factory AppRouteData.fromParentPath(String parentPath, String relativePath) {
-    return values.firstWhere(
-      (e) =>
-          e.parentPath == parentPath &&
-          e.relativePath.replaceAll("/", "") ==
-              relativePath.replaceAll("/", ""),
-    );
-  }
-
-  String get fullPath {
-    final relativePath = this.relativePath.startsWith("/")
-        ? this.relativePath
-        : "/${this.relativePath}";
-    if (parentPath != null) {
-      return "$parentPath$relativePath";
-    }
-    return relativePath;
-  }
-}
-
-/// This class holds all information needed to navigate to a route.
-/// Use the constructor of its subclasses to create a new route
-/// with all the required parameters, and then
-/// use the [location] getter to navigate to the route.
-sealed class AppRoute {
-  final AppRouteData data;
-  final String relativeLocation;
-  final String? parentLocation;
-  final Map<String, dynamic>? queryParameters;
-
-  AppRoute({
-    required this.data,
-    String? relativeLocation,
-    String? parentLocation,
-    this.queryParameters,
-  })  : relativeLocation = relativeLocation ?? data.relativePath,
-        parentLocation = parentLocation ?? data.parentPath;
-
-  // Use this method to navigate to a route
-  String get location {
-    final relativeLocation = this.relativeLocation.startsWith("/")
-        ? this.relativeLocation
-        : "/${this.relativeLocation}";
-    final url = parentLocation != null
-        ? "$parentLocation$relativeLocation"
-        : relativeLocation;
-    if (queryParameters != null) {
-      return Uri(path: url, queryParameters: queryParameters).toString();
-    }
-    return url;
-  }
-}
+part 'app_routes.g.dart';
 
 //#region Console
-class ConsoleRoute extends AppRoute {
-  static const String path = "/console";
-  ConsoleRoute() : super(data: AppRouteData.console);
+@TypedGoRoute<ConsoleRoute>(
+  path: "/console",
+  name: "ConsolePage",
+  routes: [
+    TypedGoRoute<ConsoleEnvironmentsRoute>(
+      path: "environments",
+      name: "ConsoleEnvironmentsPage",
+    ),
+    TypedGoRoute<ConsoleLoginsRoute>(
+      path: "logins",
+      name: "ConsoleLoginsPage",
+    ),
+    TypedGoRoute<ConsoleQaConfigRoute>(
+      path: "qa-configs",
+      name: "ConsoleQaConfigsPage",
+    ),
+    TypedGoRoute<ConsoleDeeplinksRoute>(
+      path: "deeplinks",
+      name: "ConsoleDeeplinksPage",
+    ),
+  ],
+)
+class ConsoleRoute extends GoRouteData {
+  const ConsoleRoute();
+
+  // Use parent navigator to navigate without bottom bar
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ConsolePage();
+  }
 }
 
-class ConsoleEnvironmentsRoute extends AppRoute {
-  static const String path = "environments";
-  ConsoleEnvironmentsRoute() : super(data: AppRouteData.consoleEnvironments);
+class ConsoleEnvironmentsRoute extends GoRouteData {
+  const ConsoleEnvironmentsRoute();
+
+  // Maintain parent navigator to allow for back navigation
+  // combined with forward "push" navigation
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ConsoleEnvironments();
+  }
 }
 
-class ConsoleLoginsRoute extends AppRoute {
-  static const String path = "logins";
-  ConsoleLoginsRoute() : super(data: AppRouteData.consoleLogins);
+class ConsoleLoginsRoute extends GoRouteData {
+  const ConsoleLoginsRoute();
+
+  // Maintain parent navigator to allow for back navigation
+  // combined with forward "push" navigation
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ConsoleLogins();
+  }
 }
 
-class ConsoleQaConfigsRoute extends AppRoute {
-  static const String path = "qa-configs";
-  ConsoleQaConfigsRoute() : super(data: AppRouteData.consoleQaConfigs);
+class ConsoleQaConfigRoute extends GoRouteData {
+  const ConsoleQaConfigRoute();
+
+  // Maintain parent navigator to allow for back navigation
+  // combined with forward "push" navigation
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ConsoleQaConfigs();
+  }
 }
 
-class ConsoleDeeplinksRoute extends AppRoute {
-  static const String path = "deeplinks";
-  ConsoleDeeplinksRoute() : super(data: AppRouteData.consoleDeeplinks);
+class ConsoleDeeplinksRoute extends GoRouteData {
+  const ConsoleDeeplinksRoute();
+
+  // Maintain parent navigator to allow for back navigation
+  // combined with forward "push" navigation
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ConsoleDeeplinks();
+  }
 }
 
 //#endregion
-//#region Examples
-class ArticlesRoute extends AppRoute {
-  static const String path = "/articles";
-  ArticlesRoute() : super(data: AppRouteData.articles);
-}
 
-// This route requires an id as path parameter
-// and can be opened from multiple locations
-class ArticleDetailRoute extends AppRoute {
-  // Path Parameters
-  static const String articleIdKey = "aid";
-  static const String path = ":$articleIdKey";
-  // Query Parameters
-  static const String articleUrlKey = "url";
-
-  ArticleDetailRoute._({
-    required String url,
-    required super.data,
-    required super.parentLocation,
-    required super.relativeLocation,
-  }) : super(
-          queryParameters: {articleUrlKey: url},
-        );
-
-  static String getIdFromState(GoRouterState state) {
-    return state.pathParameters[articleIdKey]!;
+//#region Bottom Navigation
+// Example: https://github.com/flutter/packages/blob/main/packages/go_router_builder/example/lib/stateful_shell_route_example.dart
+@TypedStatefulShellRoute<BottomNavigationPageData>(
+  branches: [
+    TypedStatefulShellBranch<ArticlesBranchData>(
+      routes: [
+        TypedGoRoute<ArticlesRoute>(
+          path: "/articles",
+          name: "ArticlesPage",
+          routes: [
+            TypedGoRoute<ArticleDetailRoute>(
+              path: ":aid",
+              name: "ArticleDetailPage",
+            ),
+          ],
+        )
+      ],
+    ),
+    TypedStatefulShellBranch<BlankBranchData>(
+      routes: [
+        TypedGoRoute<BlankRoute>(
+          path: "/blank",
+          name: "BlankPage",
+          routes: [
+            TypedGoRoute<ArticleBlankDetailRoute>(
+              path: ":aid",
+              name: "ArticleBlankDetailPage",
+            ),
+          ],
+        )
+      ],
+    ),
+  ],
+)
+class BottomNavigationPageData extends StatefulShellRouteData {
+  const BottomNavigationPageData();
+  @override
+  Widget builder(BuildContext context, GoRouterState state,
+      StatefulNavigationShell navigationShell) {
+    return navigationShell;
   }
 
-  static String getUrlFromState(GoRouterState state) {
-    return state.uri.queryParameters[articleUrlKey]!;
-  }
+  static const String $restorationScopeId = 'bottomNavigationPage';
 
-  factory ArticleDetailRoute(
-    GoRouter router, {
-    required String id,
-    required String url,
-  }) {
-    final parentPath = router.fullPath();
-    final parentLocation = router.location().path;
-    final data = AppRouteData.fromParentPath(parentPath, path);
-    final relativeLocation =
-        data.relativePath.replaceAll(":${ArticleDetailRoute.articleIdKey}", id);
-    return ArticleDetailRoute._(
-      url: url,
-      data: data,
-      parentLocation: parentLocation,
-      relativeLocation: relativeLocation,
+  static Widget $navigatorContainerBuilder(BuildContext context,
+      StatefulNavigationShell navigationShell, List<Widget> children) {
+    return BottomNavigationPage(
+      navigationShell: navigationShell,
+      children: children,
     );
   }
 }
 
-class SettingsRoute extends AppRoute {
-  static const String path = "/settings";
-  SettingsRoute() : super(data: AppRouteData.settings);
+class ArticlesBranchData extends StatefulShellBranchData {
+  const ArticlesBranchData();
 }
 
-// This route contains query parameters
-class AccountDetailsRoute extends AppRoute {
-  static const String path = "account-details";
-  // Query Parameters (optional)
-  static const String usernameKey = "name";
+class ArticlesRoute extends GoRouteData {
+  const ArticlesRoute();
 
-  AccountDetailsRoute({
-    String? username,
-  }) : super(
-          data: AppRouteData.accountDetails,
-          queryParameters: username != null ? {usernameKey: username} : null,
-        );
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ArticlesPage();
+  }
+}
 
-  static String getUsernameFromState(GoRouterState state) {
-    return state.uri.queryParameters[usernameKey]!;
+class ArticleDetailRoute extends GoRouteData {
+  final String aid;
+  final String? url;
+
+  const ArticleDetailRoute({
+    required this.aid,
+    this.url,
+  });
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ArticleDetailPage(
+      id: aid,
+      url: url ?? "https://www.google.com",
+    );
+  }
+}
+
+class BlankBranchData extends StatefulShellBranchData {
+  const BlankBranchData();
+}
+
+class BlankRoute extends GoRouteData {
+  const BlankRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const BlankPage();
+  }
+}
+
+class ArticleBlankDetailRoute extends GoRouteData {
+  final String aid;
+  final String? url;
+
+  const ArticleBlankDetailRoute({
+    required this.aid,
+    this.url,
+  });
+
+  // Use parent navigator to navigate without bottom bar
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ArticleDetailPage(
+      id: aid,
+      url: url ?? "https://www.google.com",
+    );
+  }
+}
+
+//#endregion
+//#region Settings
+@TypedGoRoute<SettingsRoute>(
+  path: "/settings",
+  name: "SettingsPage",
+  routes: [
+    TypedGoRoute<AccountDetailsRoute>(
+      path: "account-details",
+      name: "AccountDetailsPage",
+    ),
+  ],
+)
+class SettingsRoute extends GoRouteData {
+  const SettingsRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return PageTransitions.sharedAxisX(
+      context: context,
+      state: state,
+      key: const ValueKey("SettingsRouteTransition"),
+      child: const SettingsPage(),
+    );
+  }
+}
+
+class AccountDetailsRoute extends GoRouteData {
+  final String? name;
+  const AccountDetailsRoute({
+    this.name,
+  });
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return PageTransitions.sharedAxisX(
+      context: context,
+      state: state,
+      key: const ValueKey("AccountDetailsRouteTransition"),
+      child: AccountDetailsPage(
+        name: name,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return AccountDetailsPage(name: name);
+  }
+}
+//#endregion
+
+//#region Authentication
+@TypedGoRoute<LoginRoute>(
+  path: "/login",
+  name: "LoginPage",
+)
+class LoginRoute extends GoRouteData {
+  const LoginRoute();
+
+  // Use parent navigator to navigate without bottom bar
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const LoginPage();
   }
 }
 //#endregion
