@@ -48,7 +48,9 @@ app.*.map.json
 # Android Private Keys
 android/private/*
 
-# iOS Appstore API Key
+# iOS Private Keys
+ios/private/*
+api_key.json
 apiKey.json
 
 # Fastlane
