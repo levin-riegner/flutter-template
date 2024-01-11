@@ -15,8 +15,8 @@ class ArticleApiService with ApiResponseMapper {
         queryParameters: {"q": query},
       );
       return ArticlesApiResponse.fromJson(response.data);
-    } catch (ex) {
-      throw mapToError(ex);
+    } catch (e, stackTrace) {
+      throw mapToError(e, stackTrace);
     }
   }
 }
