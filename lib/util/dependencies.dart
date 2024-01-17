@@ -230,11 +230,11 @@ abstract class Dependencies {
           final router =
               NavigatorHolder.rootNavigatorKey.currentState?.context.router;
           if (router != null) {
-            if (router.fullPath().startsWith(ConsoleRoute().location)) {
+            if (router.fullPath().startsWith(const ConsoleRoute().location)) {
               Flogger.i("Console is already open");
             } else {
               Flogger.i("Opening console");
-              router.push(ConsoleRoute().location);
+              router.push(const ConsoleRoute().location);
             }
           }
         },

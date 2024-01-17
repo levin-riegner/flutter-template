@@ -63,7 +63,7 @@ dependencies:
   # System Services
   url_launcher: ^6.0.20
   flutter_custom_tabs: ^1.2.1
-  shake: ^2.1.0
+  sensors_plus: ^4.0.2
   path_provider: ^2.1.1
   in_app_review: ^2.0.4
   permission_handler: ^11.0.0
