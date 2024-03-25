@@ -28,7 +28,7 @@ class ArticleRepository {
       final articlesResponse = await _apiService.getArticles(query);
 
       final articles =
-          articlesResponse.articles?.map((e) => e.toArticle()).toList();
+          articlesResponse.articles?.map((e) => e.toDomain()).toList();
       if (articles != null) {
         await _dbService
             .saveArticles(articles.map(ArticleDbModel.fromArticle).toList());

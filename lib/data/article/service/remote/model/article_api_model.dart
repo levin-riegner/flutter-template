@@ -1,11 +1,12 @@
 import 'package:flutter_template/data/article/model/article.dart';
+import 'package:flutter_template/data/shared/interface/domain_serializable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'article_api_model.g.dart';
 
 // @JsonSerializable(fieldRename: FieldRename.snake)
 @JsonSerializable()
-class ArticleApiModel {
+class ArticleApiModel implements DomainSerializable<Article> {
   final String? id;
   final String? title;
   final String? description;
@@ -26,7 +27,8 @@ class ArticleApiModel {
   factory ArticleApiModel.fromJson(Map<String, dynamic> json) =>
       _$ArticleApiModelFromJson(json);
 
-  Article toArticle() {
+  @override
+  Article toDomain() {
     return Article(
       id: id,
       title: title,
