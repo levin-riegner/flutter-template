@@ -2,20 +2,20 @@ import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/shared/interface/domain_serializable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'auth_error_api_model.g.dart';
+part 'auth_api_error.g.dart';
 
 @JsonSerializable()
-class AuthErrorApiModel implements DomainSerializable<AuthDataError> {
+class AuthApiError implements DomainSerializable<AuthDataError> {
   final String? error;
   final int? status;
 
-  AuthErrorApiModel({
+  AuthApiError({
     this.error,
     this.status,
   });
 
-  factory AuthErrorApiModel.fromJson(Map<String, dynamic> json) =>
-      _$AuthErrorApiModelFromJson(json);
+  factory AuthApiError.fromJson(Map<String, dynamic> json) =>
+      _$AuthApiErrorFromJson(json);
 
   @override
   AuthDataError toDomain() {

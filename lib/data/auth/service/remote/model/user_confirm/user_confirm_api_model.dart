@@ -5,7 +5,7 @@ part 'user_confirm_api_model.g.dart';
 
 @JsonSerializable()
 class UserConfirmApiModel implements DomainSerializable<dynamic> {
-  // TODO: Add fields
+  // TODO: Add fields here 👇
   final String? placeholder;
 
   const UserConfirmApiModel({

@@ -5,7 +5,7 @@ part 'user_delete_api_model.g.dart';
 
 @JsonSerializable()
 class UserDeleteApiModel implements DomainSerializable<dynamic> {
-  // TODO: Add fields
+  // TODO: Add fields here 👇
   final String? placeholder;
 
   const UserDeleteApiModel({

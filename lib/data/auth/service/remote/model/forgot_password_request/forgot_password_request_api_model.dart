@@ -5,7 +5,7 @@ part 'forgot_password_request_api_model.g.dart';
 
 @JsonSerializable()
 class ForgotPasswordRequestApiModel implements DomainSerializable<dynamic> {
-  // TODO: Add fields
+  // TODO: Add fields here 👇
   final String? placeholder;
 
   const ForgotPasswordRequestApiModel({

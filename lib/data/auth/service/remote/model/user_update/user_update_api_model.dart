@@ -5,7 +5,7 @@ part 'user_update_api_model.g.dart';
 
 @JsonSerializable()
 class UserUpdateApiModel implements DomainSerializable<dynamic> {
-  // TODO: Add fields
+  // TODO: Add fields here 👇
   final String? placeholder;
 
   const UserUpdateApiModel({

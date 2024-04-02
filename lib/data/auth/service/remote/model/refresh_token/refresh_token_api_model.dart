@@ -17,7 +17,7 @@ class RefreshTokenApiModel implements DomainSerializable<dynamic> {
 
   @override
   toDomain() {
-    // TODO: implement toJson
+    // TODO: implement toDomain
     throw UnimplementedError();
   }
 }

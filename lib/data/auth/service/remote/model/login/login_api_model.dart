@@ -5,7 +5,7 @@ part 'login_api_model.g.dart';
 
 @JsonSerializable()
 class LoginApiModel implements DomainSerializable<dynamic> {
-  // TODO: Add fields
+  // TODO: Add fields here 👇
   final String? placeholder;
 
   const LoginApiModel({

@@ -18,6 +18,9 @@ import 'package:flutter_template/data/article/repository/article_repository.dart
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
 import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
+import 'package:flutter_template/data/auth/repository/auth_repository.dart';
+import 'package:flutter_template/data/auth/service/local/auth_local_service.dart';
+import 'package:flutter_template/data/auth/service/remote/auth_api_service.dart';
 import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
 import 'package:flutter_template/data/shared/service/local/user_config_service.dart';
@@ -126,6 +129,12 @@ abstract class Dependencies {
       ArticleRepository(
         ArticleApiService(httpClient),
         ArticleDbService(articlesCollection),
+      ),
+    );
+    getIt.registerSingleton<AuthRepository>(
+      AuthRepository(
+        AuthApiService(httpClient),
+        AuthLocalService(secureStorage),
       ),
     );
 

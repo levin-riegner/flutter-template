@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_template/data/auth/service/model/forgot_password_confirm/create_account_request_model.dart';
-import 'package:flutter_template/data/auth/service/remote/model/auth_error_api_model.dart';
+import 'package:flutter_template/data/auth/service/remote/model/auth_api_error.dart';
+import 'package:flutter_template/data/auth/service/remote/model/create_account/create_account_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/forgot_password_confirm/forgot_password_confirm_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/forgot_password_request/forgot_password_request_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/login/login_request_model.dart';
@@ -21,7 +21,7 @@ class AuthApiService with ApiResponseMapper {
     try {
       return await action();
     } on DioException catch (e) {
-      final error = AuthErrorApiModel.fromJson(e.response?.data);
+      final error = AuthApiError.fromJson(e.response?.data);
 
       throw error.toDomain();
     } catch (e, stackTrace) {
