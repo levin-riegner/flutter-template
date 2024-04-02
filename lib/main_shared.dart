@@ -19,7 +19,12 @@ void mainShared({
     // Log Global Flutter Errors
     FlutterError.onError = (details) {
       Zone.current.handleUncaughtError(
-          details.exception, details.stack ?? StackTrace.empty);
+        details.exception,
+        details.stack ?? StackTrace.empty,
+      );
+      if (kReleaseMode) {
+        FirebaseCrashlytics.instance.recordFlutterError(details, fatal: false);
+      }
     };
     // Enable only portrait mode
     await SystemChrome.setPreferredOrientations(
@@ -35,7 +40,6 @@ void mainShared({
     // Catch and log crashes
     Flogger.e("Unhandled error: $error", stackTrace: stackTrace);
     if (kReleaseMode) {
-      FirebaseCrashlytics.instance.recordError(error, stackTrace);
       // Log stack trace separately (for better external visualization)
       Flogger.e("Stack trace: ${stackTrace.toString().replaceAll("\n", " ")}");
     }

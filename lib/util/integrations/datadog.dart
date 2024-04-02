@@ -3,6 +3,8 @@ import 'package:flutter_template/app/config/environment.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class Datadog {
+  static DatadogLogger? _logger;
+
   const Datadog._();
 
   static Future<void> initialize({
@@ -10,21 +12,23 @@ class Datadog {
     required String environment,
   }) async {
     await DatadogSdk.instance.initialize(
-      DdSdkConfiguration(
+      DatadogConfiguration(
         clientToken: config.clientToken,
         env: environment.toLowerCase(),
         site: DatadogSite.us1,
-        trackingConsent: TrackingConsent.pending,
         nativeCrashReportEnabled: false,
-        serviceName: "Flutter-$environment",
-        loggingConfiguration: LoggingConfiguration(
-          sendNetworkInfo: true,
-          sendLogsToDatadog: true,
-          printLogsToConsole: false,
-          datadogReportingThreshold: Verbosity.info,
-          loggerName: "Flutter-$environment",
-        ),
+        loggingConfiguration: DatadogLoggingConfiguration(),
         rumConfiguration: null,
+      ),
+      TrackingConsent.pending,
+    );
+    _logger = DatadogSdk.instance.logs?.createLogger(
+      DatadogLoggerConfiguration(
+        service: "Flutter-$environment",
+        name: "Flutter-$environment",
+        networkInfoEnabled: true,
+        bundleWithRumEnabled: false,
+        remoteLogThreshold: LogLevel.info,
       ),
     );
   }
@@ -41,11 +45,11 @@ class Datadog {
 
   static Future<void> logRecord(String message, Level level) async {
     if (level == Level.SEVERE) {
-      DatadogSdk.instance.logs?.error(message);
+      _logger?.error(message);
     } else if (level == Level.WARNING) {
-      DatadogSdk.instance.logs?.warn(message);
+      _logger?.warn(message);
     } else if (level == Level.INFO) {
-      DatadogSdk.instance.logs?.info(message);
+      _logger?.info(message);
     } else {
       // Ignore other levels
     }

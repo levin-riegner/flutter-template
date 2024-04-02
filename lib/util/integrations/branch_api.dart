@@ -34,13 +34,22 @@ class BranchApi {
   Map<dynamic, dynamic>? _lastBranchData;
 
   /// Listens for Branch events
-  void initBranchSession() {
+  Future<void> initBranchSession({
+    required bool useTestKey,
+    required bool enableLogging,
+  }) async {
     Flogger.i("Init Branch session");
-    _branchLinksSubscription = FlutterBranchSdk.initSession().listen(
+    await FlutterBranchSdk.init(
+      useTestKey: useTestKey,
+      enableLogging: enableLogging,
+      disableTracking: true,
+    );
+    _branchLinksSubscription = FlutterBranchSdk.listSession().listen(
       onBranchData,
       onError: (error) {
-        Flogger.w("Branch initSession error: ${error.toString()}");
+        Flogger.e("Branch error: $error");
       },
+      cancelOnError: false,
     );
   }
 
