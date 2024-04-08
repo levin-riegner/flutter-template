@@ -1,17 +1,14 @@
 import 'package:equatable/equatable.dart';
 
-class CreateAccountModel extends Equatable {
+class UserDeleteModel extends Equatable {
   final int? status;
-  final String? userId;
 
-  const CreateAccountModel({
+  const UserDeleteModel({
     this.status,
-    this.userId,
   });
 
   @override
   List<Object?> get props => [
         status,
-        userId,
       ];
 }

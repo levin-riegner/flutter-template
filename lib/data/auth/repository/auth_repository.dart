@@ -1,3 +1,10 @@
+import 'package:flutter_template/data/auth/model/create_account_model.dart';
+import 'package:flutter_template/data/auth/model/login_model.dart';
+import 'package:flutter_template/data/auth/model/refresh_token_model.dart';
+import 'package:flutter_template/data/auth/model/user_confirm_model.dart';
+import 'package:flutter_template/data/auth/model/user_delete_model.dart';
+import 'package:flutter_template/data/auth/model/user_disable_model.dart';
+import 'package:flutter_template/data/auth/model/user_update_model.dart';
 import 'package:flutter_template/data/auth/service/local/auth_local_service.dart';
 import 'package:flutter_template/data/auth/service/remote/auth_api_service.dart';
 import 'package:flutter_template/data/auth/service/remote/model/create_account/create_account_request_model.dart';
@@ -53,70 +60,84 @@ class AuthRepository {
     );
   }
 
-  Future<void> createAccountWithEmailAndPassword(
+  Future<CreateAccountModel> createAccountWithEmailAndPassword(
     CreateAccountRequestModel request,
   ) async {
     Flogger.i("Register with email and password credentials");
-    return await _apiService.createAccount(
+    final apiResponse = await _apiService.createAccount(
       request,
     );
+
+    return apiResponse.toDomain();
   }
 
-  Future<void> loginWithEmailAndPassword(
+  Future<LoginModel> loginWithEmailAndPassword(
     LoginRequestModel request,
   ) async {
     Flogger.i("Sign in with email and password credentials");
-    return await _apiService.login(
+    final apiResponse = await _apiService.login(
       request,
     );
+
+    return apiResponse.toDomain();
   }
 
-  Future<void> updateUser(
+  Future<UserUpdateModel> updateUser(
     UserUpdateRequestModel request,
   ) async {
     Flogger.i("Update user account");
-    return await _apiService.updateUser(
+    final apiResponse = await _apiService.updateUser(
       request,
     );
+
+    return apiResponse.toDomain();
   }
 
-  Future<void> deleteUser(
+  Future<UserDeleteModel> deleteUser(
     UserDeleteRequestModel request,
   ) async {
     Flogger.i("Delete user account");
-    return await _apiService.deleteUser(
+    final apiResponse = await _apiService.deleteUser(
       request,
     );
+
+    return apiResponse.toDomain();
   }
 
-  Future<void> disableUser(
+  Future<UserDisableModel> disableUser(
     UserDisableRequestModel request,
   ) async {
     Flogger.i("Disable user account");
-    return await _apiService.disableUser(
+    final apiResponse = await _apiService.disableUser(
       request,
     );
+
+    return apiResponse.toDomain();
   }
 
-  Future<void> confirmUser(
+  Future<UserConfirmModel> confirmUser(
     UserConfirmRequestModel request,
   ) async {
     Flogger.i("Confirm user account");
-    return await _apiService.confirmUser(
+    final apiResponse = await _apiService.confirmUser(
       request,
     );
+
+    return apiResponse.toDomain();
   }
 
-  Future<void> refreshToken(
+  Future<RefreshTokenModel> refreshToken(
     RefreshTokenRequestModel request,
   ) async {
     Flogger.i("Refresh user auth token");
-    return await _apiService.refreshToken(
+    final apiResponse = await _apiService.refreshToken(
       request,
     );
+
+    return apiResponse.toDomain();
   }
 
-  Future<void> sendForgotPasswordRequest(
+  Future<bool> sendForgotPasswordRequest(
     ForgotPasswordRequestRequestModel request,
   ) async {
     Flogger.i("Send forgot password request");
@@ -125,7 +146,7 @@ class AuthRepository {
     );
   }
 
-  Future<void> confirmForgotPasswordRequest(
+  Future<bool> confirmForgotPasswordRequest(
     ForgotPasswordConfirmRequestModel request,
   ) async {
     Flogger.i("Confirm forgot password request");

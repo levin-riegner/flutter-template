@@ -1,13 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_template/data/auth/service/remote/model/auth_api_error.dart';
+import 'package:flutter_template/data/auth/service/remote/model/create_account/create_account_api_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/create_account/create_account_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/forgot_password_confirm/forgot_password_confirm_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/forgot_password_request/forgot_password_request_request_model.dart';
+import 'package:flutter_template/data/auth/service/remote/model/login/login_api_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/login/login_request_model.dart';
+import 'package:flutter_template/data/auth/service/remote/model/refresh_token/refresh_token_api_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/refresh_token/refresh_token_request_model.dart';
+import 'package:flutter_template/data/auth/service/remote/model/user_confirm/user_confirm_api_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_confirm/user_confirm_request_model.dart';
+import 'package:flutter_template/data/auth/service/remote/model/user_delete/user_delete_api_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_delete/user_delete_request_model.dart';
+import 'package:flutter_template/data/auth/service/remote/model/user_disable/user_disable_api_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_disable/user_disable_request_model.dart';
+import 'package:flutter_template/data/auth/service/remote/model/user_update/user_update_api_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_update/user_update_request_model.dart';
 import 'package:flutter_template/data/shared/service/remote/api_response_mapper.dart';
 import 'package:flutter_template/data/shared/service/remote/endpoints.dart';
@@ -29,7 +36,7 @@ class AuthApiService with ApiResponseMapper {
     }
   }
 
-  Future<dynamic> createAccount(
+  Future<CreateAccountApiModel> createAccount(
     CreateAccountRequestModel request,
   ) =>
       _runThrowable(
@@ -38,11 +45,11 @@ class AuthApiService with ApiResponseMapper {
             AuthEndpoints.userRegister,
           );
 
-          return true;
+          return CreateAccountApiModel.fromJson(response.data);
         },
       );
 
-  Future<dynamic> updateUser(
+  Future<UserUpdateApiModel> updateUser(
     UserUpdateRequestModel request,
   ) =>
       _runThrowable(
@@ -51,11 +58,11 @@ class AuthApiService with ApiResponseMapper {
             AuthEndpoints.userUpdate,
           );
 
-          return true;
+          return UserUpdateApiModel.fromJson(response.data);
         },
       );
 
-  Future<dynamic> deleteUser(
+  Future<UserDeleteApiModel> deleteUser(
     UserDeleteRequestModel request,
   ) =>
       _runThrowable(
@@ -64,11 +71,11 @@ class AuthApiService with ApiResponseMapper {
             AuthEndpoints.userDelete,
           );
 
-          return true;
+          return UserDeleteApiModel.fromJson(response.data);
         },
       );
 
-  Future<dynamic> disableUser(
+  Future<UserDisableApiModel> disableUser(
     UserDisableRequestModel request,
   ) =>
       _runThrowable(
@@ -77,11 +84,11 @@ class AuthApiService with ApiResponseMapper {
             AuthEndpoints.userDisable,
           );
 
-          return true;
+          return UserDisableApiModel.fromJson(response.data);
         },
       );
 
-  Future<dynamic> confirmUser(
+  Future<UserConfirmApiModel> confirmUser(
     UserConfirmRequestModel request,
   ) =>
       _runThrowable(
@@ -90,11 +97,11 @@ class AuthApiService with ApiResponseMapper {
             AuthEndpoints.userConfirm,
           );
 
-          return true;
+          return UserConfirmApiModel.fromJson(response.data);
         },
       );
 
-  Future<dynamic> login(
+  Future<LoginApiModel> login(
     LoginRequestModel request,
   ) =>
       _runThrowable(
@@ -103,11 +110,11 @@ class AuthApiService with ApiResponseMapper {
             AuthEndpoints.userLogin,
           );
 
-          return true;
+          return LoginApiModel.fromJson(response.data);
         },
       );
 
-  Future<dynamic> refreshToken(
+  Future<RefreshTokenApiModel> refreshToken(
     RefreshTokenRequestModel request,
   ) =>
       _runThrowable(
@@ -116,11 +123,11 @@ class AuthApiService with ApiResponseMapper {
             AuthEndpoints.userRefreshToken,
           );
 
-          return true;
+          return RefreshTokenApiModel.fromJson(response.data);
         },
       );
 
-  Future<dynamic> sendForgotPasswordRequest(
+  Future<bool> sendForgotPasswordRequest(
     ForgotPasswordRequestRequestModel request,
   ) =>
       _runThrowable(
@@ -129,11 +136,11 @@ class AuthApiService with ApiResponseMapper {
             AuthEndpoints.userForgotPasswordRequest,
           );
 
-          return true;
+          return response.statusCode == 200;
         },
       );
 
-  Future<dynamic> confirmForgotPasswordRequest(
+  Future<bool> confirmForgotPasswordRequest(
     ForgotPasswordConfirmRequestModel request,
   ) =>
       _runThrowable(
@@ -142,7 +149,7 @@ class AuthApiService with ApiResponseMapper {
             AuthEndpoints.userForgotPasswordConfirm,
           );
 
-          return true;
+          return response.statusCode == 200;
         },
       );
 }
