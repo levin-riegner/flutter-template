@@ -7,10 +7,12 @@ part 'auth_api_error.g.dart';
 @JsonSerializable()
 class AuthApiError implements DomainSerializable<AuthDataError> {
   final String? error;
+  final String? message;
   final int? status;
 
   AuthApiError({
     this.error,
+    this.message,
     this.status,
   });
 
