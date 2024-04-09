@@ -4,7 +4,7 @@ import 'package:flutter_template/app/navigation/router/page_transitions.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/blank_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
-import 'package:flutter_template/presentation/authentication/login/login_page.dart';
+import 'package:flutter_template/presentation/auth/login/login_page.dart';
 import 'package:flutter_template/presentation/bottom_navigation/bottom_navigation_page.dart';
 import 'package:flutter_template/presentation/settings/account_details_page.dart';
 import 'package:flutter_template/presentation/settings/settings_page.dart';
