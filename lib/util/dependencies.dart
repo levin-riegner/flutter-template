@@ -139,7 +139,17 @@ abstract class Dependencies {
     );
 
     // Firebase
-    await Firebase.initializeApp();
+    // TODO: Replace options with `DefaultFirebaseOptions.currentPlatform,`
+    // after running `flutterfire configure`
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyCMmJ4HDCqQptZ872QYM1uZ6M9a8YVQwaA",
+        appId: "1:930871121577:android:08469e37bd03de82b3fbb8",
+        messagingSenderId:
+            "930871121577-e5it5no5i0ucprepj66rc07f6iu1c9sr.apps.googleusercontent.com",
+        projectId: "flutter-template-lr",
+      ),
+    );
 
     // App Versioning
     final appVersioning = AppVersioning.firebaseService(
@@ -162,10 +172,6 @@ abstract class Dependencies {
     // User Configs
     final userConfig = UserConfigService(sharedPreferences);
     getIt.registerSingleton<UserConfigService>(userConfig);
-
-    // Data Collection (GDPR)
-    final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
-    setDataCollectionEnabled(dataCollectionEnabled ?? false);
 
     // Permissions
     final permissionsService = PermissionsService();
@@ -190,7 +196,10 @@ abstract class Dependencies {
       },
     );
     getIt.registerSingleton<BranchApi>(branchApi);
-    branchApi.initBranchSession();
+    branchApi.initBranchSession(
+      useTestKey: environment.internal,
+      enableLogging: isDebugBuild,
+    );
     getIt.registerSingleton<BranchShareHelper>(
       BranchShareHelper(uriScheme: environment.deepLinkScheme),
     );
@@ -230,6 +239,10 @@ abstract class Dependencies {
     await remoteConfig.init();
     remoteConfig.fetchAndActive(); // Refresh remote config without waiting
     getIt.registerSingleton<RemoteConfig>(remoteConfig);
+
+    // Data Collection (GDPR)
+    final dataCollectionEnabled = await userConfig.isDataCollectionEnabled();
+    setDataCollectionEnabled(dataCollectionEnabled ?? false);
 
     // Shake to show console
     if (environment.internal || isDebugBuild) {

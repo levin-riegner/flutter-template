@@ -15,17 +15,24 @@ class CustomTabsLauncher {
     BuildContext? context,
   }) async {
     try {
-      await launch(
-        url,
-        customTabsOption: CustomTabsOption(
-          toolbarColor:
-              context != null ? Theme.of(context).colorScheme.primary : null,
-          enableDefaultShare: true,
-          enableUrlBarHiding: true,
-          showPageTitle: true,
-          animation: CustomTabsSystemAnimation.slideIn(),
+      await launchUrl(
+        Uri.parse(url),
+        prefersDeepLink: true,
+        customTabsOptions: CustomTabsOptions(
+          colorSchemes: CustomTabsColorSchemes.defaults(
+            toolbarColor:
+                context != null ? Theme.of(context).colorScheme.primary : null,
+            navigationBarColor: context != null
+                ? Theme.of(context).colorScheme.secondary
+                : null,
+          ),
+          shareState: CustomTabsShareState.on,
+          urlBarHidingEnabled: true,
+          showTitle: true,
+          instantAppsEnabled: false,
+          animations: CustomTabsSystemAnimations.slideIn(),
         ),
-        safariVCOption: SafariViewControllerOption(
+        safariVCOptions: SafariViewControllerOptions(
           preferredBarTintColor:
               context != null ? Theme.of(context).colorScheme.primary : null,
           barCollapsingEnabled: true,

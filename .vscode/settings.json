@@ -1,27 +1,20 @@
 {
-  // Use Flutter SDK from fvm
-  "dart.flutterSdkPath": ".fvm/flutter_sdk",
-  // Remove .fvm files from search
+  "dart.flutterSdkPath": ".fvm/versions/3.19.5",
   "search.exclude": {
     "**/.fvm": true
   },
-  // Remove from file watching
   "files.watcherExclude": {
     "**/.fvm": true
   },
-  // Exclude files from explorer
   "files.exclude": {
-    // Exclude auto-generated files
     "**/*.g.dart": true,
     "**/*.freezed.dart": true,
     "**/*.gr.dart": true,
-    // Exclude Flutter stuff
     ".flutter-plugins": true,
     ".flutter-plugins-dependencies": true,
     ".packages": true,
     "build": true,
     ".metadata": true,
-    // Exclude Android Studio stuff
     ".idea": true,
     ".run": true,
     "android/.gradle": true,
@@ -30,13 +23,10 @@
     "android/gradlew": true,
     "**/**.iml": true
   },
-  // Fix actions on save
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit"
   },
-  // Format on save
   "editor.formatOnSave": true,
-  // XML format
-  "xml.format.splitAttributes": true,
+  "xml.format.splitAttributes": true
 }
