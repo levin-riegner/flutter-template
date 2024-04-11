@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/presentation/auth/widgets/auth_action_button_pair.dart';
-import 'package:flutter_template/presentation/auth/widgets/auth_text_fields/auth_text_fields.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_text_field/ds_email_text_field.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_text_field/ds_password_text_field.dart';
 
 // TODO: Replace with your custom designs, widgets and strings
 
@@ -45,11 +48,14 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         children: [
-          EmailTextField(),
-          PasswordTextField(),
+          DSEmailTextField(),
+          Dimens.boxMedium,
+          DSPasswordTextField(
+            helperText: context.l10n.passwordRequirements,
+          ),
         ],
       ),
     );

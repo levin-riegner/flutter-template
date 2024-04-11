@@ -38,7 +38,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with WidgetsBindingObserver {
   String get initialLocation =>
       deepLinkManager.getCurrentDeeplink(consume: false) ??
-      const ArticlesRoute().location;
+      const LoginRoute().location;
 
   late final Environment environment = getIt<Environment>();
   late final AppUpdater appUpdater = getIt<AppUpdater>();
@@ -180,12 +180,12 @@ class AppView extends StatelessWidget {
   final bool showSemanticsDebugger;
 
   const AppView({
-    Key? key,
+    super.key,
     this.routerConfig,
     this.themeMode = ThemeMode.system,
     this.debugShowMaterialGrid = false,
     this.showSemanticsDebugger = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

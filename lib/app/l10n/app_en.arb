@@ -91,9 +91,77 @@
   "@pushNotificationDeeplinkButton": {
     "description": "Button to open a push notification deeplink when the app is foregrounded"
   },
+  "emailField": "Email",
+  "@emailField": {
+    "description": "Label for an email field"
+  },
+  "emailErrorRequired": "Email cannot be empty",
+  "@emailErrorRequired": {
+    "description": "Error message for a required blank email field"
+  },
+  "emailErrorMinLength": "Email must be at least {minLength} characters long",
+  "@emailErrorMinLength": {
+    "description": "Error message for an email field that is too short",
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "emailErrorMaxLength": "Email must be at most {maxLength} characters long",
+  "@emailErrorMaxLength": {
+    "description": "Error message for an email field that is too long",
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "emailErrorInvalid": "Invalid email format",
+  "@emailErrorInvalid": {
+    "description": "Error message for an email field that does not match the email format"
+  },
   "passwordField": "Password",
   "@passwordField": {
     "description": "Label for a password field"
+  },
+  "passwordErrorRequired": "Password cannot be empty",
+  "@passwordErrorRequired": {
+    "description": "Error message for a required blank password field"
+  },
+  "passwordErrorMinLength": "Password must be at least {minLength} characters long",
+  "@passwordErrorMinLength": {
+    "description": "Error message for a password field that is too short",
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "passwordErrorMaxLength": "Password must be at most {maxLength} characters long",
+  "@passwordErrorMaxLength": {
+    "description": "Error message for a password field that is too long",
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "passwordRequirements": "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character",
+  "@passwordErrorInvalid": {
+    "description": "Label for the password requirements"
+  },
+  "loginButton": "Login",
+  "@loginButton": {
+    "description": "Label for the login button"
+  },
+  "logoutButton": "Logout",
+  "@logoutButton": {
+    "description": "Label for the logout button"
+  },
+  "forgotPasswordButton": "Forgot Password?",
+  "@forgotPasswordButton": {
+    "description": "Label for the forgot password button"
   },
   "profileLegalLicenses": "Third Party Notices",
   "@profileLegalLicenses": {
