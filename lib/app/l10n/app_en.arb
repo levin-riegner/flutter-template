@@ -151,9 +151,49 @@
   "@passwordErrorInvalid": {
     "description": "Label for the password requirements"
   },
+  "newPasswordField": "New Password",
+  "@newPasswordField": {
+    "description": "Label for a new password field, used when changing a password"
+  },
+  "confirmNewPasswordField": "Confirm New Password",
+  "@confirmNewPasswordField": {
+    "description": "Label for a confirm new password field, used when changing a password"
+  },
+  "confirmPasswordField": "Confirm Password",
+  "@confirmPasswordField": {
+    "description": "Label for a confirm password field"
+  },
+  "confirmPasswordRequirements": "Must match the password entered above",
+  "@confirmPasswordRequirements": {
+    "description": "Label for the confirm password requirements"
+  },
+  "passwordMismatchError": "Must match the password entered above",
+  "@passwordMismatchError": {
+    "description": "Error message for a password field that does not match the confirm password field"
+  },
+  "fieldErrorRequired": "Field cannot be empty",
+  "@fieldErrorRequired": {
+    "description": "Error message for a required blank field"
+  },
   "loginButton": "Login",
   "@loginButton": {
     "description": "Label for the login button"
+  },
+  "signUpButton": "Sign Up",
+  "@signUpButton": {
+    "description": "Label for the sign up button"
+  },
+  "openEmailAppButton": "Open Email App",
+  "@openEmailAppButton": {
+    "description": "Label for the open email app button"
+  },
+  "termsAndConditionsAgreement": "I agree to the Terms and Conditions",
+  "@termsAndConditionsAgreement": {
+    "description": "Label for the terms and conditions link"
+  },
+  "termsAndConditionsAgreementLinkPattern": "Terms and Conditions",
+  "@termsAndConditionsAgreementLinkPattern": {
+    "description": "Pattern to match the terms and conditions from 'termsAndConditionsAgreement' in order to generate the terms and conditions link"
   },
   "logoutButton": "Logout",
   "@logoutButton": {
@@ -166,5 +206,50 @@
   "profileLegalLicenses": "Third Party Notices",
   "@profileLegalLicenses": {
     "description": "Profile item that navigates to 3rd party licenses screen"
+  },
+  "confirmButton": "Confirm",
+  "@confirmButton": {
+    "description": "Label for the confirm button"
+  },
+  "otpEmailVerificationRationale": "We have sent a verification code to {email}, please enter the code below",
+  "@otpEmailVerificationRationale": {
+    "description": "Label for the OTP verification rationale with the email placeholder",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "otpDefaultVerificationRationale": "We have sent a verification code to your email, please enter the code below",
+  "@otpDefaultVerificationRationale": {
+    "description": "Label for the OTP verification rationale without the email placeholder"
+  },
+  "otpField": "Verification Code",
+  "@otpField": {
+    "description": "Label for the OTP field"
+  },
+  "otpNotReceivedLabel": "Don't receive it?",
+  "@otpNotReceivedLabel": {
+    "description": "Label for the button to resend the OTP"
+  },
+  "otpSendAgainButton": "Send Again",
+  "@otpSendAgainButton": {
+    "description": "Label for the button to resend the OTP"
+  },
+  "signUpPageTitle": "Sign Up",
+  "@signUpPageTitle": {
+    "description": "Default title for the sign up page"
+  },
+  "loginPageTitle": "Login",
+  "@loginPageTitle": {
+    "description": "Default title for the login page"
+  },
+  "changePasswordPageTitle": "Change Password",
+  "@forgotPasswordPageTitle": {
+    "description": "Default title for the forgot or update password pages"
+  },
+  "otpVerificationPageTitle": "Verify Email",
+  "@otpVerificationPageTitle": {
+    "description": "Default title for the OTP verification page"
   }
 }

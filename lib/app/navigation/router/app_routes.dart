@@ -4,7 +4,10 @@ import 'package:flutter_template/app/navigation/router/page_transitions.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/blank_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
+import 'package:flutter_template/presentation/auth/change_password/change_password_page.dart';
+import 'package:flutter_template/presentation/auth/create_account/create_account_page.dart';
 import 'package:flutter_template/presentation/auth/login/login_page.dart';
+import 'package:flutter_template/presentation/auth/otp_verification/otp_verification_page.dart';
 import 'package:flutter_template/presentation/bottom_navigation/bottom_navigation_page.dart';
 import 'package:flutter_template/presentation/settings/account_details_page.dart';
 import 'package:flutter_template/presentation/settings/settings_page.dart';
@@ -296,6 +299,57 @@ class LoginRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const LoginPage();
+  }
+}
+
+@TypedGoRoute<CreateAccountRoute>(
+  path: "/create-account",
+  name: "CreateAccountPage",
+)
+class CreateAccountRoute extends GoRouteData {
+  const CreateAccountRoute();
+
+  // Use parent navigator to navigate without bottom bar
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CreateAccountPage();
+  }
+}
+
+@TypedGoRoute<ChangePasswordRoute>(
+  path: "/change-password",
+  name: "ChangePasswordPage",
+)
+class ChangePasswordRoute extends GoRouteData {
+  const ChangePasswordRoute();
+
+  // Use parent navigator to navigate without bottom bar
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ChangePasswordPage();
+  }
+}
+
+@TypedGoRoute<OtpVerificationRoute>(
+  path: "/otp",
+  name: "OtpVerificationPage",
+)
+class OtpVerificationRoute extends GoRouteData {
+  const OtpVerificationRoute();
+
+  // Use parent navigator to navigate without bottom bar
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const OtpVerificationPage();
   }
 }
 //#endregion

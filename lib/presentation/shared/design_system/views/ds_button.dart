@@ -15,7 +15,7 @@ class DSPrimaryButton extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const DSPrimaryButton({
-    Key? key,
+    super.key,
     required this.text,
     this.onPressed,
     this.isLoading = false,
@@ -24,7 +24,7 @@ class DSPrimaryButton extends StatelessWidget {
     this.forceUpperCase = true,
     this.borderRadius,
     this.contentPadding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class DSOutlineButton extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const DSOutlineButton({
-    Key? key,
+    super.key,
     required this.text,
     this.onPressed,
     this.isLoading = false,
@@ -68,7 +68,7 @@ class DSOutlineButton extends StatelessWidget {
     this.forceUpperCase = true,
     this.borderRadius,
     this.contentPadding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class DSTextButton extends StatelessWidget {
   final bool forceUpperCase;
 
   const DSTextButton({
-    Key? key,
+    super.key,
     required this.text,
     this.onPressed,
     this.isLoading = false,
@@ -127,7 +127,7 @@ class DSTextButton extends StatelessWidget {
     this.defaultTextColor,
     this.disabledTextColor,
     this.forceUpperCase = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +177,7 @@ class _BaseButton extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const _BaseButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.isLoading,
     required this.enabled,
@@ -192,7 +192,7 @@ class _BaseButton extends StatelessWidget {
     this.contentPadding,
     this.borderRadius,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -19,6 +19,51 @@ abstract class LocalFieldValidator<T extends LocalValidationRules> {
 // Create them by extending [LocalFieldValidator] and overriding the [validate] method
 // Custom field validators must be tied to specific a specific [LocalValidationRules] subclass
 // Head to lib/util/tools/local_field_validator/local_validation_rules.dart to create your custom validation rules
+
+class OtpLocalFieldValidator
+    extends LocalFieldValidator<OtpLocalValidationRules> {
+  OtpLocalFieldValidator(super.validationRules);
+
+  @override
+  String? validate(
+    BuildContext context,
+    String? value,
+    OtpLocalValidationRules validationRules,
+  ) {
+    String? error;
+
+    if (validationRules.required) {
+      if (value?.isEmpty == true) {
+        error = context.l10n.fieldErrorRequired;
+      }
+    }
+
+    return error;
+  }
+}
+
+class NonEmptyLocalFieldValidator
+    extends LocalFieldValidator<NonEmptyLocalValidationRules> {
+  NonEmptyLocalFieldValidator(super.validationRules);
+
+  @override
+  String? validate(
+    BuildContext context,
+    String? value,
+    NonEmptyLocalValidationRules validationRules,
+  ) {
+    String? error;
+
+    if (validationRules.required) {
+      if (value?.isEmpty == true) {
+        error = context.l10n.fieldErrorRequired;
+      }
+    }
+
+    return error;
+  }
+}
+
 class EmailLocalFieldValidator
     extends LocalFieldValidator<EmailLocalValidationRules> {
   EmailLocalFieldValidator(super.validationRules);
@@ -113,6 +158,61 @@ class PasswordLocalFieldValidator
           error = context.l10n.passwordRequirements;
         }
       }
+    }
+
+    return error;
+  }
+}
+
+class ConfirmPasswordLocalFieldValidator
+    extends LocalFieldValidator<ConfirmPasswordLocalValidationRules> {
+  ConfirmPasswordLocalFieldValidator(super.validationRules);
+
+  @override
+  String? validate(
+    BuildContext context,
+    String? value,
+    ConfirmPasswordLocalValidationRules validationRules,
+  ) {
+    String? error;
+
+    if (validationRules.required) {
+      if (value?.isEmpty == true) {
+        error = context.l10n.passwordErrorRequired;
+      }
+    }
+
+    if (validationRules.minLength != null) {
+      if (value?.isNotEmpty == true) {
+        if (value!.length < validationRules.minLength!) {
+          error = context.l10n.passwordErrorMinLength(
+            validationRules.minLength!,
+          );
+        }
+      }
+    }
+
+    if (validationRules.maxLength != null) {
+      if (value?.isNotEmpty == true) {
+        if (value!.length > validationRules.maxLength!) {
+          error = context.l10n.passwordErrorMaxLength(
+            validationRules.maxLength!,
+          );
+        }
+      }
+    }
+
+    if (validationRules.pattern?.isNotEmpty == true) {
+      if (value?.isNotEmpty == true) {
+        if (!RegExp(validationRules.pattern!).hasMatch(value!)) {
+          error = context.l10n.passwordRequirements;
+        }
+      }
+    }
+
+    // We use the [extra] parameter to pass the password to compare with
+    if (!validationRules.matches(value)) {
+      error = "Passwords do not match";
     }
 
     return error;

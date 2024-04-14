@@ -75,6 +75,7 @@ dependencies:
   package_info_plus: ^6.0.0
   connectivity_plus: ^6.0.1
   share_plus: ^8.0.2
+  android_intent_plus: ^5.0.2
   # Boilerplate generation
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1

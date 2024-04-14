@@ -5,6 +5,7 @@ class AuthActionButtonPair extends StatelessWidget {
   final Widget secondChild;
   final MainAxisAlignment? mainAxisAlignment;
   final CrossAxisAlignment? crossAxisAlignment;
+  final double? buttonSpacing;
 
   const AuthActionButtonPair({
     super.key,
@@ -12,6 +13,7 @@ class AuthActionButtonPair extends StatelessWidget {
     required this.secondChild,
     this.mainAxisAlignment,
     this.crossAxisAlignment,
+    this.buttonSpacing,
   });
 
   @override
@@ -21,6 +23,7 @@ class AuthActionButtonPair extends StatelessWidget {
       crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
       children: [
         firstChild,
+        if (buttonSpacing != null) SizedBox(height: buttonSpacing!),
         secondChild,
       ],
     );
