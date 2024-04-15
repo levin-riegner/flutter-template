@@ -1,21 +1,26 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/router/page_transitions.dart';
+import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/blank_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
 import 'package:flutter_template/presentation/auth/change_password/change_password_page.dart';
 import 'package:flutter_template/presentation/auth/create_account/create_account_page.dart';
+import 'package:flutter_template/presentation/auth/login/bloc/login_cubit.dart';
 import 'package:flutter_template/presentation/auth/login/login_page.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/otp_verification_page.dart';
 import 'package:flutter_template/presentation/bottom_navigation/bottom_navigation_page.dart';
 import 'package:flutter_template/presentation/settings/account_details_page.dart';
 import 'package:flutter_template/presentation/settings/settings_page.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/bloc/local_validable_cubit.dart';
 import 'package:flutter_template/util/console/console_deeplinks.dart';
 import 'package:flutter_template/util/console/console_environments.dart';
 import 'package:flutter_template/util/console/console_logins.dart';
 import 'package:flutter_template/util/console/console_page.dart';
 import 'package:flutter_template/util/console/console_qa_config.dart';
+import 'package:flutter_template/util/dependencies.dart';
 import 'package:go_router/go_router.dart';
 
 part 'app_routes.g.dart';
@@ -298,7 +303,19 @@ class LoginRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const LoginPage();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginCubit>(
+          create: (context) => LoginCubit(
+            getIt<AuthRepository>(),
+          ),
+        ),
+        BlocProvider<LocalValidableCubit>(
+          create: (context) => LocalValidableCubit(),
+        ),
+      ],
+      child: const LoginPage(),
+    );
   }
 }
 

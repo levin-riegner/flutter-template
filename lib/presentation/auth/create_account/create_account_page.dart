@@ -4,11 +4,11 @@ import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/presentation/auth/widgets/auth_action_button_pair.dart';
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in_text_fields/ds_email_text_field.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in_text_fields/ds_password_text_field.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in_text_fields/ds_plain_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_terms_and_conditions.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_text_field/built_in/ds_email_text_field.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_text_field/built_in/ds_password_text_field.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_text_field/built_in/ds_plain_text_field.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/tools/custom_tabs_launcher.dart';
 import 'package:go_router/go_router.dart';
@@ -131,7 +131,7 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
           Dimens.boxMedium,
           DSPasswordTextField(
             helperText: context.l10n.passwordRequirements,
-            onChanged: (value) {
+            onChanged: (value, isValid) {
               _passwordBind.value = value;
             },
           ),

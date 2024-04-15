@@ -3,8 +3,8 @@ import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/widgets/otp_resend_view.dart';
 import 'package:flutter_template/presentation/auth/widgets/auth_action_button_pair.dart';
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in_text_fields/ds_otp_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_text_field/built_in/ds_otp_text_field.dart';
 import 'package:flutter_template/util/tools/email_opener.dart';
 
 // TODO: Replace with your custom designs, widgets and strings
@@ -74,7 +74,7 @@ class _OtpVerificationForm extends StatelessWidget {
         DSOtpTextField(
           labelText: context.l10n.otpField,
           textInputAction: TextInputAction.done,
-          onSubmitted: (otp) {
+          onSubmitted: (otp, isValid) {
             print("OTP $otp");
           },
         ),

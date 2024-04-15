@@ -28,8 +28,8 @@ enum LocalValidationMode {
 abstract class DSLocalValidableTextField extends StatefulWidget
     with LocalFieldValidationMixin {
   final FocusNode? focusNode;
-  final Function(String)? onChanged;
-  final Function(String)? onSubmitted;
+  final Function(String, bool)? onChanged;
+  final Function(String, bool)? onSubmitted;
   final TextInputAction? textInputAction;
   final LocalValidableFieldStyle Function(BuildContext) style;
   final LocalValidationLookup lookupMode;
@@ -80,7 +80,7 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
 
   void _autoSubmitListener() {
     if (_isValid) {
-      widget.onSubmitted?.call(_controller.text);
+      widget.onSubmitted?.call(_controller.text, true);
     }
   }
 
@@ -94,8 +94,6 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
 
   @override
   Widget build(BuildContext context) {
-    _isValid = _localErrors.isEmpty && _controller.text.isNotEmpty;
-
     final fieldMaxLength = (widget
                 .localValidationOptions.validator.validationRules
                 .firstWhereOrNull((element) => element is MaxLengthRule)
@@ -188,14 +186,20 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
                           value,
                         ),
                       );
+                      _isValid =
+                          _localErrors.isEmpty && _controller.text.isNotEmpty;
                     });
                   }
 
                   if (widget.onChanged != null) {
-                    widget.onChanged!(value);
+                    widget.onChanged!(value, _isValid);
                   }
                 }
-              : widget.onChanged,
+              : (value) {
+                  if (widget.onChanged != null) {
+                    widget.onChanged!(value, _isValid);
+                  }
+                },
           onSubmitted: widget.validationMode != LocalValidationMode.disabled
               ? (value) {
                   if (widget.lookupMode == LocalValidationLookup.submit) {
@@ -206,14 +210,20 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
                           value,
                         ),
                       );
+                      _isValid =
+                          _localErrors.isEmpty && _controller.text.isNotEmpty;
                     });
                   }
 
                   if (widget.onSubmitted != null) {
-                    widget.onSubmitted!(value);
+                    widget.onSubmitted!(value, _isValid);
                   }
                 }
-              : widget.onSubmitted,
+              : (value) {
+                  if (widget.onSubmitted != null) {
+                    widget.onSubmitted!(value, _isValid);
+                  }
+                },
           textInputAction: widget.textInputAction,
           autofillHints: widget.style(context).autofillHints,
           enableSuggestions: widget.style(context).enableSuggestions,

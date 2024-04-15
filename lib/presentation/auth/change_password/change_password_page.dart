@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in_text_fields/ds_password_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_text_field/built_in/ds_password_text_field.dart';
 import 'package:go_router/go_router.dart';
 
 // TODO: Replace with your custom designs, widgets and strings
@@ -65,7 +65,7 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
             labelText: context.l10n.newPasswordField,
             helperText: context.l10n.passwordRequirements,
             textInputAction: TextInputAction.next,
-            onChanged: (value) {
+            onChanged: (value, isValid) {
               _passwordBind.value = value;
             },
           ),

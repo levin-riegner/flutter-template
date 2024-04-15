@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_text_field/ds_validable_text_field.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/ds_local_validable_text_field.dart';
 import 'package:flutter_template/util/mixins/local_field_validation_mixin.dart';
 import 'package:flutter_template/util/tools/local_field_validation/local_field_validator.dart';
 

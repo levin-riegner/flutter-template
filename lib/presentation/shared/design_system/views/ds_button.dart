@@ -215,7 +215,7 @@ class _BaseButton extends StatelessWidget {
                 return disabledTextColor ??
                     Theme.of(context).colorScheme.onSurface.withOpacity(.30);
               } else {
-                return disabledTextColor;
+                return defaultTextColor;
               }
             },
           ),
