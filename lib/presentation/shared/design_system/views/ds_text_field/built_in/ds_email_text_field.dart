@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_text_field/ds_validable_text_field.dart';
 import 'package:flutter_template/util/extensions/context_extension.dart';
-import 'package:flutter_template/util/mixins/local_validation_mixin.dart';
-import 'package:flutter_template/util/tools/local_field_validator/local_field_validator.dart';
-import 'package:flutter_template/util/tools/local_field_validator/local_validation_rules.dart';
+import 'package:flutter_template/util/mixins/local_field_validation_mixin.dart';
+import 'package:flutter_template/util/tools/local_field_validation/local_field_validator.dart';
 
 class DSEmailTextField extends DSLocalValidableTextField {
   DSEmailTextField({
@@ -16,8 +15,7 @@ class DSEmailTextField extends DSLocalValidableTextField {
     super.validationMode,
     String? labelText,
   }) : super(
-          styleBuilder: (context, controller, isValid, isFocused, errorText) =>
-              LocalValidableFieldStyle(
+          style: (context) => LocalValidableFieldStyle(
             textStyle: context.textTheme.bodyLarge,
             labelText: labelText ?? context.l10n.emailField,
             errorMaxLines: Dimens.errorMaxLines,
@@ -36,11 +34,8 @@ class DSEmailTextField extends DSLocalValidableTextField {
         );
 
   @override
-  LocalValidationOptions<LocalFieldValidator<LocalValidationRules>>
-      get localValidationOptions =>
-          LocalValidationOptions<EmailLocalFieldValidator>(
-            validator: EmailLocalFieldValidator(
-              EmailLocalValidationRules(),
-            ),
-          );
+  LocalValidationOptions<LocalFieldValidator> get localValidationOptions =>
+      LocalValidationOptions<EmailLocalFieldValidator>(
+        validator: EmailLocalFieldValidator(),
+      );
 }

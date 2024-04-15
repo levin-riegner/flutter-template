@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_text_field/ds_validable_text_field.dart';
-import 'package:flutter_template/util/mixins/local_validation_mixin.dart';
-import 'package:flutter_template/util/tools/local_field_validator/local_field_validator.dart';
-import 'package:flutter_template/util/tools/local_field_validator/local_validation_rules.dart';
+import 'package:flutter_template/util/mixins/local_field_validation_mixin.dart';
+import 'package:flutter_template/util/tools/local_field_validation/local_field_validator.dart';
 
 class DSPlainTextField extends DSLocalValidableTextField {
   DSPlainTextField({
@@ -20,8 +19,7 @@ class DSPlainTextField extends DSLocalValidableTextField {
     bool autocorrect = true,
     bool enableSuggestions = true,
   }) : super(
-          styleBuilder: (context, controller, isValid, isFocused, errorText) =>
-              LocalValidableFieldStyle(
+          style: (context) => LocalValidableFieldStyle(
             labelText: labelText,
             errorMaxLines: Dimens.errorMaxLines,
             validatedIcon: const Icon(
@@ -37,11 +35,8 @@ class DSPlainTextField extends DSLocalValidableTextField {
         );
 
   @override
-  LocalValidationOptions<LocalFieldValidator<LocalValidationRules>>
-      get localValidationOptions =>
-          LocalValidationOptions<NonEmptyLocalFieldValidator>(
-            validator: NonEmptyLocalFieldValidator(
-              NonEmptyLocalValidationRules(),
-            ),
-          );
+  LocalValidationOptions<LocalFieldValidator> get localValidationOptions =>
+      LocalValidationOptions<NonEmptyLocalFieldValidator>(
+        validator: NonEmptyLocalFieldValidator(),
+      );
 }

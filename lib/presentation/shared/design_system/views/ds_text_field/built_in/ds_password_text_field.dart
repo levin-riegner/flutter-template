@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_text_field/ds_validable_text_field.dart';
 import 'package:flutter_template/util/extensions/context_extension.dart';
-import 'package:flutter_template/util/mixins/local_validation_mixin.dart';
-import 'package:flutter_template/util/tools/local_field_validator/local_field_validator.dart';
-import 'package:flutter_template/util/tools/local_field_validator/local_validation_rules.dart';
+import 'package:flutter_template/util/mixins/local_field_validation_mixin.dart';
+import 'package:flutter_template/util/tools/local_field_validation/local_field_validator.dart';
 
 class DSPasswordTextField extends DSLocalValidableTextField {
   DSPasswordTextField({
@@ -17,9 +16,7 @@ class DSPasswordTextField extends DSLocalValidableTextField {
     String? labelText,
     String? helperText,
   }) : super(
-          styleBuilder: (context, controller, isValid, isFocused, errorText) =>
-              LocalValidableFieldStyle(
-            textStyle: context.textTheme.bodyLarge,
+          style: (context) => LocalValidableFieldStyle(
             labelText: labelText ?? context.l10n.passwordField,
             errorMaxLines: Dimens.errorMaxLines,
             shouldObscureText: true,
@@ -41,13 +38,10 @@ class DSPasswordTextField extends DSLocalValidableTextField {
         );
 
   @override
-  LocalValidationOptions<LocalFieldValidator<LocalValidationRules>>
-      get localValidationOptions =>
-          LocalValidationOptions<PasswordLocalFieldValidator>(
-            validator: PasswordLocalFieldValidator(
-              PasswordLocalValidationRules(),
-            ),
-          );
+  LocalValidationOptions<LocalFieldValidator> get localValidationOptions =>
+      LocalValidationOptions<PasswordLocalFieldValidator>(
+        validator: PasswordLocalFieldValidator(),
+      );
 }
 
 class DSConfirmPasswordTextField extends DSPasswordTextField {
@@ -66,13 +60,8 @@ class DSConfirmPasswordTextField extends DSPasswordTextField {
   });
 
   @override
-  LocalValidationOptions<LocalFieldValidator<LocalValidationRules>>
-      get localValidationOptions =>
-          LocalValidationOptions<ConfirmPasswordLocalFieldValidator>(
-            validator: ConfirmPasswordLocalFieldValidator(
-              ConfirmPasswordLocalValidationRules(
-                passwordBind.value,
-              ),
-            ),
-          );
+  LocalValidationOptions<LocalFieldValidator> get localValidationOptions =>
+      LocalValidationOptions<PasswordLocalFieldValidator>(
+        validator: PasswordLocalFieldValidator(),
+      );
 }

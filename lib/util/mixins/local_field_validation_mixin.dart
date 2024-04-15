@@ -1,19 +1,13 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_template/util/tools/local_field_validator/local_field_validator.dart';
+import 'package:flutter_template/util/tools/local_field_validation/local_field_validator.dart';
 
-mixin LocalValidationMixin {
+mixin LocalFieldValidationMixin {
   LocalValidationOptions get localValidationOptions;
 
-  String? localValidationPredicate(
-    BuildContext context,
+  List<String> validateAndLocalize(
     String? value,
   ) =>
-      localValidationOptions.validator.validate(
-        context,
-        value,
-        localValidationOptions.validator.validationRules,
-      );
+      localValidationOptions.validator.validate(value);
 }
 
 final class LocalValidationOptions<T extends LocalFieldValidator>

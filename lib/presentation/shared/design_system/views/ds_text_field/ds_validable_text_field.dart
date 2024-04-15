@@ -1,19 +1,12 @@
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/conditional_parent_widget.dart';
 import 'package:flutter_template/util/extensions/context_extension.dart';
-import 'package:flutter_template/util/mixins/local_validation_mixin.dart';
-import 'package:flutter_template/util/tools/local_field_validator/local_field_validator.dart';
-import 'package:flutter_template/util/tools/local_field_validator/local_validation_rules.dart';
-
-typedef LocalValidableFieldStyleBuilder = LocalValidableFieldStyle Function(
-  BuildContext context,
-  TextEditingController controller,
-  bool isValid,
-  bool isFocused,
-  String? errorText,
-);
+import 'package:flutter_template/util/mixins/local_field_validation_mixin.dart';
+import 'package:flutter_template/util/tools/local_field_validation/local_field_validator.dart';
+import 'package:flutter_template/util/tools/local_field_validation/local_validation_rules.dart';
 
 // Realtime validation will trigger the validationPredicate method every time the field changes
 // Submit validation will trigger the validationPredicate method only when the form is submitted
@@ -33,12 +26,12 @@ enum LocalValidationMode {
 
 // Extend this class to create your own custom text fields with local validation
 abstract class DSLocalValidableTextField extends StatefulWidget
-    with LocalValidationMixin {
+    with LocalFieldValidationMixin {
   final FocusNode? focusNode;
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
   final TextInputAction? textInputAction;
-  final LocalValidableFieldStyleBuilder styleBuilder;
+  final LocalValidableFieldStyle Function(BuildContext) style;
   final LocalValidationLookup lookupMode;
   final LocalValidationMode validationMode;
   final bool autoSubmit;
@@ -46,7 +39,7 @@ abstract class DSLocalValidableTextField extends StatefulWidget
 
   const DSLocalValidableTextField({
     super.key,
-    required this.styleBuilder,
+    required this.style,
     this.focusNode,
     this.textInputAction,
     this.onChanged,
@@ -62,17 +55,16 @@ abstract class DSLocalValidableTextField extends StatefulWidget
       _DSLocalValidableTextFieldState();
 
   @override
-  LocalValidationOptions<LocalFieldValidator<LocalValidationRules>>
-      get localValidationOptions;
+  LocalValidationOptions<LocalFieldValidator> get localValidationOptions;
 }
 
 class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
     extends State<T> {
   bool _isFocused = false;
-  late bool _fieldVisible;
-  late bool isValid;
+  final List<String> _localErrors = [];
 
-  String? _localErrorText;
+  late bool _fieldVisible;
+  late bool _isValid;
 
   late TextEditingController _controller;
 
@@ -87,7 +79,7 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
   }
 
   void _autoSubmitListener() {
-    if (isValid) {
+    if (_isValid) {
       widget.onSubmitted?.call(_controller.text);
     }
   }
@@ -95,30 +87,20 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    isValid = _localErrorText == null && _controller.text.isNotEmpty;
+    _isValid = _localErrors.isEmpty && _controller.text.isNotEmpty;
 
-    _fieldVisible = !widget
-        .styleBuilder(
-          context,
-          _controller,
-          isValid,
-          _isFocused,
-          _localErrorText,
-        )
-        .shouldObscureText;
+    _fieldVisible = !widget.style(context).shouldObscureText;
   }
 
   @override
   Widget build(BuildContext context) {
-    isValid = _localErrorText == null && _controller.text.isNotEmpty;
+    _isValid = _localErrors.isEmpty && _controller.text.isNotEmpty;
 
-    final fieldStyleBuilder = widget.styleBuilder(
-      context,
-      _controller,
-      isValid,
-      _isFocused,
-      _localErrorText,
-    );
+    final fieldMaxLength = (widget
+                .localValidationOptions.validator.validationRules
+                .firstWhereOrNull((element) => element is MaxLengthRule)
+            as MaxLengthRule?)
+        ?.ruleValue;
 
     return Focus(
       onFocusChange: (hasFocus) {
@@ -135,9 +117,11 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
 
             if (widget.validationMode != LocalValidationMode.disabled) {
               setState(() {
-                _localErrorText = widget.localValidationPredicate(
-                  context,
-                  value,
+                _localErrors.clear();
+                _localErrors.addAll(
+                  widget.validateAndLocalize(
+                    value,
+                  ),
                 );
               });
             }
@@ -148,35 +132,36 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
         ),
         child: TextField(
           controller: _controller,
-          style: fieldStyleBuilder.textStyle,
-          obscureText: fieldStyleBuilder.shouldObscureText && !_fieldVisible,
+          style: widget.style(context).textStyle,
+          obscureText:
+              widget.style(context).shouldObscureText && !_fieldVisible,
           decoration: InputDecoration(
-            labelText: fieldStyleBuilder.labelText,
+            labelText: widget.style(context).labelText,
             errorText: widget.validationMode == LocalValidationMode.explicit
-                ? _localErrorText
+                ? _localErrors.firstOrNull
                 : null,
-            errorMaxLines: fieldStyleBuilder.errorMaxLines,
-            errorStyle: fieldStyleBuilder.errorTextStyle,
-            helperText: fieldStyleBuilder.helperText,
-            helperMaxLines: fieldStyleBuilder.helperMaxLines,
-            helperStyle: fieldStyleBuilder.helperTextStyle,
+            errorMaxLines: widget.style(context).errorMaxLines,
+            errorStyle: widget.style(context).errorTextStyle,
+            helperText: widget.style(context).helperText,
+            helperMaxLines: widget.style(context).helperMaxLines,
+            helperStyle: widget.style(context).helperTextStyle,
             suffixIcon: widget.validationMode != LocalValidationMode.disabled
-                ? (fieldStyleBuilder.shouldObscureText
+                ? (widget.style(context).shouldObscureText
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          if (isValid &&
+                          if (_isValid &&
                               widget.validationMode ==
                                   LocalValidationMode.explicit)
-                            fieldStyleBuilder.validatedIcon ??
+                            widget.style(context).validatedIcon ??
                                 const SizedBox.shrink(),
                           ExcludeSemantics(
                             child: IconButton(
                               color: context.colorScheme.onBackground,
                               icon: _fieldVisible
-                                  ? fieldStyleBuilder.obscureTextActionIcon
-                                  : fieldStyleBuilder.showTextActionIcon,
+                                  ? widget.style(context).obscureTextActionIcon
+                                  : widget.style(context).showTextActionIcon,
                               onPressed: () {
                                 setState(() {
                                   _fieldVisible = !_fieldVisible;
@@ -186,10 +171,10 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
                           ),
                         ],
                       )
-                    : isValid &&
+                    : _isValid &&
                             widget.validationMode ==
                                 LocalValidationMode.explicit
-                        ? fieldStyleBuilder.validatedIcon
+                        ? widget.style(context).validatedIcon
                         : null)
                 : null,
           ),
@@ -197,9 +182,11 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
               ? (value) {
                   if (widget.lookupMode == LocalValidationLookup.realtime) {
                     setState(() {
-                      _localErrorText = widget.localValidationPredicate(
-                        context,
-                        value,
+                      _localErrors.clear();
+                      _localErrors.addAll(
+                        widget.validateAndLocalize(
+                          value,
+                        ),
                       );
                     });
                   }
@@ -213,9 +200,11 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
               ? (value) {
                   if (widget.lookupMode == LocalValidationLookup.submit) {
                     setState(() {
-                      _localErrorText = widget.localValidationPredicate(
-                        context,
-                        value,
+                      _localErrors.clear();
+                      _localErrors.addAll(
+                        widget.validateAndLocalize(
+                          value,
+                        ),
                       );
                     });
                   }
@@ -226,16 +215,15 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
                 }
               : widget.onSubmitted,
           textInputAction: widget.textInputAction,
-          autofillHints: fieldStyleBuilder.autofillHints,
-          enableSuggestions: fieldStyleBuilder.enableSuggestions,
-          autocorrect: fieldStyleBuilder.autocorrect,
-          keyboardType: fieldStyleBuilder.keyboardType,
-          textCapitalization: fieldStyleBuilder.textCapitalization,
+          autofillHints: widget.style(context).autofillHints,
+          enableSuggestions: widget.style(context).enableSuggestions,
+          autocorrect: widget.style(context).autocorrect,
+          keyboardType: widget.style(context).keyboardType,
+          textCapitalization: widget.style(context).textCapitalization,
           maxLength: widget.validationMode != LocalValidationMode.disabled
-              ? widget
-                  .localValidationOptions.validator.validationRules.maxLength
+              ? fieldMaxLength
               : null,
-          buildCounter: fieldStyleBuilder.displayMaxLengthCounter == true
+          buildCounter: widget.style(context).displayMaxLengthCounter == true
               ? null // Passing null defaults to showing Materials default counter Widget
               : (
                   context, {
@@ -252,6 +240,7 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
   @override
   void dispose() {
     _controller.dispose();
+    _localErrors.clear();
     super.dispose();
   }
 }
