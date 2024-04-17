@@ -251,5 +251,37 @@
   "otpVerificationPageTitle": "Verify Email",
   "@otpVerificationPageTitle": {
     "description": "Default title for the OTP verification page"
+  },
+  "authDataErrorCodeExpired": "The verification code has expired. Please request a new one.",
+  "@authDataErrorCodeExpired": {
+    "description": "Error message for an expired verification code"
+  },
+  "authDataErrorCodeMismatch": "The verification code is incorrect. Please try again.",
+  "@authDataErrorCodeMismatch": {
+    "description": "Error message for an incorrect verification code"
+  },
+  "authDataErrorInvalidParameterException": "The verification code is invalid. Please try again.",
+  "@authDataErrorInvalidParameterException": {
+    "description": "Error message for an invalid verification code"
+  },
+  "authDataErrorLimitExceededException": "You have exceeded the number of attempts. Please try again later.",
+  "@authDataErrorLimitExceededException": {
+    "description": "Error message for exceeding the number of verification attempts"
+  },
+  "authDataErrorNotAuthorized": "You are not authorized to perform this action.",
+  "@authDataErrorNotAuthorized": {
+    "description": "Error message for an unauthorized action"
+  },
+  "authDataErrorUserNotFound": "User not found.",
+  "@authDataErrorUserNotFound": {
+    "description": "Error message for a user not found"
+  },
+  "authDataErrorUserNotConfirmedException": "User is not confirmed.",
+  "@authDataErrorUserNotConfirmedException": {
+    "description": "Error message for an unconfirmed user"
+  },
+  "authDataErrorUsernameExists": "User already exists.",
+  "@authDataErrorUsernameExists": {
+    "description": "Error message for an existing user"
   }
 }

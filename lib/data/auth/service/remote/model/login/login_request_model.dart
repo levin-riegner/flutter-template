@@ -17,4 +17,10 @@ class LoginRequestModel extends Equatable {
         password,
         redirectUrl,
       ];
+
+  Map<String, dynamic> toJson() => {
+        'email': email,
+        'password': password,
+        'redirectUrl': redirectUrl,
+      };
 }

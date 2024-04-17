@@ -33,7 +33,7 @@ class Environment extends Equatable {
         iosAppId: "com.levinriegner.fluttertemplate.qa",
       ),
       appName: "FlutterTemplate QA",
-      apiBaseUrl: "https://newsapi.org/v2",
+      apiBaseUrl: "https://app-staging.deuxmoi.world",
       webViewUrls: WebViewUrls("https://staging.fluttertemplate.org"),
       deepLinkScheme: "templateqa",
       datadogConfig: DatadogConfig(clientToken: "fluttertemplate"),

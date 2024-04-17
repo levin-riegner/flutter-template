@@ -89,7 +89,14 @@ abstract class Dependencies {
     Intl.systemLocale = await findSystemLocale();
     final preferredLocales = await Devicelocale.preferredLanguages;
 
-    // HttpClient
+    // HttpClients
+    // Auth
+    final authHttpClient = Network.createAuthHttpClient(
+      environment.apiBaseUrl,
+      debugMode: isDebugBuild,
+    );
+
+    // API
     final httpClient = Network.createHttpClient(
       environment.apiBaseUrl,
       apiKey: Constants.apiKey,
@@ -133,7 +140,7 @@ abstract class Dependencies {
     );
     getIt.registerSingleton<AuthRepository>(
       AuthRepository(
-        AuthApiService(httpClient),
+        AuthApiService(authHttpClient),
         AuthLocalService(secureStorage),
       ),
     );

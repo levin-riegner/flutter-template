@@ -11,6 +11,44 @@ import 'package:flutter_template/data/shared/service/remote/interceptors/unautho
 import 'package:logging_flutter/logging_flutter.dart';
 
 abstract class Network {
+  static Dio createAuthHttpClient(
+    final String baseUrl, {
+    required bool debugMode,
+  }) {
+    // Create Dio Client
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: baseUrl,
+        connectTimeout:
+            const Duration(seconds: 20), // 20s for establishing connection
+        sendTimeout: const Duration(seconds: 20), // 20s for sending data
+        receiveTimeout: const Duration(seconds: 20), // 20s for receiving data
+        // Necessary headers for Cognito plugin, if not provided the request will fail
+        headers: {
+          Headers.acceptHeader: Headers.jsonContentType,
+          Headers.contentTypeHeader: Headers.formUrlEncodedContentType,
+        },
+      ),
+    )..interceptors.addAll(
+        [
+          // Firebase Performance Monitoring
+          if (!debugMode) FirebasePerformanceInterceptor(),
+          // Curl
+          CurlInterceptor(
+            printOnSuccess: true,
+            logPrint: (message) => Flogger.d(message, loggerName: "Auth-Curl"),
+          ),
+          // Logs
+          LoggingInterceptor(
+            logPrint: (message) =>
+                Flogger.d(message.toString(), loggerName: "Auth-Dio"),
+          ),
+        ],
+      );
+
+    return dio;
+  }
+
   static Dio createHttpClient(
     final String baseUrl, {
     required final String apiKey,

@@ -108,6 +108,7 @@ class AuthApiService with ApiResponseMapper {
         () async {
           final response = await client.post(
             AuthEndpoints.userLogin,
+            data: request.toJson(),
           );
 
           return LoginApiModel.fromJson(response.data);

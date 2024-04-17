@@ -16,6 +16,7 @@ import 'package:flutter_template/presentation/shared/design_system/views/ds_auth
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/ds_local_validable_form.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/ds_local_validable_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
+import 'package:flutter_template/util/extensions/auth_data_error_extension.dart';
 import 'package:flutter_template/util/extensions/string_extension.dart';
 import 'package:go_router/go_router.dart';
 
@@ -34,14 +35,14 @@ class LoginPage extends StatelessWidget {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginStateError) {
-          // TODO: Localize errors and think of a clever way to close this alert
-
           AlertService.showAlert(
             type: AlertType.error,
             context: context,
+            seconds: Dimens.alertDurationMedium,
             message: switch (state.error) {
               LoginUnknownError(error: String error) => error,
-              LoginDataError(error: AuthDataError error) => error.toString(),
+              LoginDataError(error: AuthDataError error) =>
+                error.localizedMessage(context),
             },
           );
         }

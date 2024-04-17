@@ -43,6 +43,9 @@ class AlertService {
         // Local variable 'flushBar' can't be referenced before it is declared.
         late final Flushbar flushBar;
         flushBar = Flushbar(
+          duration: const Duration(
+            seconds: _durationSeconds,
+          ),
           flushbarPosition: FlushbarPosition.TOP,
           flushbarStyle: FlushbarStyle.FLOATING,
           animationDuration: const Duration(milliseconds: 500),
