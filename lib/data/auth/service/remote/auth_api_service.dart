@@ -43,6 +43,7 @@ class AuthApiService with ApiResponseMapper {
         () async {
           final response = await client.post(
             AuthEndpoints.userRegister,
+            data: request.toJson(),
           );
 
           return CreateAccountApiModel.fromJson(response.data);
@@ -95,6 +96,7 @@ class AuthApiService with ApiResponseMapper {
         () async {
           final response = await client.post(
             AuthEndpoints.userConfirm,
+            data: request.toJson(),
           );
 
           return UserConfirmApiModel.fromJson(response.data);

@@ -36,14 +36,14 @@ class NonEmptyLocalFieldValidator extends LocalFieldValidator {
 
 class EmailLocalFieldValidator extends LocalFieldValidator {
   /* Default pattern includes: 
-      - Starts with a sequence of alphanumeric characters
+      - Starts with a sequence of alphanumeric characters or special characters (based on the RFC 5322 standard)
       - Followed by an '@' symbol
       - Followed by another sequence of alphanumeric characters
       - Followed by a period
       - Ends with a sequence of alphanumeric characters representing the top-level domain
    */
   static const _defaultPattern =
-      r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
 
   EmailLocalFieldValidator()
       : super(

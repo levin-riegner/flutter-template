@@ -17,7 +17,6 @@ import 'package:flutter_template/presentation/shared/design_system/views/ds_auth
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/ds_local_validable_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
 import 'package:flutter_template/util/extensions/auth_data_error_extension.dart';
-import 'package:flutter_template/util/extensions/string_extension.dart';
 import 'package:go_router/go_router.dart';
 
 // TODO: Replace with your custom designs, widgets and strings
@@ -34,6 +33,10 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
+        context.read<LocalValidableCubit>().setCanSubmit(
+              state.canSubmit,
+            );
+
         if (state is LoginStateError) {
           AlertService.showAlert(
             type: AlertType.error,
@@ -46,11 +49,6 @@ class LoginPage extends StatelessWidget {
             },
           );
         }
-
-        final canSubmit =
-            !state.email.isNullOrEmpty && !state.password.isNullOrEmpty;
-
-        context.read<LocalValidableCubit>().setCanSubmit(canSubmit);
       },
       child: Scaffold(
         appBar: AppBar(

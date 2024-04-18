@@ -42,6 +42,11 @@ class AuthRepository {
     return _localService.userAuthToken;
   }
 
+  Future<String?> get userEmail {
+    Flogger.i("Get User Email");
+    return _localService.userEmail;
+  }
+
   Future<void> saveUserToken(
     String token,
   ) async {
@@ -57,6 +62,15 @@ class AuthRepository {
     Flogger.i("Save User ID");
     return await _localService.saveUserId(
       id,
+    );
+  }
+
+  Future<void> saveUserEmail(
+    String email,
+  ) async {
+    Flogger.i("Save User Email");
+    return await _localService.saveUserEmail(
+      email,
     );
   }
 

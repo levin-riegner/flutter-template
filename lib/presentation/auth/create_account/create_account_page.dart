@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
+import 'package:flutter_template/data/auth/model/auth_data_error.dart';
+import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_cubit.dart';
+import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_error.dart';
+import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_state.dart';
 import 'package:flutter_template/presentation/auth/widgets/auth_action_button_pair.dart';
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
+import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/bloc/local_validable_cubit.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in_text_fields/ds_email_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in_text_fields/ds_password_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in_text_fields/ds_plain_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_terms_and_conditions.dart';
 import 'package:flutter_template/util/dependencies.dart';
+import 'package:flutter_template/util/extensions/auth_data_error_extension.dart';
 import 'package:flutter_template/util/tools/custom_tabs_launcher.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,65 +33,112 @@ class CreateAccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          title ?? context.l10n.signUpPageTitle,
+    return BlocListener<CreateAccountCubit, CreateAccountState>(
+      listener: (context, state) {
+        context.read<LocalValidableCubit>().setCanSubmit(
+              state.canSubmit,
+            );
+
+        if (state is CreateAccountStateError) {
+          AlertService.showAlert(
+            type: AlertType.error,
+            context: context,
+            seconds: Dimens.alertDurationMedium,
+            message: switch (state.error) {
+              CreateAccountUnknownError(error: String error) => error,
+              CreateAccountDataError(error: AuthDataError error) =>
+                error.localizedMessage(context),
+            },
+          );
+        }
+
+        if (state is CreateAccountStateSuccess) {
+          // Redirect to your desired page after successful account creation
+          context.go(
+            const OtpVerificationRoute().location,
+          );
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            title ?? context.l10n.signUpPageTitle,
+          ),
         ),
-      ),
-      body: const _CreateAccountForm(),
-      persistentFooterButtons: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: CheckboxListTile(
-                contentPadding: EdgeInsets.zero,
-                controlAffinity: ListTileControlAffinity.leading,
-                onChanged: (value) {},
-                value: false,
-                title: DSTermsAndConditions(
-                  text: context.l10n.termsAndConditionsAgreement,
-                  patterns: [
-                    LinkPattern(
-                      pattern:
-                          context.l10n.termsAndConditionsAgreementLinkPattern,
-                      onPressed: () => CustomTabsLauncher.instance.launchURL(
-                        getIt<Environment>().webViewUrls.termsAndConditions,
-                      ),
+        body: const _CreateAccountForm(),
+        persistentFooterButtons: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              BlocBuilder<CreateAccountCubit, CreateAccountState>(
+                builder: (context, state) => Align(
+                  alignment: Alignment.centerLeft,
+                  child: CheckboxListTile(
+                    contentPadding: EdgeInsets.zero,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    onChanged: (value) => context
+                        .read<CreateAccountCubit>()
+                        .setTermsAndConditionsAccepted(
+                          value ?? false,
+                        ),
+                    value: state.termsAndConditionsAccepted,
+                    title: DSTermsAndConditions(
+                      text: context.l10n.termsAndConditionsAgreement,
+                      patterns: [
+                        LinkPattern(
+                          pattern: context
+                              .l10n.termsAndConditionsAgreementLinkPattern,
+                          onPressed: () =>
+                              CustomTabsLauncher.instance.launchURL(
+                            getIt<Environment>().webViewUrls.termsAndConditions,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-            AuthActionButtonPair(
-              firstChild: DSPrimaryButton(
-                onPressed: () {
-                  // TODO: Perform sign up
-                },
-                text: context.l10n.signUpButton,
-              ),
-              secondChild: DSTextButton(
-                alignment: Alignment.center,
-                onPressed: () => context.go(
-                  const LoginRoute().location,
+              AuthActionButtonPair(
+                firstChild: BlocBuilder<CreateAccountCubit, CreateAccountState>(
+                  builder: (context, state) =>
+                      BlocBuilder<LocalValidableCubit, bool>(
+                    builder: (context, canSubmit) => DSPrimaryButton(
+                      isLoading: state is CreateAccountStateLoading,
+                      enabled: canSubmit,
+                      onPressed: () {
+                        context.read<CreateAccountCubit>().createAccount(
+                              email: state.email,
+                              password: state.password,
+                              confirmPassword: state.confirmPassword,
+                              firstName: state.firstName,
+                              lastName: state.lastName,
+                              termsAndConditionsAccepted:
+                                  state.termsAndConditionsAccepted,
+                            );
+                      },
+                      text: context.l10n.signUpButton,
+                    ),
+                  ),
                 ),
-                text: context.l10n.loginButton,
+                secondChild: DSTextButton(
+                  alignment: Alignment.center,
+                  onPressed: () => context.go(
+                    const LoginRoute().location,
+                  ),
+                  text: context.l10n.loginButton,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
-      persistentFooterAlignment: AlignmentDirectional.center,
+            ],
+          ),
+        ],
+        persistentFooterAlignment: AlignmentDirectional.center,
+      ),
     );
   }
 }
 
 class _CreateAccountForm extends StatefulWidget {
-  const _CreateAccountForm({
-    super.key,
-  });
+  const _CreateAccountForm();
 
   @override
   State<_CreateAccountForm> createState() => _CreateAccountFormState();
@@ -104,7 +159,7 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
       child: Column(
         children: [
           DSPlainTextField(
-            labelText: "First Name",
+            labelText: context.l10n.firstNameField,
             textCapitalization: TextCapitalization.words,
             textInputAction: TextInputAction.next,
             autocorrect: false,
@@ -113,10 +168,24 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
             autofillHints: const [
               AutofillHints.givenName,
             ],
+            onChanged: (val, isValid) {
+              if (isValid) {
+                context.read<CreateAccountCubit>().setFirstName(val);
+              } else {
+                context.read<CreateAccountCubit>().setFirstName("");
+              }
+            },
+            onSubmitted: (val, isValid) {
+              if (isValid) {
+                context.read<CreateAccountCubit>().setFirstName(val);
+              } else {
+                context.read<CreateAccountCubit>().setFirstName("");
+              }
+            },
           ),
           Dimens.boxMedium,
           DSPlainTextField(
-            labelText: "Last Name",
+            labelText: context.l10n.lastNameField,
             textCapitalization: TextCapitalization.words,
             textInputAction: TextInputAction.next,
             autocorrect: false,
@@ -125,19 +194,77 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
             autofillHints: const [
               AutofillHints.familyName,
             ],
+            onChanged: (val, isValid) {
+              if (isValid) {
+                context.read<CreateAccountCubit>().setLastName(val);
+              } else {
+                context.read<CreateAccountCubit>().setLastName("");
+              }
+            },
+            onSubmitted: (val, isValid) {
+              if (isValid) {
+                context.read<CreateAccountCubit>().setLastName(val);
+              } else {
+                context.read<CreateAccountCubit>().setLastName("");
+              }
+            },
           ),
           Dimens.boxMedium,
-          DSEmailTextField(),
+          DSEmailTextField(
+            onChanged: (val, isValid) {
+              if (isValid) {
+                context.read<CreateAccountCubit>().setEmail(val);
+              } else {
+                context.read<CreateAccountCubit>().setEmail("");
+              }
+            },
+            onSubmitted: (val, isValid) {
+              if (isValid) {
+                context.read<CreateAccountCubit>().setEmail(val);
+              } else {
+                context.read<CreateAccountCubit>().setEmail("");
+              }
+            },
+          ),
           Dimens.boxMedium,
           DSPasswordTextField(
             helperText: context.l10n.passwordRequirements,
-            onChanged: (value, isValid) {
-              _passwordBind.value = value;
+            onChanged: (val, isValid) {
+              _passwordBind.value = val;
+
+              if (isValid) {
+                context.read<CreateAccountCubit>().setPassword(val);
+              } else {
+                context.read<CreateAccountCubit>().setPassword("");
+              }
+            },
+            onSubmitted: (val, isValid) {
+              if (isValid) {
+                context.read<CreateAccountCubit>().setPassword(val);
+              } else {
+                context.read<CreateAccountCubit>().setPassword("");
+              }
             },
           ),
           Dimens.boxMedium,
           DSConfirmPasswordTextField(
+            labelText: context.l10n.confirmPasswordField,
+            helperText: context.l10n.confirmPasswordRequirements,
             passwordBind: _passwordBind,
+            onChanged: (val, isValid) {
+              if (isValid) {
+                context.read<CreateAccountCubit>().setConfirmPassword(val);
+              } else {
+                context.read<CreateAccountCubit>().setConfirmPassword("");
+              }
+            },
+            onSubmitted: (val, isValid) {
+              if (isValid) {
+                context.read<CreateAccountCubit>().setConfirmPassword(val);
+              } else {
+                context.read<CreateAccountCubit>().setConfirmPassword("");
+              }
+            },
           ),
         ],
       ),

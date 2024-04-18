@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_template/data/auth/model/login_model.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
+import 'package:flutter_template/util/extensions/string_extension.dart';
 
 sealed class LoginState extends Equatable {
   final String email;
@@ -10,6 +11,18 @@ sealed class LoginState extends Equatable {
     required this.email,
     required this.password,
   });
+
+  bool get canSubmit => props.every(
+        (element) {
+          if (element is String) {
+            return !element.isNullOrEmpty;
+          } else if (element is bool) {
+            return element;
+          } else {
+            return false;
+          }
+        },
+      );
 }
 
 class LoginStateInitial extends LoginState {

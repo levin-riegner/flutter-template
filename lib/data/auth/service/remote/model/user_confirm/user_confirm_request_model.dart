@@ -14,4 +14,9 @@ class UserConfirmRequestModel extends Equatable {
         email,
         code,
       ];
+
+  Map<String, dynamic> toJson() => {
+        'email': email,
+        'code': code,
+      };
 }

@@ -23,4 +23,12 @@ class CreateAccountRequestModel extends Equatable {
         lastName,
         username,
       ];
+
+  Map<String, dynamic> toJson() => {
+        'email': email,
+        'password': password,
+        'firstName': firstName,
+        'lastName': lastName,
+        'username': username,
+      };
 }

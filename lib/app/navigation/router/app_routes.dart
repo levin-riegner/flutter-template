@@ -7,9 +7,11 @@ import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/blank_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
 import 'package:flutter_template/presentation/auth/change_password/change_password_page.dart';
+import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_cubit.dart';
 import 'package:flutter_template/presentation/auth/create_account/create_account_page.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_cubit.dart';
 import 'package:flutter_template/presentation/auth/login/login_page.dart';
+import 'package:flutter_template/presentation/auth/otp_verification/bloc/user_confirm/user_confirm_cubit.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/otp_verification_page.dart';
 import 'package:flutter_template/presentation/bottom_navigation/bottom_navigation_page.dart';
 import 'package:flutter_template/presentation/settings/account_details_page.dart';
@@ -332,7 +334,19 @@ class CreateAccountRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const CreateAccountPage();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CreateAccountCubit>(
+          create: (context) => CreateAccountCubit(
+            getIt<AuthRepository>(),
+          ),
+        ),
+        BlocProvider<LocalValidableCubit>(
+          create: (context) => LocalValidableCubit(),
+        ),
+      ],
+      child: const CreateAccountPage(),
+    );
   }
 }
 
@@ -366,7 +380,19 @@ class OtpVerificationRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const OtpVerificationPage();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<UserConfirmCubit>(
+          create: (context) => UserConfirmCubit(
+            getIt<AuthRepository>(),
+          ),
+        ),
+        BlocProvider<LocalValidableCubit>(
+          create: (context) => LocalValidableCubit(),
+        ),
+      ],
+      child: const OtpVerificationPage(),
+    );
   }
 }
 //#endregion

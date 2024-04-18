@@ -35,12 +35,20 @@ class AuthLocalService {
         () => _secureStorage.getUserAuthToken(),
       );
 
+  Future<String?> get userEmail => _runThrowable(
+        () => _secureStorage.getUserEmail(),
+      );
+
   Future<void> saveUserAuthToken(String token) => _runThrowable(
         () => _secureStorage.saveUserAuthToken(token),
       );
 
   Future<void> saveUserId(String id) => _runThrowable(
         () => _secureStorage.saveUserId(id),
+      );
+
+  Future<void> saveUserEmail(String email) => _runThrowable(
+        () => _secureStorage.saveUserEmail(email),
       );
 
   Future<void> clearSession() => _runThrowable(

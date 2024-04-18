@@ -283,5 +283,17 @@
   "authDataErrorUsernameExists": "User already exists.",
   "@authDataErrorUsernameExists": {
     "description": "Error message for an existing user"
+  },
+  "firstNameField": "First Name",
+  "@firstNameField": {
+    "description": "Label for the first name field"
+  },
+  "lastNameField": "Last Name",
+  "@lastNameField": {
+    "description": "Label for the last name field"
+  },
+  "phoneNumberField": "Phone Number",
+  "@phoneNumberField": {
+    "description": "Label for the phone number field"
   }
 }
