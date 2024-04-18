@@ -137,6 +137,7 @@ class AuthApiService with ApiResponseMapper {
         () async {
           final response = await client.post(
             AuthEndpoints.userForgotPasswordRequest,
+            data: request.toJson(),
           );
 
           return response.statusCode == 200;

@@ -5,10 +5,12 @@ import 'package:flutter_template/util/extensions/string_extension.dart';
 sealed class OtpVerificationState extends Equatable {
   final String code;
   final String email;
+  final bool? resendSuccesful;
 
   const OtpVerificationState({
     required this.code,
     required this.email,
+    this.resendSuccesful,
   });
 
   bool get canSubmit => props.every(
@@ -28,6 +30,7 @@ class OtpVerificationStateInitial extends OtpVerificationState {
   const OtpVerificationStateInitial({
     required super.code,
     required super.email,
+    super.resendSuccesful,
   });
 
   @override
@@ -39,10 +42,12 @@ class OtpVerificationStateInitial extends OtpVerificationState {
   OtpVerificationStateInitial copyWith({
     String? code,
     String? email,
+    bool? resendSuccesful,
   }) =>
       OtpVerificationStateInitial(
         code: code ?? this.code,
         email: email ?? this.email,
+        resendSuccesful: resendSuccesful ?? this.resendSuccesful,
       );
 }
 
@@ -50,6 +55,7 @@ class OtpVerificationStateLoading extends OtpVerificationState {
   const OtpVerificationStateLoading({
     required super.code,
     required super.email,
+    super.resendSuccesful,
   });
 
   @override
@@ -61,10 +67,12 @@ class OtpVerificationStateLoading extends OtpVerificationState {
   OtpVerificationStateLoading copyWith({
     String? code,
     String? email,
+    bool? resendSuccesful,
   }) =>
       OtpVerificationStateLoading(
         code: code ?? this.code,
         email: email ?? this.email,
+        resendSuccesful: resendSuccesful ?? this.resendSuccesful,
       );
 }
 
@@ -75,6 +83,7 @@ class OtpVerificationStateSuccess<T> extends OtpVerificationState {
     required super.code,
     required super.email,
     required this.data,
+    super.resendSuccesful,
   });
 
   @override
@@ -86,11 +95,15 @@ class OtpVerificationStateSuccess<T> extends OtpVerificationState {
 
   OtpVerificationStateSuccess copyWith({
     String? code,
+    String? email,
+    T? data,
+    bool? resendSuccesful,
   }) =>
       OtpVerificationStateSuccess(
         code: code ?? this.code,
-        email: email,
-        data: data,
+        email: email ?? this.email,
+        data: data ?? this.data,
+        resendSuccesful: resendSuccesful ?? this.resendSuccesful,
       );
 }
 
@@ -101,6 +114,7 @@ class OtpVerificationStateError extends OtpVerificationState {
     required this.error,
     required super.code,
     required super.email,
+    super.resendSuccesful,
   });
 
   @override
@@ -114,10 +128,12 @@ class OtpVerificationStateError extends OtpVerificationState {
     OtpVerificationError? error,
     String? code,
     String? email,
+    bool? resendSuccesful,
   }) =>
       OtpVerificationStateError(
         error: error ?? this.error,
         code: code ?? this.code,
         email: email ?? this.email,
+        resendSuccesful: resendSuccesful ?? this.resendSuccesful,
       );
 }

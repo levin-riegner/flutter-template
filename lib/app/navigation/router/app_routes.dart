@@ -391,7 +391,13 @@ class OtpVerificationRoute extends GoRouteData {
           create: (context) => LocalValidableCubit(),
         ),
       ],
-      child: const OtpVerificationPage(),
+      child: OtpVerificationPage(
+        onVerificationSuccess: (userConfirmModel) {
+          context.go(
+            const ArticlesRoute().location,
+          );
+        },
+      ),
     );
   }
 }

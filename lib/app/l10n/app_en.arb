@@ -236,6 +236,19 @@
   "@otpSendAgainButton": {
     "description": "Label for the button to resend the OTP"
   },
+  "otpSendAgainButtonCountdown": "Send Again in {seconds}",
+  "@otpSendAgainButtonCountdown": {
+    "description": "Label for the button to resend the OTP with a countdown in seconds",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "otpResendSuccessMessage": "We have sent a new verification code to your email",
+  "@otpResendSuccessMessage": {
+    "description": "Success message for resending the OTP"
+  },
   "signUpPageTitle": "Sign Up",
   "@signUpPageTitle": {
     "description": "Default title for the sign up page"

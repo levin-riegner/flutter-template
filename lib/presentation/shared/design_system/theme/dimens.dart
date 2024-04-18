@@ -70,6 +70,8 @@ abstract class Dimens {
   static const double bottomSheetBorderRadius = 24;
   static const double snackBarBorderRadius = 0;
 
+  static const double otpFieldBorderRadius = 8;
+
   static const int errorMaxLines = 4;
 
   // View-specific dimensions

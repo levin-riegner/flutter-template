@@ -11,4 +11,8 @@ class ForgotPasswordRequestRequestModel extends Equatable {
   List<Object?> get props => [
         email,
       ];
+
+  Map<String, dynamic> toJson() => {
+        'email': email,
+      };
 }
