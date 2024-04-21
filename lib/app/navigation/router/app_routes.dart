@@ -300,7 +300,11 @@ class AccountDetailsRoute extends GoRouteData {
   name: "LoginPage",
 )
 class LoginRoute extends GoRouteData {
-  const LoginRoute();
+  final String? pageTitle;
+
+  const LoginRoute({
+    this.pageTitle,
+  });
 
   // Use parent navigator to navigate without bottom bar
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -319,7 +323,9 @@ class LoginRoute extends GoRouteData {
           create: (context) => LocalValidableCubit(),
         ),
       ],
-      child: const LoginPage(),
+      child: LoginPage(
+        title: pageTitle,
+      ),
     );
   }
 }
@@ -329,7 +335,11 @@ class LoginRoute extends GoRouteData {
   name: "CreateAccountPage",
 )
 class CreateAccountRoute extends GoRouteData {
-  const CreateAccountRoute();
+  final String? pageTitle;
+
+  const CreateAccountRoute({
+    this.pageTitle,
+  });
 
   // Use parent navigator to navigate without bottom bar
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -348,7 +358,9 @@ class CreateAccountRoute extends GoRouteData {
           create: (context) => LocalValidableCubit(),
         ),
       ],
-      child: const CreateAccountPage(),
+      child: CreateAccountPage(
+        title: pageTitle,
+      ),
     );
   }
 }
@@ -364,7 +376,11 @@ class CreateAccountRoute extends GoRouteData {
   ],
 )
 class ChangePasswordRequestRoute extends GoRouteData {
-  const ChangePasswordRequestRoute();
+  final String? pageTitle;
+
+  const ChangePasswordRequestRoute({
+    this.pageTitle,
+  });
 
   // Use parent navigator to navigate without bottom bar
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -383,13 +399,21 @@ class ChangePasswordRequestRoute extends GoRouteData {
           create: (context) => LocalValidableCubit(),
         ),
       ],
-      child: const ChangePasswordRequestPage(),
+      child: ChangePasswordRequestPage(
+        title: pageTitle,
+      ),
     );
   }
 }
 
 class ChangePasswordConfirmRoute extends GoRouteData {
-  const ChangePasswordConfirmRoute();
+  final String? pageTitle;
+  final String? email;
+
+  const ChangePasswordConfirmRoute({
+    this.pageTitle,
+    this.email,
+  });
 
   // Use parent navigator to navigate without bottom bar
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -397,14 +421,6 @@ class ChangePasswordConfirmRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    String? email;
-
-    if (state.extra is Map<String, dynamic>) {
-      final extra = state.extra as Map<String, dynamic>;
-
-      email = extra["email"] as String?;
-    }
-
     return MultiBlocProvider(
       providers: [
         BlocProvider<ChangePasswordConfirmCubit>(
@@ -417,6 +433,7 @@ class ChangePasswordConfirmRoute extends GoRouteData {
         ),
       ],
       child: ChangePasswordConfirmPage(
+        title: pageTitle,
         onPasswordChangedSuccess: () {
           // TODO: Redirect to your desired page after successful password change
           context.go(
@@ -433,7 +450,17 @@ class ChangePasswordConfirmRoute extends GoRouteData {
   name: "OtpVerificationPage",
 )
 class OtpVerificationRoute extends GoRouteData {
-  const OtpVerificationRoute();
+  final String? pageTitle;
+  final String? rationale;
+  final String? email;
+  final bool sendCodeOnInit;
+
+  const OtpVerificationRoute({
+    this.pageTitle,
+    this.rationale,
+    this.email,
+    this.sendCodeOnInit = false,
+  });
 
   // Use parent navigator to navigate without bottom bar
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -453,7 +480,10 @@ class OtpVerificationRoute extends GoRouteData {
         ),
       ],
       child: OtpVerificationPage(
-        sendCodeOnInit: state.extra is bool && state.extra == true,
+        title: pageTitle,
+        rationale: rationale,
+        email: email,
+        sendCodeOnInit: sendCodeOnInit,
         onVerificationSuccess: (data) {
           // TODO: Redirect to your desired page after successful user verification
           context.go(

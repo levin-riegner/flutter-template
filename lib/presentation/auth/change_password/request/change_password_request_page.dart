@@ -50,10 +50,9 @@ class ChangePasswordRequestPage extends StatelessWidget {
 
         if (state is ChangePasswordRequestSuccess) {
           context.push(
-            const ChangePasswordConfirmRoute().location,
-            extra: {
-              "email": state.email,
-            },
+            ChangePasswordConfirmRoute(
+              email: state.email,
+            ).location,
           );
         }
       },

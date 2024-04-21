@@ -67,7 +67,9 @@ class LoginPage extends StatelessWidget {
               Dimens.boxXLarge,
               ForgotPasswordButton(
                 onPressed: () => context.push(
-                  const ChangePasswordRequestRoute().location,
+                  ChangePasswordRequestRoute(
+                    pageTitle: context.l10n.resetPasswordPageTitle,
+                  ).location,
                 ),
               ),
             ],

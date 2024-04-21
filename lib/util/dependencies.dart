@@ -100,9 +100,10 @@ abstract class Dependencies {
         final context = NavigatorHolder.rootNavigatorKey.currentState!.context;
         if (!context.mounted) return;
         context.go(
-          const OtpVerificationRoute().location,
-          // Send OTP to email as soon as the screen is shown
-          extra: true,
+          const OtpVerificationRoute(
+            // Send OTP to email as soon as the screen is shown
+            sendCodeOnInit: true,
+          ).location,
         );
         // Give some time for the navigation to complete and show alert
         await Future.delayed(const Duration(milliseconds: 500));

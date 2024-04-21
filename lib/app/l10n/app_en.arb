@@ -258,8 +258,12 @@
     "description": "Default title for the login page"
   },
   "changePasswordPageTitle": "Change Password",
-  "@forgotPasswordPageTitle": {
-    "description": "Default title for the forgot or update password pages"
+  "@changePasswordPageTitle": {
+    "description": "Default title for the change password page"
+  },
+  "resetPasswordPageTitle": "Reset Password",
+  "@resetPasswordPageTitle": {
+    "description": "Default title for the forgot password page"
   },
   "otpVerificationPageTitle": "Verify Email",
   "@otpVerificationPageTitle": {
