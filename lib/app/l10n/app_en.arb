@@ -308,5 +308,13 @@
   "phoneNumberField": "Phone Number",
   "@phoneNumberField": {
     "description": "Label for the phone number field"
+  },
+  "unconfirmedAccountAlertTitle": "Account not confirmed",
+  "@unconfirmedAccountAlertTitle": {
+    "description": "Alert title for an unconfirmed account"
+  },
+  "unconfirmedAccountAlertDescription": "Please confirm your account by entering the verification code sent to your email",
+  "@unconfirmedAccountAlertDescription": {
+    "description": "Alert description for an unconfirmed account"
   }
 }

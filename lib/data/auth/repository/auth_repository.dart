@@ -13,6 +13,7 @@ import 'package:flutter_template/data/auth/service/remote/model/forgot_password_
 import 'package:flutter_template/data/auth/service/remote/model/login/login_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/refresh_token/refresh_token_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_confirm/user_confirm_request_model.dart';
+import 'package:flutter_template/data/auth/service/remote/model/user_confirm_request/user_confirm_request_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_delete/user_delete_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_disable/user_disable_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_update/user_update_request_model.dart';
@@ -127,6 +128,15 @@ class AuthRepository {
     );
 
     return apiResponse.toDomain();
+  }
+
+  Future<bool> sendConfirmUserRequest(
+    UserConfirmRequestRequestModel request,
+  ) async {
+    Flogger.i("Send confirm user request");
+    return await _apiService.sendConfirmUserRequest(
+      request,
+    );
   }
 
   Future<UserConfirmModel> confirmUser(

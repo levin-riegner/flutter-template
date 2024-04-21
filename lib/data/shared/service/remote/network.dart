@@ -8,12 +8,14 @@ import 'package:flutter_template/data/shared/service/remote/interceptors/curl_in
 import 'package:flutter_template/data/shared/service/remote/interceptors/firebase_performance_interceptor.dart';
 import 'package:flutter_template/data/shared/service/remote/interceptors/logging_interceptor.dart';
 import 'package:flutter_template/data/shared/service/remote/interceptors/unauthorized_interceptor.dart';
+import 'package:flutter_template/data/shared/service/remote/interceptors/unconfirmed_interceptor.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 abstract class Network {
   static Dio createAuthHttpClient(
     final String baseUrl, {
     required bool debugMode,
+    required Future<void> Function() onUnconfirmed,
   }) {
     // Create Dio Client
     final dio = Dio(
@@ -31,6 +33,8 @@ abstract class Network {
       ),
     )..interceptors.addAll(
         [
+          // Unconfirmed user
+          UnconfirmedInterceptor(onUnconfirmed),
           // Firebase Performance Monitoring
           if (!debugMode) FirebasePerformanceInterceptor(),
           // Curl

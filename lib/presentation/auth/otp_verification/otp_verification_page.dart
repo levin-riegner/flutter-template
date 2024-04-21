@@ -23,6 +23,7 @@ class OtpVerificationPage extends StatelessWidget {
   final String? rationale;
   final String? email;
   final Function(UserConfirmModel)? onVerificationSuccess;
+  final bool sendCodeOnInit;
 
   const OtpVerificationPage({
     super.key,
@@ -30,10 +31,15 @@ class OtpVerificationPage extends StatelessWidget {
     this.rationale,
     this.email,
     this.onVerificationSuccess,
+    this.sendCodeOnInit = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (sendCodeOnInit) {
+      context.read<UserConfirmCubit>().sendCodeToEmail();
+    }
+
     return BlocListener<UserConfirmCubit, OtpVerificationState>(
       listener: (context, state) {
         context.read<LocalValidableCubit>().setCanSubmit(

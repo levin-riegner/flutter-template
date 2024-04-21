@@ -392,6 +392,7 @@ class OtpVerificationRoute extends GoRouteData {
         ),
       ],
       child: OtpVerificationPage(
+        sendCodeOnInit: (state.extra as bool?) ?? false,
         onVerificationSuccess: (userConfirmModel) {
           context.go(
             const ArticlesRoute().location,

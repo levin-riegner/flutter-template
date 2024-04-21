@@ -3,6 +3,8 @@ abstract class AuthEndpoints {
   static const String userUpdate = "/actions/craft-cognito/auth/update";
   static const String userDelete = "/actions/craft-cognito/auth/delete";
   static const String userDisable = "/actions/craft-cognito/auth/disable";
+  static const String userConfirmRequest =
+      "/actions/craft-cognito/auth/confirmrequest";
   static const String userConfirm = "/actions/craft-cognito/auth/confirm";
   static const String userLogin = "/actions/craft-cognito/auth/login";
   static const String userRefreshToken = "/actions/craft-cognito/auth/refresh";

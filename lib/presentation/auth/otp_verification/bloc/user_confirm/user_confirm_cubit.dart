@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_confirm/user_confirm_request_model.dart';
+import 'package:flutter_template/data/auth/service/remote/model/user_confirm_request/user_confirm_request_request_model.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_cubit.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_error.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_state.dart';
@@ -28,13 +29,13 @@ class UserConfirmCubit extends OtpVerificationCubit {
     try {
       await retrieveUserEmail();
 
-      // TODO: Wait for Craft endpoint to be implemented
-      // /forgotpasswordrequest only works for confirmed accounts
-      /* final result = await _authRepository.sendForgotPasswordRequest(
-        ForgotPasswordRequestRequestModel(email: state.email),
-      ); */
+      final result = await _authRepository.sendConfirmUserRequest(
+        UserConfirmRequestRequestModel(
+          email: state.email,
+        ),
+      );
 
-      return false;
+      return result;
     } on AuthDataError catch (error) {
       emit(
         OtpVerificationStateError(
@@ -71,8 +72,7 @@ class UserConfirmCubit extends OtpVerificationCubit {
   }
 
   Future<void> retrieveUserEmail() async {
-    const userEmail =
-        "javier@levinriegner.com"; // await _authRepository.userEmail;
+    final userEmail = await _authRepository.userEmail;
 
     if (state is OtpVerificationStateInitial) {
       emit(

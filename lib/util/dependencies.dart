@@ -39,6 +39,7 @@ import 'package:flutter_template/util/integrations/remote_config.dart';
 import 'package:flutter_template/util/tools/permissions_service.dart';
 import 'package:flutter_template/util/tools/shake_manager.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart';
 import 'package:isar/isar.dart';
@@ -94,6 +95,26 @@ abstract class Dependencies {
     final authHttpClient = Network.createAuthHttpClient(
       environment.apiBaseUrl,
       debugMode: isDebugBuild,
+      onUnconfirmed: () async {
+        Flogger.i("On Unconfirmed");
+        final context = NavigatorHolder.rootNavigatorKey.currentState!.context;
+        if (!context.mounted) return;
+        context.go(
+          const OtpVerificationRoute().location,
+          // Send OTP to email as soon as the screen is shown
+          extra: true,
+        );
+        // Give some time for the navigation to complete and show alert
+        await Future.delayed(const Duration(milliseconds: 500));
+
+        if (!context.mounted) return;
+        AlertService.showAlert(
+          context: context,
+          title: context.l10n.unconfirmedAccountAlertTitle,
+          message: context.l10n.unconfirmedAccountAlertDescription,
+          type: AlertType.error,
+        );
+      },
     );
 
     // API

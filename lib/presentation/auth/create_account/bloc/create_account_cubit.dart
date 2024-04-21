@@ -103,8 +103,11 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
         lastName: lastName,
       );
 
-      final result =
-          await _authRepository.createAccountWithEmailAndPassword(request);
+      final result = await _authRepository.createAccountWithEmailAndPassword(
+        request,
+      );
+
+      await _authRepository.saveUserEmail(email);
 
       emit(
         CreateAccountStateSuccess(

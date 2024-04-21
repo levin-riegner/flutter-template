@@ -10,6 +10,7 @@ import 'package:flutter_template/data/auth/service/remote/model/refresh_token/re
 import 'package:flutter_template/data/auth/service/remote/model/refresh_token/refresh_token_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_confirm/user_confirm_api_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_confirm/user_confirm_request_model.dart';
+import 'package:flutter_template/data/auth/service/remote/model/user_confirm_request/user_confirm_request_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_delete/user_delete_api_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_delete/user_delete_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_disable/user_disable_api_model.dart';
@@ -86,6 +87,20 @@ class AuthApiService with ApiResponseMapper {
           );
 
           return UserDisableApiModel.fromJson(response.data);
+        },
+      );
+
+  Future<bool> sendConfirmUserRequest(
+    UserConfirmRequestRequestModel request,
+  ) =>
+      _runThrowable(
+        () async {
+          final response = await client.post(
+            AuthEndpoints.userConfirmRequest,
+            data: request.toJson(),
+          );
+
+          return response.statusCode == 200;
         },
       );
 
