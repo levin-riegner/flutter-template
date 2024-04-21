@@ -82,14 +82,16 @@ class UserConfirmCubit extends OtpVerificationCubit {
   }
 
   Future<void> verifyCode(String code) async {
-    emit(
-      OtpVerificationStateLoading(
-        code: code,
-        email: state.email,
-      ),
-    );
-
     try {
+      await retrieveUserEmail();
+
+      emit(
+        OtpVerificationStateLoading(
+          code: code,
+          email: state.email,
+        ),
+      );
+
       final request = UserConfirmRequestModel(
         code: code,
         email: state.email,
