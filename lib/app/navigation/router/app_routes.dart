@@ -6,7 +6,10 @@ import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/blank_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
-import 'package:flutter_template/presentation/auth/change_password/change_password_page.dart';
+import 'package:flutter_template/presentation/auth/change_password/confirm/bloc/change_password_confirm_cubit.dart';
+import 'package:flutter_template/presentation/auth/change_password/confirm/change_password_confirm_page.dart';
+import 'package:flutter_template/presentation/auth/change_password/request/bloc/change_password_request_cubit.dart';
+import 'package:flutter_template/presentation/auth/change_password/request/change_password_request_page.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_cubit.dart';
 import 'package:flutter_template/presentation/auth/create_account/create_account_page.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_cubit.dart';
@@ -350,12 +353,18 @@ class CreateAccountRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<ChangePasswordRoute>(
-  path: "/change-password",
-  name: "ChangePasswordPage",
+@TypedGoRoute<ChangePasswordRequestRoute>(
+  path: "/change-password-request",
+  name: "ChangePasswordRequestPage",
+  routes: [
+    TypedGoRoute<ChangePasswordConfirmRoute>(
+      path: "confirm",
+      name: "ChangePasswordConfirmPage",
+    ),
+  ],
 )
-class ChangePasswordRoute extends GoRouteData {
-  const ChangePasswordRoute();
+class ChangePasswordRequestRoute extends GoRouteData {
+  const ChangePasswordRequestRoute();
 
   // Use parent navigator to navigate without bottom bar
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -363,7 +372,59 @@ class ChangePasswordRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const ChangePasswordPage();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ChangePasswordRequestCubit>(
+          create: (context) => ChangePasswordRequestCubit(
+            getIt<AuthRepository>(),
+          ),
+        ),
+        BlocProvider<LocalValidableCubit>(
+          create: (context) => LocalValidableCubit(),
+        ),
+      ],
+      child: const ChangePasswordRequestPage(),
+    );
+  }
+}
+
+class ChangePasswordConfirmRoute extends GoRouteData {
+  const ChangePasswordConfirmRoute();
+
+  // Use parent navigator to navigate without bottom bar
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    String? email;
+
+    if (state.extra is Map<String, dynamic>) {
+      final extra = state.extra as Map<String, dynamic>;
+
+      email = extra["email"] as String?;
+    }
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ChangePasswordConfirmCubit>(
+          create: (context) => ChangePasswordConfirmCubit(
+            getIt<AuthRepository>(),
+          )..retrieveEmail(email),
+        ),
+        BlocProvider<LocalValidableCubit>(
+          create: (context) => LocalValidableCubit(),
+        ),
+      ],
+      child: ChangePasswordConfirmPage(
+        onPasswordChangedSuccess: () {
+          // TODO: Redirect to your desired page after successful password change
+          context.go(
+            const LoginRoute().location,
+          );
+        },
+      ),
+    );
   }
 }
 
@@ -392,8 +453,9 @@ class OtpVerificationRoute extends GoRouteData {
         ),
       ],
       child: OtpVerificationPage(
-        sendCodeOnInit: (state.extra as bool?) ?? false,
-        onVerificationSuccess: (userConfirmModel) {
+        sendCodeOnInit: state.extra is bool && state.extra == true,
+        onVerificationSuccess: (data) {
+          // TODO: Redirect to your desired page after successful user verification
           context.go(
             const ArticlesRoute().location,
           );

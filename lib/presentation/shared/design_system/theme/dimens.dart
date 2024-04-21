@@ -82,6 +82,7 @@ abstract class Dimens {
   static const Duration slideAnimationDuration = Duration(milliseconds: 400);
 
   // Alerts
+  static const int alertDurationXShort = 2;
   static const int alertDurationShort = 3;
   static const int alertDurationMedium = 6;
   static const int alertDurationLong = 9;

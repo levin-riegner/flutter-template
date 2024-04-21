@@ -316,5 +316,21 @@
   "unconfirmedAccountAlertDescription": "Please confirm your account by entering the verification code sent to your email",
   "@unconfirmedAccountAlertDescription": {
     "description": "Alert description for an unconfirmed account"
+  },
+  "sendCodeButton": "Send Code",
+  "@sendCodeButton": {
+    "description": "Label for the send code button"
+  },
+  "changePasswordRequestRationale": "Enter the email address associated with your account to receive a verification code. You will then be able to change your password.",
+  "@changePasswordRequestRationale": {
+    "description": "Label for the email verification step rationale at the change password flow"
+  },
+  "changePasswordConfirmRationale": "Enter the code sent to your email and set your new password. Check your spam folder if you can't find the email",
+  "@changePasswordConfirmRationale": {
+    "description": "Label for the confirm password step rationale at the change password flow"
+  },
+  "passwordChangedSuccessAlertMessage": "Your password has been changed successfully!",
+  "@passwordChangedSuccessAlertMessage": {
+    "description": "Success message for a password change"
   }
 }

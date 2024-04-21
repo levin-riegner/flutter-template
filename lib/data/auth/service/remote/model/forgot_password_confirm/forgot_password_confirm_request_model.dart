@@ -17,4 +17,10 @@ class ForgotPasswordConfirmRequestModel extends Equatable {
         password,
         code,
       ];
+
+  Map<String, dynamic> toJson() => {
+        'email': email,
+        'password': password,
+        'code': code,
+      };
 }

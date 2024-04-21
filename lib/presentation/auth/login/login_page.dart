@@ -11,8 +11,8 @@ import 'package:flutter_template/presentation/auth/widgets/auth_action_button_pa
 import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/bloc/local_validable_cubit.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in_text_fields/ds_email_text_field.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in_text_fields/ds_password_text_field.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in/ds_email_text_field.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in/ds_password_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/ds_local_validable_form.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/ds_local_validable_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
@@ -67,7 +67,7 @@ class LoginPage extends StatelessWidget {
               Dimens.boxXLarge,
               ForgotPasswordButton(
                 onPressed: () => context.push(
-                  const ChangePasswordRoute().location,
+                  const ChangePasswordRequestRoute().location,
                 ),
               ),
             ],
