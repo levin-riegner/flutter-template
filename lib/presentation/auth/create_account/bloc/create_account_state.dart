@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_template/data/auth/model/create_account_model.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_error.dart';
-import 'package:flutter_template/util/extensions/string_extension.dart';
 
 sealed class CreateAccountState extends Equatable {
   final String firstName;
@@ -20,17 +19,14 @@ sealed class CreateAccountState extends Equatable {
     required this.termsAndConditionsAccepted,
   });
 
-  bool get canSubmit => props.every(
-        (element) {
-          if (element is String) {
-            return !element.isNullOrEmpty;
-          } else if (element is bool) {
-            return element;
-          } else {
-            return false;
-          }
-        },
-      );
+  CreateAccountState copyWith({
+    String? email,
+    String? password,
+    String? firstName,
+    String? lastName,
+    String? confirmPassword,
+    bool? termsAndConditionsAccepted,
+  });
 }
 
 class CreateAccountStateInitial extends CreateAccountState {
@@ -53,6 +49,7 @@ class CreateAccountStateInitial extends CreateAccountState {
         termsAndConditionsAccepted,
       ];
 
+  @override
   CreateAccountStateInitial copyWith({
     String? email,
     String? password,
@@ -92,6 +89,7 @@ class CreateAccountStateLoading extends CreateAccountState {
         termsAndConditionsAccepted,
       ];
 
+  @override
   CreateAccountStateLoading copyWith({
     String? email,
     String? password,
@@ -134,6 +132,26 @@ class CreateAccountStateSuccess extends CreateAccountState {
         confirmPassword,
         termsAndConditionsAccepted,
       ];
+
+  @override
+  CreateAccountStateSuccess copyWith({
+    String? email,
+    String? password,
+    String? firstName,
+    String? lastName,
+    String? confirmPassword,
+    bool? termsAndConditionsAccepted,
+  }) =>
+      CreateAccountStateSuccess(
+        data: data,
+        email: email ?? this.email,
+        password: password ?? this.password,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+        confirmPassword: confirmPassword ?? this.confirmPassword,
+        termsAndConditionsAccepted:
+            termsAndConditionsAccepted ?? this.termsAndConditionsAccepted,
+      );
 }
 
 class CreateAccountStateError extends CreateAccountState {
@@ -159,4 +177,24 @@ class CreateAccountStateError extends CreateAccountState {
         confirmPassword,
         termsAndConditionsAccepted,
       ];
+
+  @override
+  CreateAccountStateError copyWith({
+    String? email,
+    String? password,
+    String? firstName,
+    String? lastName,
+    String? confirmPassword,
+    bool? termsAndConditionsAccepted,
+  }) =>
+      CreateAccountStateError(
+        error: error,
+        email: email ?? this.email,
+        password: password ?? this.password,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+        confirmPassword: confirmPassword ?? this.confirmPassword,
+        termsAndConditionsAccepted:
+            termsAndConditionsAccepted ?? this.termsAndConditionsAccepted,
+      );
 }

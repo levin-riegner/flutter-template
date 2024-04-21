@@ -17,6 +17,7 @@ import 'package:flutter_template/presentation/shared/design_system/views/ds_auth
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/ds_local_validable_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
 import 'package:flutter_template/util/extensions/auth_data_error_extension.dart';
+import 'package:flutter_template/util/extensions/equatable_extension.dart';
 import 'package:go_router/go_router.dart';
 
 // TODO: Replace with your custom designs, widgets and strings
@@ -48,6 +49,8 @@ class LoginPage extends StatelessWidget {
                 error.localizedMessage(context),
             },
           );
+
+          context.read<LoginCubit>().resetState();
         }
       },
       child: Scaffold(

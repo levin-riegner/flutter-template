@@ -18,6 +18,7 @@ import 'package:flutter_template/presentation/shared/design_system/views/ds_butt
 import 'package:flutter_template/presentation/shared/design_system/views/ds_terms_and_conditions.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/extensions/auth_data_error_extension.dart';
+import 'package:flutter_template/util/extensions/equatable_extension.dart';
 import 'package:flutter_template/util/tools/custom_tabs_launcher.dart';
 import 'package:go_router/go_router.dart';
 
@@ -50,10 +51,14 @@ class CreateAccountPage extends StatelessWidget {
                 error.localizedMessage(context),
             },
           );
+
+          context.read<CreateAccountCubit>().resetState();
         }
 
         if (state is CreateAccountStateSuccess) {
-          // Redirect to your desired page after successful account creation
+          // TODO: Redirect to your desired page after successful account creation
+          // Default is OTP verification page for email confirmation
+
           context.go(
             const OtpVerificationRoute().location,
           );

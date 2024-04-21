@@ -8,20 +8,32 @@ import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_ver
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_state.dart';
 
 class UserConfirmCubit extends OtpVerificationCubit {
-  final AuthRepository _authRepository;
-
-  UserConfirmCubit(this._authRepository)
-      : super(
+  UserConfirmCubit(
+    AuthRepository authRepository,
+  ) : super(
           const OtpVerificationStateInitial(
             code: "",
             email: "",
           ),
+          authRepository: authRepository,
         );
 
   @override
+  void resetState() {
+    emit(
+      OtpVerificationStateInitial(
+        code: state.code,
+        email: state.email,
+        resendSuccesful: state.resendSuccesful,
+      ),
+    );
+  }
+
+  @override
   void onChange(Change<OtpVerificationState> change) {
-    // TODO: Add Analytics and logging here
     super.onChange(change);
+
+    // TODO: Add Analytics and logging here
   }
 
   @override
@@ -29,7 +41,7 @@ class UserConfirmCubit extends OtpVerificationCubit {
     try {
       await retrieveUserEmail();
 
-      final result = await _authRepository.sendConfirmUserRequest(
+      final result = await authRepository.sendConfirmUserRequest(
         UserConfirmRequestRequestModel(
           email: state.email,
         ),
@@ -64,21 +76,17 @@ class UserConfirmCubit extends OtpVerificationCubit {
   }
 
   void setCode(String code) {
-    if (state is OtpVerificationStateInitial) {
-      emit(
-        (state as OtpVerificationStateInitial).copyWith(code: code),
-      );
-    }
+    emit(
+      state.copyWith(code: code),
+    );
   }
 
   Future<void> retrieveUserEmail() async {
-    final userEmail = await _authRepository.userEmail;
+    final userEmail = await authRepository.userEmail;
 
-    if (state is OtpVerificationStateInitial) {
-      emit(
-        (state as OtpVerificationStateInitial).copyWith(email: userEmail),
-      );
-    }
+    emit(
+      state.copyWith(email: userEmail),
+    );
   }
 
   Future<void> verifyCode(String code) async {
@@ -97,7 +105,7 @@ class UserConfirmCubit extends OtpVerificationCubit {
         email: state.email,
       );
 
-      final result = await _authRepository.confirmUser(request);
+      final result = await authRepository.confirmUser(request);
 
       emit(
         OtpVerificationStateSuccess(

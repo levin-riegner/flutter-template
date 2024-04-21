@@ -14,6 +14,7 @@ import 'package:flutter_template/presentation/shared/design_system/views/ds_auth
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
 import 'package:flutter_template/util/extensions/auth_data_error_extension.dart';
 import 'package:flutter_template/util/extensions/context_extension.dart';
+import 'package:flutter_template/util/extensions/equatable_extension.dart';
 import 'package:flutter_template/util/tools/email_opener.dart';
 
 // TODO: Replace with your custom designs, widgets and strings
@@ -57,10 +58,11 @@ class OtpVerificationPage extends StatelessWidget {
                 error.localizedMessage(context),
             },
           );
+
+          context.read<UserConfirmCubit>().resetState();
         }
 
-        if (state is OtpVerificationStateInitial &&
-            state.resendSuccesful == true) {
+        if (state.resendSuccesful == true) {
           AlertService.showAlert(
             type: AlertType.success,
             context: context,

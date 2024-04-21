@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_error.dart';
-import 'package:flutter_template/util/extensions/string_extension.dart';
 
 sealed class OtpVerificationState extends Equatable {
   final String code;
@@ -13,17 +12,11 @@ sealed class OtpVerificationState extends Equatable {
     this.resendSuccesful,
   });
 
-  bool get canSubmit => props.every(
-        (element) {
-          if (element is String) {
-            return !element.isNullOrEmpty;
-          } else if (element is bool) {
-            return element;
-          } else {
-            return false;
-          }
-        },
-      );
+  OtpVerificationState copyWith({
+    String? code,
+    String? email,
+    bool? resendSuccesful,
+  });
 }
 
 class OtpVerificationStateInitial extends OtpVerificationState {
@@ -39,6 +32,7 @@ class OtpVerificationStateInitial extends OtpVerificationState {
         email,
       ];
 
+  @override
   OtpVerificationStateInitial copyWith({
     String? code,
     String? email,
@@ -64,6 +58,7 @@ class OtpVerificationStateLoading extends OtpVerificationState {
         email,
       ];
 
+  @override
   OtpVerificationStateLoading copyWith({
     String? code,
     String? email,
@@ -93,6 +88,7 @@ class OtpVerificationStateSuccess<T> extends OtpVerificationState {
         data,
       ];
 
+  @override
   OtpVerificationStateSuccess copyWith({
     String? code,
     String? email,
@@ -124,6 +120,7 @@ class OtpVerificationStateError extends OtpVerificationState {
         email,
       ];
 
+  @override
   OtpVerificationStateError copyWith({
     OtpVerificationError? error,
     String? code,

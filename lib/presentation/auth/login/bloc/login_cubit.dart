@@ -4,8 +4,9 @@ import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/data/auth/service/remote/model/login/login_request_model.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_state.dart';
+import 'package:flutter_template/util/mixins/resettable_bloc_mixin.dart';
 
-class LoginCubit extends Cubit<LoginState> {
+class LoginCubit extends Cubit<LoginState> with ResettableBlocMixin {
   final AuthRepository _authRepository;
 
   LoginCubit(this._authRepository)
@@ -14,25 +15,32 @@ class LoginCubit extends Cubit<LoginState> {
         );
 
   @override
+  void resetState() {
+    emit(
+      LoginStateInitial(
+        email: state.email,
+        password: state.password,
+      ),
+    );
+  }
+
+  @override
   void onChange(Change<LoginState> change) {
-    // TODO: Add Analytics and logging here
     super.onChange(change);
+
+    // TODO: Add Analytics and logging here
   }
 
   void setEmail(String email) {
-    if (state is LoginStateInitial) {
-      emit(
-        (state as LoginStateInitial).copyWith(email: email),
-      );
-    }
+    emit(
+      state.copyWith(email: email),
+    );
   }
 
   void setPassword(String password) {
-    if (state is LoginStateInitial) {
-      emit(
-        (state as LoginStateInitial).copyWith(password: password),
-      );
-    }
+    emit(
+      state.copyWith(password: password),
+    );
   }
 
   Future<void> performLogin(String email, String password) async {

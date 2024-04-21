@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_template/data/auth/model/login_model.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
-import 'package:flutter_template/util/extensions/string_extension.dart';
 
 sealed class LoginState extends Equatable {
   final String email;
@@ -12,17 +11,10 @@ sealed class LoginState extends Equatable {
     required this.password,
   });
 
-  bool get canSubmit => props.every(
-        (element) {
-          if (element is String) {
-            return !element.isNullOrEmpty;
-          } else if (element is bool) {
-            return element;
-          } else {
-            return false;
-          }
-        },
-      );
+  LoginState copyWith({
+    String? email,
+    String? password,
+  });
 }
 
 class LoginStateInitial extends LoginState {
@@ -37,6 +29,7 @@ class LoginStateInitial extends LoginState {
         password,
       ];
 
+  @override
   LoginStateInitial copyWith({
     String? email,
     String? password,
@@ -59,6 +52,7 @@ class LoginStateLoading extends LoginState {
         password,
       ];
 
+  @override
   LoginStateLoading copyWith({
     String? email,
     String? password,
@@ -83,6 +77,7 @@ class LoginStateSuccess extends LoginState {
         data,
       ];
 
+  @override
   LoginStateSuccess copyWith({
     LoginModel? data,
     String? email,
@@ -109,6 +104,7 @@ class LoginStateError extends LoginState {
         error,
       ];
 
+  @override
   LoginStateError copyWith({
     LoginError? error,
     String? email,

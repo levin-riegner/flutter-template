@@ -4,8 +4,10 @@ import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/data/auth/service/remote/model/create_account/create_account_request_model.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_error.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_state.dart';
+import 'package:flutter_template/util/mixins/resettable_bloc_mixin.dart';
 
-class CreateAccountCubit extends Cubit<CreateAccountState> {
+class CreateAccountCubit extends Cubit<CreateAccountState>
+    with ResettableBlocMixin {
   final AuthRepository _authRepository;
 
   CreateAccountCubit(this._authRepository)
@@ -21,59 +23,60 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
         );
 
   @override
+  void resetState() {
+    emit(
+      CreateAccountStateInitial(
+        email: state.email,
+        password: state.password,
+        firstName: state.firstName,
+        lastName: state.lastName,
+        confirmPassword: state.confirmPassword,
+        termsAndConditionsAccepted: state.termsAndConditionsAccepted,
+      ),
+    );
+  }
+
+  @override
   void onChange(Change<CreateAccountState> change) {
-    // TODO: Add Analytics and logging here
     super.onChange(change);
+
+    // TODO: Add Analytics and logging here
   }
 
   void setEmail(String email) {
-    if (state is CreateAccountStateInitial) {
-      emit(
-        (state as CreateAccountStateInitial).copyWith(email: email),
-      );
-    }
+    emit(
+      state.copyWith(email: email),
+    );
   }
 
   void setPassword(String password) {
-    if (state is CreateAccountStateInitial) {
-      emit(
-        (state as CreateAccountStateInitial).copyWith(password: password),
-      );
-    }
+    emit(
+      state.copyWith(password: password),
+    );
   }
 
   void setConfirmPassword(String confirmPassword) {
-    if (state is CreateAccountStateInitial) {
-      emit(
-        (state as CreateAccountStateInitial)
-            .copyWith(confirmPassword: confirmPassword),
-      );
-    }
+    emit(
+      state.copyWith(confirmPassword: confirmPassword),
+    );
   }
 
   void setFirstName(String firstName) {
-    if (state is CreateAccountStateInitial) {
-      emit(
-        (state as CreateAccountStateInitial).copyWith(firstName: firstName),
-      );
-    }
+    emit(
+      state.copyWith(firstName: firstName),
+    );
   }
 
   void setLastName(String lastName) {
-    if (state is CreateAccountStateInitial) {
-      emit(
-        (state as CreateAccountStateInitial).copyWith(lastName: lastName),
-      );
-    }
+    emit(
+      state.copyWith(lastName: lastName),
+    );
   }
 
   void setTermsAndConditionsAccepted(bool termsAndConditionsAccepted) {
-    if (state is CreateAccountStateInitial) {
-      emit(
-        (state as CreateAccountStateInitial)
-            .copyWith(termsAndConditionsAccepted: termsAndConditionsAccepted),
-      );
-    }
+    emit(
+      state.copyWith(termsAndConditionsAccepted: termsAndConditionsAccepted),
+    );
   }
 
   Future<void> createAccount({
