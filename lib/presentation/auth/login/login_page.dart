@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/auth/model/login_model.dart';
@@ -18,6 +17,7 @@ import 'package:flutter_template/presentation/shared/design_system/views/ds_auth
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/ds_local_validable_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
 import 'package:flutter_template/util/extensions/auth_data_error_extension.dart';
+import 'package:flutter_template/util/extensions/context_extension.dart';
 import 'package:flutter_template/util/extensions/equatable_extension.dart';
 import 'package:go_router/go_router.dart';
 
@@ -69,6 +69,9 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
+          padding: const EdgeInsets.only(
+            bottom: Dimens.marginXLarge,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -85,29 +88,34 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         persistentFooterButtons: [
-          AuthActionButtonPair(
-            firstChild: BlocBuilder<LoginCubit, LoginState>(
-              builder: (context, state) =>
-                  BlocBuilder<LocalValidableCubit, bool>(
-                builder: (context, canSubmit) => DSPrimaryButton(
-                  isLoading: state is LoginStateLoading,
-                  enabled: canSubmit,
-                  onPressed: () {
-                    context.read<LoginCubit>().performLogin(
-                          state.email,
-                          state.password,
-                        );
-                  },
-                  text: context.l10n.loginButton,
+          Container(
+            margin: EdgeInsets.only(
+              bottom: context.mediaQuery.viewInsets.bottom,
+            ),
+            child: AuthActionButtonPair(
+              firstChild: BlocBuilder<LoginCubit, LoginState>(
+                builder: (context, state) =>
+                    BlocBuilder<LocalValidableCubit, bool>(
+                  builder: (context, canSubmit) => DSPrimaryButton(
+                    isLoading: state is LoginStateLoading,
+                    enabled: canSubmit,
+                    onPressed: () {
+                      context.read<LoginCubit>().performLogin(
+                            state.email,
+                            state.password,
+                          );
+                    },
+                    text: context.l10n.loginButton,
+                  ),
                 ),
               ),
-            ),
-            secondChild: DSTextButton(
-              alignment: Alignment.center,
-              onPressed: () => context.push(
-                const CreateAccountRoute().location,
+              secondChild: DSTextButton(
+                alignment: Alignment.center,
+                onPressed: () => context.push(
+                  const CreateAccountRoute().location,
+                ),
+                text: context.l10n.signUpButton,
               ),
-              text: context.l10n.signUpButton,
             ),
           ),
         ],

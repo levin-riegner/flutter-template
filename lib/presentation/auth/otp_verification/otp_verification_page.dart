@@ -19,7 +19,7 @@ import 'package:flutter_template/util/tools/email_opener.dart';
 
 // TODO: Replace with your custom designs, widgets and strings
 
-class OtpVerificationPage extends StatelessWidget {
+class OtpVerificationPage extends StatefulWidget {
   final String? title;
   final String? rationale;
   final String? email;
@@ -36,11 +36,20 @@ class OtpVerificationPage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    if (sendCodeOnInit) {
+  State<OtpVerificationPage> createState() => _OtpVerificationPageState();
+}
+
+class _OtpVerificationPageState extends State<OtpVerificationPage> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.sendCodeOnInit) {
       context.read<UserConfirmCubit>().sendCodeToEmail();
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return BlocListener<UserConfirmCubit, OtpVerificationState>(
       listener: (context, state) {
         context.read<LocalValidableCubit>().setCanSubmit(
@@ -72,25 +81,29 @@ class OtpVerificationPage extends StatelessWidget {
         }
 
         if (state is OtpVerificationStateSuccess<UserConfirmModel>) {
-          if (onVerificationSuccess != null) {
-            onVerificationSuccess!(state.data);
+          if (widget.onVerificationSuccess != null) {
+            widget.onVerificationSuccess!(state.data);
           }
         }
       },
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            title ?? context.l10n.otpVerificationPageTitle,
+            widget.title ?? context.l10n.otpVerificationPageTitle,
           ),
         ),
         body: SingleChildScrollView(
+          padding: const EdgeInsets.only(
+            bottom: Dimens.marginXLarge,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                rationale ??
-                    (email != null
-                        ? context.l10n.otpEmailVerificationRationale(email!)
+                widget.rationale ??
+                    (widget.email != null
+                        ? context.l10n
+                            .otpEmailVerificationRationale(widget.email!)
                         : context.l10n.otpDefaultVerificationRationale),
               ),
               Dimens.boxMedium,
@@ -99,24 +112,29 @@ class OtpVerificationPage extends StatelessWidget {
           ),
         ),
         persistentFooterButtons: [
-          AuthActionButtonPair(
-            buttonSpacing: Dimens.marginSmall,
-            firstChild: DSPrimaryButton(
-              onPressed: EmailOpener.openDefaultApp,
-              text: context.l10n.openEmailAppButton,
+          Container(
+            margin: EdgeInsets.only(
+              bottom: context.mediaQuery.viewInsets.bottom,
             ),
-            secondChild: BlocBuilder<UserConfirmCubit, OtpVerificationState>(
-              builder: (context, state) =>
-                  BlocBuilder<LocalValidableCubit, bool>(
-                builder: (context, canSubmit) => DSOutlineButton(
-                  isLoading: state is OtpVerificationStateLoading,
-                  enabled: canSubmit,
-                  onPressed: () {
-                    context.read<UserConfirmCubit>().verifyCode(
-                          state.code,
-                        );
-                  },
-                  text: context.l10n.confirmButton,
+            child: AuthActionButtonPair(
+              buttonSpacing: Dimens.marginSmall,
+              firstChild: DSPrimaryButton(
+                onPressed: EmailOpener.openDefaultApp,
+                text: context.l10n.openEmailAppButton,
+              ),
+              secondChild: BlocBuilder<UserConfirmCubit, OtpVerificationState>(
+                builder: (context, state) =>
+                    BlocBuilder<LocalValidableCubit, bool>(
+                  builder: (context, canSubmit) => DSOutlineButton(
+                    isLoading: state is OtpVerificationStateLoading,
+                    enabled: canSubmit,
+                    onPressed: () {
+                      context.read<UserConfirmCubit>().verifyCode(
+                            state.code,
+                          );
+                    },
+                    text: context.l10n.confirmButton,
+                  ),
                 ),
               ),
             ),
@@ -136,7 +154,9 @@ class _OtpVerificationForm extends StatelessWidget {
     return Column(
       children: [
         OtpField(
-          onCompleted: context.read<UserConfirmCubit>().verifyCode,
+          onCompleted: (val) {
+            context.read<UserConfirmCubit>().verifyCode(val);
+          },
           onLocalValidationFailure: () {
             context.read<LocalValidableCubit>().setCanSubmit(false);
           },

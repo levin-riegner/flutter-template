@@ -73,28 +73,39 @@ class ChangePasswordConfirmPage extends StatelessWidget {
             title ?? context.l10n.changePasswordPageTitle,
           ),
         ),
-        body: const _ChangePasswordForm(),
+        body: const SingleChildScrollView(
+          padding: EdgeInsets.only(
+            bottom: Dimens.marginXLarge,
+          ),
+          child: _ChangePasswordForm(),
+        ),
         persistentFooterButtons: [
-          AuthActionButtonPair(
-            buttonSpacing: Dimens.marginSmall,
-            firstChild: DSPrimaryButton(
-              onPressed: EmailOpener.openDefaultApp,
-              text: context.l10n.openEmailAppButton,
+          Container(
+            margin: EdgeInsets.only(
+              bottom: context.mediaQuery.viewInsets.bottom,
             ),
-            secondChild: BlocBuilder<ChangePasswordConfirmCubit,
-                ChangePasswordConfirmState>(
-              builder: (context, state) =>
-                  BlocBuilder<LocalValidableCubit, bool>(
-                builder: (context, canSubmit) => DSPrimaryButton(
-                  isLoading: state is ChangePasswordConfirmStateLoading,
-                  enabled: canSubmit,
-                  onPressed: () =>
-                      context.read<ChangePasswordConfirmCubit>().changePassword(
-                            email: state.email,
-                            code: state.code,
-                            password: state.password,
-                          ),
-                  text: context.l10n.sendCodeButton,
+            child: AuthActionButtonPair(
+              buttonSpacing: Dimens.marginSmall,
+              firstChild: DSPrimaryButton(
+                onPressed: EmailOpener.openDefaultApp,
+                text: context.l10n.openEmailAppButton,
+              ),
+              secondChild: BlocBuilder<ChangePasswordConfirmCubit,
+                  ChangePasswordConfirmState>(
+                builder: (context, state) =>
+                    BlocBuilder<LocalValidableCubit, bool>(
+                  builder: (context, canSubmit) => DSPrimaryButton(
+                    isLoading: state is ChangePasswordConfirmStateLoading,
+                    enabled: canSubmit,
+                    onPressed: () => context
+                        .read<ChangePasswordConfirmCubit>()
+                        .changePassword(
+                          email: state.email,
+                          code: state.code,
+                          password: state.password,
+                        ),
+                    text: context.l10n.sendCodeButton,
+                  ),
                 ),
               ),
             ),
@@ -124,82 +135,73 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Text(
-            context.l10n.changePasswordConfirmRationale,
-            style: context.textTheme.bodyLarge,
-          ),
-          Dimens.boxMedium,
-          OtpField(
-            onCompleted: (code) {
-              context.read<ChangePasswordConfirmCubit>().setCode(code);
-            },
-            onLocalValidationFailure: () {
-              context.read<ChangePasswordConfirmCubit>().setCode("");
-            },
-          ),
-          Dimens.boxMedium,
-          DSDivider(
-            color: context.colorScheme.onBackground,
-          ),
-          Dimens.boxMedium,
-          DSPasswordTextField(
-            labelText: context.l10n.newPasswordField,
-            helperText: context.l10n.passwordRequirements,
-            textInputAction: TextInputAction.next,
-            onChanged: (val, isValid) {
-              _passwordBind.value = val;
+    return Column(
+      children: [
+        Text(
+          context.l10n.changePasswordConfirmRationale,
+          style: context.textTheme.bodyLarge,
+        ),
+        Dimens.boxMedium,
+        OtpField(
+          onCompleted: (code) {
+            context.read<ChangePasswordConfirmCubit>().setCode(code);
+          },
+          onLocalValidationFailure: () {
+            context.read<ChangePasswordConfirmCubit>().setCode("");
+          },
+        ),
+        Dimens.boxMedium,
+        DSDivider(
+          color: context.colorScheme.onBackground,
+        ),
+        Dimens.boxMedium,
+        DSPasswordTextField(
+          labelText: context.l10n.newPasswordField,
+          helperText: context.l10n.passwordRequirements,
+          textInputAction: TextInputAction.next,
+          onChanged: (val, isValid) {
+            _passwordBind.value = val;
 
-              if (isValid) {
-                context.read<ChangePasswordConfirmCubit>().setPassword(val);
-              } else {
-                context.read<ChangePasswordConfirmCubit>().setPassword("");
-              }
-            },
-            onSubmitted: (val, isValid) {
-              if (isValid) {
-                context.read<ChangePasswordConfirmCubit>().setPassword(val);
-              } else {
-                context.read<ChangePasswordConfirmCubit>().setPassword("");
-              }
-            },
-          ),
-          Dimens.boxMedium,
-          ValueListenableBuilder<String?>(
-            valueListenable: _passwordBind,
-            builder: (context, value, child) => DSConfirmPasswordTextField(
-              labelText: context.l10n.confirmNewPasswordField,
-              passwordBind: _passwordBind,
-              helperText: context.l10n.confirmPasswordRequirements,
-              textInputAction: TextInputAction.done,
-              onChanged: (val, isValid) {
-                if (isValid) {
-                  context
-                      .read<ChangePasswordConfirmCubit>()
-                      .setConfirmPassword(val);
-                } else {
-                  context
-                      .read<ChangePasswordConfirmCubit>()
-                      .setConfirmPassword("");
-                }
-              },
-              onSubmitted: (val, isValid) {
-                if (isValid) {
-                  context
-                      .read<ChangePasswordConfirmCubit>()
-                      .setConfirmPassword(val);
-                } else {
-                  context
-                      .read<ChangePasswordConfirmCubit>()
-                      .setConfirmPassword("");
-                }
-              },
-            ),
-          ),
-        ],
-      ),
+            if (isValid) {
+              context.read<ChangePasswordConfirmCubit>().setPassword(val);
+            } else {
+              context.read<ChangePasswordConfirmCubit>().setPassword("");
+            }
+          },
+          onSubmitted: (val, isValid) {
+            if (isValid) {
+              context.read<ChangePasswordConfirmCubit>().setPassword(val);
+            } else {
+              context.read<ChangePasswordConfirmCubit>().setPassword("");
+            }
+          },
+        ),
+        Dimens.boxMedium,
+        DSConfirmPasswordTextField(
+          labelText: context.l10n.confirmNewPasswordField,
+          passwordBind: _passwordBind,
+          helperText: context.l10n.confirmPasswordRequirements,
+          textInputAction: TextInputAction.done,
+          onChanged: (val, isValid) {
+            if (isValid) {
+              context
+                  .read<ChangePasswordConfirmCubit>()
+                  .setConfirmPassword(val);
+            } else {
+              context.read<ChangePasswordConfirmCubit>().setConfirmPassword("");
+            }
+          },
+          onSubmitted: (val, isValid) {
+            if (isValid) {
+              context
+                  .read<ChangePasswordConfirmCubit>()
+                  .setConfirmPassword(val);
+            } else {
+              context.read<ChangePasswordConfirmCubit>().setConfirmPassword("");
+            }
+          },
+        ),
+      ],
     );
   }
 

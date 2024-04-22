@@ -9,6 +9,7 @@ import 'package:flutter_template/presentation/shared/design_system/theme/dimens.
 import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/bloc/local_validable_cubit.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in/ds_email_text_field.dart';
+import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/ds_local_validable_form.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
 import 'package:flutter_template/util/extensions/auth_data_error_extension.dart';
 import 'package:flutter_template/util/extensions/context_extension.dart';
@@ -62,18 +63,41 @@ class ChangePasswordRequestPage extends StatelessWidget {
             title ?? context.l10n.changePasswordPageTitle,
           ),
         ),
-        body: const _EmailInputForm(),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.only(
+            bottom: Dimens.marginXLarge,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                context.l10n.changePasswordRequestRationale,
+                style: context.textTheme.bodyLarge,
+              ),
+              Dimens.boxMedium,
+              const _EmailInputForm(),
+            ],
+          ),
+        ),
         persistentFooterButtons: [
-          BlocBuilder<ChangePasswordRequestCubit, ChangePasswordRequestState>(
-            builder: (context, state) => BlocBuilder<LocalValidableCubit, bool>(
-              builder: (context, canSubmit) => DSPrimaryButton(
-                isLoading: state is ChangePasswordRequestStateLoading,
-                enabled: canSubmit,
-                onPressed: () =>
+          Container(
+            margin: EdgeInsets.only(
+              bottom: context.mediaQuery.viewInsets.bottom,
+            ),
+            child: BlocBuilder<ChangePasswordRequestCubit,
+                ChangePasswordRequestState>(
+              builder: (context, state) =>
+                  BlocBuilder<LocalValidableCubit, bool>(
+                builder: (context, canSubmit) => DSPrimaryButton(
+                  isLoading: state is ChangePasswordRequestStateLoading,
+                  enabled: canSubmit,
+                  onPressed: () {
                     context.read<ChangePasswordRequestCubit>().sendCodeToEmail(
                           state.email,
-                        ),
-                text: context.l10n.sendCodeButton,
+                        );
+                  },
+                  text: context.l10n.sendCodeButton,
+                ),
               ),
             ),
           ),
@@ -89,33 +113,27 @@ class _EmailInputForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Text(
-            context.l10n.changePasswordRequestRationale,
-            style: context.textTheme.bodyLarge,
-          ),
-          Dimens.boxMedium,
-          DSEmailTextField(
-            textInputAction: TextInputAction.done,
-            onChanged: (val, isValid) {
-              if (isValid) {
-                context.read<ChangePasswordRequestCubit>().setEmail(val);
-              } else {
-                context.read<ChangePasswordRequestCubit>().setEmail("");
-              }
-            },
-            onSubmitted: (val, isValid) {
-              if (isValid) {
-                context.read<ChangePasswordRequestCubit>().setEmail(val);
-              } else {
-                context.read<ChangePasswordRequestCubit>().setEmail("");
-              }
-            },
-          ),
-        ],
-      ),
+    return DSLocalValidableForm(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      fields: [
+        DSEmailTextField(
+          textInputAction: TextInputAction.done,
+          onChanged: (val, isValid) {
+            if (isValid) {
+              context.read<ChangePasswordRequestCubit>().setEmail(val);
+            } else {
+              context.read<ChangePasswordRequestCubit>().setEmail("");
+            }
+          },
+          onSubmitted: (val, isValid) {
+            if (isValid) {
+              context.read<ChangePasswordRequestCubit>().setEmail(val);
+            } else {
+              context.read<ChangePasswordRequestCubit>().setEmail("");
+            }
+          },
+        ),
+      ],
     );
   }
 }

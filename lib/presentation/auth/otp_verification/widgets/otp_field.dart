@@ -11,6 +11,7 @@ class OtpField extends StatelessWidget {
   final VoidCallback? onLocalValidationFailure;
   final int length;
   final double cellSpacing;
+  final bool autofocus;
 
   const OtpField({
     super.key,
@@ -20,6 +21,7 @@ class OtpField extends StatelessWidget {
     this.onLocalValidationSuccess,
     this.onLocalValidationFailure,
     this.onSubmitted,
+    this.autofocus = false,
   });
 
   @override
@@ -49,7 +51,7 @@ class OtpField extends StatelessWidget {
         ),
       ),
       length: length,
-      autofocus: true,
+      autofocus: autofocus,
       keyboardType: TextInputType.number,
       onChanged: (val) {
         if (val.length == length) {
