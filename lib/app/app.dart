@@ -7,10 +7,12 @@ import 'package:flutter_template/app/navigation/deeplink_manager.dart';
 import 'package:flutter_template/app/navigation/listener/analytics_route_listener.dart';
 import 'package:flutter_template/app/navigation/listener/route_listener.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
+import 'package:flutter_template/app/navigation/redirect/auth_route_redirect.dart';
 import 'package:flutter_template/app/navigation/redirect/console_route_redirect.dart';
 import 'package:flutter_template/app/navigation/redirect/default_route_redirect.dart';
 import 'package:flutter_template/app/navigation/router/app_router.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
+import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/presentation/shared/adaptive_theme/adaptive_theme_cubit.dart';
 import 'package:flutter_template/presentation/shared/adaptive_theme/adaptive_theme_state.dart';
 import 'package:flutter_template/presentation/shared/design_system/theme/theme_factory.dart';
@@ -38,7 +40,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with WidgetsBindingObserver {
   String get initialLocation =>
       deepLinkManager.getCurrentDeeplink(consume: false) ??
-      const LoginRoute().location;
+      const ArticlesRoute().location;
 
   late final Environment environment = getIt<Environment>();
   late final AppUpdater appUpdater = getIt<AppUpdater>();
@@ -54,6 +56,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         internalBuild: environment.internal,
       ),
       const DefaultRouteRedirect(),
+      AuthRouteRedirect(
+        hasSessionAvailable: () => getIt<AuthRepository>().isSessionAvailable,
+      ),
     ],
     initialLocation: initialLocation,
   );

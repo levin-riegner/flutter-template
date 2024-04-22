@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_template/data/auth/model/create_account_model.dart';
+import 'package:flutter_template/data/auth/model/login_model.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_error.dart';
 
 sealed class CreateAccountState extends Equatable {
@@ -110,10 +111,10 @@ class CreateAccountStateLoading extends CreateAccountState {
 }
 
 class CreateAccountStateSuccess extends CreateAccountState {
-  final CreateAccountModel data;
+  final CreateAccountModel createAccountData;
 
   const CreateAccountStateSuccess({
-    required this.data,
+    required this.createAccountData,
     required super.email,
     required super.password,
     required super.firstName,
@@ -124,7 +125,7 @@ class CreateAccountStateSuccess extends CreateAccountState {
 
   @override
   List<Object?> get props => [
-        data,
+        createAccountData,
         email,
         password,
         firstName,
@@ -135,6 +136,8 @@ class CreateAccountStateSuccess extends CreateAccountState {
 
   @override
   CreateAccountStateSuccess copyWith({
+    CreateAccountModel? createAccountData,
+    LoginModel? loginData,
     String? email,
     String? password,
     String? firstName,
@@ -143,7 +146,7 @@ class CreateAccountStateSuccess extends CreateAccountState {
     bool? termsAndConditionsAccepted,
   }) =>
       CreateAccountStateSuccess(
-        data: data,
+        createAccountData: createAccountData ?? this.createAccountData,
         email: email ?? this.email,
         password: password ?? this.password,
         firstName: firstName ?? this.firstName,

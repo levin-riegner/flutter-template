@@ -12,7 +12,7 @@ class DefaultRouteRedirect implements RouteRedirect {
   FutureOr<String?> redirectTo(BuildContext context, GoRouterState state) {
     if (state.matchedLocation == "/") {
       // TODO: Set this to your home route
-      return ArticlesRoute().location;
+      return const ArticlesRoute().location;
     }
     return null;
   }

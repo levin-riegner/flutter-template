@@ -4,6 +4,7 @@ import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
+import 'package:flutter_template/data/auth/model/create_account_model.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_cubit.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_error.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_state.dart';
@@ -26,10 +27,12 @@ import 'package:go_router/go_router.dart';
 
 class CreateAccountPage extends StatelessWidget {
   final String? title;
+  final Function(CreateAccountModel createAccountModel)? onCreateAccountSuccess;
 
   const CreateAccountPage({
     super.key,
     this.title,
+    this.onCreateAccountSuccess,
   });
 
   @override
@@ -56,12 +59,11 @@ class CreateAccountPage extends StatelessWidget {
         }
 
         if (state is CreateAccountStateSuccess) {
-          // TODO: Redirect to your desired page after successful account creation
-          // Default is OTP verification page for email confirmation
-
-          context.go(
-            const OtpVerificationRoute().location,
-          );
+          if (onCreateAccountSuccess != null) {
+            onCreateAccountSuccess!(
+              state.createAccountData,
+            );
+          }
         }
       },
       child: Scaffold(

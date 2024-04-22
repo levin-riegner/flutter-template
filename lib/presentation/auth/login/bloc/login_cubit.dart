@@ -4,6 +4,7 @@ import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/data/auth/service/remote/model/login/login_request_model.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_state.dart';
+import 'package:flutter_template/util/extensions/string_extension.dart';
 import 'package:flutter_template/util/mixins/resettable_bloc_mixin.dart';
 
 class LoginCubit extends Cubit<LoginState> with ResettableBlocMixin {
@@ -58,6 +59,15 @@ class LoginCubit extends Cubit<LoginState> with ResettableBlocMixin {
       );
 
       final result = await _authRepository.loginWithEmailAndPassword(request);
+
+      if (result.token.isNullOrEmpty) {
+        throw NotAuthorized();
+      }
+
+      await Future.wait([
+        _authRepository.saveUserEmail(email),
+        _authRepository.saveUserToken(result.token!),
+      ]);
 
       emit(
         LoginStateSuccess(

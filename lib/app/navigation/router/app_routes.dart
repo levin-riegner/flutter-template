@@ -325,6 +325,14 @@ class LoginRoute extends GoRouteData {
       ],
       child: LoginPage(
         title: pageTitle,
+        onLoginSuccess: (loginModel) {
+          // TODO: Set actions after successful login
+          // such as redirecting to the home page
+          // or displaying a welcome dialog
+          context.go(
+            "/",
+          );
+        },
       ),
     );
   }
@@ -360,6 +368,16 @@ class CreateAccountRoute extends GoRouteData {
       ],
       child: CreateAccountPage(
         title: pageTitle,
+        onCreateAccountSuccess: (createAccountModel) {
+          // TODO: Set actions after successful signup
+          // such as redirecting to OTP page if 2FA is enabled
+          context.go(
+            const OtpVerificationRoute(
+              // Send OTP to email as soon as the screen is shown
+              sendCodeOnInit: true,
+            ).location,
+          );
+        },
       ),
     );
   }
@@ -486,8 +504,9 @@ class OtpVerificationRoute extends GoRouteData {
         sendCodeOnInit: sendCodeOnInit,
         onVerificationSuccess: (data) {
           // TODO: Redirect to your desired page after successful user verification
+          // You would typically redirect to the login page so the user can login
           context.go(
-            const ArticlesRoute().location,
+            const LoginRoute().location,
           );
         },
       ),
