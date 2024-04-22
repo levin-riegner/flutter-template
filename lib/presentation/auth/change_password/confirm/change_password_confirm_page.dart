@@ -104,7 +104,7 @@ class ChangePasswordConfirmPage extends StatelessWidget {
                           code: state.code,
                           password: state.password,
                         ),
-                    text: context.l10n.sendCodeButton,
+                    text: context.l10n.confirmButton,
                   ),
                 ),
               ),
