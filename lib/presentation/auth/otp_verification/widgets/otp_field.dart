@@ -11,7 +11,8 @@ class OtpField extends StatelessWidget {
   final VoidCallback? onLocalValidationFailure;
   final int length;
   final double cellSpacing;
-  final bool autofocus;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
 
   const OtpField({
     super.key,
@@ -21,12 +22,14 @@ class OtpField extends StatelessWidget {
     this.onLocalValidationSuccess,
     this.onLocalValidationFailure,
     this.onSubmitted,
-    this.autofocus = false,
+    this.focusNode,
+    this.textInputAction,
   });
 
   @override
   Widget build(BuildContext context) {
     return Pinput(
+      focusNode: focusNode,
       defaultPinTheme: PinTheme(
         decoration: BoxDecoration(
           color: context.colorScheme.secondary,
@@ -51,7 +54,6 @@ class OtpField extends StatelessWidget {
         ),
       ),
       length: length,
-      autofocus: autofocus,
       keyboardType: TextInputType.number,
       onChanged: (val) {
         if (val.length == length) {
@@ -71,6 +73,7 @@ class OtpField extends StatelessWidget {
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
       ],
+      textInputAction: textInputAction,
     );
   }
 }

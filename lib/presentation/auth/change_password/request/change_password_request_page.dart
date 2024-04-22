@@ -108,8 +108,21 @@ class ChangePasswordRequestPage extends StatelessWidget {
   }
 }
 
-class _EmailInputForm extends StatelessWidget {
+class _EmailInputForm extends StatefulWidget {
   const _EmailInputForm();
+
+  @override
+  State<_EmailInputForm> createState() => _EmailInputFormState();
+}
+
+class _EmailInputFormState extends State<_EmailInputForm> {
+  late final FocusNode _emailFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailFocusNode = FocusNode()..requestFocus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +130,7 @@ class _EmailInputForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       fields: [
         DSEmailTextField(
+          focusNode: _emailFocusNode,
           textInputAction: TextInputAction.done,
           onChanged: (val, isValid) {
             if (isValid) {
@@ -135,5 +149,11 @@ class _EmailInputForm extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _emailFocusNode.dispose();
+    super.dispose();
   }
 }

@@ -166,12 +166,22 @@ class _CreateAccountForm extends StatefulWidget {
 }
 
 class _CreateAccountFormState extends State<_CreateAccountForm> {
+  late final FocusNode _firstNameFocusNode;
+  late final FocusNode _lastNameFocusNode;
+  late final FocusNode _emailFocusNode;
+  late final FocusNode _passwordFocusNode;
+  late final FocusNode _confirmPasswordFocusNode;
   late final ValueNotifier<String?> _passwordBind;
 
   @override
   void initState() {
     super.initState();
     _passwordBind = ValueNotifier<String?>(null);
+    _firstNameFocusNode = FocusNode();
+    _lastNameFocusNode = FocusNode();
+    _emailFocusNode = FocusNode();
+    _passwordFocusNode = FocusNode();
+    _confirmPasswordFocusNode = FocusNode();
   }
 
   @override
@@ -181,6 +191,7 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
       verticalSpacing: Dimens.marginMedium,
       fields: [
         DSPlainTextField(
+          focusNode: _firstNameFocusNode,
           labelText: context.l10n.firstNameField,
           textCapitalization: TextCapitalization.words,
           textInputAction: TextInputAction.next,
@@ -198,6 +209,8 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
             }
           },
           onSubmitted: (val, isValid) {
+            _lastNameFocusNode.requestFocus();
+
             if (isValid) {
               context.read<CreateAccountCubit>().setFirstName(val);
             } else {
@@ -206,6 +219,7 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
           },
         ),
         DSPlainTextField(
+          focusNode: _lastNameFocusNode,
           labelText: context.l10n.lastNameField,
           textCapitalization: TextCapitalization.words,
           textInputAction: TextInputAction.next,
@@ -223,6 +237,8 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
             }
           },
           onSubmitted: (val, isValid) {
+            _emailFocusNode.requestFocus();
+
             if (isValid) {
               context.read<CreateAccountCubit>().setLastName(val);
             } else {
@@ -231,6 +247,8 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
           },
         ),
         DSEmailTextField(
+          focusNode: _emailFocusNode,
+          textInputAction: TextInputAction.next,
           onChanged: (val, isValid) {
             if (isValid) {
               context.read<CreateAccountCubit>().setEmail(val);
@@ -239,6 +257,8 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
             }
           },
           onSubmitted: (val, isValid) {
+            _passwordFocusNode.requestFocus();
+
             if (isValid) {
               context.read<CreateAccountCubit>().setEmail(val);
             } else {
@@ -247,7 +267,9 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
           },
         ),
         DSPasswordTextField(
+          focusNode: _passwordFocusNode,
           helperText: context.l10n.passwordRequirements,
+          textInputAction: TextInputAction.next,
           onChanged: (val, isValid) {
             _passwordBind.value = val;
 
@@ -258,6 +280,9 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
             }
           },
           onSubmitted: (val, isValid) {
+            _confirmPasswordFocusNode.requestFocus();
+            _passwordBind.value = val;
+
             if (isValid) {
               context.read<CreateAccountCubit>().setPassword(val);
             } else {
@@ -266,9 +291,11 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
           },
         ),
         DSConfirmPasswordTextField(
+          focusNode: _confirmPasswordFocusNode,
           labelText: context.l10n.confirmPasswordField,
           helperText: context.l10n.confirmPasswordRequirements,
           passwordBind: _passwordBind,
+          textInputAction: TextInputAction.done,
           onChanged: (val, isValid) {
             if (isValid) {
               context.read<CreateAccountCubit>().setConfirmPassword(val);
@@ -291,6 +318,11 @@ class _CreateAccountFormState extends State<_CreateAccountForm> {
   @override
   void dispose() {
     _passwordBind.dispose();
+    _firstNameFocusNode.dispose();
+    _lastNameFocusNode.dispose();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    _confirmPasswordFocusNode.dispose();
     super.dispose();
   }
 }

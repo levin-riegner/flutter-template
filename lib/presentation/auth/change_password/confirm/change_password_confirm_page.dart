@@ -125,12 +125,18 @@ class _ChangePasswordForm extends StatefulWidget {
 }
 
 class _ChangePasswordFormState extends State<_ChangePasswordForm> {
+  late final FocusNode _codeFocusNode;
+  late final FocusNode _passwordFocusNode;
+  late final FocusNode _confirmPasswordFocusNode;
   late final ValueNotifier<String?> _passwordBind;
 
   @override
   void initState() {
     super.initState();
     _passwordBind = ValueNotifier<String?>(null);
+    _codeFocusNode = FocusNode()..requestFocus();
+    _passwordFocusNode = FocusNode();
+    _confirmPasswordFocusNode = FocusNode();
   }
 
   @override
@@ -143,7 +149,11 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
         ),
         Dimens.boxMedium,
         OtpField(
+          focusNode: _codeFocusNode,
+          textInputAction: TextInputAction.next,
           onCompleted: (code) {
+            _passwordFocusNode.requestFocus();
+
             context.read<ChangePasswordConfirmCubit>().setCode(code);
           },
           onLocalValidationFailure: () {
@@ -156,6 +166,7 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
         ),
         Dimens.boxMedium,
         DSPasswordTextField(
+          focusNode: _passwordFocusNode,
           labelText: context.l10n.newPasswordField,
           helperText: context.l10n.passwordRequirements,
           textInputAction: TextInputAction.next,
@@ -169,6 +180,9 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
             }
           },
           onSubmitted: (val, isValid) {
+            _confirmPasswordFocusNode.requestFocus();
+            _passwordBind.value = val;
+
             if (isValid) {
               context.read<ChangePasswordConfirmCubit>().setPassword(val);
             } else {
@@ -178,6 +192,7 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
         ),
         Dimens.boxMedium,
         DSConfirmPasswordTextField(
+          focusNode: _confirmPasswordFocusNode,
           labelText: context.l10n.confirmNewPasswordField,
           passwordBind: _passwordBind,
           helperText: context.l10n.confirmPasswordRequirements,
@@ -208,6 +223,9 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
   @override
   void dispose() {
     _passwordBind.dispose();
+    _codeFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    _confirmPasswordFocusNode.dispose();
     super.dispose();
   }
 }

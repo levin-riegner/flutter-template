@@ -125,7 +125,22 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class _LoginForm extends StatelessWidget {
+class _LoginForm extends StatefulWidget {
+  @override
+  State<_LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<_LoginForm> {
+  late final FocusNode _emailFocusNode;
+  late final FocusNode _passwordFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailFocusNode = FocusNode();
+    _passwordFocusNode = FocusNode();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DSLocalValidableForm(
@@ -133,6 +148,7 @@ class _LoginForm extends StatelessWidget {
       verticalSpacing: Dimens.marginMedium,
       fields: [
         DSEmailTextField(
+          focusNode: _emailFocusNode,
           onChanged: (val, isValid) {
             if (isValid) {
               context.read<LoginCubit>().setEmail(val);
@@ -141,6 +157,8 @@ class _LoginForm extends StatelessWidget {
             }
           },
           onSubmitted: (val, isValid) {
+            _passwordFocusNode.requestFocus();
+
             if (isValid) {
               context.read<LoginCubit>().setEmail(val);
             } else {
@@ -151,6 +169,7 @@ class _LoginForm extends StatelessWidget {
           textInputAction: TextInputAction.next,
         ),
         DSPasswordTextField(
+          focusNode: _passwordFocusNode,
           onChanged: (val, isValid) {
             if (isValid) {
               context.read<LoginCubit>().setPassword(val);
@@ -170,5 +189,12 @@ class _LoginForm extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
   }
 }

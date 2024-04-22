@@ -130,6 +130,7 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
           ),
         ),
         child: TextField(
+          focusNode: widget.focusNode,
           controller: _controller,
           style: widget.style(context).textStyle,
           obscureText:

@@ -146,14 +146,28 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   }
 }
 
-class _OtpVerificationForm extends StatelessWidget {
+class _OtpVerificationForm extends StatefulWidget {
   const _OtpVerificationForm();
+
+  @override
+  State<_OtpVerificationForm> createState() => _OtpVerificationFormState();
+}
+
+class _OtpVerificationFormState extends State<_OtpVerificationForm> {
+  late final FocusNode _codeFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _codeFocusNode = FocusNode()..requestFocus();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         OtpField(
+          focusNode: _codeFocusNode,
           onCompleted: (val) {
             context.read<UserConfirmCubit>().verifyCode(val);
           },
@@ -170,5 +184,11 @@ class _OtpVerificationForm extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _codeFocusNode.dispose();
+    super.dispose();
   }
 }
