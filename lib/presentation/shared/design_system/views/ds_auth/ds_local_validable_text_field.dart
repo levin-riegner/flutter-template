@@ -118,6 +118,7 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
                 _localErrors.clear();
                 _localErrors.addAll(
                   widget.validateAndLocalize(
+                    context,
                     value,
                   ),
                 );
@@ -183,6 +184,7 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
                       _localErrors.clear();
                       _localErrors.addAll(
                         widget.validateAndLocalize(
+                          context,
                           value,
                         ),
                       );
@@ -207,6 +209,7 @@ class _DSLocalValidableTextFieldState<T extends DSLocalValidableTextField>
                       _localErrors.clear();
                       _localErrors.addAll(
                         widget.validateAndLocalize(
+                          context,
                           value,
                         ),
                       );

@@ -3,9 +3,9 @@
 // Nullable fields are optional, pass them as null if you don't want to use them as validation rules
 import 'package:flutter_template/util/tools/local_field_validation/rule_constants.dart';
 
-abstract class LocalValidationRule<RuleType> {
+abstract class LocalValidationRule<ValueType> {
   final String id;
-  final RuleType? ruleValue;
+  final ValueType? ruleValue;
 
   LocalValidationRule({
     required this.id,

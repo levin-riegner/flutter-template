@@ -175,6 +175,28 @@
   "@fieldErrorRequired": {
     "description": "Error message for a required blank field"
   },
+  "fieldErrorMinLength": "Field must be at least {minLength} characters long",
+  "@fieldErrorMinLength": {
+    "description": "Error message for a field that is too short",
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldErrorMaxLength": "Field must be at most {maxLength} characters long",
+  "@fieldErrorMaxLength": {
+    "description": "Error message for a field that is too long",
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldErrorInvalid": "Invalid format",
+  "@fieldErrorInvalid": {
+    "description": "Error message for a field that does not match the required format"
+  },
   "loginButton": "Login",
   "@loginButton": {
     "description": "Label for the login button"

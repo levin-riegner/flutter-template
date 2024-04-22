@@ -5,18 +5,18 @@ abstract class LocalFieldValidator {
 
   LocalFieldValidator(this.validationRules);
 
-  List<String> validate(
+  List<LocalValidationRule> validate(
     String? value,
   ) {
-    final errors = <String>[];
+    final unsatisfiedRules = <LocalValidationRule>[];
 
     for (var rule in validationRules) {
       if (!rule.satisfies(value)) {
-        errors.add(rule.id);
+        unsatisfiedRules.add(rule);
       }
     }
 
-    return errors;
+    return unsatisfiedRules;
   }
 }
 
