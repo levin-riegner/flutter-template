@@ -44,7 +44,7 @@ class ChangePasswordConfirmCubit extends Cubit<ChangePasswordConfirmState>
     );
   }
 
-  void retrieveEmail(String? email) {
+  void setEmail(String? email) {
     if (!email.isNullOrEmpty) {
       emit(
         state.copyWith(email: email),
@@ -52,25 +52,21 @@ class ChangePasswordConfirmCubit extends Cubit<ChangePasswordConfirmState>
     }
   }
 
-  Future<void> changePassword({
-    required String email,
-    required String code,
-    required String password,
-  }) async {
+  Future<void> changePassword() async {
     try {
       emit(
         ChangePasswordConfirmStateLoading(
           email: state.email,
-          password: password,
+          password: state.password,
           confirmPassword: state.confirmPassword,
-          code: code,
+          code: state.code,
         ),
       );
 
       final request = ForgotPasswordConfirmRequestModel(
-        code: code,
+        code: state.code,
         email: state.email,
-        password: password,
+        password: state.password,
       );
 
       await _authRepository.confirmForgotPasswordRequest(request);
@@ -81,9 +77,9 @@ class ChangePasswordConfirmCubit extends Cubit<ChangePasswordConfirmState>
             error: error,
           ),
           email: state.email,
-          password: password,
+          password: state.password,
           confirmPassword: state.confirmPassword,
-          code: code,
+          code: state.code,
         ),
       );
     } catch (e) {
@@ -93,9 +89,9 @@ class ChangePasswordConfirmCubit extends Cubit<ChangePasswordConfirmState>
             error: e.toString(),
           ),
           email: state.email,
-          password: password,
+          password: state.password,
           confirmPassword: state.confirmPassword,
-          code: code,
+          code: state.code,
         ),
       );
     }

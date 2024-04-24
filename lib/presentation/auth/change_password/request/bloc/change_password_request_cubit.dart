@@ -28,16 +28,16 @@ class ChangePasswordRequestCubit extends Cubit<ChangePasswordRequestState>
     );
   }
 
-  Future<void> sendCodeToEmail(String email) async {
+  Future<void> sendCodeToEmail() async {
     try {
       emit(
         ChangePasswordRequestStateLoading(
-          email: email,
+          email: state.email,
         ),
       );
 
       final request = ForgotPasswordRequestRequestModel(
-        email: email,
+        email: state.email,
       );
 
       await _authRepository.sendForgotPasswordRequest(
@@ -49,7 +49,7 @@ class ChangePasswordRequestCubit extends Cubit<ChangePasswordRequestState>
           error: ChangePasswordRequestDataError(
             error: error,
           ),
-          email: email,
+          email: state.email,
         ),
       );
     } catch (e) {
@@ -58,7 +58,7 @@ class ChangePasswordRequestCubit extends Cubit<ChangePasswordRequestState>
           error: ChangePasswordRequestUnknownError(
             error: e.toString(),
           ),
-          email: email,
+          email: state.email,
         ),
       );
     }

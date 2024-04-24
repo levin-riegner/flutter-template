@@ -41,18 +41,18 @@ class LoginCubit extends Cubit<LoginState>
     );
   }
 
-  Future<void> performLogin(String email, String password) async {
+  Future<void> performLogin() async {
     emit(
       LoginStateLoading(
-        email: email,
-        password: password,
+        email: state.email,
+        password: state.password,
       ),
     );
 
     try {
       final request = LoginRequestModel(
-        email: email,
-        password: password,
+        email: state.email,
+        password: state.password,
       );
 
       final result = await _authRepository.loginWithEmailAndPassword(request);
@@ -62,15 +62,15 @@ class LoginCubit extends Cubit<LoginState>
       }
 
       await Future.wait([
-        _userRepository.saveUserEmail(email),
+        _userRepository.saveUserEmail(state.email),
         _authRepository.saveUserToken(result.token!),
       ]);
 
       emit(
         LoginStateSuccess(
           data: result,
-          email: email,
-          password: password,
+          email: state.email,
+          password: state.password,
         ),
       );
     } on AuthDataError catch (error) {
@@ -79,8 +79,8 @@ class LoginCubit extends Cubit<LoginState>
           error: LoginDataError(
             error: error,
           ),
-          email: email,
-          password: password,
+          email: state.email,
+          password: state.password,
         ),
       );
 
@@ -93,8 +93,8 @@ class LoginCubit extends Cubit<LoginState>
           error: LoginUnknownError(
             error: e.toString(),
           ),
-          email: email,
-          password: password,
+          email: state.email,
+          password: state.password,
         ),
       );
     }

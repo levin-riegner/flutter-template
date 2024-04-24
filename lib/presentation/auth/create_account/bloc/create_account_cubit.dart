@@ -65,31 +65,24 @@ class CreateAccountCubit extends Cubit<CreateAccountState>
     );
   }
 
-  Future<void> createAccount({
-    required String email,
-    required String password,
-    required String firstName,
-    required String lastName,
-    required String confirmPassword,
-    required bool termsAndConditionsAccepted,
-  }) async {
+  Future<void> createAccount() async {
     emit(
       CreateAccountStateLoading(
-        email: email,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        confirmPassword: confirmPassword,
-        termsAndConditionsAccepted: termsAndConditionsAccepted,
+        email: state.email,
+        password: state.password,
+        firstName: state.firstName,
+        lastName: state.lastName,
+        confirmPassword: state.confirmPassword,
+        termsAndConditionsAccepted: state.termsAndConditionsAccepted,
       ),
     );
 
     try {
       final request = CreateAccountRequestModel(
-        email: email,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
+        email: state.email,
+        password: state.password,
+        firstName: state.firstName,
+        lastName: state.lastName,
       );
 
       final createAccountResult =
@@ -97,17 +90,17 @@ class CreateAccountCubit extends Cubit<CreateAccountState>
         request,
       );
 
-      await _userRepository.saveUserEmail(email);
+      await _userRepository.saveUserEmail(state.email);
 
       emit(
         CreateAccountStateSuccess(
           createAccountData: createAccountResult,
-          email: email,
-          password: password,
-          firstName: firstName,
-          lastName: lastName,
-          confirmPassword: confirmPassword,
-          termsAndConditionsAccepted: termsAndConditionsAccepted,
+          email: state.email,
+          password: state.password,
+          firstName: state.firstName,
+          lastName: state.lastName,
+          confirmPassword: state.confirmPassword,
+          termsAndConditionsAccepted: state.termsAndConditionsAccepted,
         ),
       );
     } on AuthDataError catch (error) {
@@ -116,12 +109,12 @@ class CreateAccountCubit extends Cubit<CreateAccountState>
           error: CreateAccountDataError(
             error: error,
           ),
-          email: email,
-          password: password,
-          firstName: firstName,
-          lastName: lastName,
-          confirmPassword: confirmPassword,
-          termsAndConditionsAccepted: termsAndConditionsAccepted,
+          email: state.email,
+          password: state.password,
+          firstName: state.firstName,
+          lastName: state.lastName,
+          confirmPassword: state.confirmPassword,
+          termsAndConditionsAccepted: state.termsAndConditionsAccepted,
         ),
       );
     } catch (e) {
@@ -130,12 +123,12 @@ class CreateAccountCubit extends Cubit<CreateAccountState>
           error: CreateAccountUnknownError(
             error: e.toString(),
           ),
-          firstName: firstName,
-          lastName: lastName,
-          confirmPassword: confirmPassword,
-          email: email,
-          password: password,
-          termsAndConditionsAccepted: termsAndConditionsAccepted,
+          firstName: state.firstName,
+          lastName: state.lastName,
+          confirmPassword: state.confirmPassword,
+          email: state.email,
+          password: state.password,
+          termsAndConditionsAccepted: state.termsAndConditionsAccepted,
         ),
       );
     }

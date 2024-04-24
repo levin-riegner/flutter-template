@@ -107,7 +107,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                         : context.l10n.otpDefaultVerificationRationale),
               ),
               Dimens.boxMedium,
-              const _OtpVerificationForm(),
+              _OtpVerificationForm(
+                onFieldCompleted: context.read<UserConfirmCubit>().verifyCode,
+              ),
             ],
           ),
         ),
@@ -128,11 +130,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   builder: (context, canSubmit) => DSOutlineButton(
                     isLoading: state is OtpVerificationStateLoading,
                     enabled: canSubmit,
-                    onPressed: () {
-                      context.read<UserConfirmCubit>().verifyCode(
-                            state.code,
-                          );
-                    },
+                    onPressed: context.read<UserConfirmCubit>().verifyCode,
                     text: context.l10n.confirmButton,
                   ),
                 ),
@@ -147,7 +145,11 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
 }
 
 class _OtpVerificationForm extends StatefulWidget {
-  const _OtpVerificationForm();
+  final VoidCallback onFieldCompleted;
+
+  const _OtpVerificationForm({
+    required this.onFieldCompleted,
+  });
 
   @override
   State<_OtpVerificationForm> createState() => _OtpVerificationFormState();
@@ -169,7 +171,9 @@ class _OtpVerificationFormState extends State<_OtpVerificationForm> {
         OtpField(
           focusNode: _codeFocusNode,
           onCompleted: (val) {
-            context.read<UserConfirmCubit>().verifyCode(val);
+            context.read<UserConfirmCubit>().setCode(val);
+
+            widget.onFieldCompleted();
           },
           onLocalValidationFailure: () {
             context.read<LocalValidableCubit>().setCanSubmit(false);

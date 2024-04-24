@@ -447,7 +447,7 @@ class ChangePasswordConfirmRoute extends GoRouteData {
         BlocProvider<ChangePasswordConfirmCubit>(
           create: (context) => ChangePasswordConfirmCubit(
             getIt<AuthRepository>(),
-          )..retrieveEmail(email),
+          )..setEmail(email),
         ),
         BlocProvider<LocalValidableCubit>(
           create: (context) => LocalValidableCubit(),

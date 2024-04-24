@@ -97,13 +97,9 @@ class ChangePasswordConfirmPage extends StatelessWidget {
                   builder: (context, canSubmit) => DSPrimaryButton(
                     isLoading: state is ChangePasswordConfirmStateLoading,
                     enabled: canSubmit,
-                    onPressed: () => context
+                    onPressed: context
                         .read<ChangePasswordConfirmCubit>()
-                        .changePassword(
-                          email: state.email,
-                          code: state.code,
-                          password: state.password,
-                        ),
+                        .changePassword,
                     text: context.l10n.confirmButton,
                   ),
                 ),

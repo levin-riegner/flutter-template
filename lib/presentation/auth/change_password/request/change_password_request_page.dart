@@ -91,11 +91,9 @@ class ChangePasswordRequestPage extends StatelessWidget {
                 builder: (context, canSubmit) => DSPrimaryButton(
                   isLoading: state is ChangePasswordRequestStateLoading,
                   enabled: canSubmit,
-                  onPressed: () {
-                    context.read<ChangePasswordRequestCubit>().sendCodeToEmail(
-                          state.email,
-                        );
-                  },
+                  onPressed: context
+                      .read<ChangePasswordRequestCubit>()
+                      .sendCodeToEmail,
                   text: context.l10n.sendCodeButton,
                 ),
               ),

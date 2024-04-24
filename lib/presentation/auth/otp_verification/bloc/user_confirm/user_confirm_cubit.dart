@@ -75,19 +75,19 @@ class UserConfirmCubit extends OtpVerificationCubit {
     );
   }
 
-  Future<void> verifyCode(String code) async {
+  Future<void> verifyCode() async {
     try {
       await retrieveUserEmail();
 
       emit(
         OtpVerificationStateLoading(
-          code: code,
+          code: state.code,
           email: state.email,
         ),
       );
 
       final request = UserConfirmRequestModel(
-        code: code,
+        code: state.code,
         email: state.email,
       );
 
@@ -97,7 +97,7 @@ class UserConfirmCubit extends OtpVerificationCubit {
         OtpVerificationStateSuccess(
           data: result,
           email: state.email,
-          code: code,
+          code: state.code,
         ),
       );
     } on AuthDataError catch (error) {
@@ -107,7 +107,7 @@ class UserConfirmCubit extends OtpVerificationCubit {
             error: error,
           ),
           email: state.email,
-          code: code,
+          code: state.code,
         ),
       );
     } catch (e) {
@@ -117,7 +117,7 @@ class UserConfirmCubit extends OtpVerificationCubit {
             error: e.toString(),
           ),
           email: state.email,
-          code: code,
+          code: state.code,
         ),
       );
     }

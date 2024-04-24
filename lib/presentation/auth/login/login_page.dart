@@ -99,12 +99,7 @@ class LoginPage extends StatelessWidget {
                   builder: (context, canSubmit) => DSPrimaryButton(
                     isLoading: state is LoginStateLoading,
                     enabled: canSubmit,
-                    onPressed: () {
-                      context.read<LoginCubit>().performLogin(
-                            state.email,
-                            state.password,
-                          );
-                    },
+                    onPressed: context.read<LoginCubit>().performLogin,
                     text: context.l10n.loginButton,
                   ),
                 ),

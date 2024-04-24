@@ -125,17 +125,8 @@ class CreateAccountPage extends StatelessWidget {
                       builder: (context, canSubmit) => DSPrimaryButton(
                         isLoading: state is CreateAccountStateLoading,
                         enabled: canSubmit,
-                        onPressed: () {
-                          context.read<CreateAccountCubit>().createAccount(
-                                email: state.email,
-                                password: state.password,
-                                confirmPassword: state.confirmPassword,
-                                firstName: state.firstName,
-                                lastName: state.lastName,
-                                termsAndConditionsAccepted:
-                                    state.termsAndConditionsAccepted,
-                              );
-                        },
+                        onPressed:
+                            context.read<CreateAccountCubit>().createAccount,
                         text: context.l10n.signUpButton,
                       ),
                     ),
