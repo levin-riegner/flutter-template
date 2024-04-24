@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
+import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/presentation/auth/change_password/confirm/bloc/change_password_confirm_cubit.dart';
 import 'package:flutter_template/presentation/auth/change_password/confirm/bloc/change_password_confirm_error.dart';
 import 'package:flutter_template/presentation/auth/change_password/confirm/bloc/change_password_confirm_state.dart';
@@ -12,18 +14,53 @@ import 'package:flutter_template/presentation/shared/design_system/views/ds_auth
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/built_in/ds_password_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_divider.dart';
+import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/extensions/auth_data_error_extension.dart';
 import 'package:flutter_template/util/extensions/context_extension.dart';
 import 'package:flutter_template/util/extensions/equatable_extension.dart';
 import 'package:flutter_template/util/tools/email_opener.dart';
+import 'package:go_router/go_router.dart';
 
 // TODO: Replace with your custom designs, widgets and strings
 
 class ChangePasswordConfirmPage extends StatelessWidget {
+  final String? email;
+
+  const ChangePasswordConfirmPage({
+    super.key,
+    this.email,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ChangePasswordConfirmCubit>(
+          create: (context) => ChangePasswordConfirmCubit(
+            getIt<AuthRepository>(),
+          )..setEmail(email),
+        ),
+        BlocProvider<LocalValidableCubit>(
+          create: (context) => LocalValidableCubit(),
+        ),
+      ],
+      child: ChangePasswordConfirmView(
+        onPasswordChangedSuccess: () {
+          // TODO: Redirect to your desired page after successful password change
+          context.go(
+            const LoginRoute().location,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class ChangePasswordConfirmView extends StatelessWidget {
   final String? title;
   final Function()? onPasswordChangedSuccess;
 
-  const ChangePasswordConfirmPage({
+  const ChangePasswordConfirmView({
     super.key,
     this.title,
     this.onPasswordChangedSuccess,

@@ -2,20 +2,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/auth/model/login/login_request_model.dart';
 import 'package:flutter_template/data/auth/repository/auth_repository.dart';
-import 'package:flutter_template/data/user/repository/user_repository.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_state.dart';
 import 'package:flutter_template/util/mixins/resettable_bloc_mixin.dart';
-import 'package:flutter_template/util/mixins/user_not_confirmed_interceptor.dart';
 
-class LoginCubit extends Cubit<LoginState>
-    with ResettableBlocMixin, UserNotConfirmedInterceptor {
+class LoginCubit extends Cubit<LoginState> with ResettableBlocMixin {
   final AuthRepository _authRepository;
-  final UserRepository _userRepository;
 
   LoginCubit(
     this._authRepository,
-    this._userRepository,
   ) : super(LoginState.empty());
 
   @override
@@ -73,10 +68,6 @@ class LoginCubit extends Cubit<LoginState>
           password: state.password,
         ),
       );
-
-      if (error is UserNotConfirmedException) {
-        onUserNotConfirmedException();
-      }
     } catch (e) {
       emit(
         LoginStateError(

@@ -79,9 +79,10 @@ class AuthRepository {
       request,
     );
 
-    if (!apiResponse.userId.isNullOrEmpty) {
-      await _saveUserId(apiResponse.userId!);
-    }
+    await Future.wait([
+      if (!apiResponse.userId.isNullOrEmpty) _saveUserId(apiResponse.userId!),
+      _saveUserEmail(request.email),
+    ]);
 
     return apiResponse.toDomain();
   }

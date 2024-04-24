@@ -43,6 +43,12 @@ class ChangePasswordRequestCubit extends Cubit<ChangePasswordRequestState>
       await _authRepository.sendForgotPasswordRequest(
         request,
       );
+
+      emit(
+        ChangePasswordRequestSuccess(
+          email: state.email,
+        ),
+      );
     } on AuthDataError catch (error) {
       emit(
         ChangePasswordRequestStateError(

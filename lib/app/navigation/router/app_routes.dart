@@ -1,32 +1,23 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/router/page_transitions.dart';
-import 'package:flutter_template/data/auth/repository/auth_repository.dart';
-import 'package:flutter_template/data/user/repository/user_repository.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/blank_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
-import 'package:flutter_template/presentation/auth/change_password/confirm/bloc/change_password_confirm_cubit.dart';
 import 'package:flutter_template/presentation/auth/change_password/confirm/change_password_confirm_page.dart';
-import 'package:flutter_template/presentation/auth/change_password/request/bloc/change_password_request_cubit.dart';
 import 'package:flutter_template/presentation/auth/change_password/request/change_password_request_page.dart';
-import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_cubit.dart';
 import 'package:flutter_template/presentation/auth/create_account/create_account_page.dart';
-import 'package:flutter_template/presentation/auth/login/bloc/login_cubit.dart';
 import 'package:flutter_template/presentation/auth/login/login_page.dart';
-import 'package:flutter_template/presentation/auth/otp_verification/bloc/user_confirm/user_confirm_cubit.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/otp_verification_page.dart';
 import 'package:flutter_template/presentation/bottom_navigation/bottom_navigation_page.dart';
 import 'package:flutter_template/presentation/settings/account_details_page.dart';
 import 'package:flutter_template/presentation/settings/settings_page.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/bloc/local_validable_cubit.dart';
 import 'package:flutter_template/util/console/console_deeplinks.dart';
 import 'package:flutter_template/util/console/console_environments.dart';
 import 'package:flutter_template/util/console/console_logins.dart';
 import 'package:flutter_template/util/console/console_page.dart';
 import 'package:flutter_template/util/console/console_qa_config.dart';
-import 'package:flutter_template/util/dependencies.dart';
+import 'package:flutter_template/util/extensions/context_extension.dart';
 import 'package:go_router/go_router.dart';
 
 part 'app_routes.g.dart';
@@ -301,11 +292,7 @@ class AccountDetailsRoute extends GoRouteData {
   name: "LoginPage",
 )
 class LoginRoute extends GoRouteData {
-  final String? pageTitle;
-
-  const LoginRoute({
-    this.pageTitle,
-  });
+  const LoginRoute();
 
   // Use parent navigator to navigate without bottom bar
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -313,43 +300,22 @@ class LoginRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<LoginCubit>(
-          create: (context) => LoginCubit(
-            getIt<AuthRepository>(),
-            getIt<UserRepository>(),
-          ),
-        ),
-        BlocProvider<LocalValidableCubit>(
-          create: (context) => LocalValidableCubit(),
-        ),
-      ],
-      child: LoginPage(
-        title: pageTitle,
-        onLoginSuccess: (loginModel) {
-          // TODO: Set actions after successful login
-          // such as redirecting to the home page
-          // or displaying a welcome dialog
-          context.go(
-            "/",
-          );
-        },
-      ),
-    );
+    return const LoginPage();
   }
 }
 
 @TypedGoRoute<CreateAccountRoute>(
   path: "/create-account",
   name: "CreateAccountPage",
+  routes: [
+    TypedGoRoute<VerifyAccountRoute>(
+      path: "verify",
+      name: "VerifyAccountPage",
+    ),
+  ],
 )
 class CreateAccountRoute extends GoRouteData {
-  final String? pageTitle;
-
-  const CreateAccountRoute({
-    this.pageTitle,
-  });
+  const CreateAccountRoute();
 
   // Use parent navigator to navigate without bottom bar
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -357,37 +323,27 @@ class CreateAccountRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<CreateAccountCubit>(
-          create: (context) => CreateAccountCubit(
-            getIt<AuthRepository>(),
-            getIt<UserRepository>(),
-          ),
-        ),
-        BlocProvider<LocalValidableCubit>(
-          create: (context) => LocalValidableCubit(),
-        ),
-      ],
-      child: CreateAccountPage(
-        title: pageTitle,
-        onCreateAccountSuccess: (createAccountModel) {
-          // TODO: Set actions after successful signup
-          // such as redirecting to OTP page if 2FA is enabled
-          context.go(
-            const OtpVerificationRoute(
-              // Send OTP to email as soon as the screen is shown
-              sendCodeOnInit: true,
-            ).location,
-          );
-        },
-      ),
+    return const CreateAccountPage();
+  }
+}
+
+class VerifyAccountRoute extends GoRouteData {
+  const VerifyAccountRoute();
+
+  // Use parent navigator to navigate without bottom bar
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const OtpVerificationPage(
+      sendCodeOnInit: true,
     );
   }
 }
 
 @TypedGoRoute<ChangePasswordRequestRoute>(
-  path: "/change-password-request",
+  path: "/change-password",
   name: "ChangePasswordRequestPage",
   routes: [
     TypedGoRoute<ChangePasswordConfirmRoute>(
@@ -397,11 +353,7 @@ class CreateAccountRoute extends GoRouteData {
   ],
 )
 class ChangePasswordRequestRoute extends GoRouteData {
-  final String? pageTitle;
-
-  const ChangePasswordRequestRoute({
-    this.pageTitle,
-  });
+  const ChangePasswordRequestRoute();
 
   // Use parent navigator to navigate without bottom bar
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -409,30 +361,16 @@ class ChangePasswordRequestRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<ChangePasswordRequestCubit>(
-          create: (context) => ChangePasswordRequestCubit(
-            getIt<AuthRepository>(),
-          ),
-        ),
-        BlocProvider<LocalValidableCubit>(
-          create: (context) => LocalValidableCubit(),
-        ),
-      ],
-      child: ChangePasswordRequestPage(
-        title: pageTitle,
-      ),
+    return ChangePasswordRequestPage(
+      title: context.l10n.changePasswordPageTitle,
     );
   }
 }
 
 class ChangePasswordConfirmRoute extends GoRouteData {
-  final String? pageTitle;
   final String? email;
 
   const ChangePasswordConfirmRoute({
-    this.pageTitle,
     this.email,
   });
 
@@ -442,27 +380,45 @@ class ChangePasswordConfirmRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<ChangePasswordConfirmCubit>(
-          create: (context) => ChangePasswordConfirmCubit(
-            getIt<AuthRepository>(),
-          )..setEmail(email),
-        ),
-        BlocProvider<LocalValidableCubit>(
-          create: (context) => LocalValidableCubit(),
-        ),
-      ],
-      child: ChangePasswordConfirmPage(
-        title: pageTitle,
-        onPasswordChangedSuccess: () {
-          // TODO: Redirect to your desired page after successful password change
-          context.go(
-            const LoginRoute().location,
-          );
-        },
-      ),
+    return ChangePasswordConfirmPage(email: email);
+  }
+}
+
+@TypedGoRoute<ResetPasswordRoute>(
+  path: "/reset-password",
+  name: "ResetPasswordRequestPage",
+  routes: [
+    TypedGoRoute<ResetPasswordConfirmRoute>(
+      path: "confirm",
+      name: "ResetPasswordConfirmPage",
+    ),
+  ],
+)
+class ResetPasswordRoute extends GoRouteData {
+  const ResetPasswordRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ChangePasswordRequestPage(
+      title: context.l10n.resetPasswordPageTitle,
     );
+  }
+}
+
+class ResetPasswordConfirmRoute extends GoRouteData {
+  final String? email;
+
+  const ResetPasswordConfirmRoute({
+    this.email,
+  });
+
+  // Use parent navigator to navigate without bottom bar
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ChangePasswordConfirmPage(email: email);
   }
 }
 
@@ -471,17 +427,7 @@ class ChangePasswordConfirmRoute extends GoRouteData {
   name: "OtpVerificationPage",
 )
 class OtpVerificationRoute extends GoRouteData {
-  final String? pageTitle;
-  final String? rationale;
-  final String? email;
-  final bool sendCodeOnInit;
-
-  const OtpVerificationRoute({
-    this.pageTitle,
-    this.rationale,
-    this.email,
-    this.sendCodeOnInit = false,
-  });
+  const OtpVerificationRoute();
 
   // Use parent navigator to navigate without bottom bar
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -489,31 +435,7 @@ class OtpVerificationRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<UserConfirmCubit>(
-          create: (context) => UserConfirmCubit(
-            getIt<AuthRepository>(),
-          ),
-        ),
-        BlocProvider<LocalValidableCubit>(
-          create: (context) => LocalValidableCubit(),
-        ),
-      ],
-      child: OtpVerificationPage(
-        title: pageTitle,
-        rationale: rationale,
-        email: email,
-        sendCodeOnInit: sendCodeOnInit,
-        onVerificationSuccess: (data) {
-          // TODO: Redirect to your desired page after successful user verification
-          // You would typically redirect to the login page so the user can login
-          context.go(
-            const LoginRoute().location,
-          );
-        },
-      ),
-    );
+    return const OtpVerificationPage();
   }
 }
 //#endregion

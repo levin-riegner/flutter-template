@@ -13,8 +13,11 @@ class AuthRouteRedirect implements RouteRedirect {
   static const List<String> authRoutes = [
     "/login",
     "/create-account",
-    "/change-password-request",
-    "/change-password-request/confirm",
+    "/create-account/verify",
+    "/change-password",
+    "/change-password/confirm",
+    "/reset-password",
+    "/reset-password/confirm",
     "/otp",
   ];
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/auth/model/auth_token_model.dart';
+import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_cubit.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_state.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_template/presentation/shared/design_system/views/ds_auth
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/ds_local_validable_form.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/ds_local_validable_text_field.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
+import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/extensions/auth_data_error_extension.dart';
 import 'package:flutter_template/util/extensions/context_extension.dart';
 import 'package:flutter_template/util/extensions/equatable_extension.dart';
@@ -24,10 +26,40 @@ import 'package:go_router/go_router.dart';
 // TODO: Replace with your custom designs, widgets and strings
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginCubit>(
+          create: (context) => LoginCubit(
+            getIt<AuthRepository>(),
+          ),
+        ),
+        BlocProvider<LocalValidableCubit>(
+          create: (context) => LocalValidableCubit(),
+        ),
+      ],
+      child: LoginView(
+        onLoginSuccess: (loginModel) {
+          // TODO: Set actions after successful login
+          // such as redirecting to the home page
+          // or displaying a welcome dialog
+          context.go(
+            "/",
+          );
+        },
+      ),
+    );
+  }
+}
+
+class LoginView extends StatelessWidget {
   final String? title;
   final Function(AuthTokenModel loginModel)? onLoginSuccess;
 
-  const LoginPage({
+  const LoginView({
     super.key,
     this.title,
     this.onLoginSuccess,
@@ -36,24 +68,38 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         context.read<LocalValidableCubit>().setCanSubmit(
               state.canSubmit,
             );
 
         if (state is LoginStateError) {
-          AlertService.showAlert(
-            type: AlertType.error,
-            context: context,
-            seconds: Dimens.alertDurationMedium,
-            message: switch (state.error) {
-              LoginUnknownError(error: String error) => error,
-              LoginDataError(error: AuthDataError error) =>
-                error.localizedMessage(context),
-            },
-          );
+          if (state.error is LoginDataError) {
+            if ((state.error as LoginDataError).error
+                is UserNotConfirmedException) {
+              context.push(
+                const VerifyAccountRoute().location,
+              );
 
-          context.read<LoginCubit>().resetState();
+              // Give some time for the navigation to complete and show alert
+              await Future.delayed(const Duration(milliseconds: 500));
+            }
+          }
+
+          if (context.mounted) {
+            AlertService.showAlert(
+              type: AlertType.error,
+              context: context,
+              seconds: Dimens.alertDurationMedium,
+              message: switch (state.error) {
+                LoginUnknownError(error: String error) => error,
+                LoginDataError(error: AuthDataError error) =>
+                  error.localizedMessage(context),
+              },
+            );
+
+            context.read<LoginCubit>().resetState();
+          }
         }
 
         if (state is LoginStateSuccess) {
@@ -79,9 +125,7 @@ class LoginPage extends StatelessWidget {
               Dimens.boxXLarge,
               ForgotPasswordButton(
                 onPressed: () => context.push(
-                  ChangePasswordRequestRoute(
-                    pageTitle: context.l10n.resetPasswordPageTitle,
-                  ).location,
+                  const ResetPasswordRoute().location,
                 ),
               ),
             ],

@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/auth/model/create_account/create_account_request_model.dart';
 import 'package:flutter_template/data/auth/repository/auth_repository.dart';
-import 'package:flutter_template/data/user/repository/user_repository.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_error.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_state.dart';
 import 'package:flutter_template/util/mixins/resettable_bloc_mixin.dart';
@@ -10,10 +9,8 @@ import 'package:flutter_template/util/mixins/resettable_bloc_mixin.dart';
 class CreateAccountCubit extends Cubit<CreateAccountState>
     with ResettableBlocMixin {
   final AuthRepository _authRepository;
-  final UserRepository _userRepository;
 
-  CreateAccountCubit(this._authRepository, this._userRepository)
-      : super(CreateAccountState.empty());
+  CreateAccountCubit(this._authRepository) : super(CreateAccountState.empty());
 
   @override
   void resetState() {

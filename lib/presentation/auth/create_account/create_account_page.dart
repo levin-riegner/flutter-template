@@ -5,6 +5,7 @@ import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/auth/model/create_account/create_account_model.dart';
+import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_cubit.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_error.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_state.dart';
@@ -27,10 +28,39 @@ import 'package:go_router/go_router.dart';
 // TODO: Replace with your custom designs, widgets and strings
 
 class CreateAccountPage extends StatelessWidget {
+  const CreateAccountPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CreateAccountCubit>(
+          create: (context) => CreateAccountCubit(
+            getIt<AuthRepository>(),
+          ),
+        ),
+        BlocProvider<LocalValidableCubit>(
+          create: (context) => LocalValidableCubit(),
+        ),
+      ],
+      child: CreateAccountView(
+        onCreateAccountSuccess: (createAccountModel) {
+          // TODO: Set actions after successful signup
+          // such as redirecting to OTP page if 2FA is enabled
+          context.go(
+            const VerifyAccountRoute().location,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class CreateAccountView extends StatelessWidget {
   final String? title;
   final Function(CreateAccountModel createAccountModel)? onCreateAccountSuccess;
 
-  const CreateAccountPage({
+  const CreateAccountView({
     super.key,
     this.title,
     this.onCreateAccountSuccess,

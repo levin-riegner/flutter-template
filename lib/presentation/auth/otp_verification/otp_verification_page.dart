@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/auth/model/user_confirm/user_confirm_model.dart';
+import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_error.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_state.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/user_confirm/user_confirm_cubit.dart';
@@ -12,41 +14,70 @@ import 'package:flutter_template/presentation/shared/design_system/theme/dimens.
 import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_auth/bloc/local_validable_cubit.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
+import 'package:flutter_template/util/dependencies.dart';
 import 'package:flutter_template/util/extensions/auth_data_error_extension.dart';
 import 'package:flutter_template/util/extensions/context_extension.dart';
 import 'package:flutter_template/util/extensions/equatable_extension.dart';
 import 'package:flutter_template/util/tools/email_opener.dart';
+import 'package:go_router/go_router.dart';
 
 // TODO: Replace with your custom designs, widgets and strings
 
-class OtpVerificationPage extends StatefulWidget {
+class OtpVerificationPage extends StatelessWidget {
+  final bool sendCodeOnInit;
+
+  const OtpVerificationPage({
+    super.key,
+    this.sendCodeOnInit = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<UserConfirmCubit>(
+          create: (context) {
+            final cubit = UserConfirmCubit(
+              getIt<AuthRepository>(),
+            );
+
+            if (sendCodeOnInit) {
+              cubit.sendCodeToEmail();
+            }
+
+            return cubit;
+          },
+        ),
+        BlocProvider<LocalValidableCubit>(
+          create: (context) => LocalValidableCubit(),
+        ),
+      ],
+      child: OtpVerificationView(
+        onVerificationSuccess: (data) {
+          // TODO: Redirect to your desired page after successful user verification
+          // You would typically redirect to the login page so the user can login
+          context.go(
+            const LoginRoute().location,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class OtpVerificationView extends StatelessWidget {
   final String? title;
   final String? rationale;
   final String? email;
   final Function(UserConfirmModel)? onVerificationSuccess;
-  final bool sendCodeOnInit;
 
-  const OtpVerificationPage({
+  const OtpVerificationView({
     super.key,
     this.title,
     this.rationale,
     this.email,
     this.onVerificationSuccess,
-    this.sendCodeOnInit = false,
   });
-
-  @override
-  State<OtpVerificationPage> createState() => _OtpVerificationPageState();
-}
-
-class _OtpVerificationPageState extends State<OtpVerificationPage> {
-  @override
-  void initState() {
-    super.initState();
-    if (widget.sendCodeOnInit) {
-      context.read<UserConfirmCubit>().sendCodeToEmail();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,15 +112,15 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
         }
 
         if (state is OtpVerificationStateSuccess<UserConfirmModel>) {
-          if (widget.onVerificationSuccess != null) {
-            widget.onVerificationSuccess!(state.data);
+          if (onVerificationSuccess != null) {
+            onVerificationSuccess!(state.data);
           }
         }
       },
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.title ?? context.l10n.otpVerificationPageTitle,
+            title ?? context.l10n.otpVerificationPageTitle,
           ),
         ),
         body: SingleChildScrollView(
@@ -100,10 +131,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                widget.rationale ??
-                    (widget.email != null
-                        ? context.l10n
-                            .otpEmailVerificationRationale(widget.email!)
+                rationale ??
+                    (email != null
+                        ? context.l10n.otpEmailVerificationRationale(email!)
                         : context.l10n.otpDefaultVerificationRationale),
               ),
               Dimens.boxMedium,
