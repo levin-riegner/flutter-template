@@ -57,6 +57,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       ),
       const DefaultRouteRedirect(),
       AuthRouteRedirect(
+        unauthenticatedDefaultRoute: const LoginRoute().location,
         hasSessionAvailable: () => getIt<AuthRepository>().isSessionAvailable,
       ),
     ],
