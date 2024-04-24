@@ -17,6 +17,11 @@ sealed class OtpVerificationState extends Equatable {
     String? email,
     bool? resendSuccesful,
   });
+
+  factory OtpVerificationState.empty() => const OtpVerificationStateInitial(
+        code: "",
+        email: "",
+      );
 }
 
 class OtpVerificationStateInitial extends OtpVerificationState {

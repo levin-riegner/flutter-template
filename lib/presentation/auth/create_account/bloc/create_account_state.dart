@@ -28,6 +28,15 @@ sealed class CreateAccountState extends Equatable {
     String? confirmPassword,
     bool? termsAndConditionsAccepted,
   });
+
+  factory CreateAccountState.empty() => const CreateAccountStateInitial(
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        confirmPassword: "",
+        termsAndConditionsAccepted: false,
+      );
 }
 
 class CreateAccountStateInitial extends CreateAccountState {

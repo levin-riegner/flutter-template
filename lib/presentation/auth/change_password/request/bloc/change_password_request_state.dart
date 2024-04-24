@@ -11,6 +11,11 @@ sealed class ChangePasswordRequestState extends Equatable {
   ChangePasswordRequestState copyWith({
     String? email,
   });
+
+  factory ChangePasswordRequestState.empty() =>
+      const ChangePasswordRequestStateInitial(
+        email: "",
+      );
 }
 
 class ChangePasswordRequestStateInitial extends ChangePasswordRequestState {

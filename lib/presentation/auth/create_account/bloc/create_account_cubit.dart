@@ -13,16 +13,7 @@ class CreateAccountCubit extends Cubit<CreateAccountState>
   final UserRepository _userRepository;
 
   CreateAccountCubit(this._authRepository, this._userRepository)
-      : super(
-          const CreateAccountStateInitial(
-            email: "",
-            password: "",
-            firstName: "",
-            lastName: "",
-            confirmPassword: "",
-            termsAndConditionsAccepted: false,
-          ),
-        );
+      : super(CreateAccountState.empty());
 
   @override
   void resetState() {

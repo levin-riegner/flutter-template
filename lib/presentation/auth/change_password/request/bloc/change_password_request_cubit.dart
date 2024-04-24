@@ -11,11 +11,7 @@ class ChangePasswordRequestCubit extends Cubit<ChangePasswordRequestState>
   final AuthRepository _authRepository;
 
   ChangePasswordRequestCubit(this._authRepository)
-      : super(
-          const ChangePasswordRequestStateInitial(
-            email: "",
-          ),
-        );
+      : super(ChangePasswordRequestState.empty());
 
   @override
   void resetState() {

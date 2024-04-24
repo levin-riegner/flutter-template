@@ -20,6 +20,14 @@ sealed class ChangePasswordConfirmState extends Equatable {
     String? confirmPassword,
     String? code,
   });
+
+  factory ChangePasswordConfirmState.empty() =>
+      const ChangePasswordConfirmStateInitial(
+        email: "",
+        password: "",
+        confirmPassword: "",
+        code: "",
+      );
 }
 
 class ChangePasswordConfirmStateInitial extends ChangePasswordConfirmState {

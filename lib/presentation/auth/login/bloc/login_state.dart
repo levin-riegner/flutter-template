@@ -15,6 +15,11 @@ sealed class LoginState extends Equatable {
     String? email,
     String? password,
   });
+
+  factory LoginState.empty() => const LoginStateInitial(
+        email: "",
+        password: "",
+      );
 }
 
 class LoginStateInitial extends LoginState {

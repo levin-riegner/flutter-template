@@ -12,10 +12,7 @@ class UserConfirmCubit extends OtpVerificationCubit {
     AuthRepository authRepository,
     UserRepository userRepository,
   ) : super(
-          const OtpVerificationStateInitial(
-            code: "",
-            email: "",
-          ),
+          OtpVerificationState.empty(),
           authRepository: authRepository,
           userRepository: userRepository,
         );

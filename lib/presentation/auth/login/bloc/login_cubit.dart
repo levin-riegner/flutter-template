@@ -17,9 +17,7 @@ class LoginCubit extends Cubit<LoginState>
   LoginCubit(
     this._authRepository,
     this._userRepository,
-  ) : super(
-          const LoginStateInitial(email: "", password: ""),
-        );
+  ) : super(LoginState.empty());
 
   @override
   void resetState() {

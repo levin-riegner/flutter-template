@@ -12,14 +12,7 @@ class ChangePasswordConfirmCubit extends Cubit<ChangePasswordConfirmState>
   final AuthRepository _authRepository;
 
   ChangePasswordConfirmCubit(this._authRepository)
-      : super(
-          const ChangePasswordConfirmStateInitial(
-            email: "",
-            password: "",
-            confirmPassword: "",
-            code: "",
-          ),
-        );
+      : super(ChangePasswordConfirmState.empty());
 
   @override
   void resetState() {
