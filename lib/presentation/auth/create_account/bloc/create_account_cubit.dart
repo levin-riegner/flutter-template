@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
+import 'package:flutter_template/data/auth/model/create_account/create_account_request_model.dart';
 import 'package:flutter_template/data/auth/repository/auth_repository.dart';
-import 'package:flutter_template/data/auth/service/remote/model/create_account/create_account_request_model.dart';
 import 'package:flutter_template/data/user/repository/user_repository.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_error.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_state.dart';

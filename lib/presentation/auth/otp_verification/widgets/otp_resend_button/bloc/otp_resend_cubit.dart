@@ -20,7 +20,11 @@ class OtpResendCubit extends Cubit<OtpResendState> {
     Function(Object)? onError,
   }) async {
     try {
-      emit(const OtpResendStateLoading());
+      emit(
+        OtpResendStateLoading(
+          countdownSeconds: state.countdownSeconds,
+        ),
+      );
 
       await onResend();
 

@@ -1,20 +1,20 @@
-import 'package:flutter_template/data/auth/model/create_account_model.dart';
-import 'package:flutter_template/data/auth/model/login_model.dart';
-import 'package:flutter_template/data/auth/model/refresh_token_model.dart';
-import 'package:flutter_template/data/auth/model/user_confirm_model.dart';
-import 'package:flutter_template/data/auth/model/user_delete_model.dart';
-import 'package:flutter_template/data/auth/model/user_disable_model.dart';
+import 'package:flutter_template/data/auth/model/create_account/create_account_model.dart';
+import 'package:flutter_template/data/auth/model/create_account/create_account_request_model.dart';
+import 'package:flutter_template/data/auth/model/forgot_password_confirm/forgot_password_confirm_request_model.dart';
+import 'package:flutter_template/data/auth/model/forgot_password_request/forgot_password_request_request_model.dart';
+import 'package:flutter_template/data/auth/model/login/login_model.dart';
+import 'package:flutter_template/data/auth/model/login/login_request_model.dart';
+import 'package:flutter_template/data/auth/model/refresh_token/refresh_token_model.dart';
+import 'package:flutter_template/data/auth/model/refresh_token/refresh_token_request_model.dart';
+import 'package:flutter_template/data/auth/model/user_confirm/user_confirm_model.dart';
+import 'package:flutter_template/data/auth/model/user_confirm/user_confirm_request_model.dart';
+import 'package:flutter_template/data/auth/model/user_confirm_request/user_confirm_request_request_model.dart';
+import 'package:flutter_template/data/auth/model/user_delete/user_delete_model.dart';
+import 'package:flutter_template/data/auth/model/user_delete/user_delete_request_model.dart';
+import 'package:flutter_template/data/auth/model/user_disable/user_disable_model.dart';
+import 'package:flutter_template/data/auth/model/user_disable/user_disable_request_model.dart';
 import 'package:flutter_template/data/auth/service/local/auth_local_service.dart';
 import 'package:flutter_template/data/auth/service/remote/auth_api_service.dart';
-import 'package:flutter_template/data/auth/service/remote/model/create_account/create_account_request_model.dart';
-import 'package:flutter_template/data/auth/service/remote/model/forgot_password_confirm/forgot_password_confirm_request_model.dart';
-import 'package:flutter_template/data/auth/service/remote/model/forgot_password_request/forgot_password_request_request_model.dart';
-import 'package:flutter_template/data/auth/service/remote/model/login/login_request_model.dart';
-import 'package:flutter_template/data/auth/service/remote/model/refresh_token/refresh_token_request_model.dart';
-import 'package:flutter_template/data/auth/service/remote/model/user_confirm/user_confirm_request_model.dart';
-import 'package:flutter_template/data/auth/service/remote/model/user_confirm_request/user_confirm_request_request_model.dart';
-import 'package:flutter_template/data/auth/service/remote/model/user_delete/user_delete_request_model.dart';
-import 'package:flutter_template/data/auth/service/remote/model/user_disable/user_disable_request_model.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class AuthRepository {

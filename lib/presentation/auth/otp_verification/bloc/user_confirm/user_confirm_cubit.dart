@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
+import 'package:flutter_template/data/auth/model/user_confirm/user_confirm_request_model.dart';
+import 'package:flutter_template/data/auth/model/user_confirm_request/user_confirm_request_request_model.dart';
 import 'package:flutter_template/data/auth/repository/auth_repository.dart';
-import 'package:flutter_template/data/auth/service/remote/model/user_confirm/user_confirm_request_model.dart';
-import 'package:flutter_template/data/auth/service/remote/model/user_confirm_request/user_confirm_request_request_model.dart';
 import 'package:flutter_template/data/user/repository/user_repository.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_cubit.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_error.dart';

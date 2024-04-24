@@ -4,7 +4,7 @@ import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/app/l10n/l10n.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
-import 'package:flutter_template/data/auth/model/create_account_model.dart';
+import 'package:flutter_template/data/auth/model/create_account/create_account_model.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_cubit.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_error.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_state.dart';

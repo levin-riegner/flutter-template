@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_template/data/auth/model/create_account_model.dart';
-import 'package:flutter_template/data/auth/model/login_model.dart';
+import 'package:flutter_template/data/auth/model/create_account/create_account_model.dart';
+import 'package:flutter_template/data/auth/model/login/login_model.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_error.dart';
 
 sealed class CreateAccountState extends Equatable {

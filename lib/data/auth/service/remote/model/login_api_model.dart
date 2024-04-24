@@ -1,17 +1,17 @@
-import 'package:flutter_template/data/auth/model/refresh_token_model.dart';
+import 'package:flutter_template/data/auth/model/login/login_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/auth_api_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'refresh_token_api_model.g.dart';
+part 'login_api_model.g.dart';
 
 @JsonSerializable()
-class RefreshTokenApiModel extends AuthApiResponse {
+class LoginApiModel extends AuthApiResponse {
   final String? token;
   final String? accessToken;
   final String? refreshToken;
   final int? expiresIn;
 
-  const RefreshTokenApiModel({
+  const LoginApiModel({
     super.status,
     this.token,
     this.accessToken,
@@ -19,10 +19,10 @@ class RefreshTokenApiModel extends AuthApiResponse {
     this.expiresIn,
   });
 
-  factory RefreshTokenApiModel.fromJson(Map<String, dynamic> json) =>
-      _$RefreshTokenApiModelFromJson(json);
+  factory LoginApiModel.fromJson(Map<String, dynamic> json) =>
+      _$LoginApiModelFromJson(json);
 
-  RefreshTokenModel toDomain() => RefreshTokenModel(
+  LoginModel toDomain() => LoginModel(
         status: status,
         token: token,
         accessToken: accessToken,

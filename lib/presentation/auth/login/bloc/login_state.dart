@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_template/data/auth/model/login_model.dart';
+import 'package:flutter_template/data/auth/model/login/login_model.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
 
 sealed class LoginState extends Equatable {

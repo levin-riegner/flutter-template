@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
+import 'package:flutter_template/data/auth/model/login/login_request_model.dart';
 import 'package:flutter_template/data/auth/repository/auth_repository.dart';
-import 'package:flutter_template/data/auth/service/remote/model/login/login_request_model.dart';
 import 'package:flutter_template/data/user/repository/user_repository.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_state.dart';

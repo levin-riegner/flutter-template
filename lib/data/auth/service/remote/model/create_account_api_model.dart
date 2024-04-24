@@ -1,4 +1,4 @@
-import 'package:flutter_template/data/auth/model/create_account_model.dart';
+import 'package:flutter_template/data/auth/model/create_account/create_account_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/auth_api_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 

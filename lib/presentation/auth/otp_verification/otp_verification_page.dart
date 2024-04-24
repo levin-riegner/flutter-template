@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
-import 'package:flutter_template/data/auth/model/user_confirm_model.dart';
+import 'package:flutter_template/data/auth/model/user_confirm/user_confirm_model.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_error.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_state.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/user_confirm/user_confirm_cubit.dart';

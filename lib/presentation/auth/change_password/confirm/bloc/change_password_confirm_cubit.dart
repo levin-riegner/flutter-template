@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
+import 'package:flutter_template/data/auth/model/forgot_password_confirm/forgot_password_confirm_request_model.dart';
 import 'package:flutter_template/data/auth/repository/auth_repository.dart';
-import 'package:flutter_template/data/auth/service/remote/model/forgot_password_confirm/forgot_password_confirm_request_model.dart';
 import 'package:flutter_template/presentation/auth/change_password/confirm/bloc/change_password_confirm_error.dart';
 import 'package:flutter_template/presentation/auth/change_password/confirm/bloc/change_password_confirm_state.dart';
 import 'package:flutter_template/util/extensions/string_extension.dart';
