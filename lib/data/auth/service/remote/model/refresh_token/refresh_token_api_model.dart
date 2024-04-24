@@ -1,13 +1,11 @@
 import 'package:flutter_template/data/auth/model/refresh_token_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/auth_api_response.dart';
-import 'package:flutter_template/data/shared/interface/domain_serializable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'refresh_token_api_model.g.dart';
 
 @JsonSerializable()
-class RefreshTokenApiModel extends AuthApiResponse
-    implements DomainSerializable<RefreshTokenModel> {
+class RefreshTokenApiModel extends AuthApiResponse {
   final String? token;
   final String? accessToken;
   final String? refreshToken;
@@ -24,7 +22,6 @@ class RefreshTokenApiModel extends AuthApiResponse
   factory RefreshTokenApiModel.fromJson(Map<String, dynamic> json) =>
       _$RefreshTokenApiModelFromJson(json);
 
-  @override
   RefreshTokenModel toDomain() => RefreshTokenModel(
         status: status,
         token: token,

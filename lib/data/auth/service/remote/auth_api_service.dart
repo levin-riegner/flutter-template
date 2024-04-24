@@ -25,6 +25,7 @@ class AuthApiService with ApiResponseMapper {
 
   AuthApiService(this.client);
 
+  // TODO: Consider getting rid of this
   Future<ResponseType> _runThrowable<ResponseType>(Function action) async {
     try {
       return await action();
@@ -51,6 +52,7 @@ class AuthApiService with ApiResponseMapper {
         },
       );
 
+  // TODO: Consider moving user-related methods to user_repository
   Future<UserUpdateApiModel> updateUser(
     UserUpdateRequestModel request,
   ) =>
@@ -90,6 +92,7 @@ class AuthApiService with ApiResponseMapper {
         },
       );
 
+  // TODO: Get rid of bool return, Im already handling exceptions
   Future<bool> sendConfirmUserRequest(
     UserConfirmRequestRequestModel request,
   ) =>

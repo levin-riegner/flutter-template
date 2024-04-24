@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+// TODO: Move request models to models folder and use jsonserializable
 class UserConfirmRequestModel extends Equatable {
   final String email;
   final String code;
