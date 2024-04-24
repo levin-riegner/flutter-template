@@ -1,4 +1,4 @@
-import 'package:flutter_template/data/auth/model/login/login_model.dart';
+import 'package:flutter_template/data/auth/model/auth_token_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/auth_api_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -22,7 +22,7 @@ class LoginApiModel extends AuthApiResponse {
   factory LoginApiModel.fromJson(Map<String, dynamic> json) =>
       _$LoginApiModelFromJson(json);
 
-  LoginModel toDomain() => LoginModel(
+  AuthTokenModel toDomain() => AuthTokenModel(
         status: status,
         token: token,
         accessToken: accessToken,

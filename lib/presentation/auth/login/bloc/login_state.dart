@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_template/data/auth/model/login/login_model.dart';
+import 'package:flutter_template/data/auth/model/auth_token_model.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
 
 sealed class LoginState extends Equatable {
@@ -64,7 +64,7 @@ class LoginStateLoading extends LoginState {
 }
 
 class LoginStateSuccess extends LoginState {
-  final LoginModel data;
+  final AuthTokenModel data;
 
   const LoginStateSuccess({
     required this.data,
@@ -79,7 +79,7 @@ class LoginStateSuccess extends LoginState {
 
   @override
   LoginStateSuccess copyWith({
-    LoginModel? data,
+    AuthTokenModel? data,
     String? email,
     String? password,
   }) =>

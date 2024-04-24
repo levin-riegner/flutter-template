@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class LoginModel extends Equatable {
+class AuthTokenModel extends Equatable {
   final int? status;
   final String? token;
   final String? accessToken;
   final String? refreshToken;
   final int? expiresIn;
 
-  const LoginModel({
+  const AuthTokenModel({
     this.status,
     this.token,
     this.accessToken,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
-import 'package:flutter_template/data/auth/model/login/login_model.dart';
+import 'package:flutter_template/data/auth/model/auth_token_model.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_cubit.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_state.dart';
@@ -25,7 +25,7 @@ import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatelessWidget {
   final String? title;
-  final Function(LoginModel loginModel)? onLoginSuccess;
+  final Function(AuthTokenModel loginModel)? onLoginSuccess;
 
   const LoginPage({
     super.key,

@@ -1,10 +1,9 @@
+import 'package:flutter_template/data/auth/model/auth_token_model.dart';
 import 'package:flutter_template/data/auth/model/create_account/create_account_model.dart';
 import 'package:flutter_template/data/auth/model/create_account/create_account_request_model.dart';
 import 'package:flutter_template/data/auth/model/forgot_password_confirm/forgot_password_confirm_request_model.dart';
 import 'package:flutter_template/data/auth/model/forgot_password_request/forgot_password_request_request_model.dart';
-import 'package:flutter_template/data/auth/model/login/login_model.dart';
 import 'package:flutter_template/data/auth/model/login/login_request_model.dart';
-import 'package:flutter_template/data/auth/model/refresh_token/refresh_token_model.dart';
 import 'package:flutter_template/data/auth/model/refresh_token/refresh_token_request_model.dart';
 import 'package:flutter_template/data/auth/model/user_confirm/user_confirm_model.dart';
 import 'package:flutter_template/data/auth/model/user_confirm/user_confirm_request_model.dart';
@@ -54,7 +53,7 @@ class AuthRepository {
     return apiResponse.toDomain();
   }
 
-  Future<LoginModel> loginWithEmailAndPassword(
+  Future<AuthTokenModel> loginWithEmailAndPassword(
     LoginRequestModel request,
   ) async {
     Flogger.i("Sign in with email and password credentials");
@@ -107,7 +106,7 @@ class AuthRepository {
     return apiResponse.toDomain();
   }
 
-  Future<RefreshTokenModel> refreshToken(
+  Future<AuthTokenModel> refreshToken(
     RefreshTokenRequestModel request,
   ) async {
     Flogger.i("Refresh user auth token");

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_template/data/auth/model/auth_token_model.dart';
 import 'package:flutter_template/data/auth/model/create_account/create_account_model.dart';
-import 'package:flutter_template/data/auth/model/login/login_model.dart';
 import 'package:flutter_template/presentation/auth/create_account/bloc/create_account_error.dart';
 
 sealed class CreateAccountState extends Equatable {
@@ -137,7 +137,7 @@ class CreateAccountStateSuccess extends CreateAccountState {
   @override
   CreateAccountStateSuccess copyWith({
     CreateAccountModel? createAccountData,
-    LoginModel? loginData,
+    AuthTokenModel? loginData,
     String? email,
     String? password,
     String? firstName,
