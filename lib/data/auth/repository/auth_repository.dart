@@ -27,12 +27,10 @@ class AuthRepository {
   );
 
   Future<bool> get isSessionAvailable async {
-    Flogger.i("Get Auth session availability");
     return _localService.isSessionAvailable;
   }
 
   Future<String?> get userToken {
-    Flogger.i("Get User Auth Token");
     return _localService.userAuthToken;
   }
 
