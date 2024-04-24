@@ -25,6 +25,9 @@ import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
 import 'package:flutter_template/data/shared/service/local/user_config_service.dart';
 import 'package:flutter_template/data/shared/service/remote/network.dart';
+import 'package:flutter_template/data/user/repository/user_repository.dart';
+import 'package:flutter_template/data/user/service/local/user_local_service.dart';
+import 'package:flutter_template/data/user/service/remote/user_api_service.dart';
 import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
 import 'package:flutter_template/util/extensions/context_extension.dart';
 import 'package:flutter_template/util/extensions/go_router_extension.dart';
@@ -164,6 +167,12 @@ abstract class Dependencies {
       AuthRepository(
         AuthApiService(authHttpClient),
         AuthLocalService(secureStorage),
+      ),
+    );
+    getIt.registerSingleton<UserRepository>(
+      UserRepository(
+        UserApiService(authHttpClient),
+        UserLocalService(secureStorage),
       ),
     );
 

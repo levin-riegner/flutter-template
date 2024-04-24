@@ -1,5 +1,5 @@
-import 'package:flutter_template/data/auth/model/user_update_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/auth_api_response.dart';
+import 'package:flutter_template/data/user/model/user_update_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_update_api_model.g.dart';

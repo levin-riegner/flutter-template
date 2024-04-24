@@ -6,7 +6,7 @@ import 'package:flutter_template/presentation/auth/otp_verification/widgets/otp_
 import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
 
 class OtpResendButton extends StatefulWidget {
-  final Future<bool> Function() onResend;
+  final Future<void> Function() onResend;
 
   const OtpResendButton({
     super.key,
@@ -41,6 +41,7 @@ class _OtpResendButtonState extends State<OtpResendButton> {
         BlocBuilder<OtpResendCubit, OtpResendState>(
           bloc: _cubit,
           builder: (context, state) => DSTextButton(
+            isLoading: state is OtpResendStateLoading,
             onPressed: state.isActive
                 ? null
                 : () => _cubit.start(

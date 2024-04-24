@@ -87,21 +87,7 @@ class ChangePasswordConfirmCubit extends Cubit<ChangePasswordConfirmState>
         password: password,
       );
 
-      final result =
-          await _authRepository.confirmForgotPasswordRequest(request);
-
-      if (result) {
-        emit(
-          ChangePasswordConfirmStateSuccess(
-            email: state.email,
-            password: password,
-            confirmPassword: state.confirmPassword,
-            code: code,
-          ),
-        );
-      } else {
-        throw Exception();
-      }
+      await _authRepository.confirmForgotPasswordRequest(request);
     } on AuthDataError catch (error) {
       emit(
         ChangePasswordConfirmStateError(

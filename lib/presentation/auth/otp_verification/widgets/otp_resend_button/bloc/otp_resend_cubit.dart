@@ -16,34 +16,34 @@ class OtpResendCubit extends Cubit<OtpResendState> {
         );
 
   void start({
-    required Future<bool> Function() onResend,
+    required Future<void> Function() onResend,
     Function(Object)? onError,
   }) async {
     try {
-      final result = await onResend();
+      emit(const OtpResendStateLoading());
 
-      if (result) {
-        _timer?.cancel();
+      await onResend();
 
-        emit(
-          OtpResendStateStarted(
-            countdownSeconds: countdownSeconds,
-          ),
-        );
+      _timer?.cancel();
 
-        _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-          if (state.countdownSeconds > 1) {
-            emit(
-              OtpResendStateStarted(
-                countdownSeconds: state.countdownSeconds - 1,
-              ),
-            );
-          } else {
-            timer.cancel();
-            emit(const OtpResendStateFinished());
-          }
-        });
-      }
+      emit(
+        OtpResendStateStarted(
+          countdownSeconds: countdownSeconds,
+        ),
+      );
+
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (state.countdownSeconds > 1) {
+          emit(
+            OtpResendStateStarted(
+              countdownSeconds: state.countdownSeconds - 1,
+            ),
+          );
+        } else {
+          timer.cancel();
+          emit(const OtpResendStateFinished());
+        }
+      });
     } catch (e) {
       if (onError != null) {
         onError(e);

@@ -4,7 +4,6 @@ import 'package:flutter_template/data/auth/model/refresh_token_model.dart';
 import 'package:flutter_template/data/auth/model/user_confirm_model.dart';
 import 'package:flutter_template/data/auth/model/user_delete_model.dart';
 import 'package:flutter_template/data/auth/model/user_disable_model.dart';
-import 'package:flutter_template/data/auth/model/user_update_model.dart';
 import 'package:flutter_template/data/auth/service/local/auth_local_service.dart';
 import 'package:flutter_template/data/auth/service/remote/auth_api_service.dart';
 import 'package:flutter_template/data/auth/service/remote/model/create_account/create_account_request_model.dart';
@@ -16,7 +15,6 @@ import 'package:flutter_template/data/auth/service/remote/model/user_confirm/use
 import 'package:flutter_template/data/auth/service/remote/model/user_confirm_request/user_confirm_request_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_delete/user_delete_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_disable/user_disable_request_model.dart';
-import 'package:flutter_template/data/auth/service/remote/model/user_update/user_update_request_model.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class AuthRepository {
@@ -33,19 +31,9 @@ class AuthRepository {
     return _localService.isSessionAvailable;
   }
 
-  Future<String?> get userId {
-    Flogger.i("Get User ID");
-    return _localService.userId;
-  }
-
   Future<String?> get userToken {
     Flogger.i("Get User Auth Token");
     return _localService.userAuthToken;
-  }
-
-  Future<String?> get userEmail {
-    Flogger.i("Get User Email");
-    return _localService.userEmail;
   }
 
   Future<void> saveUserToken(
@@ -54,24 +42,6 @@ class AuthRepository {
     Flogger.i("Save User Auth Token");
     return await _localService.saveUserAuthToken(
       token,
-    );
-  }
-
-  Future<void> saveUserId(
-    String id,
-  ) async {
-    Flogger.i("Save User ID");
-    return await _localService.saveUserId(
-      id,
-    );
-  }
-
-  Future<void> saveUserEmail(
-    String email,
-  ) async {
-    Flogger.i("Save User Email");
-    return await _localService.saveUserEmail(
-      email,
     );
   }
 
@@ -91,17 +61,6 @@ class AuthRepository {
   ) async {
     Flogger.i("Sign in with email and password credentials");
     final apiResponse = await _apiService.login(
-      request,
-    );
-
-    return apiResponse.toDomain();
-  }
-
-  Future<UserUpdateModel> updateUser(
-    UserUpdateRequestModel request,
-  ) async {
-    Flogger.i("Update user account");
-    final apiResponse = await _apiService.updateUser(
       request,
     );
 
@@ -130,7 +89,7 @@ class AuthRepository {
     return apiResponse.toDomain();
   }
 
-  Future<bool> sendConfirmUserRequest(
+  Future<void> sendConfirmUserRequest(
     UserConfirmRequestRequestModel request,
   ) async {
     Flogger.i("Send confirm user request");
@@ -161,7 +120,7 @@ class AuthRepository {
     return apiResponse.toDomain();
   }
 
-  Future<bool> sendForgotPasswordRequest(
+  Future<void> sendForgotPasswordRequest(
     ForgotPasswordRequestRequestModel request,
   ) async {
     Flogger.i("Send forgot password request");
@@ -170,7 +129,7 @@ class AuthRepository {
     );
   }
 
-  Future<bool> confirmForgotPasswordRequest(
+  Future<void> confirmForgotPasswordRequest(
     ForgotPasswordConfirmRequestModel request,
   ) async {
     Flogger.i("Confirm forgot password request");

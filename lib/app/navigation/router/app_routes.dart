@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/router/page_transitions.dart';
 import 'package:flutter_template/data/auth/repository/auth_repository.dart';
+import 'package:flutter_template/data/user/repository/user_repository.dart';
 import 'package:flutter_template/presentation/articles/articles_page.dart';
 import 'package:flutter_template/presentation/articles/blank_page.dart';
 import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
@@ -317,6 +318,7 @@ class LoginRoute extends GoRouteData {
         BlocProvider<LoginCubit>(
           create: (context) => LoginCubit(
             getIt<AuthRepository>(),
+            getIt<UserRepository>(),
           ),
         ),
         BlocProvider<LocalValidableCubit>(
@@ -360,6 +362,7 @@ class CreateAccountRoute extends GoRouteData {
         BlocProvider<CreateAccountCubit>(
           create: (context) => CreateAccountCubit(
             getIt<AuthRepository>(),
+            getIt<UserRepository>(),
           ),
         ),
         BlocProvider<LocalValidableCubit>(
@@ -491,6 +494,7 @@ class OtpVerificationRoute extends GoRouteData {
         BlocProvider<UserConfirmCubit>(
           create: (context) => UserConfirmCubit(
             getIt<AuthRepository>(),
+            getIt<UserRepository>(),
           ),
         ),
         BlocProvider<LocalValidableCubit>(

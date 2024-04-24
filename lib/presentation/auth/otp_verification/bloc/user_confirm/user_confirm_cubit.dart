@@ -3,6 +3,7 @@ import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_confirm/user_confirm_request_model.dart';
 import 'package:flutter_template/data/auth/service/remote/model/user_confirm_request/user_confirm_request_request_model.dart';
+import 'package:flutter_template/data/user/repository/user_repository.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_cubit.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_error.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_state.dart';
@@ -10,12 +11,14 @@ import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_ver
 class UserConfirmCubit extends OtpVerificationCubit {
   UserConfirmCubit(
     AuthRepository authRepository,
+    UserRepository userRepository,
   ) : super(
           const OtpVerificationStateInitial(
             code: "",
             email: "",
           ),
           authRepository: authRepository,
+          userRepository: userRepository,
         );
 
   @override
@@ -37,17 +40,15 @@ class UserConfirmCubit extends OtpVerificationCubit {
   }
 
   @override
-  Future<bool> sendCodeToEmail() async {
+  Future<void> sendCodeToEmail() async {
     try {
       await retrieveUserEmail();
 
-      final result = await authRepository.sendConfirmUserRequest(
+      await authRepository.sendConfirmUserRequest(
         UserConfirmRequestRequestModel(
           email: state.email,
         ),
       );
-
-      return result;
     } on AuthDataError catch (error) {
       emit(
         OtpVerificationStateError(
@@ -58,8 +59,6 @@ class UserConfirmCubit extends OtpVerificationCubit {
           code: state.code,
         ),
       );
-
-      return false;
     } catch (e) {
       emit(
         OtpVerificationStateError(
@@ -70,8 +69,6 @@ class UserConfirmCubit extends OtpVerificationCubit {
           code: state.code,
         ),
       );
-
-      return false;
     }
   }
 
@@ -82,7 +79,7 @@ class UserConfirmCubit extends OtpVerificationCubit {
   }
 
   Future<void> retrieveUserEmail() async {
-    final userEmail = await authRepository.userEmail;
+    final userEmail = await userRepository.userEmail;
 
     emit(
       state.copyWith(email: userEmail),

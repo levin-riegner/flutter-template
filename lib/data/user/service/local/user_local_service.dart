@@ -1,17 +1,15 @@
 import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
-class AuthLocalService {
+class UserLocalService {
   final SecureStorage _secureStorage;
 
-  AuthLocalService(this._secureStorage);
+  UserLocalService(this._secureStorage);
 
-  Future<bool> get isSessionAvailable async {
+  Future<String?> get userId {
     try {
-      final userToken = await _secureStorage.getUserAuthToken();
-
-      return userToken != null;
-    } on Exception catch (e, stackTrace) {
+      return _secureStorage.getUserId();
+    } catch (e, stackTrace) {
       Flogger.e(
         "Auth local service error: $e",
         stackTrace: stackTrace,
@@ -21,10 +19,10 @@ class AuthLocalService {
     }
   }
 
-  Future<String?> get userAuthToken {
+  Future<String?> get userEmail {
     try {
-      return _secureStorage.getUserAuthToken();
-    } on Exception catch (e, stackTrace) {
+      return _secureStorage.getUserEmail();
+    } catch (e, stackTrace) {
       Flogger.e(
         "Auth local service error: $e",
         stackTrace: stackTrace,
@@ -34,10 +32,10 @@ class AuthLocalService {
     }
   }
 
-  Future<void> saveUserAuthToken(String id) {
+  Future<void> saveUserId(String id) {
     try {
-      return _secureStorage.saveUserAuthToken(id);
-    } on Exception catch (e, stackTrace) {
+      return _secureStorage.saveUserId(id);
+    } catch (e, stackTrace) {
       Flogger.e(
         "Auth local service error: $e",
         stackTrace: stackTrace,
@@ -47,10 +45,10 @@ class AuthLocalService {
     }
   }
 
-  Future<void> clearSession() {
+  Future<void> saveUserEmail(String email) {
     try {
-      return _secureStorage.deleteAll();
-    } on Exception catch (e, stackTrace) {
+      return _secureStorage.saveUserEmail(email);
+    } catch (e, stackTrace) {
       Flogger.e(
         "Auth local service error: $e",
         stackTrace: stackTrace,

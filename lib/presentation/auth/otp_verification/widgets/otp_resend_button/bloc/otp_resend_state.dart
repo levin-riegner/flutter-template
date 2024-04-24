@@ -22,6 +22,18 @@ class OtpResendStateInitial extends OtpResendState {
   bool get isActive => false;
 }
 
+class OtpResendStateLoading extends OtpResendState {
+  const OtpResendStateLoading({
+    required super.countdownSeconds,
+  });
+
+  @override
+  List<Object?> get props => [countdownSeconds, isActive];
+
+  @override
+  bool get isActive => false;
+}
+
 class OtpResendStateStarted extends OtpResendState {
   const OtpResendStateStarted({
     required super.countdownSeconds,
