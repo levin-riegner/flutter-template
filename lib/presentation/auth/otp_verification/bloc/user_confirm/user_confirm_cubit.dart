@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/auth/model/user_confirm/user_confirm_request_model.dart';
 import 'package:flutter_template/data/auth/model/user_confirm_request/user_confirm_request_request_model.dart';
@@ -30,13 +29,6 @@ class UserConfirmCubit extends OtpVerificationCubit {
         resendSuccesful: state.resendSuccesful,
       ),
     );
-  }
-
-  @override
-  void onChange(Change<OtpVerificationState> change) {
-    super.onChange(change);
-
-    // TODO: Add Analytics and logging here
   }
 
   @override

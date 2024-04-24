@@ -33,13 +33,6 @@ class ChangePasswordConfirmCubit extends Cubit<ChangePasswordConfirmState>
     );
   }
 
-  @override
-  void onChange(Change<ChangePasswordConfirmState> change) {
-    super.onChange(change);
-
-    // TODO: Add Analytics and logging here
-  }
-
   void setPassword(String password) {
     emit(
       state.copyWith(password: password),

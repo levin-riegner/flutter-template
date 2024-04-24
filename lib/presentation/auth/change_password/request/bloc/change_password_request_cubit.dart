@@ -26,13 +26,6 @@ class ChangePasswordRequestCubit extends Cubit<ChangePasswordRequestState>
     );
   }
 
-  @override
-  void onChange(Change<ChangePasswordRequestState> change) {
-    super.onChange(change);
-
-    // TODO: Add Analytics and logging here
-  }
-
   void setEmail(String email) {
     emit(
       state.copyWith(email: email),

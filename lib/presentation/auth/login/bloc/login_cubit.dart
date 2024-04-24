@@ -31,13 +31,6 @@ class LoginCubit extends Cubit<LoginState>
     );
   }
 
-  @override
-  void onChange(Change<LoginState> change) {
-    super.onChange(change);
-
-    // TODO: Add Analytics and logging here
-  }
-
   void setEmail(String email) {
     emit(
       state.copyWith(email: email),

@@ -38,13 +38,6 @@ class CreateAccountCubit extends Cubit<CreateAccountState>
     );
   }
 
-  @override
-  void onChange(Change<CreateAccountState> change) {
-    super.onChange(change);
-
-    // TODO: Add Analytics and logging here
-  }
-
   void setEmail(String email) {
     emit(
       state.copyWith(email: email),
