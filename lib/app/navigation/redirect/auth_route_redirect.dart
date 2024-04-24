@@ -32,7 +32,6 @@ class AuthRouteRedirect implements RouteRedirect {
     }
 
     if (await hasSessionAvailable()) {
-      Flogger.i("User is available, continue navigation to ${state.name}");
       return null;
     } else {
       Flogger.i(
