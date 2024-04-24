@@ -7,8 +7,10 @@ import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_state.dart';
 import 'package:flutter_template/util/extensions/string_extension.dart';
 import 'package:flutter_template/util/mixins/resettable_bloc_mixin.dart';
+import 'package:flutter_template/util/mixins/user_not_confirmed_interceptor.dart';
 
-class LoginCubit extends Cubit<LoginState> with ResettableBlocMixin {
+class LoginCubit extends Cubit<LoginState>
+    with ResettableBlocMixin, UserNotConfirmedInterceptor {
   final AuthRepository _authRepository;
   final UserRepository _userRepository;
 
@@ -90,6 +92,10 @@ class LoginCubit extends Cubit<LoginState> with ResettableBlocMixin {
           password: password,
         ),
       );
+
+      if (error is UserNotConfirmedException) {
+        onUserNotConfirmedException();
+      }
     } catch (e) {
       emit(
         LoginStateError(
