@@ -90,8 +90,6 @@ class CreateAccountCubit extends Cubit<CreateAccountState>
         request,
       );
 
-      await _userRepository.saveUserEmail(state.email);
-
       emit(
         CreateAccountStateSuccess(
           createAccountData: createAccountResult,

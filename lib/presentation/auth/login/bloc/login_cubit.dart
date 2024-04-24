@@ -5,7 +5,6 @@ import 'package:flutter_template/data/auth/repository/auth_repository.dart';
 import 'package:flutter_template/data/user/repository/user_repository.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_error.dart';
 import 'package:flutter_template/presentation/auth/login/bloc/login_state.dart';
-import 'package:flutter_template/util/extensions/string_extension.dart';
 import 'package:flutter_template/util/mixins/resettable_bloc_mixin.dart';
 import 'package:flutter_template/util/mixins/user_not_confirmed_interceptor.dart';
 
@@ -56,15 +55,6 @@ class LoginCubit extends Cubit<LoginState>
       );
 
       final result = await _authRepository.loginWithEmailAndPassword(request);
-
-      if (result.token.isNullOrEmpty) {
-        throw NotAuthorized();
-      }
-
-      await Future.wait([
-        _userRepository.saveUserEmail(state.email),
-        _authRepository.saveUserToken(result.token!),
-      ]);
 
       emit(
         LoginStateSuccess(

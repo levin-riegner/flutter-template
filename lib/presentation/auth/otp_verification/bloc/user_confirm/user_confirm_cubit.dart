@@ -2,7 +2,6 @@ import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/auth/model/user_confirm/user_confirm_request_model.dart';
 import 'package:flutter_template/data/auth/model/user_confirm_request/user_confirm_request_request_model.dart';
 import 'package:flutter_template/data/auth/repository/auth_repository.dart';
-import 'package:flutter_template/data/user/repository/user_repository.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_cubit.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_error.dart';
 import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_verification_state.dart';
@@ -10,11 +9,9 @@ import 'package:flutter_template/presentation/auth/otp_verification/bloc/otp_ver
 class UserConfirmCubit extends OtpVerificationCubit {
   UserConfirmCubit(
     AuthRepository authRepository,
-    UserRepository userRepository,
   ) : super(
           OtpVerificationState.empty(),
           authRepository: authRepository,
-          userRepository: userRepository,
         );
 
   @override
@@ -68,7 +65,7 @@ class UserConfirmCubit extends OtpVerificationCubit {
   }
 
   Future<void> retrieveUserEmail() async {
-    final userEmail = await userRepository.userEmail;
+    final userEmail = await authRepository.userEmail;
 
     emit(
       state.copyWith(email: userEmail),

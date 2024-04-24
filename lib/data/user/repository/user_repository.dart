@@ -13,34 +13,6 @@ class UserRepository {
     this._localService,
   );
 
-  Future<String?> get userId {
-    Flogger.i("Get User ID");
-    return _localService.userId;
-  }
-
-  Future<String?> get userEmail {
-    Flogger.i("Get User Email");
-    return _localService.userEmail;
-  }
-
-  Future<void> saveUserId(
-    String id,
-  ) async {
-    Flogger.i("Save User ID");
-    return await _localService.saveUserId(
-      id,
-    );
-  }
-
-  Future<void> saveUserEmail(
-    String email,
-  ) async {
-    Flogger.i("Save User Email");
-    return await _localService.saveUserEmail(
-      email,
-    );
-  }
-
   Future<UserUpdateModel> updateUser(
     UserUpdateRequestModel request,
   ) async {

@@ -494,7 +494,6 @@ class OtpVerificationRoute extends GoRouteData {
         BlocProvider<UserConfirmCubit>(
           create: (context) => UserConfirmCubit(
             getIt<AuthRepository>(),
-            getIt<UserRepository>(),
           ),
         ),
         BlocProvider<LocalValidableCubit>(

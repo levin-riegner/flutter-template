@@ -14,6 +14,7 @@ import 'package:flutter_template/data/auth/model/user_disable/user_disable_model
 import 'package:flutter_template/data/auth/model/user_disable/user_disable_request_model.dart';
 import 'package:flutter_template/data/auth/service/local/auth_local_service.dart';
 import 'package:flutter_template/data/auth/service/remote/auth_api_service.dart';
+import 'package:flutter_template/util/extensions/string_extension.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class AuthRepository {
@@ -33,12 +34,40 @@ class AuthRepository {
     return _localService.userAuthToken;
   }
 
-  Future<void> saveUserToken(
+  Future<String?> get userId {
+    Flogger.i("Get User ID");
+    return _localService.userId;
+  }
+
+  Future<String?> get userEmail {
+    Flogger.i("Get User Email");
+    return _localService.userEmail;
+  }
+
+  Future<void> _saveUserToken(
     String token,
   ) async {
     Flogger.i("Save User Auth Token");
     return await _localService.saveUserAuthToken(
       token,
+    );
+  }
+
+  Future<void> _saveUserId(
+    String id,
+  ) async {
+    Flogger.i("Save User ID");
+    return await _localService.saveUserId(
+      id,
+    );
+  }
+
+  Future<void> _saveUserEmail(
+    String email,
+  ) async {
+    Flogger.i("Save User Email");
+    return await _localService.saveUserEmail(
+      email,
     );
   }
 
@@ -50,6 +79,10 @@ class AuthRepository {
       request,
     );
 
+    if (!apiResponse.userId.isNullOrEmpty) {
+      await _saveUserId(apiResponse.userId!);
+    }
+
     return apiResponse.toDomain();
   }
 
@@ -60,6 +93,11 @@ class AuthRepository {
     final apiResponse = await _apiService.login(
       request,
     );
+
+    await Future.wait([
+      if (!apiResponse.token.isNullOrEmpty) _saveUserToken(apiResponse.token!),
+      _saveUserEmail(request.email),
+    ]);
 
     return apiResponse.toDomain();
   }

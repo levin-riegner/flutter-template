@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_template/data/auth/model/auth_data_error.dart';
 import 'package:flutter_template/data/auth/model/create_account/create_account_request_model.dart';
 import 'package:flutter_template/data/auth/model/forgot_password_confirm/forgot_password_confirm_request_model.dart';
 import 'package:flutter_template/data/auth/model/forgot_password_request/forgot_password_request_request_model.dart';
@@ -17,6 +18,7 @@ import 'package:flutter_template/data/auth/service/remote/model/user_delete_api_
 import 'package:flutter_template/data/auth/service/remote/model/user_disable_api_model.dart';
 import 'package:flutter_template/data/shared/service/remote/api_response_mapper.dart';
 import 'package:flutter_template/data/shared/service/remote/endpoints.dart';
+import 'package:flutter_template/util/extensions/string_extension.dart';
 
 class AuthApiService with ApiResponseMapper {
   final Dio client;
@@ -32,7 +34,13 @@ class AuthApiService with ApiResponseMapper {
         data: request.toJson(),
       );
 
-      return CreateAccountApiModel.fromJson(response.data);
+      final apiModel = CreateAccountApiModel.fromJson(response.data);
+
+      if (apiModel.userId.isNullOrEmpty) {
+        throw NotAuthorized();
+      }
+
+      return apiModel;
     } on DioException catch (e) {
       final error = AuthApiError.fromJson(e.response?.data);
 
@@ -123,7 +131,13 @@ class AuthApiService with ApiResponseMapper {
         data: request.toJson(),
       );
 
-      return LoginApiModel.fromJson(response.data);
+      final apiModel = LoginApiModel.fromJson(response.data);
+
+      if (apiModel.token.isNullOrEmpty) {
+        throw NotAuthorized();
+      }
+
+      return apiModel;
     } on DioException catch (e) {
       final error = AuthApiError.fromJson(e.response?.data);
 
