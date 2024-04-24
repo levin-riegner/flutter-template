@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'forgot_password_confirm_request_model.g.dart';
+
+@JsonSerializable()
 class ForgotPasswordConfirmRequestModel extends Equatable {
   final String email;
   final String password;
@@ -18,9 +22,6 @@ class ForgotPasswordConfirmRequestModel extends Equatable {
         code,
       ];
 
-  Map<String, dynamic> toJson() => {
-        'email': email,
-        'password': password,
-        'code': code,
-      };
+  Map<String, dynamic> toJson() =>
+      _$ForgotPasswordConfirmRequestModelToJson(this);
 }

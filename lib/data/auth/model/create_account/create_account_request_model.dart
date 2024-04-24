@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'create_account_request_model.g.dart';
+
+@JsonSerializable()
 class CreateAccountRequestModel extends Equatable {
   final String? email;
   final String? password;
@@ -24,11 +28,5 @@ class CreateAccountRequestModel extends Equatable {
         username,
       ];
 
-  Map<String, dynamic> toJson() => {
-        'email': email,
-        'password': password,
-        'firstName': firstName,
-        'lastName': lastName,
-        'username': username,
-      };
+  Map<String, dynamic> toJson() => _$CreateAccountRequestModelToJson(this);
 }

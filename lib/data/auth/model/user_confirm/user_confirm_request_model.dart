@@ -1,6 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-// TODO: Move request models to models folder and use jsonserializable
+part 'user_confirm_request_model.g.dart';
+
+@JsonSerializable()
 class UserConfirmRequestModel extends Equatable {
   final String email;
   final String code;
@@ -16,8 +19,5 @@ class UserConfirmRequestModel extends Equatable {
         code,
       ];
 
-  Map<String, dynamic> toJson() => {
-        'email': email,
-        'code': code,
-      };
+  Map<String, dynamic> toJson() => _$UserConfirmRequestModelToJson(this);
 }
