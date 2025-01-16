@@ -71,7 +71,7 @@ dependencies:
   app_versioning: ^1.2.0
   devicelocale: ^0.8.0
   # Plus Plugins
-  device_info_plus: ^10.0.1
+  device_info_plus: ^11.2.1
   package_info_plus: ^6.0.0
   connectivity_plus: ^6.0.1
   share_plus: ^10.0.0

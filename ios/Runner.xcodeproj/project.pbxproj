@@ -154,6 +154,7 @@
 				FA64264825A4C8C5004215F1 /* Set Build Number */,
 				FA64264925A4CE59004215F1 /* Set Build Name */,
 				FA65B670259C994100B7BECB /* Copy Firebase Info Plist File */,
+				CD1139062D395B6400218B7B /* Copy Branch Json File */,
 				FA65B689259C99D700B7BECB /* Upload dSYMs to Crashlytics */,
 				FA65B614259C974400B7BECB /* Crashlytics */,
 			);
@@ -286,6 +287,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CD1139062D395B6400218B7B /* Copy Branch Json File */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Branch Json File";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "BRANCH_JSON_FROM=\"${PROJECT_DIR}/Runner/${BRANCH_CONFIG_FILE}.json\"\nBUILD_APP_DIR=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\"\nBRANCH_JSON_TO=\"${BUILD_APP_DIR}/branch.json\"\necho \"Copying ${BRANCH_JSON_FROM} to final destination: ${BRANCH_JSON_TO}\"\ncp \"${BRANCH_JSON_FROM}\" \"${BRANCH_JSON_TO}\"\n";
+		};
 		FA64264825A4C8C5004215F1 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -416,6 +435,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BRANCH_CONFIG_FILE = "branch-production";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -471,6 +491,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BRANCH_CONFIG_FILE = "branch-qa";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -605,6 +626,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BRANCH_CONFIG_FILE = "branch-qa";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -702,6 +724,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BRANCH_CONFIG_FILE = "branch-production";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
