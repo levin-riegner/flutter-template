@@ -188,7 +188,6 @@ abstract class Dependencies {
     );
     getIt.registerSingleton<BranchApi>(branchApi);
     branchApi.initBranchSession(
-      useTestKey: environment.internal,
       enableLogging: isDebugBuild,
     );
     getIt.registerSingleton<BranchShareHelper>(

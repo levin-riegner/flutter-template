@@ -77,5 +77,7 @@
     </array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSMotionUsageDescription</key>
+	<string>This app requires access to motion sensors to enable a debug console by shaking the device, used exclusively for QA purposes.</string>
 </dict>
 </plist>

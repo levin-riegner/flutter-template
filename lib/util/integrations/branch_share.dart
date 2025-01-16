@@ -90,7 +90,7 @@ class BranchShareHelper {
       return false;
     }
     final shareText = "$shareTitle\n${response.result!}";
-    final result = await Share.shareWithResult(shareText);
+    final result = await Share.share(shareText);
     return result.status == ShareResultStatus.success;
   }
 }

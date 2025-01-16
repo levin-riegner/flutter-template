@@ -35,14 +35,12 @@ class BranchApi {
 
   /// Listens for Branch events
   Future<void> initBranchSession({
-    required bool useTestKey,
     required bool enableLogging,
   }) async {
     Flogger.i("Init Branch session");
     await FlutterBranchSdk.init(
-      useTestKey: useTestKey,
       enableLogging: enableLogging,
-      disableTracking: true,
+      branchAttributionLevel: BranchAttributionLevel.NONE,
     );
     _branchLinksSubscription = FlutterBranchSdk.listSession().listen(
       onBranchData,
