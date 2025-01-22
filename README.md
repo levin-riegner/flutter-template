@@ -6,20 +6,20 @@ Check the [docs/](/docs/) folder for all the features and documentation.
 ## Installation
 
 1. Click the `Use this template` button to create a new repository.
-1. Remove the `LICENSE.md` file or update accordingly.
-1. Checkout and open with Android Studio.
+2. Remove the `LICENSE.md` file or update accordingly.
+3. Checkout and open with Android Studio.
    1. Find and rename all instances of `com.levinriegner` with the company name, including Android folders.
    2. Find and rename all instances of `fluttertemplate` and `flutter_template` with the actual product name, including folders.
-1. Setup Key Signing by following the CI instructions below.
-1. Create a new Firebase project and update the Google Services files.
+4. Setup Key Signing by following the CI instructions below.
+5. Create a new Firebase project and update the Google Services files.
    1. Create Android app for QA and Production environments.
    2. Create iOS app for QA and Production environments.
    3. Add SHA256 signing to Android apps
       > Use `./gradlew signingReport` to view the keys information.
    4. Add ITC Team ID and Appstore App ID to iOS apps.
-1. Update or remove the Branch.io setup.
-1. Update or remove the DataDog setup.
-1. Clear the README file, keeping only the instructions below the `# FlutterTemplate` section.
+6. Update or remove the Branch.io setup.
+7. Update or remove the DataDog setup.
+8. Clear the README file, keeping only the instructions below the `# FlutterTemplate` section.
 
 > ❗️ Ensure that all template variables have been changed by searching `levinriegner` and `template` on the project.
 
