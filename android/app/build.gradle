@@ -52,7 +52,9 @@ static def generateVersionName() {
 }
 
 android {
-    compileSdkVersion 34
+    namespace "com.levinriegner.flutter_template"
+    compileSdkVersion 35
+
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -66,7 +68,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.levinriegner.fluttertemplate"
         minSdkVersion 24
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode generateVersionCode()
         versionName generateVersionName()
         manifestPlaceholders.branchKey = "key_live_muorhE6h0Pqde8HzkIZzZpmmBsgYgD15"
@@ -135,6 +137,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
     }
 }
 
