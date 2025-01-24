@@ -7,13 +7,17 @@ Check the [docs/](/docs/) folder for all the features and documentation.
 
 1. Click the `Use this template` button to create a new repository.
 2. Remove the `LICENSE.md` file or update accordingly.
-3. Checkout and open with Android Studio.
+3. Checkout and open with Visual Studio Code.
    1. Find and rename all instances of `com.levinriegner` with the company name, including Android folders.
    2. Find and rename all instances of `fluttertemplate` and `flutter_template` with the actual product name, including folders.
 4. Setup Key Signing by following the CI instructions below.
-5. Create a new Firebase project and update the Google Services files.
-   1. Create Android app for QA and Production environments.
-   2. Create iOS app for QA and Production environments.
+5. Firebase Integration
+   1. Create one Firebase project for Production Environment
+      1. Add an Android app inside the project, enterng the app package name. Download the google-services.json configuration file into [/android/app/src/production/](/android/app/src/production/).
+      2. Add an iOS app inside the project, entering the Bundle ID for the Production app. Download the configuration file into [/ios/Runner](/ios/Runner/), renaming it to GoogleService-Info-production.plist.
+   2. Create one Firebase project for QA Environment
+      1. Add an Android app inside the project, enterng the QA app package name. Download the google-services.json configuration file into [/android/app/src/qa/](/android/app/src/qa/).
+      2. Add an iOS app inside the project, entering the Bundle ID for the QA app. Download the configuration file into [/ios/Runner](/ios/Runner/), renaming it to GoogleService-Info-production.plist.
    3. Add SHA256 signing to Android apps
       > Use `./gradlew signingReport` to view the keys information.
    4. Add ITC Team ID and Appstore App ID to iOS apps.

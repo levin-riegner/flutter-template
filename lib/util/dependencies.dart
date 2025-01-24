@@ -130,17 +130,7 @@ abstract class Dependencies {
     );
 
     // Firebase
-    // TODO: Replace options with `DefaultFirebaseOptions.currentPlatform,`
-    // after running `flutterfire configure`
-    await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: "AIzaSyCMmJ4HDCqQptZ872QYM1uZ6M9a8YVQwaA",
-        appId: "1:930871121577:android:08469e37bd03de82b3fbb8",
-        messagingSenderId:
-            "930871121577-e5it5no5i0ucprepj66rc07f6iu1c9sr.apps.googleusercontent.com",
-        projectId: "flutter-template-lr",
-      ),
-    );
+    await Firebase.initializeApp();
 
     // App Versioning
     final appVersioning = AppVersioning.firebaseService(
