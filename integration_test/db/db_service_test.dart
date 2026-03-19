@@ -1,47 +1,44 @@
+import 'package:drift/drift.dart';
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
-import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../integration_test_shared.dart';
 
-/// Tests the local db services with the Isar Database
+// Tests the local db services with Drift Database
 void main() async {
   final binding = ensureInitialized();
 
   group("Articles DB Service", () {
-    late Isar isar;
-    late IsarCollection<ArticleDbModel> collection;
+    late AppDatabase db;
     late ArticleDbService dbService;
     // Runs before each test
     setUp(() async {
       final directory = await getApplicationDocumentsDirectory();
-      isar = await Database.init(directory: directory.path);
-      collection = isar.articleDbModels;
-      await isar.writeTxn(() async => await collection.clear());
-      dbService = ArticleDbService(collection);
+      db = AppDatabase.init(directory: directory.path);
+      await db.delete(db.articles).go();
+      dbService = ArticleDbService(db);
     });
     // Runs after each test
     tearDown(() async {
-      await isar.writeTxn(() async => await collection.clear());
-      await isar.close();
+      await db.delete(db.articles).go();
+      await db.close();
     });
     // Database
     testWidgets('should return all articles', (WidgetTester tester) async {
       await dbService.saveArticles([
-        ArticleDbModel(
-          title: "Bitcoin",
-          description: "Is a cryptocurrency",
+        ArticlesCompanion.insert(
+          title: const Value("Bitcoin"),
+          description: const Value("Is a cryptocurrency"),
         ),
-        ArticleDbModel(
-          title: "Ethereum",
-          description: "Is a cryptocurrency",
+        ArticlesCompanion.insert(
+          title: const Value("Ethereum"),
+          description: const Value("Is a cryptocurrency"),
         ),
-        ArticleDbModel(
-          title: "Litecoin",
-          description: "Is a cryptocurrency",
+        ArticlesCompanion.insert(
+          title: const Value("Litecoin"),
+          description: const Value("Is a cryptocurrency"),
         ),
       ]);
       final articles = await dbService.getArticles(null);
@@ -50,17 +47,17 @@ void main() async {
     testWidgets('should return articles matching the query by title',
         (WidgetTester tester) async {
       await dbService.saveArticles([
-        ArticleDbModel(
-          title: "Bitcoin",
-          description: "Is a cryptocurrency",
+        ArticlesCompanion.insert(
+          title: const Value("Bitcoin"),
+          description: const Value("Is a cryptocurrency"),
         ),
-        ArticleDbModel(
-          title: "Ethereum",
-          description: "Is a cryptocurrency",
+        ArticlesCompanion.insert(
+          title: const Value("Ethereum"),
+          description: const Value("Is a cryptocurrency"),
         ),
-        ArticleDbModel(
-          title: "Litecoin",
-          description: "Is a cryptocurrency",
+        ArticlesCompanion.insert(
+          title: const Value("Litecoin"),
+          description: const Value("Is a cryptocurrency"),
         ),
       ]);
       final articles = await dbService.getArticles("Bitcoin");
@@ -70,17 +67,17 @@ void main() async {
     testWidgets('should return articles matching the query by description',
         (WidgetTester tester) async {
       await dbService.saveArticles([
-        ArticleDbModel(
-          title: "BTC",
-          description: "Bitcoin is a cryptocurrency",
+        ArticlesCompanion.insert(
+          title: const Value("BTC"),
+          description: const Value("Bitcoin is a cryptocurrency"),
         ),
-        ArticleDbModel(
-          title: "ETH",
-          description: "Is a cryptocurrency",
+        ArticlesCompanion.insert(
+          title: const Value("ETH"),
+          description: const Value("Is a cryptocurrency"),
         ),
-        ArticleDbModel(
-          title: "LTC",
-          description: "Litecoin is a cryptocurrency",
+        ArticlesCompanion.insert(
+          title: const Value("LTC"),
+          description: const Value("Litecoin is a cryptocurrency"),
         ),
       ]);
       final articles = await dbService.getArticles("Bitcoin");
@@ -91,21 +88,27 @@ void main() async {
         (WidgetTester tester) async {
       timeout(seconds: 2);
       final articlesStream = dbService.articles();
-      final article1 = ArticleDbModel(
-          title: "BTC", description: "Bitcoin is a cryptocurrency");
-      final article2 = ArticleDbModel(
-          title: "ETH", description: "Ethereum is a cryptocurrency");
       expectLater(
           articlesStream,
           emitsInOrder(
             [
               [],
-              [article1],
-              [article1, article2],
+              hasLength(1),
+              hasLength(2),
             ],
           ));
-      await dbService.saveArticles([article1]);
-      await dbService.saveArticles([article2]);
+      await dbService.saveArticles([
+        ArticlesCompanion.insert(
+          title: const Value("BTC"),
+          description: const Value("Bitcoin is a cryptocurrency"),
+        ),
+      ]);
+      await dbService.saveArticles([
+        ArticlesCompanion.insert(
+          title: const Value("ETH"),
+          description: const Value("Ethereum is a cryptocurrency"),
+        ),
+      ]);
     });
   });
 }

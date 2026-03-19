@@ -11,13 +11,16 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingsPage extends StatelessWidget with PoppableMixin {
   const SettingsPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => onWillPop(context),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) pop(context);
+      },
       child: Scaffold(
         appBar: AppBar(
           leading: BackButton(

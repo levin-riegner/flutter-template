@@ -29,7 +29,7 @@ class PaginationWidget<T, E> extends StatelessWidget {
   final VoidCallback onLoadMore;
 
   const PaginationWidget({
-    Key? key,
+    super.key,
     required this.state,
     this.initialIdleBuilder,
     required this.initialLoadingBuilder,
@@ -42,7 +42,7 @@ class PaginationWidget<T, E> extends StatelessWidget {
     required this.onLoadMore,
     this.scrollLoadMoreThreshold = defaultScrollLoadMoreThreshold,
     this.scrollController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class PagedListView<T, E> extends StatelessWidget {
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
   PagedListView({
-    Key? key,
+    super.key,
     required this.indexedItemBuilder,
     required this.data,
     required this.loadMoreLoadingBuilder,
@@ -92,7 +92,7 @@ class PagedListView<T, E> extends StatelessWidget {
     this.scrollLoadMoreThreshold =
         PaginationWidget.defaultScrollLoadMoreThreshold,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
-  }) : super(key: key);
+  });
 
   bool _isBottom(ScrollEndNotification scrollInfo) {
     final maxScroll = scrollInfo.metrics.maxScrollExtent;

@@ -42,9 +42,9 @@ class Analytics {
     }
     _lastTrackedScreenName = name;
     if (_kReleaseMode) {
-      await FirebaseAnalytics.instance.setCurrentScreen(
+      await FirebaseAnalytics.instance.logScreenView(
         screenName: _truncateParameterValue(name),
-        screenClassOverride: screenClass != null
+        screenClass: screenClass != null
             ? _truncateParameterValue(screenClass)
             : "Flutter",
       );

@@ -15,7 +15,7 @@ class DSPrimaryButton extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const DSPrimaryButton({
-    Key? key,
+    super.key,
     required this.text,
     this.onPressed,
     this.isLoading = false,
@@ -24,7 +24,7 @@ class DSPrimaryButton extends StatelessWidget {
     this.forceUpperCase = true,
     this.borderRadius,
     this.contentPadding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +36,10 @@ class DSPrimaryButton extends StatelessWidget {
       width: width,
       borderSide: BorderSide.none,
       defaultColor: Theme.of(context).colorScheme.primary,
-      disabledColor: Theme.of(context).colorScheme.primary.withOpacity(0.25),
+      disabledColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.25),
       defaultTextColor: Theme.of(context).colorScheme.onPrimary,
       disabledTextColor:
-          Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
+          Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.30),
       loadingColor: Theme.of(context).colorScheme.onPrimary,
       forceUpperCase: forceUpperCase,
       borderRadius: borderRadius,
@@ -59,7 +59,7 @@ class DSOutlineButton extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const DSOutlineButton({
-    Key? key,
+    super.key,
     required this.text,
     this.onPressed,
     this.isLoading = false,
@@ -68,7 +68,7 @@ class DSOutlineButton extends StatelessWidget {
     this.forceUpperCase = true,
     this.borderRadius,
     this.contentPadding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class DSTextButton extends StatelessWidget {
   final bool forceUpperCase;
 
   const DSTextButton({
-    Key? key,
+    super.key,
     required this.text,
     this.onPressed,
     this.isLoading = false,
@@ -127,7 +127,7 @@ class DSTextButton extends StatelessWidget {
     this.defaultTextColor,
     this.disabledTextColor,
     this.forceUpperCase = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +177,6 @@ class _BaseButton extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const _BaseButton({
-    Key? key,
     required this.text,
     required this.isLoading,
     required this.enabled,
@@ -192,7 +191,7 @@ class _BaseButton extends StatelessWidget {
     this.contentPadding,
     this.borderRadius,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +200,7 @@ class _BaseButton extends StatelessWidget {
       height: Dimens.buttonHeight,
       child: TextButton(
         style: ButtonStyle(
-          shape: MaterialStatePropertyAll(
+          shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
                 borderRadius ?? Dimens.buttonRadius,
@@ -209,26 +208,26 @@ class _BaseButton extends StatelessWidget {
               side: borderSide,
             ),
           ),
-          foregroundColor: MaterialStateProperty.resolveWith(
+          foregroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.disabled)) {
+              if (states.contains(WidgetState.disabled)) {
                 return disabledTextColor ??
-                    Theme.of(context).colorScheme.onSurface.withOpacity(.30);
+                    Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.30);
               } else {
                 return disabledTextColor;
               }
             },
           ),
-          backgroundColor: MaterialStateProperty.resolveWith(
+          backgroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.disabled)) {
+              if (states.contains(WidgetState.disabled)) {
                 return isLoading ? (defaultColor) : (disabledColor);
               } else {
                 return defaultColor;
               }
             },
           ),
-          overlayColor: MaterialStatePropertyAll(
+          overlayColor: WidgetStatePropertyAll(
             (!enabled || isLoading) ? const Color.fromARGB(0, 0, 0, 0) : null,
           ),
         ),

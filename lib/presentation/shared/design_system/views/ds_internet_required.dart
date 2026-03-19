@@ -11,12 +11,12 @@ class DSInternetRequired extends StatefulWidget {
   final VoidCallback? onInternetAvailable;
 
   const DSInternetRequired({
-    Key? key,
+    super.key,
     this.expanded = true,
     required this.child,
     this.onInternetAvailable,
     this.contentPadding,
-  }) : super(key: key);
+  });
 
   @override
   _DSInternetRequiredState createState() => _DSInternetRequiredState();

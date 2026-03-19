@@ -11,13 +11,13 @@ class DSOpacityGestureDetector extends StatefulWidget {
   final Widget child;
 
   const DSOpacityGestureDetector({
-    Key? key,
+    super.key,
     required this.onTap,
     this.semanticLabel,
     this.enabled = true,
     this.fullWidth = true,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   State<DSOpacityGestureDetector> createState() =>

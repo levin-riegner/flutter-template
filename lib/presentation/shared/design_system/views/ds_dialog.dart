@@ -6,10 +6,10 @@ class DSDialog extends StatelessWidget {
   final Widget content;
 
   const DSDialog({
-    Key? key,
+    super.key,
     this.hasCloseButton = true,
     required this.content,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -39,7 +39,7 @@ FlutterTemplate Flutter Application. Add a description of what the app does.
    fvm install
    ```
 
-   > ❗️ Make sure to add fvm as an alias for `fvm flutter` in your shell configuration file (ie: `~/.bash_profile` or `~/.zprofile`). This will allow you to use `flutter` directly instead of `fvm flutter`. See the [fvm docs](https://fvm.app/docs/guides/running_flutter/#proxy-commands) for more information.
+   > ❗️ Make sure to add fvm as an alias for `fvm flutter` in your shell configuration file (ie: `~/.bash_profile` or `~/.zprofile`). This will allow you to use `flutter` directly instead of `fvm flutter`. See the [fvm docs](https://fvm.app/documentation/getting-started/configuration#proxy-commands) for more information.
 
 1. Get the project dependencies with the following commands:
 

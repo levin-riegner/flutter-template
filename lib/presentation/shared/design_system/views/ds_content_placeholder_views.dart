@@ -17,7 +17,7 @@ class DSErrorView extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const DSErrorView({
-    Key? key,
+    super.key,
     this.useScaffold = false,
     this.scaffoldTitle,
     this.expanded = false,
@@ -29,7 +29,7 @@ class DSErrorView extends StatelessWidget {
     this.titleTextStyle,
     this.descriptionTextStyle,
     this.contentPadding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class DSEmptyView extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const DSEmptyView({
-    Key? key,
+    super.key,
     this.useScaffold = false,
     this.scaffoldTitle,
     this.expanded = false,
@@ -76,7 +76,7 @@ class DSEmptyView extends StatelessWidget {
     this.titleTextStyle,
     this.descriptionTextStyle,
     this.contentPadding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +110,7 @@ class DSNoInternetView extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const DSNoInternetView({
-    Key? key,
+    super.key,
     this.useScaffold = false,
     this.scaffoldTitle,
     this.expanded = false,
@@ -121,7 +121,7 @@ class DSNoInternetView extends StatelessWidget {
     this.titleTextStyle,
     this.descriptionTextStyle,
     this.contentPadding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +157,6 @@ class _ContentPlaceholderScreen extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const _ContentPlaceholderScreen({
-    Key? key,
     required this.useScaffold,
     required this.scaffoldTitle,
     this.iconView,
@@ -170,8 +169,7 @@ class _ContentPlaceholderScreen extends StatelessWidget {
     this.titleTextStyle,
     this.descriptionTextStyle,
     this.contentPadding,
-  })  : assert(title != null || description != null),
-        super(key: key);
+  })  : assert(title != null || description != null);
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +211,6 @@ class _ContentPlaceholderBody extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const _ContentPlaceholderBody({
-    Key? key,
     this.iconView,
     this.icon,
     required this.expanded,
@@ -224,7 +221,7 @@ class _ContentPlaceholderBody extends StatelessWidget {
     required this.titleTextStyle,
     required this.descriptionTextStyle,
     this.contentPadding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ConsoleLogins extends StatefulWidget {
-  const ConsoleLogins({Key? key}) : super(key: key);
+  const ConsoleLogins({super.key});
 
   @override
   _ConsoleLoginsState createState() => _ConsoleLoginsState();
@@ -57,7 +57,7 @@ class _ConsoleLoginsState extends State<ConsoleLogins> {
     );
   }
 
-  _performLogin(BuildContext context, _Login login) async {
+  Future<void> _performLogin(BuildContext context, _Login login) async {
     setState(() {
       loading = true;
       error = null;

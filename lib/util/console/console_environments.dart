@@ -3,14 +3,14 @@ import 'package:flutter_template/app/config/environment.dart';
 import 'package:flutter_template/util/dependencies.dart';
 
 class ConsoleEnvironments extends StatefulWidget {
-  const ConsoleEnvironments({Key? key}) : super(key: key);
+  const ConsoleEnvironments({super.key});
 
   @override
   _ConsoleEnvironmentsState createState() => _ConsoleEnvironmentsState();
 }
 
 class _ConsoleEnvironmentsState extends State<ConsoleEnvironments> {
-  final currentEnvironment = getIt.get<Environment>();
+  late Environment _selectedEnvironment = getIt.get<Environment>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,25 +19,33 @@ class _ConsoleEnvironmentsState extends State<ConsoleEnvironments> {
       appBar: AppBar(
         title: const Text("Environments"),
       ),
-      body: ListView.builder(
-        itemCount: environments.length,
-        itemBuilder: (context, index) {
-          final environment = environments[index];
-          return RadioListTile<Environment>(
-            title: Text(environment.environmentName),
-            value: environment,
-            groupValue: currentEnvironment,
-            onChanged: (environment) => _setEnvironment(context, environment!),
-          );
+      body: RadioGroup<Environment>(
+        groupValue: _selectedEnvironment,
+        onChanged: (environment) {
+          if (environment != null) _setEnvironment(context, environment);
         },
+        child: ListView.builder(
+          itemCount: environments.length,
+          itemBuilder: (context, index) {
+            final environment = environments[index];
+            return RadioListTile<Environment>(
+              title: Text(environment.environmentName),
+              value: environment,
+            );
+          },
+        ),
       ),
     );
   }
 
-  _setEnvironment(BuildContext context, Environment environment) async {
+  Future<void> _setEnvironment(BuildContext context, Environment environment) async {
     // Set new environment
-    getIt.unregister<Environment>(instance: currentEnvironment);
+    final previous = getIt.get<Environment>();
+    getIt.unregister<Environment>(instance: previous);
     getIt.registerSingleton<Environment>(environment);
+    setState(() {
+      _selectedEnvironment = environment;
+    });
     // TODO: Restart App
   }
 }

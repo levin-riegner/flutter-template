@@ -116,6 +116,10 @@ graphql/
 **/*.chopper.dart
 **/*.gr.dart
 
+# L10n auto-generated files
+lib/app/l10n/strings.dart
+lib/app/l10n/strings_*.dart
+
 # Code coverage
 coverage/
 

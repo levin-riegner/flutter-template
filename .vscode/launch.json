@@ -72,6 +72,6 @@
                 "QA"
             ],
             "program": "integration_test"
-        },
+        }
     ]
 }

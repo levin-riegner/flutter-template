@@ -7,11 +7,11 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onBack;
 
   const DSAppBar({
-    Key? key,
+    super.key,
     required this.title,
     required this.backEnabled,
     this.onBack,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

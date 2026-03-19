@@ -26,7 +26,7 @@ class DSSegmentedProgressBar extends StatefulWidget {
   final bool prefillStep;
 
   const DSSegmentedProgressBar({
-    Key? key,
+    super.key,
     required this.currentPageNotifier,
     required this.itemCount,
     this.stepsCompletedNotifier,
@@ -36,7 +36,7 @@ class DSSegmentedProgressBar extends StatefulWidget {
     this.selectedStepColor,
     this.nextStepColor,
     this.prefillStep = false,
-  }) : super(key: key);
+  });
 
   @override
   _StepPageIndicatorState createState() {
@@ -95,11 +95,11 @@ class _StepPageIndicatorState extends State<DSSegmentedProgressBar> {
 
   bool isLast(int dotIndex) => _currentPageIndex == widget.itemCount - 1;
 
-  _handlePageIndex() {
+  void _handlePageIndex() {
     setState(() => _currentPageIndex = widget.currentPageNotifier.value);
   }
 
-  _handleStepsCompleted() {
+  void _handleStepsCompleted() {
     setState(
         () => _stepsCompleted = widget.stepsCompletedNotifier?.value ?? false);
   }

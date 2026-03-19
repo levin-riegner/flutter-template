@@ -1,8 +1,9 @@
 import 'package:flutter_template/data/article/model/article.dart';
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
-import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
+import 'package:flutter_template/data/article/service/local/model/article_db_mapper.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
 import 'package:logging_flutter/logging_flutter.dart';
+
 
 class ArticleRepository {
   final ArticleApiService _apiService;
@@ -31,7 +32,7 @@ class ArticleRepository {
           articlesResponse.articles?.map((e) => e.toArticle()).toList();
       if (articles != null) {
         await _dbService
-            .saveArticles(articles.map(ArticleDbModel.fromArticle).toList());
+            .saveArticles(articles.map((a) => a.toDbCompanion()).toList());
 
         return articles;
       }

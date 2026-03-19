@@ -10,13 +10,13 @@ class DSLoadingIndicator extends StatefulWidget {
   final AnimationController? controller;
 
   const DSLoadingIndicator({
-    Key? key,
+    super.key,
     this.color,
     this.size = 15.0,
     this.itemBuilder,
     this.duration = const Duration(milliseconds: 1000),
     this.controller,
-  }) : super(key: key);
+  });
 
   @override
   _DSLoadingIndicatorState createState() => _DSLoadingIndicatorState();
@@ -68,8 +68,7 @@ class _DSLoadingIndicatorState extends State<DSLoadingIndicator>
 }
 
 class DelayTween extends Tween<double> {
-  DelayTween({double? begin, double? end, this.delay})
-      : super(begin: begin, end: end);
+  DelayTween({super.begin, super.end, this.delay});
 
   final double? delay;
 

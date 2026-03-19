@@ -34,11 +34,11 @@ import 'package:flutter/widgets.dart';
 ///
 class ConditionalParentWidget extends StatelessWidget {
   const ConditionalParentWidget({
-    Key? key,
+    super.key,
     required this.condition,
     required this.child,
     required this.parentBuilder,
-  }) : super(key: key);
+  });
 
   /// The [child] which should be conditionally wrapped by the parent.
   ///

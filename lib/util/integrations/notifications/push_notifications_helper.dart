@@ -206,7 +206,9 @@ class PushNotificationsHelper {
       // Get notification data
       final notification = message.notification;
       if (notification == null ||
-          (notification.title == null && notification.body == null)) return;
+          (notification.title == null && notification.body == null)) {
+        return;
+      }
       final titleText = notification.body != null ? notification.title : null;
       final messageText = notification.body ?? notification.title ?? "";
       final branchLink = message.data?.branchLink;
