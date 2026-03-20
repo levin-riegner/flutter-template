@@ -111,9 +111,7 @@ abstract class Dependencies {
     );
 
     // Database
-    _database = AppDatabase.init(
-      directory: applicationDirectory.path,
-    );
+    _database = AppDatabase.init(directory: applicationDirectory.path);
 
     // Repositories
     getIt.registerSingleton<ArticleRepository>(
@@ -126,15 +124,17 @@ abstract class Dependencies {
     // Firebase
     // TODO: Replace options with `DefaultFirebaseOptions.currentPlatform,`
     // after running `flutterfire configure`
-    await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: "AIzaSyCMmJ4HDCqQptZ872QYM1uZ6M9a8YVQwaA",
-        appId: "1:930871121577:android:08469e37bd03de82b3fbb8",
-        messagingSenderId:
-            "930871121577-e5it5no5i0ucprepj66rc07f6iu1c9sr.apps.googleusercontent.com",
-        projectId: "flutter-template-lr",
-      ),
-    );
+    if (Firebase.apps.isEmpty) {
+      await Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: "AIzaSyCMmJ4HDCqQptZ872QYM1uZ6M9a8YVQwaA",
+          appId: "1:930871121577:android:08469e37bd03de82b3fbb8",
+          messagingSenderId:
+              "930871121577-e5it5no5i0ucprepj66rc07f6iu1c9sr.apps.googleusercontent.com",
+          projectId: "flutter-template-lr",
+        ),
+      );
+    }
 
     // App Versioning
     final appVersioning = AppVersioning.firebaseService(
@@ -181,9 +181,7 @@ abstract class Dependencies {
       },
     );
     getIt.registerSingleton<BranchApi>(branchApi);
-    branchApi.initBranchSession(
-      enableLogging: isDebugBuild,
-    );
+    branchApi.initBranchSession(enableLogging: isDebugBuild);
     getIt.registerSingleton<BranchShareHelper>(
       BranchShareHelper(uriScheme: environment.deepLinkScheme),
     );
@@ -199,9 +197,7 @@ abstract class Dependencies {
 
     // Datadog
     await Datadog.initialize(
-      config: DatadogConfig(
-        clientToken: environment.datadogConfig.clientToken,
-      ),
+      config: DatadogConfig(clientToken: environment.datadogConfig.clientToken),
       environment: environment.environmentName,
     );
 
@@ -218,8 +214,9 @@ abstract class Dependencies {
       await FirebasePerformance.instance.setPerformanceCollectionEnabled(true);
     }
     // Remote Config
-    final remoteConfig =
-        RemoteConfig(fir_remote_config.FirebaseRemoteConfig.instance);
+    final remoteConfig = RemoteConfig(
+      fir_remote_config.FirebaseRemoteConfig.instance,
+    );
     await remoteConfig.init();
     remoteConfig.fetchAndActive(); // Refresh remote config without waiting
     getIt.registerSingleton<RemoteConfig>(remoteConfig);
