@@ -73,7 +73,6 @@ dependencies:
   app_versioning:
     git:
       url: https://github.com/levin-riegner/app_versioning.git
-      ref: update/package-info-plus-9
   devicelocale: ^0.8.0
   # Plus Plugins
   device_info_plus: ^12.3.0

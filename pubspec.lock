@@ -45,8 +45,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "update/package-info-plus-9"
-      resolved-ref: "6521bb9753d18c30d692b523b4b0cdddfbfda19e"
+      ref: HEAD
+      resolved-ref: d7da10e46e05f8d25996502c739260a30d17a2c4
       url: "https://github.com/levin-riegner/app_versioning.git"
     source: git
     version: "1.3.0"
