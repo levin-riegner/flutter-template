@@ -124,7 +124,7 @@ abstract class Dependencies {
     // Firebase
     // TODO: Replace options with `DefaultFirebaseOptions.currentPlatform,`
     // after running `flutterfire configure`
-    if (Firebase.apps.isEmpty) {
+    try {
       await Firebase.initializeApp(
         options: const FirebaseOptions(
           apiKey: "AIzaSyCMmJ4HDCqQptZ872QYM1uZ6M9a8YVQwaA",
@@ -134,6 +134,8 @@ abstract class Dependencies {
           projectId: "flutter-template-lr",
         ),
       );
+    } on FirebaseException catch (_) {
+      // Already initialized (e.g. native auto-init from GoogleService-Info.plist)
     }
 
     // App Versioning
