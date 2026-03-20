@@ -94,6 +94,7 @@ apiKey.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 **/ios/Flutter/flutter_export_environment.sh
 **/ios/Flutter/.last_build_id
+**/ios/Flutter/ephemeral/
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
@@ -119,6 +120,9 @@ graphql/
 # L10n auto-generated files
 lib/app/l10n/strings.dart
 lib/app/l10n/strings_*.dart
+
+# DevTools
+devtools_options.yaml
 
 # Code coverage
 coverage/
