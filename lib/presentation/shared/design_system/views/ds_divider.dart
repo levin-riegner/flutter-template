@@ -7,11 +7,11 @@ class DSDivider extends StatelessWidget {
   final Color? color;
 
   const DSDivider({
-    Key? key,
+    super.key,
     this.margin = 0.0,
     this.height,
     this.color,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class DSDivider extends StatelessWidget {
       child: Container(
         height: height ?? Dimens.dividerHeight,
         color: color ??
-            Theme.of(context).colorScheme.onBackground.withOpacity(0.05),
+            Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.05),
       ),
     );
   }

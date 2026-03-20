@@ -49,8 +49,8 @@ class _DSPasswordTextFieldState extends State<DSPasswordTextField> {
                   : const Icon(Icons.visibility_off),
               color: (widget.errorText?.isNotEmpty == true
                       ? context.theme.colorScheme.error
-                      : context.theme.colorScheme.onBackground)
-                  .withOpacity(_passwordFocused ? 1 : 0.5),
+                      : context.theme.colorScheme.onSurface)
+                  .withValues(alpha: _passwordFocused ? 1.0 : 0.5),
               onPressed: () {
                 setState(() {
                   _passwordVisible = !_passwordVisible;

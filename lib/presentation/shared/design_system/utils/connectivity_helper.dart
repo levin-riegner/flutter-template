@@ -4,8 +4,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 class ConnectivityHelper {
   static Future<bool> isConnected() {
-    return Connectivity().checkConnectivity().then((connectivityResult) {
-      final internetAvailable = connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi;
+    return Connectivity().checkConnectivity().then((connectivityResults) {
+      final internetAvailable = connectivityResults.contains(ConnectivityResult.mobile) || connectivityResults.contains(ConnectivityResult.wifi);
       return internetAvailable;
     });
   }
@@ -13,6 +13,6 @@ class ConnectivityHelper {
   static Stream<bool> onIsConnectedChanged() {
     return Connectivity()
         .onConnectivityChanged
-        .map((connectivityResult) => connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi);
+        .map((connectivityResults) => connectivityResults.contains(ConnectivityResult.mobile) || connectivityResults.contains(ConnectivityResult.wifi));
   }
 }

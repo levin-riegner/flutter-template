@@ -11,11 +11,11 @@ class ArticleDetailPage extends StatelessWidget {
   final String? title;
 
   const ArticleDetailPage({
-    Key? key,
+    super.key,
     required this.id,
     required this.url,
     this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +45,11 @@ class ArticleDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) {
         // Close Keyboard if open
         FocusScope.of(context).unfocus();
-        return true; // Continue with pop
       },
       child: InAppWebView(
         initialUrl: url,

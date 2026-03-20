@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ConsolePage extends StatelessWidget {
-  const ConsolePage({Key? key}) : super(key: key);
+  const ConsolePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class ConsolePage extends StatelessWidget {
     );
   }
 
-  _navigateTo(BuildContext context, String route) {
+  void _navigateTo(BuildContext context, String route) {
     GoRouter.of(context).push(route);
   }
 }

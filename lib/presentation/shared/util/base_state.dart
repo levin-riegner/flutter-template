@@ -19,7 +19,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
     _disposeSubscriptions();
   }
 
-  _disposeSubscriptions() {
+  void _disposeSubscriptions() {
     for (var e in disposeBag) {
       e.cancel();
     }

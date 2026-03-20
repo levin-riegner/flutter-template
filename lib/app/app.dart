@@ -180,12 +180,12 @@ class AppView extends StatelessWidget {
   final bool showSemanticsDebugger;
 
   const AppView({
-    Key? key,
+    super.key,
     this.routerConfig,
     this.themeMode = ThemeMode.system,
     this.debugShowMaterialGrid = false,
     this.showSemanticsDebugger = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

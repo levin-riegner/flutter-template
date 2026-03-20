@@ -3,7 +3,7 @@ import 'package:flutter_template/util/tools/qa_config.dart';
 import 'package:provider/provider.dart';
 
 class ConsoleQaConfigs extends StatefulWidget {
-  const ConsoleQaConfigs({Key? key}) : super(key: key);
+  const ConsoleQaConfigs({super.key});
 
   @override
   _ConsoleQaConfigsState createState() => _ConsoleQaConfigsState();

@@ -201,7 +201,7 @@ This project uses [build_runner](https://pub.dev/packages/build_runner) to auto-
 
 - [Freezed](https://pub.dev/packages/freezed): Generates toString, equals and hashCode. Creates immutable classes.
 - [Json Serializable](https://pub.dev/packages/json_serializable): Generates toJson/fromJson methods.
-- [Isar](https://pub.dev/packages/isar): Generates database models.
+- [Drift](https://pub.dev/packages/drift): Generates database models and queries.
 
 Execute the build runner with the following command: `flutter pub run build_runner build --delete-conflicting-outputs`.
 
@@ -257,12 +257,13 @@ The [dio_cache_interceptor](https://pub.dev/packages/dio_cache_interceptor) is u
 
 ## Database
 
-This project uses the [Isar](https://pub.dev/packages/isar) Database.
+This project uses the [Drift](https://pub.dev/packages/drift) Database (SQLite-based).
 
-Each db model is annotated as a @collection which creates all the required auto-generated code.
+Each db model is defined as a Drift `Table` class with typed columns. The `@DriftDatabase` annotation on the `AppDatabase` class registers all tables and generates the required code.
 
-- DB Model collections need to be registered in the global [Database](/lib/data/shared/service/local/database.dart) class.
-- Collections are retrieved in the [Dependencies](/lib/util/dependencies.dart) and injected to the different services.
+- Table classes are defined alongside their feature's local service models.
+- Tables need to be registered in the global [AppDatabase](/lib/data/shared/service/local/database.dart) class via the `@DriftDatabase(tables: [...])` annotation.
+- The `AppDatabase` instance is created in the [Dependencies](/lib/util/dependencies.dart) and injected to the different services.
 
 ## Secure Storage
 

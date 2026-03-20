@@ -17,14 +17,14 @@ class DSPaginationView<T, E> extends StatelessWidget {
   final ScrollController? scrollController;
 
   const DSPaginationView({
-    Key? key,
+    super.key,
     required this.state,
     required this.indexedItemBuilder,
     required this.onRefresh,
     required this.onLoadMore,
     this.contentPadding,
     this.scrollController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +76,8 @@ const _paginationIndicatorHeight = Dimens.listItemHeightMedium;
 
 class LoadMoreLoadingIndicator extends StatelessWidget {
   const LoadMoreLoadingIndicator({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -96,10 +96,10 @@ class LoadMoreErrorIndicator extends StatelessWidget {
   final VoidCallback onTap;
 
   const LoadMoreErrorIndicator({
-    Key? key,
+    super.key,
     this.reason,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,8 @@
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
-import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
 import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
+import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
@@ -37,7 +37,14 @@ void main() {
     test("should return local articles when local articles is not empty",
         () async {
       // Arrange
-      final dbArticle = ArticleDbModel(title: "Bitcoin");
+      final dbArticle = ArticleDbModel(
+        id: 1,
+        title: "Bitcoin",
+        description: null,
+        imageUrl: null,
+        url: null,
+        publishedAt: null,
+      );
       when(() => dbService.getArticles(any()))
           .thenAnswer((_) async => [dbArticle]);
       // Act
@@ -48,7 +55,14 @@ void main() {
     });
     test("should return api articles when force refresh is true", () async {
       // Arrange
-      final dbArticle = ArticleDbModel(title: "Bitcoin");
+      final dbArticle = ArticleDbModel(
+        id: 1,
+        title: "Bitcoin",
+        description: null,
+        imageUrl: null,
+        url: null,
+        publishedAt: null,
+      );
       const apiArticle = ArticleApiModel(title: "Ethereum");
       when(() => dbService.getArticles(any()))
           .thenAnswer((_) async => [dbArticle]);
@@ -68,7 +82,7 @@ void main() {
       when(() => apiService.getArticles(any())).thenAnswer(
           (_) async => const ArticlesApiResponse(articles: [apiArticle]));
       // Act
-      final articles = await articleRepository.getArticles("");
+      await articleRepository.getArticles("");
       // Assert
       verify(() => dbService.saveArticles(any(that: hasLength(1)))).called(1);
     });

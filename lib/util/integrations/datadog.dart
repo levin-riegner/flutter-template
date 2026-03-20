@@ -62,4 +62,8 @@ class Datadog {
   }) async {
     DatadogSdk.instance.setUserInfo(id: userId, name: name, email: email);
   }
+
+  static void clearUser() {
+    DatadogSdk.instance.clearUserInfo();
+  }
 }

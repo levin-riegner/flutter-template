@@ -4,11 +4,11 @@ import 'package:flutter_template/presentation/shared/adaptive_theme/adaptive_the
 class AdaptiveThemeCubit extends Cubit<AdaptiveThemeState> {
   AdaptiveThemeCubit() : super(AdaptiveThemeState.dark);
 
-  setLightTheme() {
+  void setLightTheme() {
     emit(AdaptiveThemeState.light);
   }
 
-  setDarkTheme() {
+  void setDarkTheme() {
     emit(AdaptiveThemeState.dark);
   }
 }

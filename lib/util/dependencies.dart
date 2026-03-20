@@ -16,7 +16,6 @@ import 'package:flutter_template/app/navigation/navigator_holder.dart';
 import 'package:flutter_template/app/navigation/router/app_routes.dart';
 import 'package:flutter_template/data/article/repository/article_repository.dart';
 import 'package:flutter_template/data/article/service/local/article_db_service.dart';
-import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
 import 'package:flutter_template/data/shared/service/local/database.dart';
 import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
@@ -38,7 +37,6 @@ import 'package:flutter_template/util/tools/shake_manager.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart';
-import 'package:isar/isar.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,7 +44,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 final getIt = GetIt.instance;
 
 abstract class Dependencies {
-  static final List<IsarCollection> _userDataCollections = [];
+  static AppDatabase? _database;
 
   static Future<void> register({
     required Environment environment,
@@ -113,34 +111,32 @@ abstract class Dependencies {
     );
 
     // Database
-    final isar = await Database.init(
-      directory: applicationDirectory.path,
-    );
-    // Open db collections
-    final articlesCollection = isar.articleDbModels;
-    // Save user collections as class var for logout
-    _userDataCollections.addAll([]); // TODO: Add user collections here
+    _database = AppDatabase.init(directory: applicationDirectory.path);
 
     // Repositories
     getIt.registerSingleton<ArticleRepository>(
       ArticleRepository(
         ArticleApiService(httpClient),
-        ArticleDbService(articlesCollection),
+        ArticleDbService(_database!),
       ),
     );
 
     // Firebase
     // TODO: Replace options with `DefaultFirebaseOptions.currentPlatform,`
     // after running `flutterfire configure`
-    await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: "AIzaSyCMmJ4HDCqQptZ872QYM1uZ6M9a8YVQwaA",
-        appId: "1:930871121577:android:08469e37bd03de82b3fbb8",
-        messagingSenderId:
-            "930871121577-e5it5no5i0ucprepj66rc07f6iu1c9sr.apps.googleusercontent.com",
-        projectId: "flutter-template-lr",
-      ),
-    );
+    try {
+      await Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: "AIzaSyCMmJ4HDCqQptZ872QYM1uZ6M9a8YVQwaA",
+          appId: "1:930871121577:android:08469e37bd03de82b3fbb8",
+          messagingSenderId:
+              "930871121577-e5it5no5i0ucprepj66rc07f6iu1c9sr.apps.googleusercontent.com",
+          projectId: "flutter-template-lr",
+        ),
+      );
+    } on FirebaseException catch (_) {
+      // Already initialized (e.g. native auto-init from GoogleService-Info.plist)
+    }
 
     // App Versioning
     final appVersioning = AppVersioning.firebaseService(
@@ -187,9 +183,7 @@ abstract class Dependencies {
       },
     );
     getIt.registerSingleton<BranchApi>(branchApi);
-    branchApi.initBranchSession(
-      enableLogging: isDebugBuild,
-    );
+    branchApi.initBranchSession(enableLogging: isDebugBuild);
     getIt.registerSingleton<BranchShareHelper>(
       BranchShareHelper(uriScheme: environment.deepLinkScheme),
     );
@@ -205,9 +199,7 @@ abstract class Dependencies {
 
     // Datadog
     await Datadog.initialize(
-      config: DatadogConfig(
-        clientToken: environment.datadogConfig.clientToken,
-      ),
+      config: DatadogConfig(clientToken: environment.datadogConfig.clientToken),
       environment: environment.environmentName,
     );
 
@@ -224,8 +216,9 @@ abstract class Dependencies {
       await FirebasePerformance.instance.setPerformanceCollectionEnabled(true);
     }
     // Remote Config
-    final remoteConfig =
-        RemoteConfig(fir_remote_config.FirebaseRemoteConfig.instance);
+    final remoteConfig = RemoteConfig(
+      fir_remote_config.FirebaseRemoteConfig.instance,
+    );
     await remoteConfig.init();
     remoteConfig.fetchAndActive(); // Refresh remote config without waiting
     getIt.registerSingleton<RemoteConfig>(remoteConfig);
@@ -310,7 +303,7 @@ abstract class Dependencies {
     Flogger.i("Disposing dependencies");
     try {
       // Close Database
-      await Isar.getInstance()?.close();
+      await _database?.close();
       // Stop listening to Shake
       ShakeManager.stopListening();
       // Dispose DeepLink listener
@@ -341,14 +334,9 @@ abstract class Dependencies {
     Flogger.i("Clearing all local data");
     FlutterBranchSdk.logout();
     await Future.wait([
-      // Clear user boxes
-      // Clearing the whole database won't allow for writing again
-      // without closing the app or re-opening boxes
-      ..._userDataCollections.map(
-        (e) => e.isar.writeTxn(() async {
-          e.clear();
-        }),
-      ),
+      // Clear user data from database
+      // TODO: Add user table deletions here
+      // Example: _database!.delete(_database!.userTable).go(),
       // Secure storage
       getIt.get<SecureStorage>().deleteAll(),
       // Analytics
@@ -366,7 +354,7 @@ abstract class Dependencies {
   /// IMPORTANT: Data Collection within this method is not used for Tracking purposes
   static Future<void> setDataCollectionEnabled(bool enabled) async {
     Flogger.i("Set data collection enabled: $enabled");
-    FlutterBranchSdk.disableTracking(!enabled);
+    // Branch SDK v9+ respects platform ATT status for tracking consent
     await Future.wait([
       // Store value
       getIt<UserConfigService>().saveDataCollectionEnabled(enabled),

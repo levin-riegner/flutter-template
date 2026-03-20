@@ -21,8 +21,8 @@ abstract class AppTheme {
     );
   }
 
-  static InputDecorationTheme inputDecorationTheme(
-    InputDecorationTheme base, {
+  static InputDecorationThemeData inputDecorationTheme(
+    InputDecorationThemeData base, {
     required Color borderColor,
     required TextStyle? floatingLabelStyle,
     required TextStyle? labelStyle,
@@ -49,7 +49,7 @@ abstract class AppTheme {
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: borderColor.withOpacity(0.5),
+          color: borderColor.withValues(alpha: 0.5),
           width: Dimens.inputDecorationBorderWidth,
         ),
         borderRadius: BorderRadius.circular(Dimens.inputDecorationRadius),

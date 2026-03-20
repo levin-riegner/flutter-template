@@ -25,7 +25,7 @@ class InAppWebView extends StatefulWidget {
   final WebViewController? controller;
 
   const InAppWebView({
-    Key? key,
+    super.key,
     required this.initialUrl,
     this.javascriptChannelName = "MobileApp",
     this.actions = const [],
@@ -40,8 +40,7 @@ class InAppWebView extends StatefulWidget {
     this.controller,
   })  : useScaffold = title != null || useScaffold,
         noInternetView = noInternetView ?? const DSNoInternetView(),
-        shouldListenForScroll = onScroll != null,
-        super(key: key);
+        shouldListenForScroll = onScroll != null;
 
   @override
   State<InAppWebView> createState() => _InAppWebViewState();

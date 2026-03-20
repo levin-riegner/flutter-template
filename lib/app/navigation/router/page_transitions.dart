@@ -65,7 +65,7 @@ abstract class PageTransitions {
           animation: animation,
           secondaryAnimation: secondaryAnimation,
           transitionType: type,
-          fillColor: context.colorScheme.background,
+          fillColor: context.colorScheme.surface,
           child: child,
         );
       },
@@ -87,7 +87,7 @@ abstract class PageTransitions {
         return FadeThroughTransition(
           animation: animation,
           secondaryAnimation: secondaryAnimation,
-          fillColor: context.colorScheme.background,
+          fillColor: context.colorScheme.surface,
           child: child,
         );
       },

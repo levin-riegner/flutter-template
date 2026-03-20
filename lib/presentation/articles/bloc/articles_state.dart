@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'articles_state.freezed.dart';
 
 @freezed
-class ArticlesState with _$ArticlesState {
+sealed class ArticlesState with _$ArticlesState {
   const factory ArticlesState.articlesList({
     required DataState<List<Article>, ArticlesError> data,
   }) = _ArticlesList;

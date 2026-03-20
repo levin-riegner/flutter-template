@@ -5,17 +5,16 @@ class FormResponsiveBody extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
 
   const FormResponsiveBody({
-    Key? key,
+    super.key,
     required this.child,
     this.padding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
         FocusScope.of(context).unfocus();
-        return true;
       },
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

@@ -40,7 +40,7 @@ part 'app_routes.g.dart';
     ),
   ],
 )
-class ConsoleRoute extends GoRouteData {
+class ConsoleRoute extends GoRouteData with $ConsoleRoute {
   const ConsoleRoute();
 
   // Use parent navigator to navigate without bottom bar
@@ -53,7 +53,7 @@ class ConsoleRoute extends GoRouteData {
   }
 }
 
-class ConsoleEnvironmentsRoute extends GoRouteData {
+class ConsoleEnvironmentsRoute extends GoRouteData with $ConsoleEnvironmentsRoute {
   const ConsoleEnvironmentsRoute();
 
   // Maintain parent navigator to allow for back navigation
@@ -67,7 +67,7 @@ class ConsoleEnvironmentsRoute extends GoRouteData {
   }
 }
 
-class ConsoleLoginsRoute extends GoRouteData {
+class ConsoleLoginsRoute extends GoRouteData with $ConsoleLoginsRoute {
   const ConsoleLoginsRoute();
 
   // Maintain parent navigator to allow for back navigation
@@ -81,7 +81,7 @@ class ConsoleLoginsRoute extends GoRouteData {
   }
 }
 
-class ConsoleQaConfigRoute extends GoRouteData {
+class ConsoleQaConfigRoute extends GoRouteData with $ConsoleQaConfigRoute {
   const ConsoleQaConfigRoute();
 
   // Maintain parent navigator to allow for back navigation
@@ -95,7 +95,7 @@ class ConsoleQaConfigRoute extends GoRouteData {
   }
 }
 
-class ConsoleDeeplinksRoute extends GoRouteData {
+class ConsoleDeeplinksRoute extends GoRouteData with $ConsoleDeeplinksRoute {
   const ConsoleDeeplinksRoute();
 
   // Maintain parent navigator to allow for back navigation
@@ -168,7 +168,7 @@ class ArticlesBranchData extends StatefulShellBranchData {
   const ArticlesBranchData();
 }
 
-class ArticlesRoute extends GoRouteData {
+class ArticlesRoute extends GoRouteData with $ArticlesRoute {
   const ArticlesRoute();
 
   @override
@@ -177,7 +177,7 @@ class ArticlesRoute extends GoRouteData {
   }
 }
 
-class ArticleDetailRoute extends GoRouteData {
+class ArticleDetailRoute extends GoRouteData with $ArticleDetailRoute {
   final String aid;
   final String? url;
 
@@ -199,7 +199,7 @@ class BlankBranchData extends StatefulShellBranchData {
   const BlankBranchData();
 }
 
-class BlankRoute extends GoRouteData {
+class BlankRoute extends GoRouteData with $BlankRoute {
   const BlankRoute();
 
   @override
@@ -208,7 +208,7 @@ class BlankRoute extends GoRouteData {
   }
 }
 
-class ArticleBlankDetailRoute extends GoRouteData {
+class ArticleBlankDetailRoute extends GoRouteData with $ArticleBlankDetailRoute {
   final String aid;
   final String? url;
 
@@ -242,7 +242,7 @@ class ArticleBlankDetailRoute extends GoRouteData {
     ),
   ],
 )
-class SettingsRoute extends GoRouteData {
+class SettingsRoute extends GoRouteData with $SettingsRoute {
   const SettingsRoute();
 
   @override
@@ -256,7 +256,7 @@ class SettingsRoute extends GoRouteData {
   }
 }
 
-class AccountDetailsRoute extends GoRouteData {
+class AccountDetailsRoute extends GoRouteData with $AccountDetailsRoute {
   final String? name;
   const AccountDetailsRoute({
     this.name,
@@ -286,7 +286,7 @@ class AccountDetailsRoute extends GoRouteData {
   path: "/login",
   name: "LoginPage",
 )
-class LoginRoute extends GoRouteData {
+class LoginRoute extends GoRouteData with $LoginRoute {
   const LoginRoute();
 
   // Use parent navigator to navigate without bottom bar

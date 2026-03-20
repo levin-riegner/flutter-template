@@ -11,11 +11,12 @@ import 'package:flutter_template/presentation/shared/design_system/theme/dimens.
 import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
 import 'package:flutter_template/presentation/shared/design_system/views/ds_loading_indicator.dart';
+import 'package:flutter_template/presentation/shared/util/data_state.dart';
 import 'package:flutter_template/util/dependencies.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ArticlesPage extends StatelessWidget {
-  const ArticlesPage({Key? key}) : super(key: key);
+  const ArticlesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,19 +43,16 @@ class ArticlesView extends StatelessWidget {
       },
       child: BlocBuilder<ArticlesBloc, ArticlesState>(
         builder: (context, state) {
-          return state.when(
-            articlesList: (content) {
-              return content.when(
-                idle: () => Container(),
-                loading: () => _Loading(),
-                success: (articles) {
-                  if (articles.isEmpty) {
-                    return const DSEmptyView();
-                  }
-                  return ListView.builder(
-                    itemCount: articles.length,
+          final content = state.data;
+          return switch (content) {
+            Idle() => Container(),
+            Loading() => _LoadingWidget(),
+            Success(:final data) => data.isEmpty
+                ? const DSEmptyView()
+                : ListView.builder(
+                    itemCount: data.length,
                     itemBuilder: (context, position) {
-                      final Article article = articles[position];
+                      final Article article = data[position];
                       return _ArticleView(
                         article,
                         () {
@@ -67,43 +65,35 @@ class ArticlesView extends StatelessWidget {
                         },
                       );
                     },
-                  );
-                },
-                failure: (error) {
-                  return DSErrorView(
-                    useScaffold: false,
-                    onRefresh: () => context
-                        .read<ArticlesBloc>()
-                        .add(const ArticlesEvent.fetch(forceRefresh: true)),
-                  );
-                },
-              );
-            },
-          );
+                  ),
+            Failure() => DSErrorView(
+                useScaffold: false,
+                onRefresh: () => context
+                    .read<ArticlesBloc>()
+                    .add(const ArticlesEvent.fetch(forceRefresh: true)),
+              ),
+          };
         },
       ),
     );
     return BlocListener<ArticlesBloc, ArticlesState>(
       listener: (context, state) {
-        state.when(articlesList: (state) {
-          state.maybeWhen(
-              success: (data) {
-                if (data.isEmpty) {
-                  AlertService.showAlert(
-                    context: context,
-                    message: "No articles found",
-                  );
-                }
-              },
-              orElse: () {});
-        });
+        final content = state.data;
+        if (content case Success(:final data)) {
+          if (data.isEmpty) {
+            AlertService.showAlert(
+              context: context,
+              message: "No articles found",
+            );
+          }
+        }
       },
       child: body,
     );
   }
 }
 
-class _Loading extends StatelessWidget {
+class _LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(

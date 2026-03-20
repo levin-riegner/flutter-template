@@ -5,9 +5,9 @@ class DSAppVersion extends StatelessWidget {
   final TextStyle? textStyle;
 
   const DSAppVersion({
-    Key? key,
+    super.key,
     this.textStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
