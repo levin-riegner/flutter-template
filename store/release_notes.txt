@@ -1,0 +1,17 @@
+v1.0.0 - Initial Release
+
+Welcome to AffirmUp! Transform your mindset with daily affirmations.
+
+What's included:
+- 200+ handcrafted affirmations across 7 categories
+- Daily affirmation ritual with morning and evening sessions
+- Streak tracking to build your daily habit
+- Mirror mode for powerful face-to-face practice
+- Custom affirmations with AI suggestions
+- Beautiful dark theme with warm sunrise colors
+- Favorites collection to save your best affirmations
+- Share affirmation cards with friends
+- Visual history calendar
+- Premium upgrade for full access
+
+Start your journey to a more positive, confident life today!

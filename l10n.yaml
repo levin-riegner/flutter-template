@@ -1,5 +1,0 @@
-arb-dir: lib/app/l10n
-template-arb-file: app_en.arb
-output-localization-file: strings.dart
-output-class: Strings
-output-dir: lib/app/l10n
