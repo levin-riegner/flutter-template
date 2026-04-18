@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/config/constants.dart';
-import 'package:flutter_template/app/l10n/l10n.dart';
-import 'package:flutter_template/app/navigation/router/app_routes.dart';
-import 'package:flutter_template/app/navigation/util/poppable_mixin.dart';
-import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_app_version.dart';
+import 'package:color_picker/app/config/constants.dart';
+import 'package:color_picker/app/l10n/l10n.dart';
+import 'package:color_picker/app/navigation/router/app_routes.dart';
+import 'package:color_picker/app/navigation/util/poppable_mixin.dart';
+import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
+import 'package:color_picker/presentation/shared/design_system/views/ds_app_version.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';

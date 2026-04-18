@@ -1,5 +1,5 @@
-import 'package:drift/drift.dart';
-import 'package:flutter_template/data/shared/service/local/database.dart';
+import 'package:color_picker/data/article/service/local/model/article_db_model.dart';
+import 'package:isar/isar.dart';
 
 class ArticleDbService {
   final AppDatabase _db;

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_template/util/integrations/notifications/installation_api_model.dart';
+import 'package:color_picker/util/integrations/notifications/installation_api_model.dart';
 
 class PushNotificationsApiService {
   final Dio _dio;

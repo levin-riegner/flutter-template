@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/connectivity_helper.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_loading_indicator.dart';
+import 'package:color_picker/presentation/shared/design_system/utils/connectivity_helper.dart';
+import 'package:color_picker/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
+import 'package:color_picker/presentation/shared/design_system/views/ds_loading_indicator.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

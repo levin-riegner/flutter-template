@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
+import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
 
 import 'ds_loading_indicator.dart';
 

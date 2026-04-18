@@ -1,10 +1,10 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_template/util/tools/analytics_event.dart';
+import 'package:color_picker/util/tools/analytics_event.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 // Expose AnalyticsEvents to avoid the double import when tracking events
-export 'package:flutter_template/util/tools/analytics_event.dart';
+export 'package:color_picker/util/tools/analytics_event.dart';
 
 class Analytics {
   static const bool _kReleaseMode = kReleaseMode;

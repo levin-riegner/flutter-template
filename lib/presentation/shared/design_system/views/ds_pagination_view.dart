@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/pagination/pagination_state.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/pagination/pagination_widget.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_loading_indicator.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_opacity_gesture_detector.dart';
-import 'package:flutter_template/presentation/shared/util/data_state.dart';
-import 'package:flutter_template/util/extensions/context_extension.dart';
+import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
+import 'package:color_picker/presentation/shared/design_system/utils/pagination/pagination_state.dart';
+import 'package:color_picker/presentation/shared/design_system/utils/pagination/pagination_widget.dart';
+import 'package:color_picker/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
+import 'package:color_picker/presentation/shared/design_system/views/ds_loading_indicator.dart';
+import 'package:color_picker/presentation/shared/design_system/views/ds_opacity_gesture_detector.dart';
+import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:color_picker/util/extensions/context_extension.dart';
 
 class DSPaginationView<T, E> extends StatelessWidget {
   final DataState<PaginationState<T, E>, E> state;

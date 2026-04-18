@@ -1,10 +1,10 @@
 import 'package:app_versioning/app_versioning.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/navigation/navigator_holder.dart';
-import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_button.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_dialog.dart';
-import 'package:flutter_template/util/extensions/context_extension.dart';
+import 'package:color_picker/app/navigation/navigator_holder.dart';
+import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
+import 'package:color_picker/presentation/shared/design_system/views/ds_button.dart';
+import 'package:color_picker/presentation/shared/design_system/views/ds_dialog.dart';
+import 'package:color_picker/util/extensions/context_extension.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class AppUpdater {

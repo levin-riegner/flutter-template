@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/navigation/router/app_routes.dart';
+import 'package:color_picker/app/navigation/router/app_routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 

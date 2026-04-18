@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/shared/design_system/theme/anims.dart';
-import 'package:flutter_template/presentation/shared/design_system/theme/app_colors.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/conditional_parent_widget.dart';
+import 'package:color_picker/presentation/shared/design_system/theme/anims.dart';
+import 'package:color_picker/presentation/shared/design_system/theme/app_colors.dart';
+import 'package:color_picker/presentation/shared/design_system/utils/conditional_parent_widget.dart';
 
 class DSOpacityGestureDetector extends StatefulWidget {
   final VoidCallback? onTap;

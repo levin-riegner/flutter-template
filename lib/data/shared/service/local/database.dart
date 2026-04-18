@@ -1,6 +1,5 @@
-import 'package:drift/drift.dart';
-import 'package:drift_flutter/drift_flutter.dart';
-import 'package:flutter_template/data/article/service/local/model/article_db_model.dart';
+import 'package:color_picker/data/article/service/local/model/article_db_model.dart';
+import 'package:isar/isar.dart';
 
 part 'database.g.dart';
 

@@ -572,7 +572,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEEPLINK_SCHEME = template;
 				DEVELOPMENT_TEAM = 7WR4848QS6;
-				DISPLAY_NAME = FlutterTemplate;
+				DISPLAY_NAME = ColorPicker;
 				ENABLE_BITCODE = NO;
 				FIREBASE_CONFIG_FILE = "GoogleService-Info-production";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -589,7 +589,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.levinriegner.fluttertemplate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colorpicker.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = Production;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -613,7 +613,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEEPLINK_SCHEME = templateqa;
 				DEVELOPMENT_TEAM = 7WR4848QS6;
-				DISPLAY_NAME = "FlutterTemplate QA";
+				DISPLAY_NAME = "ColorPicker QA";
 				ENABLE_BITCODE = NO;
 				FIREBASE_CONFIG_FILE = "GoogleService-Info-qa";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -630,7 +630,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.levinriegner.fluttertemplate.qa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colorpicker.app.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = QA;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -710,7 +710,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEEPLINK_SCHEME = templateqa;
 				DEVELOPMENT_TEAM = 7WR4848QS6;
-				DISPLAY_NAME = "FlutterTemplate QA";
+				DISPLAY_NAME = "ColorPicker QA";
 				ENABLE_BITCODE = NO;
 				FIREBASE_CONFIG_FILE = "GoogleService-Info-qa";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -727,7 +727,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.levinriegner.fluttertemplate.qa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colorpicker.app.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = QA;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -804,7 +804,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEEPLINK_SCHEME = template;
 				DEVELOPMENT_TEAM = 7WR4848QS6;
-				DISPLAY_NAME = FlutterTemplate;
+				DISPLAY_NAME = ColorPicker;
 				ENABLE_BITCODE = NO;
 				FIREBASE_CONFIG_FILE = "GoogleService-Info-production";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -821,7 +821,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.levinriegner.fluttertemplate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colorpicker.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = Production;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";

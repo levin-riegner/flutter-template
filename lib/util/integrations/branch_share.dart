@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
-import 'package:flutter_template/util/integrations/branch_api.dart';
+import 'package:color_picker/util/integrations/branch_api.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 

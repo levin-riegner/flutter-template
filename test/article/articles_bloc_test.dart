@@ -1,12 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_template/data/article/model/article.dart';
-import 'package:flutter_template/data/article/repository/article_repository.dart';
-import 'package:flutter_template/data/shared/model/error/data_error.dart';
-import 'package:flutter_template/presentation/articles/bloc/articles_bloc.dart';
-import 'package:flutter_template/presentation/articles/bloc/articles_error.dart';
-import 'package:flutter_template/presentation/articles/bloc/articles_event.dart';
-import 'package:flutter_template/presentation/articles/bloc/articles_state.dart';
-import 'package:flutter_template/presentation/shared/util/data_state.dart';
+import 'package:color_picker/data/article/model/article.dart';
+import 'package:color_picker/data/article/repository/article_repository.dart';
+import 'package:color_picker/data/shared/model/error/data_error.dart';
+import 'package:color_picker/presentation/articles/bloc/articles_bloc.dart';
+import 'package:color_picker/presentation/articles/bloc/articles_error.dart';
+import 'package:color_picker/presentation/articles/bloc/articles_event.dart';
+import 'package:color_picker/presentation/articles/bloc/articles_state.dart';
+import 'package:color_picker/presentation/shared/util/data_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/navigation/router/app_routes.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/animated_branch_container.dart';
+import 'package:color_picker/app/navigation/router/app_routes.dart';
+import 'package:color_picker/presentation/shared/design_system/utils/animated_branch_container.dart';
 import 'package:go_router/go_router.dart';
 
 // Example: https://github.com/flutter/packages/blob/main/packages/go_router_builder/example/lib/stateful_shell_route_example.dart

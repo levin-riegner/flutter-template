@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_template/util/tools/custom_tabs_launcher.dart';
+import 'package:color_picker/util/tools/custom_tabs_launcher.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:rxdart/subjects.dart';
 

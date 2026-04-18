@@ -1,6 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/util/extensions/context_extension.dart';
+import 'package:color_picker/util/extensions/context_extension.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class PageTransitions {

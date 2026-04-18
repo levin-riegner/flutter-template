@@ -1,4 +1,5 @@
-import 'package:drift/drift.dart';
+import 'package:color_picker/data/article/model/article.dart';
+import 'package:isar/isar.dart';
 
 @DataClassName('ArticleDbModel')
 class Articles extends Table {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
-import 'package:flutter_template/util/extensions/context_extension.dart';
+import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
+import 'package:color_picker/util/extensions/context_extension.dart';
 
 class DSPasswordTextField extends StatefulWidget {
   final FocusNode? focusNode;

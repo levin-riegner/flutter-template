@@ -1,6 +1,6 @@
-import 'package:flutter_template/app/config/environment.dart';
-import 'package:flutter_template/main_shared.dart';
-import 'package:flutter_template/util/dependencies.dart';
+import 'package:color_picker/app/config/environment.dart';
+import 'package:color_picker/main_shared.dart';
+import 'package:color_picker/util/dependencies.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 

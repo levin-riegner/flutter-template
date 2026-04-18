@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_template/presentation/shared/design_system/theme/anims.dart';
+import 'package:color_picker/presentation/shared/design_system/theme/anims.dart';
 
 class AccountDetailsPage extends StatelessWidget {
   final String? name;

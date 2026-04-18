@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/data/article/repository/article_repository.dart';
+import 'package:color_picker/data/article/repository/article_repository.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ArticleDetailBloc extends Cubit<String> {

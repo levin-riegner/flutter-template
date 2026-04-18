@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/config/environment.dart';
-import 'package:flutter_template/app/navigation/deeplink_manager.dart';
-import 'package:flutter_template/util/dependencies.dart';
+import 'package:color_picker/app/config/environment.dart';
+import 'package:color_picker/app/navigation/deeplink_manager.dart';
+import 'package:color_picker/util/dependencies.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ConsoleDeeplinks extends StatefulWidget {

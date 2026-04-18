@@ -3,32 +3,31 @@ PODS:
   - connectivity_plus (0.0.1):
     - Flutter
   - datadog_flutter_plugin (0.0.1):
-    - DatadogCore (= 3.7.0)
-    - DatadogCrashReporting (= 3.7.0)
-    - DatadogInternal (= 3.7.0)
-    - DatadogLogs (= 3.7.0)
-    - DatadogRUM (= 3.7.0)
+    - DatadogCore (= 2.30.1)
+    - DatadogCrashReporting (= 2.30.1)
+    - DatadogInternal (= 2.30.1)
+    - DatadogLogs (= 2.30.1)
+    - DatadogRUM (= 2.30.1)
     - DictionaryCoder (= 1.2.0)
     - Flutter
-  - DatadogCore (3.7.0):
-    - DatadogInternal (= 3.7.0)
-  - DatadogCrashReporting (3.7.0):
-    - DatadogInternal (= 3.7.0)
-    - KSCrash/Filters (= 2.5.0)
-    - KSCrash/Recording (= 2.5.0)
-  - DatadogInternal (3.7.0)
-  - DatadogLogs (3.7.0):
-    - DatadogInternal (= 3.7.0)
-  - DatadogRUM (3.7.0):
-    - DatadogInternal (= 3.7.0)
+  - DatadogCore (2.30.1):
+    - DatadogInternal (= 2.30.1)
+  - DatadogCrashReporting (2.30.1):
+    - DatadogInternal (= 2.30.1)
+    - PLCrashReporter (~> 1.12.0)
+  - DatadogInternal (2.30.1)
+  - DatadogLogs (2.30.1):
+    - DatadogInternal (= 2.30.1)
+  - DatadogRUM (2.30.1):
+    - DatadogInternal (= 2.30.1)
   - device_info_plus (0.0.1):
     - Flutter
   - devicelocale (0.0.1):
     - Flutter
   - DictionaryCoder (1.2.0)
-  - Firebase/CoreOnly (12.9.0):
-    - FirebaseCore (~> 12.9.0)
-  - Firebase/Crashlytics (12.9.0):
+  - Firebase/Analytics (11.6.0):
+    - Firebase/Core
+  - Firebase/Core (11.6.0):
     - Firebase/CoreOnly
     - FirebaseCrashlytics (~> 12.9.0)
   - Firebase/Messaging (12.9.0):
@@ -124,25 +123,25 @@ PODS:
     - GoogleUtilities/MethodSwizzler (~> 8.1)
     - GoogleUtilities/UserDefaults (~> 8.1)
     - nanopb (~> 3.30910.0)
-  - FirebaseRemoteConfig (12.9.0):
-    - FirebaseABTesting (~> 12.9.0)
-    - FirebaseCore (~> 12.9.0)
-    - FirebaseInstallations (~> 12.9.0)
-    - FirebaseRemoteConfigInterop (~> 12.9.0)
-    - FirebaseSharedSwift (~> 12.9.0)
-    - GoogleUtilities/Environment (~> 8.1)
-    - "GoogleUtilities/NSData+zlib (~> 8.1)"
-  - FirebaseRemoteConfigInterop (12.9.0)
-  - FirebaseSessions (12.9.0):
-    - FirebaseCore (~> 12.9.0)
-    - FirebaseCoreExtension (~> 12.9.0)
-    - FirebaseInstallations (~> 12.9.0)
-    - GoogleDataTransport (~> 10.1)
-    - GoogleUtilities/Environment (~> 8.1)
-    - GoogleUtilities/UserDefaults (~> 8.1)
+  - FirebaseRemoteConfig (11.6.0):
+    - FirebaseABTesting (~> 11.0)
+    - FirebaseCore (~> 11.6.0)
+    - FirebaseInstallations (~> 11.0)
+    - FirebaseRemoteConfigInterop (~> 11.0)
+    - FirebaseSharedSwift (~> 11.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - "GoogleUtilities/NSData+zlib (~> 8.0)"
+  - FirebaseRemoteConfigInterop (11.15.0)
+  - FirebaseSessions (11.6.0):
+    - FirebaseCore (~> 11.6.0)
+    - FirebaseCoreExtension (~> 11.6.0)
+    - FirebaseInstallations (~> 11.0)
+    - GoogleDataTransport (~> 10.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
     - nanopb (~> 3.30910.0)
     - PromisesSwift (~> 2.1)
-  - FirebaseSharedSwift (12.9.0)
+  - FirebaseSharedSwift (11.15.0)
   - Flutter (1.0.0)
   - flutter_branch_sdk (9.1.1):
     - BranchSDK (~> 3.14.0)
@@ -236,6 +235,7 @@ PODS:
     - FlutterMacOS
   - permission_handler_apple (9.3.0):
     - Flutter
+  - PLCrashReporter (1.12.0)
   - PromisesObjC (2.4.0)
   - PromisesSwift (2.4.0):
     - PromisesObjC (= 2.4.0)
@@ -396,62 +396,60 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
 SPEC CHECKSUMS:
-  BranchSDK: 542614d201368be39b03e1a384df5c6b45873798
-  connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
-  datadog_flutter_plugin: ed74d538750b770ac56c75011ed7b86951ac7be3
-  DatadogCore: fa5149dd6a540a3e159362021dca68107bb65405
-  DatadogCrashReporting: 29f327c7767bc77fc3a6ea2ee36f24295d614e88
-  DatadogInternal: 669ff122a1c6f106627aa12e28da00a4da27bea4
-  DatadogLogs: b89adeb1bf3bd6537db1048d0223c43b67bca7d8
-  DatadogRUM: 9edaafffcecd735ab12e8fe785068c4fa8f2863f
+  BranchSDK: 1f63030d369197f4f33cb496a3c06ce997b5ec2f
+  connectivity_plus: 2256d3e20624a7749ed21653aafe291a46446fee
+  datadog_flutter_plugin: 8cbbf0d89820bc9db1fa48e02bb87ee92d55d59c
+  DatadogCore: c09c6b3345d200ad8df6b8424562afc4c274d85e
+  DatadogCrashReporting: 19c67670fe9ee01cc4cbc3c859d6c69dc6344e9e
+  DatadogInternal: a712490b2c285095d748ccb437a9a630df949d7f
+  DatadogLogs: 084f7974d6dbe053b5fbabc07a245a700c1514f7
+  DatadogRUM: c9356f806db3599386f854bdb53494216600d2ae
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   devicelocale: bd64aa714485a8afdaded0892c1e7d5b7f680cf8
   DictionaryCoder: f7115fcd074c8301e91f2eb862da1ea7d0385e61
-  Firebase: 065f2bb395062046623036d8e6dc857bc2521d56
-  firebase_analytics: 6903a46192a92993abde88152a14ce1df1c0de2f
-  firebase_core: afac1aac13c931e0401c7e74ed1276112030efab
-  firebase_crashlytics: a316d8dddba772359d93dc38d303ed964579b7a6
-  firebase_messaging: 7cb2727feb789751fc6936bcc8e08408970e2820
-  firebase_performance: a14e0fcd8c20835c2d6a96c6a948c976ba010805
-  firebase_remote_config: 8fc76417b5b60cf25e6ce2c88a86a8a63c71370a
-  FirebaseABTesting: a399ffe546392a39b19a5c2fb28bd8ea178a6f47
-  FirebaseAnalytics: cd7d01d352f3c237c9a0e31552c257cd0b0c0352
-  FirebaseCore: 428912f751178b06bef0a1793effeb4a5e09a9b8
-  FirebaseCoreExtension: e911052d59cd0da237a45d706fc0f81654f035c1
-  FirebaseCoreInternal: b321eafae5362113bc182956fafc9922cfc77b72
-  FirebaseCrashlytics: 43913d587ef07beaf5db703baa61eacf9554658c
-  FirebaseInstallations: 7b64ffd006032b2b019a59b803858df5112d9eaa
-  FirebaseMessaging: 7d6cdbff969127c4151c824fe432f0e301210f15
-  FirebasePerformance: 94f614453614d8bb2a1a0177f3a1a6d2dbf4c504
-  FirebaseRemoteConfig: a2f6545e41551ffb520241d38b5d3d6776c9ebe8
-  FirebaseRemoteConfigInterop: 765ee19cd2bfa8e54937c8dae901eb634ad6787d
-  FirebaseSessions: a2d06fd980431fda934c7a543901aca05fc4edcc
-  FirebaseSharedSwift: 9d2fa84a46676302b89dbd5e6e62bce2fe376909
+  Firebase: 374a441a91ead896215703a674d58cdb3e9d772b
+  firebase_analytics: a5c6ef5a435d22870fe3cfdcb424f390f56ff752
+  firebase_core: 2337982fb78ee4d8d91e608b0a3d4f44346a93c8
+  firebase_crashlytics: 3b6a9a9cbdc5ab92afaf9b206e52c79c2321a0d4
+  firebase_messaging: f3bddfa28c2cad70b3341bf461e987a24efd28d6
+  firebase_performance: 15203ddb4a8ae30a08e1513f4ece0104f1b27e51
+  firebase_remote_config: 1250c62dcb0bb5a1333ea71d15eaff9183461308
+  FirebaseABTesting: 663ece168d2d65a31f71603d71937e326020a887
+  FirebaseAnalytics: 7114c698cac995602e3b1b96663473e50d54d6e7
+  FirebaseCore: 48b0dd707581cf9c1a1220da68223fb0a562afaa
+  FirebaseCoreExtension: 2d77d6430c16cf43ca2b04608302ed02b3598361
+  FirebaseCoreInternal: d98ab91e2d80a56d7b246856a8885443b302c0c2
+  FirebaseCrashlytics: b21c665fb50138766480bce73ebdb1aa30f7f300
+  FirebaseInstallations: efc0946fc756e4d22d8113f7c761948120322e8c
+  FirebaseMessaging: e1aca1fcc23e8b9eddb0e33f375ff90944623021
+  FirebasePerformance: eede3a4db492e4cc0e094cdc71a83896e948fea3
+  FirebaseRemoteConfig: ee5161282c4e857ad81c0197cd8baec9d5dfef0e
+  FirebaseRemoteConfigInterop: 1c6135e8a094cc6368949f5faeeca7ee8948b8aa
+  FirebaseSessions: 9529d14180868e29a8da164b3a729c036204918b
+  FirebaseSharedSwift: e17c654ef1f1a616b0b33054e663ad1035c8fd40
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
-  flutter_branch_sdk: 5dec58fc625fca8ec9b683549a364ebf6f01c12c
-  flutter_custom_tabs_ios: 69d941c779f706a754aca7c62e59a8f34d6951de
-  flutter_secure_storage_darwin: acdb3f316ed05a3e68f856e0353b133eec373a23
-  GoogleAdsOnDeviceConversion: d68c69dd9581a0f5da02617b6f377e5be483970f
-  GoogleAppMeasurement: fce7c1c90640d2f9f5c56771f71deacb2ba3f98c
+  flutter_branch_sdk: f45473ba9d8b45b017f7bc8e58a2bb3f0724992a
+  flutter_custom_tabs_ios: dd647919edd75e82ba6b00009eb3460a28c011b8
+  flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13
+  GoogleAppMeasurement: 6a9e6317b6a6d810ad03d4a66564ca6c4c5818a3
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   in_app_review: 5596fe56fab799e8edb3561c03d053363ab13457
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
-  KSCrash: 80e1e24eaefbe5134934ae11ca8d7746586bc2ed
+  isar_flutter_libs: 9fc2cfb928c539e1b76c481ba5d143d556d94920
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
+  PLCrashReporter: db59ef96fa3d25f3650040d02ec2798cffee75f2
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   sensors_plus: 6a11ed0c2e1d0bd0b20b4029d3bad27d96e0c65b
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
-  sqlite3: a51c07cf16e023d6c48abd5e5791a61a47354921
-  sqlite3_flutter_libs: b3e120efe9a82017e5552a620f696589ed4f62ab
   url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
-  webview_flutter_wkwebview: 8ebf4fded22593026f7dbff1fbff31ea98573c8d
+  webview_flutter_wkwebview: 44d4dee7d7056d5ad185d25b38404436d56c547c
 
 PODFILE CHECKSUM: f1b96dd01b18cf87b139a891a6829bb16cca68b4
 

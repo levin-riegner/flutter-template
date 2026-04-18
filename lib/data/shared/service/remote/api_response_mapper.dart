@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_template/data/shared/model/error/data_error.dart';
-import 'package:flutter_template/data/shared/service/remote/model/api_error_response.dart';
+import 'package:color_picker/data/shared/model/error/data_error.dart';
+import 'package:color_picker/data/shared/service/remote/model/api_error_response.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 mixin ApiResponseMapper {

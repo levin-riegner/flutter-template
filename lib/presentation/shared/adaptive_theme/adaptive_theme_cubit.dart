@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/presentation/shared/adaptive_theme/adaptive_theme_state.dart';
+import 'package:color_picker/presentation/shared/adaptive_theme/adaptive_theme_state.dart';
 
 class AdaptiveThemeCubit extends Cubit<AdaptiveThemeState> {
   AdaptiveThemeCubit() : super(AdaptiveThemeState.dark);

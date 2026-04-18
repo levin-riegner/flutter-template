@@ -1,8 +1,8 @@
-import 'package:flutter_template/data/article/repository/article_repository.dart';
-import 'package:flutter_template/data/article/service/local/article_db_service.dart';
-import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
-import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
-import 'package:flutter_template/data/shared/service/local/database.dart';
+import 'package:color_picker/data/article/repository/article_repository.dart';
+import 'package:color_picker/data/article/service/local/article_db_service.dart';
+import 'package:color_picker/data/article/service/local/model/article_db_model.dart';
+import 'package:color_picker/data/article/service/remote/article_api_service.dart';
+import 'package:color_picker/data/article/service/remote/model/article_api_model.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';

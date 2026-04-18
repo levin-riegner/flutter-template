@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_template/data/article/service/remote/model/article_api_model.dart';
-import 'package:flutter_template/data/shared/service/remote/api_response_mapper.dart';
-import 'package:flutter_template/data/shared/service/remote/endpoints.dart';
+import 'package:color_picker/data/article/service/remote/model/article_api_model.dart';
+import 'package:color_picker/data/shared/service/remote/api_response_mapper.dart';
+import 'package:color_picker/data/shared/service/remote/endpoints.dart';
 
 class ArticleApiService with ApiResponseMapper {
   final Dio client;

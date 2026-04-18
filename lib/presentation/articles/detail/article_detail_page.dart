@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/data/article/repository/article_repository.dart';
-import 'package:flutter_template/presentation/articles/detail/article_detail_bloc.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/inapp_webview.dart';
-import 'package:flutter_template/util/dependencies.dart';
+import 'package:color_picker/data/article/repository/article_repository.dart';
+import 'package:color_picker/presentation/articles/detail/article_detail_bloc.dart';
+import 'package:color_picker/presentation/shared/design_system/utils/inapp_webview.dart';
+import 'package:color_picker/util/dependencies.dart';
 import 'package:provider/provider.dart';
 
 class ArticleDetailPage extends StatelessWidget {

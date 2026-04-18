@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/shared/design_system/theme/anims.dart';
+import 'package:color_picker/presentation/shared/design_system/theme/anims.dart';
 
 /// Custom branch Navigator container that provides animated transitions
 /// when switching branches.

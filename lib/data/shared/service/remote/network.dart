@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
-import 'package:flutter_template/data/shared/service/remote/interceptors/accept_language_interceptor.dart';
-import 'package:flutter_template/data/shared/service/remote/interceptors/api_key_interceptor.dart';
-import 'package:flutter_template/data/shared/service/remote/interceptors/auth_token_interceptor.dart';
-import 'package:flutter_template/data/shared/service/remote/interceptors/curl_interceptor.dart';
-import 'package:flutter_template/data/shared/service/remote/interceptors/firebase_performance_interceptor.dart';
-import 'package:flutter_template/data/shared/service/remote/interceptors/logging_interceptor.dart';
-import 'package:flutter_template/data/shared/service/remote/interceptors/unauthorized_interceptor.dart';
+import 'package:color_picker/data/shared/service/remote/interceptors/accept_language_interceptor.dart';
+import 'package:color_picker/data/shared/service/remote/interceptors/api_key_interceptor.dart';
+import 'package:color_picker/data/shared/service/remote/interceptors/auth_token_interceptor.dart';
+import 'package:color_picker/data/shared/service/remote/interceptors/curl_interceptor.dart';
+import 'package:color_picker/data/shared/service/remote/interceptors/firebase_performance_interceptor.dart';
+import 'package:color_picker/data/shared/service/remote/interceptors/logging_interceptor.dart';
+import 'package:color_picker/data/shared/service/remote/interceptors/unauthorized_interceptor.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 abstract class Network {

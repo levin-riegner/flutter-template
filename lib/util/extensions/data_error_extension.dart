@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/l10n/l10n.dart';
-import 'package:flutter_template/data/shared/model/error/data_error.dart';
+import 'package:color_picker/app/l10n/l10n.dart';
+import 'package:color_picker/data/shared/model/error/data_error.dart';
 
 extension DataErrorLocalized on DataError {
   String localizedMessage(BuildContext context) {

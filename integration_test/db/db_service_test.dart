@@ -1,6 +1,6 @@
-import 'package:drift/drift.dart';
-import 'package:flutter_template/data/article/service/local/article_db_service.dart';
-import 'package:flutter_template/data/shared/service/local/database.dart';
+import 'package:color_picker/data/article/service/local/article_db_service.dart';
+import 'package:color_picker/data/article/service/local/model/article_db_model.dart';
+import 'package:color_picker/data/shared/service/local/database.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_provider/path_provider.dart';
 

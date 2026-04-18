@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template/app/navigation/redirect/route_redirect.dart';
-import 'package:flutter_template/app/navigation/router/app_routes.dart';
+import 'package:color_picker/app/navigation/redirect/route_redirect.dart';
+import 'package:color_picker/app/navigation/router/app_routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 

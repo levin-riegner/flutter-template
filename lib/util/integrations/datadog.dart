@@ -1,5 +1,5 @@
 import 'package:datadog_flutter_plugin/datadog_flutter_plugin.dart';
-import 'package:flutter_template/app/config/environment.dart';
+import 'package:color_picker/app/config/environment.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class Datadog {

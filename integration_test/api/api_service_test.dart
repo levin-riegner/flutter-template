@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_template/app/config/constants.dart';
-import 'package:flutter_template/app/config/environment.dart';
-import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
-import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
-import 'package:flutter_template/data/shared/service/remote/network.dart';
-import 'package:flutter_template/util/dependencies.dart';
+import 'package:color_picker/app/config/constants.dart';
+import 'package:color_picker/app/config/environment.dart';
+import 'package:color_picker/data/article/service/remote/article_api_service.dart';
+import 'package:color_picker/data/shared/service/local/secure_storage.dart';
+import 'package:color_picker/data/shared/service/remote/network.dart';
+import 'package:color_picker/util/dependencies.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../integration_test_shared.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_loading_indicator.dart';
+import 'package:color_picker/presentation/shared/design_system/views/ds_loading_indicator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 

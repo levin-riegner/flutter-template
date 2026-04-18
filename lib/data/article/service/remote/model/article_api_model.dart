@@ -1,4 +1,4 @@
-import 'package:flutter_template/data/article/model/article.dart';
+import 'package:color_picker/data/article/model/article.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'article_api_model.g.dart';
