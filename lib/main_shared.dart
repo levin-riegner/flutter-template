@@ -26,6 +26,14 @@ void mainShared({
         FirebaseCrashlytics.instance.recordFlutterError(details, fatal: false);
       }
     };
+    // Log uncaught platform/async errors
+    PlatformDispatcher.instance.onError = (error, stack) {
+      Zone.current.handleUncaughtError(error, stack);
+      if (kReleaseMode) {
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      }
+      return true;
+    };
     // Enable only portrait mode
     await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp],
