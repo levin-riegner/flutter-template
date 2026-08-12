@@ -58,6 +58,10 @@ class BottomNavigationPage extends StatelessWidget {
             icon: Icon(Icons.mic),
             label: "Record",
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.schema),
+            label: "Models",
+          ),
         ],
         currentIndex: navigationShell.currentIndex,
         onTap: (int index) => _onTap(context, index),

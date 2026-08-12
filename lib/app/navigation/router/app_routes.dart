@@ -7,6 +7,7 @@ import 'package:color_picker/presentation/articles/detail/article_detail_page.da
 import 'package:color_picker/presentation/authentication/login/login_page.dart';
 import 'package:color_picker/presentation/bottom_navigation/bottom_navigation_page.dart';
 import 'package:color_picker/presentation/chat/chat_page.dart';
+import 'package:color_picker/presentation/hf_model/hf_model_page.dart';
 import 'package:color_picker/presentation/image_gen/image_gen_page.dart';
 import 'package:color_picker/presentation/recording/recording_page.dart';
 import 'package:color_picker/presentation/settings/account_details_page.dart';
@@ -170,6 +171,14 @@ class ConsoleDeeplinksRoute extends GoRouteData with $ConsoleDeeplinksRoute {
         ),
       ],
     ),
+    TypedStatefulShellBranch<HfModelBranchData>(
+      routes: [
+        TypedGoRoute<HfModelRoute>(
+          path: "/models",
+          name: "HfModelPage",
+        ),
+      ],
+    ),
   ],
 )
 class BottomNavigationPageData extends StatefulShellRouteData {
@@ -293,6 +302,19 @@ class RecordingRoute extends GoRouteData with $RecordingRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const RecordingPage();
+  }
+}
+
+class HfModelBranchData extends StatefulShellBranchData {
+  const HfModelBranchData();
+}
+
+class HfModelRoute extends GoRouteData with $HfModelRoute {
+  const HfModelRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const HfModelPage();
   }
 }
 

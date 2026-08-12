@@ -28,7 +28,7 @@ void main() async {
       // App bar title of the shell.
       expect(find.text('Flutter Template'), findsOneWidget);
       // Bottom navigation labels.
-      for (final label in ['Articles', 'Blank', 'Chat', 'Image Gen', 'Record']) {
+      for (final label in ['Articles', 'Blank', 'Chat', 'Image Gen', 'Record', 'Models']) {
         expect(find.text(label), findsAtLeastNWidgets(1));
       }
     });
@@ -38,7 +38,7 @@ void main() async {
       await tester.pumpWidget(const App());
       await tester.pumpAndSettle();
 
-      for (final label in ['Chat', 'Image Gen', 'Record', 'Blank', 'Articles']) {
+      for (final label in ['Chat', 'Image Gen', 'Record', 'Models', 'Blank', 'Articles']) {
         await tester.tap(find.text(label));
         await tester.pumpAndSettle();
       }

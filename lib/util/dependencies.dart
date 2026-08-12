@@ -20,6 +20,9 @@ import 'package:color_picker/data/article/service/remote/article_api_service.dar
 import 'package:color_picker/data/chat/repository/chat_repository.dart';
 import 'package:color_picker/data/chat/service/local/chat_db_service.dart';
 import 'package:color_picker/data/chat/service/remote/chat_api_service.dart';
+import 'package:color_picker/data/hf_model/repository/hf_model_repository.dart';
+import 'package:color_picker/data/hf_model/service/local/hf_model_db_service.dart';
+import 'package:color_picker/data/hf_model/service/remote/hf_model_api_service.dart';
 import 'package:color_picker/data/image_gen/repository/image_gen_repository.dart';
 import 'package:color_picker/data/image_gen/service/local/image_gen_db_service.dart';
 import 'package:color_picker/data/image_gen/service/remote/image_gen_api_service.dart';
@@ -152,6 +155,15 @@ abstract class Dependencies {
       RecordingRepository(
         RecordingApiService(httpClient),
         recordingDb,
+      ),
+    );
+
+    // On-device Model discovery (HuggingFace Hub shortlist)
+    final hfModelDb = HfModelDbService();
+    getIt.registerSingleton<HfModelRepository>(
+      HfModelRepository(
+        HfModelApiService(httpClient),
+        hfModelDb,
       ),
     );
 
