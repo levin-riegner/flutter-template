@@ -9,7 +9,11 @@ import 'package:color_picker/presentation/shared/util/data_state.dart';
 import 'package:color_picker/util/dependencies.dart';
 
 class RecordingPage extends StatefulWidget {
-  const RecordingPage({super.key});
+  const RecordingPage({super.key, this.bloc});
+
+  /// Optional injected bloc (used by widget tests); when null, the page
+  /// creates one from the DI container.
+  final RecordingBloc? bloc;
 
   @override
   State<RecordingPage> createState() => _RecordingPageState();
@@ -33,8 +37,9 @@ class _RecordingPageState extends State<RecordingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<RecordingBloc>(
-      create: (context) => RecordingBloc(getIt<RecordingRepository>()),
+    final bloc = widget.bloc ?? RecordingBloc(getIt<RecordingRepository>());
+    return BlocProvider<RecordingBloc>.value(
+      value: bloc,
       child: Builder(
         builder: (context) {
           final bloc = context.read<RecordingBloc>();

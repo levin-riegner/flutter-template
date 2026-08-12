@@ -9,7 +9,11 @@ import 'package:color_picker/presentation/shared/util/data_state.dart';
 import 'package:color_picker/util/dependencies.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  const ChatPage({super.key, this.bloc});
+
+  /// Optional injected bloc (used by widget tests); when null, the page
+  /// creates one from the DI container.
+  final ChatBloc? bloc;
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -33,8 +37,9 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ChatBloc>(
-      create: (context) => ChatBloc(getIt<ChatRepository>()),
+    final bloc = widget.bloc ?? ChatBloc(getIt<ChatRepository>());
+    return BlocProvider<ChatBloc>.value(
+      value: bloc,
       child: Builder(
         builder: (context) {
           final bloc = context.read<ChatBloc>();

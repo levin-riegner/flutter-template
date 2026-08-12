@@ -11,7 +11,11 @@ import 'package:color_picker/presentation/shared/util/data_state.dart';
 import 'package:color_picker/util/dependencies.dart';
 
 class ImageGenPage extends StatefulWidget {
-  const ImageGenPage({super.key});
+  const ImageGenPage({super.key, this.bloc});
+
+  /// Optional injected bloc (used by widget tests); when null, the page
+  /// creates one from the DI container.
+  final ImageGenBloc? bloc;
 
   @override
   State<ImageGenPage> createState() => _ImageGenPageState();
@@ -35,8 +39,9 @@ class _ImageGenPageState extends State<ImageGenPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ImageGenBloc>(
-      create: (context) => ImageGenBloc(getIt<ImageGenRepository>()),
+    final bloc = widget.bloc ?? ImageGenBloc(getIt<ImageGenRepository>());
+    return BlocProvider<ImageGenBloc>.value(
+      value: bloc,
       child: Builder(
         builder: (context) {
           final bloc = context.read<ImageGenBloc>();
