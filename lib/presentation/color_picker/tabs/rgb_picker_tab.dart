@@ -63,28 +63,28 @@ class RgbPickerTab extends StatelessWidget {
             // RGB Sliders
             ChannelSlider(
               label: 'R',
-              value: color.red,
+              value: (color.r * 255.0).round().clamp(0, 255),
               activeColor: Colors.red,
               onChanged: (v) => onColorChanged(HSVColor.fromColor(
-                Color.fromARGB(255, v, color.green, color.blue),
+                Color.fromARGB(255, v, (color.g * 255.0).round().clamp(0, 255), (color.b * 255.0).round().clamp(0, 255)),
               )),
             ),
             const SizedBox(height: 8),
             ChannelSlider(
               label: 'G',
-              value: color.green,
+              value: (color.g * 255.0).round().clamp(0, 255),
               activeColor: Colors.green,
               onChanged: (v) => onColorChanged(HSVColor.fromColor(
-                Color.fromARGB(255, color.red, v, color.blue),
+                Color.fromARGB(255, (color.r * 255.0).round().clamp(0, 255), v, (color.b * 255.0).round().clamp(0, 255)),
               )),
             ),
             const SizedBox(height: 8),
             ChannelSlider(
               label: 'B',
-              value: color.blue,
+              value: (color.b * 255.0).round().clamp(0, 255),
               activeColor: Colors.blue,
               onChanged: (v) => onColorChanged(HSVColor.fromColor(
-                Color.fromARGB(255, color.red, color.green, v),
+                Color.fromARGB(255, (color.r * 255.0).round().clamp(0, 255), (color.g * 255.0).round().clamp(0, 255), v),
               )),
             ),
             const SizedBox(height: 24),

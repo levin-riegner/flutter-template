@@ -110,9 +110,9 @@ class CmykPickerTab extends StatelessWidget {
             _InfoSection(
               title: 'RGB Equivalent',
               items: [
-                _InfoRow('Red', '${color.red}'),
-                _InfoRow('Green', '${color.green}'),
-                _InfoRow('Blue', '${color.blue}'),
+                _InfoRow('Red', '${(color.r * 255.0).round().clamp(0, 255)}'),
+                _InfoRow('Green', '${(color.g * 255.0).round().clamp(0, 255)}'),
+                _InfoRow('Blue', '${(color.b * 255.0).round().clamp(0, 255)}'),
               ],
             ),
             const SizedBox(height: 16),
@@ -192,9 +192,9 @@ class _CMYK {
 }
 
 _CMYK _rgbToCmyk(Color color) {
-  final r = color.red / 255.0;
-  final g = color.green / 255.0;
-  final b = color.blue / 255.0;
+  final r = (color.r * 255.0).round().clamp(0, 255) / 255.0;
+  final g = (color.g * 255.0).round().clamp(0, 255) / 255.0;
+  final b = (color.b * 255.0).round().clamp(0, 255) / 255.0;
 
   final k = 1.0 - max(r, max(g, b));
   if (k >= 1.0) return const _CMYK(0, 0, 0, 100);
