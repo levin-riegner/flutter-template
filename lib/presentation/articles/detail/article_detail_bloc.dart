@@ -4,9 +4,9 @@ import 'package:logging_flutter/logging_flutter.dart';
 
 class ArticleDetailBloc extends Cubit<String> {
   final String id;
-  final ArticleRepository _articleRepository;
-  ArticleDetailBloc(this.id, this._articleRepository) : super(id) {
+  ArticleDetailBloc(this.id, ArticleRepository articleRepository) : super(id) {
     // Get article for id
     Flogger.i("Get article for id $id");
+    articleRepository; // retained for future article lookup
   }
 }

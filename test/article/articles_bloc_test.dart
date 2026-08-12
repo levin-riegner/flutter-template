@@ -52,7 +52,6 @@ void main() {
         ],
       );
       final unknownException = Exception("Unknown");
-      final unknownDataError = DataError.unknown(error: unknownException);
       const notFoundError = DataError.notFound();
       const apiError = DataError.apiError(reason: "Api error", code: 405);
       const expiredError = DataError.apiError(

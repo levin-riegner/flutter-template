@@ -7,7 +7,7 @@ import '../integration_test_shared.dart';
 // Tests the local article DB service (pure-Dart in-memory store since the
 // drift/isar layer was removed).
 void main() async {
-  final binding = ensureInitialized();
+  ensureInitialized();
 
   group("Articles DB Service", () {
     late ArticleDbService dbService;

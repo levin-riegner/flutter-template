@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:color_picker/presentation/color_picker/tabs/rgb_picker_tab.dart';

@@ -39,10 +39,7 @@ class AlertService {
             : context.colorScheme.onPrimary);
     switch (style) {
       case AlertStyle.topBar:
-        // Declare variable to avoid compiler error:
-        // Local variable 'flushBar' can't be referenced before it is declared.
-        late final Flushbar flushBar;
-        flushBar = Flushbar(
+        Flushbar(
           flushbarPosition: FlushbarPosition.TOP,
           flushbarStyle: FlushbarStyle.FLOATING,
           animationDuration: const Duration(milliseconds: 500),
