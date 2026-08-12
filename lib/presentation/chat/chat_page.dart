@@ -78,10 +78,12 @@ class _ChatPageState extends State<ChatPage> {
                       ),
                     ),
                     IconButton(
+                      key: const ValueKey('chat_send'),
                       onPressed: () => _sendMessage(bloc),
                       icon: const Icon(Icons.send),
                     ),
                     IconButton(
+                      key: const ValueKey('chat_clear'),
                       onPressed: () => bloc.add(const ChatEvent.clear()),
                       icon: const Icon(Icons.delete),
                     ),

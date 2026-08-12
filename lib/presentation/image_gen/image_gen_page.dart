@@ -89,10 +89,12 @@ class _ImageGenPageState extends State<ImageGenPage> {
                       ),
                     ),
                     IconButton(
+                      key: const ValueKey('image_gen_generate'),
                       onPressed: () => _generate(bloc),
                       icon: const Icon(Icons.auto_awesome),
                     ),
                     IconButton(
+                      key: const ValueKey('image_gen_clear'),
                       onPressed: () => bloc.add(const ImageGenEvent.clear()),
                       icon: const Icon(Icons.delete),
                     ),

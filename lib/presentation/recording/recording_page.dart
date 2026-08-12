@@ -85,10 +85,12 @@ class _RecordingPageState extends State<RecordingPage> {
                       ),
                     ),
                     IconButton(
+                      key: const ValueKey('recording_capture'),
                       onPressed: () => _capture(bloc),
                       icon: const Icon(Icons.mic),
                     ),
                     IconButton(
+                      key: const ValueKey('recording_clear'),
                       onPressed: () => bloc.add(const RecordingEvent.clear()),
                       icon: const Icon(Icons.delete),
                     ),
