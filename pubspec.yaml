@@ -32,9 +32,6 @@ dependencies:
   dio: ^5.9.0
   dio_cache_interceptor: ^3.5.0
   dio_cache_interceptor_hive_store: ^4.0.0
-  drift: ^2.22.0
-  drift_flutter: ^0.2.0
-  sqlite3_flutter_libs: ^0.5.0
   flutter_secure_storage: ^10.0.0
   shared_preferences: ^2.5.0
   # Presentation Views
@@ -90,15 +87,16 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   mocktail: ^1.0.3
-  # bloc_test: ^10.0.0 # TODO: Re-enable when isar_generator conflict is resolved
+  test: ^1.25.0
+  bloc_test: ^10.0.0
   # Static Code Analysis
   flutter_lints: ^6.0.0
   # Code generation
   build_runner: ^2.4.9
-  freezed: ^2.4.7
+  freezed: ^3.0.0
   # isar_generator: ^3.1.0+1 # TODO: Incompatible with current analyzer version
   json_serializable: ^6.7.1
-  go_router_builder: ^2.4.1
+  go_router_builder: ^4.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

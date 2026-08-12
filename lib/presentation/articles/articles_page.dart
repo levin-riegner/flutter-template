@@ -7,6 +7,7 @@ import 'package:color_picker/data/article/repository/article_repository.dart';
 import 'package:color_picker/presentation/articles/bloc/articles_bloc.dart';
 import 'package:color_picker/presentation/articles/bloc/articles_event.dart';
 import 'package:color_picker/presentation/articles/bloc/articles_state.dart';
+import 'package:color_picker/presentation/shared/util/data_state.dart';
 import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
 import 'package:color_picker/presentation/shared/design_system/utils/alert_service.dart';
 import 'package:color_picker/presentation/shared/design_system/views/ds_content_placeholder_views.dart';

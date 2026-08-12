@@ -6,6 +6,9 @@ import 'package:color_picker/presentation/articles/blank_page.dart';
 import 'package:color_picker/presentation/articles/detail/article_detail_page.dart';
 import 'package:color_picker/presentation/authentication/login/login_page.dart';
 import 'package:color_picker/presentation/bottom_navigation/bottom_navigation_page.dart';
+import 'package:color_picker/presentation/chat/chat_page.dart';
+import 'package:color_picker/presentation/image_gen/image_gen_page.dart';
+import 'package:color_picker/presentation/recording/recording_page.dart';
 import 'package:color_picker/presentation/settings/account_details_page.dart';
 import 'package:color_picker/presentation/settings/settings_page.dart';
 import 'package:color_picker/util/console/console_deeplinks.dart';
@@ -143,6 +146,30 @@ class ConsoleDeeplinksRoute extends GoRouteData with $ConsoleDeeplinksRoute {
         )
       ],
     ),
+    TypedStatefulShellBranch<ChatBranchData>(
+      routes: [
+        TypedGoRoute<ChatRoute>(
+          path: "/chat",
+          name: "ChatPage",
+        ),
+      ],
+    ),
+    TypedStatefulShellBranch<ImageGenBranchData>(
+      routes: [
+        TypedGoRoute<ImageGenRoute>(
+          path: "/image-gen",
+          name: "ImageGenPage",
+        ),
+      ],
+    ),
+    TypedStatefulShellBranch<RecordingBranchData>(
+      routes: [
+        TypedGoRoute<RecordingRoute>(
+          path: "/recording",
+          name: "RecordingPage",
+        ),
+      ],
+    ),
   ],
 )
 class BottomNavigationPageData extends StatefulShellRouteData {
@@ -227,6 +254,45 @@ class ArticleBlankDetailRoute extends GoRouteData with $ArticleBlankDetailRoute 
       id: aid,
       url: url ?? "https://www.google.com",
     );
+  }
+}
+
+class ChatBranchData extends StatefulShellBranchData {
+  const ChatBranchData();
+}
+
+class ChatRoute extends GoRouteData with $ChatRoute {
+  const ChatRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ChatPage();
+  }
+}
+
+class ImageGenBranchData extends StatefulShellBranchData {
+  const ImageGenBranchData();
+}
+
+class ImageGenRoute extends GoRouteData with $ImageGenRoute {
+  const ImageGenRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ImageGenPage();
+  }
+}
+
+class RecordingBranchData extends StatefulShellBranchData {
+  const RecordingBranchData();
+}
+
+class RecordingRoute extends GoRouteData with $RecordingRoute {
+  const RecordingRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const RecordingPage();
   }
 }
 

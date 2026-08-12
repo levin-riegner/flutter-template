@@ -31,8 +31,8 @@ class ArticleRepository {
       final articles =
           articlesResponse.articles?.map((e) => e.toArticle()).toList();
       if (articles != null) {
-        await _dbService
-            .saveArticles(articles.map((a) => a.toDbCompanion()).toList());
+        await _dbService.saveArticles(
+            articles.map((a) => ArticleDbModel.fromArticle(a)).toList());
 
         return articles;
       }

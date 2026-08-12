@@ -16,9 +16,16 @@ import 'package:color_picker/app/navigation/navigator_holder.dart';
 import 'package:color_picker/app/navigation/router/app_routes.dart';
 import 'package:color_picker/data/article/repository/article_repository.dart';
 import 'package:color_picker/data/article/service/local/article_db_service.dart';
-import 'package:color_picker/data/article/service/local/model/article_db_model.dart';
 import 'package:color_picker/data/article/service/remote/article_api_service.dart';
-import 'package:color_picker/data/shared/service/local/database.dart';
+import 'package:color_picker/data/chat/repository/chat_repository.dart';
+import 'package:color_picker/data/chat/service/local/chat_db_service.dart';
+import 'package:color_picker/data/chat/service/remote/chat_api_service.dart';
+import 'package:color_picker/data/image_gen/repository/image_gen_repository.dart';
+import 'package:color_picker/data/image_gen/service/local/image_gen_db_service.dart';
+import 'package:color_picker/data/image_gen/service/remote/image_gen_api_service.dart';
+import 'package:color_picker/data/recording/repository/recording_repository.dart';
+import 'package:color_picker/data/recording/service/local/recording_db_service.dart';
+import 'package:color_picker/data/recording/service/remote/recording_api_service.dart';
 import 'package:color_picker/data/shared/service/local/secure_storage.dart';
 import 'package:color_picker/data/shared/service/local/user_config_service.dart';
 import 'package:color_picker/data/shared/service/remote/network.dart';
@@ -45,8 +52,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 final getIt = GetIt.instance;
 
 abstract class Dependencies {
-  static AppDatabase? _database;
-
   static Future<void> register({
     required Environment environment,
     required bool isDebugBuild,
@@ -79,7 +84,6 @@ abstract class Dependencies {
 
     // System directories
     final tempDirectory = await getTemporaryDirectory();
-    final applicationDirectory = await getApplicationDocumentsDirectory();
 
     // Init date format with locale
     Intl.systemLocale = await findSystemLocale();
@@ -112,13 +116,42 @@ abstract class Dependencies {
     );
 
     // Database
-    _database = AppDatabase.init(directory: applicationDirectory.path);
+    // Note: the template shipped a drift/isar AppDatabase that could not
+    // compile. ArticleDbService now owns a pure-Dart in-memory store.
+    final localDb = ArticleDbService();
 
     // Repositories
     getIt.registerSingleton<ArticleRepository>(
       ArticleRepository(
         ArticleApiService(httpClient),
-        ArticleDbService(_database!),
+        localDb,
+      ),
+    );
+
+    // On-device AI Chat
+    final chatDb = ChatDbService();
+    getIt.registerSingleton<ChatRepository>(
+      ChatRepository(
+        ChatApiService(httpClient),
+        chatDb,
+      ),
+    );
+
+    // On-device Image Generation
+    final imageGenDb = ImageGenDbService();
+    getIt.registerSingleton<ImageGenRepository>(
+      ImageGenRepository(
+        ImageGenApiService(httpClient),
+        imageGenDb,
+      ),
+    );
+
+    // On-device Recording / Meeting capture
+    final recordingDb = RecordingDbService();
+    getIt.registerSingleton<RecordingRepository>(
+      RecordingRepository(
+        RecordingApiService(httpClient),
+        recordingDb,
       ),
     );
 
@@ -303,8 +336,6 @@ abstract class Dependencies {
   static Future<void> dispose() async {
     Flogger.i("Disposing dependencies");
     try {
-      // Close Database
-      await _database?.close();
       // Stop listening to Shake
       ShakeManager.stopListening();
       // Dispose DeepLink listener
@@ -337,7 +368,7 @@ abstract class Dependencies {
     await Future.wait([
       // Clear user data from database
       // TODO: Add user table deletions here
-      // Example: _database!.delete(_database!.userTable).go(),
+      // Example: localDb.saveArticles(const []),
       // Secure storage
       getIt.get<SecureStorage>().deleteAll(),
       // Analytics

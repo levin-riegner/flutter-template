@@ -38,7 +38,7 @@ void main() {
         () async {
       // Arrange
       final dbArticle = ArticleDbModel(
-        id: 1,
+        id: '1',
         title: "Bitcoin",
         description: null,
         imageUrl: null,
@@ -56,7 +56,7 @@ void main() {
     test("should return api articles when force refresh is true", () async {
       // Arrange
       final dbArticle = ArticleDbModel(
-        id: 1,
+        id: '1',
         title: "Bitcoin",
         description: null,
         imageUrl: null,

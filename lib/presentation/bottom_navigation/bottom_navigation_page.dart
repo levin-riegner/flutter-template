@@ -46,6 +46,18 @@ class BottomNavigationPage extends StatelessWidget {
             icon: Icon(Icons.handyman),
             label: "Blank",
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.forum),
+            label: "Chat",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.image),
+            label: "Image Gen",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.mic),
+            label: "Record",
+          ),
         ],
         currentIndex: navigationShell.currentIndex,
         onTap: (int index) => _onTap(context, index),

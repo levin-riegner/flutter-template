@@ -64,6 +64,8 @@ class Datadog {
   }
 
   static void clearUser() {
-    DatadogSdk.instance.clearUserInfo();
+    // datadog_flutter_plugin 2.16.1 removed clearUserInfo; clearing is done by
+    // setting all user fields to null.
+    DatadogSdk.instance.setUserInfo(id: null, name: null, email: null);
   }
 }
