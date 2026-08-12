@@ -49,6 +49,9 @@ mixin ApiResponseMapper {
                 case DioExceptionType.receiveTimeout:
                   // API Timeout
                   return const DataError.serverTimeout();
+                case DioExceptionType.transformTimeout:
+                  // Transform (body processing) timeout
+                  return const DataError.serverTimeout();
                 case DioExceptionType.badResponse:
                   // This will probably be handled already in the API response error
                   return DataError.unknown(error: exception.error);
