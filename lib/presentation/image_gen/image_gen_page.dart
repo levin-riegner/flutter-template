@@ -81,6 +81,7 @@ class _ImageGenPageState extends State<ImageGenPage> {
                   children: [
                     Expanded(
                       child: TextField(
+                        key: const ValueKey('image_gen_input'),
                         controller: _controller,
                         decoration: const InputDecoration(
                           hintText: 'Describe an image to generate...',

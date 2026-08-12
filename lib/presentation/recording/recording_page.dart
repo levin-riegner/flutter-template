@@ -77,6 +77,7 @@ class _RecordingPageState extends State<RecordingPage> {
                   children: [
                     Expanded(
                       child: TextField(
+                        key: const ValueKey('recording_input'),
                         controller: _controller,
                         decoration: const InputDecoration(
                           hintText: 'Meeting title (optional)...',

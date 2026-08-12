@@ -70,6 +70,7 @@ class _ChatPageState extends State<ChatPage> {
                   children: [
                     Expanded(
                       child: TextField(
+                        key: const ValueKey('chat_input'),
                         controller: _controller,
                         decoration: const InputDecoration(
                           hintText: 'Message the model...',
