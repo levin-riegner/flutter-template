@@ -302,7 +302,7 @@ class _ColorRole {
 }
 
 String _hex(Color c) =>
-    '#${c.value.toRadixString(16).substring(2).toUpperCase()}';
+    '#${c.toARGB32().toRadixString(16).substring(2).toUpperCase()}';
 
 // Color harmony calculations
 List<Color> _complementary(Color color) {

@@ -17,7 +17,7 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
   Color get _color => _hsvColor.toColor();
 
   String get _hexString =>
-      '#${_color.value.toRadixString(16).substring(2).toUpperCase()}';
+      '#${_color.toARGB32().toRadixString(16).substring(2).toUpperCase()}';
 
   void _onColorChanged(HSVColor color) {
     setState(() => _hsvColor = color);

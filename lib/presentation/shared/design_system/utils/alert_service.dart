@@ -84,7 +84,7 @@ class AlertService {
               ),
           isDismissible: true,
           shouldIconPulse: false,
-        )..show(context);
+        ).show(context);
         break;
       case AlertStyle.snackBar:
         ScaffoldMessenger.of(context).showSnackBar(
