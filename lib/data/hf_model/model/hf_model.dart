@@ -22,25 +22,75 @@ class HfModel {
   }
 
   // ---------------------------------------------------------------------------
-  // Licensing: HuggingFace model licences vary. Some (Mistral, Llama in some
-  // versions, Gemma, Qwen with certain terms) are non-commercial or have
-  // restrictions. Others (e.g. Llama 3.x Community, DeepSeek, Phi, GPT-OSS)
-  // are commercial-friendly. We only propose models we can ship in a paid app.
+  // Licensing: HuggingFace model licences vary. Some (Mistral, Llama 2, Gemma,
+  // and many CC-BY-NC models) are non-commercial or restrict commercial use;
+  // others (Apache-2.0, MIT, Llama 3.x Community, DeepSeek, Phi, GPT-OSS, Qwen
+  // under Apache) are commercial-friendly. We only surface models we can ship
+  // in a paid app, so the check is FAIL-CLOSED: unless we can positively prove a
+  // model is commercial-safe, it is excluded.
+  //
+  // The check is a double gate:
+  //   1. Licence-field classification (see [_permissiveLicenses]/_
+  //      [_restrictedLicenses]).
+  //   2. Cross-check against a curated commercial family allow-list, used only
+  //      as a fallback when the licence field is absent or unrecognised.
   // ---------------------------------------------------------------------------
-  static const Set<String> commercialAllowed = {
-    'llama3.1', 'llama3.2', 'llama3.3', 'llama-3.1', 'llama-3.2', 'llama-3.3',
-    'deepseek', 'qwen', 'apache-2.0', 'mit', 'openai', 'gpt-oss', 'phi-3',
-    'phi-4', 'gemma2', 'gemma-2', 'mistral-large-123b', 'olmo', 'aya',
-    'command-r', 'glm',
+
+  /// Licences that unambiguously permit commercial use.
+  static const Set<String> _permissiveLicenses = {
+    'apache-2.0', 'apache 2.0', 'apache2', 'mit', 'bsd', 'bsd-3-clause',
+    'bsd-2-clause', 'llama3.1', 'llama3.2', 'llama3.3', 'llama-3.1',
+    'llama-3.2', 'llama-3.3', 'llama 3.1', 'llama 3.2', 'llama 3.3',
+    'deepseek', 'deepseek license', 'phi', 'phi-license', 'phi-2', 'phi-3',
+    'openai', 'openai model license', 'gpt-oss', 'olmo', 'olmo license',
+    'aya', 'aya license', 'command-r', 'command-r license', 'glm', 'glm license',
+    'mistral-large-123b', 'qwen license', 'qwen', 'gemma2', 'gemma-2',
+    'gemma 2', 'gemma terms of use', 'styles license', 'smollm license',
+    'tinyllama', 't-notice', 'other maas',
   };
 
-  /// True when this model's licence is compatible with commercial distribution.
+  /// Licences that explicitly forbid or restrict commercial use (never pass).
+  static const Set<String> _restrictedLicenses = {
+    'cc-by-nc-4.0', 'cc-by-nc', 'cc-by-nc-sa-4.0', 'cc-by-nc-nd-4.0',
+    'non-commercial', 'noncommercial', 'llama2', 'llama-2', 'llama 2',
+    'meta llama 2', 'mistral', 'mistral license', 'gemma (non-commercial)',
+    'gemma nvidia', 'nvidia ai foundation', 'ai2 llm agreement', 'cc-by-sa',
+    'falcon', 'falcon license', 'bigscience noncommercial', 'nic',
+  };
+
+  /// Commercial-friendly model *families* used as the cross-check fallback when
+  /// the licence field is absent or unrecognised (fail-closed otherwise).
+  static const Set<String> _commercialFamilies = {
+    'llama-3.1', 'llama-3.2', 'llama-3.3', 'llama3.1', 'llama3.2', 'llama3.3',
+    'deepseek', 'qwen2', 'qwen2.5', 'phi-3', 'phi-4', 'gpt-oss', 'olmo',
+    'aya', 'command-r', 'glm-4', 'gemma-2', 'smol', 'ministral', 'crystal',
+  };
+
+  static String _normalize(String? value) {
+    return (value ?? '').toLowerCase().replaceAll('_', '-').trim();
+  }
+
+  /// True when this model's licence is positively compatible with commercial
+  /// distribution. Fail-closed: an unknown or missing licence does NOT pass
+  /// unless the repo-id family is known commercial.
   bool get isCommercialSafe {
-    final licenseToken = license?.toLowerCase() ?? '';
+    final licenseToken = _normalize(license);
+
+    // GATE 1: explicit restricted licence => never allowed.
+    if (_restrictedLicenses.any(licenseToken.contains)) {
+      return false;
+    }
+
+    // GATE 2: explicit permissive licence => allowed.
+    if (licenseToken.isNotEmpty &&
+        _permissiveLicenses.any(licenseToken.contains)) {
+      return true;
+    }
+
+    // CROSS-CHECK (fallback): licence absent/unrecognised. Only a curated
+    // commercial family allow-list passes; everything else fails closed.
     final idToken = id.toLowerCase();
-    // Allow-list by repo-id family when licence metadata is absent.
-    return commercialAllowed.any((token) => idToken.contains(token)) ||
-        commercialAllowed.any((token) => licenseToken.contains(token));
+    return _commercialFamilies.any((family) => idToken.contains(family));
   }
 
   factory HfModel.fromJson(Map<String, dynamic> json) {
