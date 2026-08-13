@@ -31,9 +31,10 @@ void main() {
       now = now.add(const Duration(seconds: 90));
       final running = await repository.tick();
       assert(running != null);
-      assert(running!.elapsedSeconds == 90);
-      assert(running!.remainingSeconds == 510);
-      assert(running!.progress > 0.0 && running!.progress < 1.0);
+      final advanced = running!;
+      assert(advanced.elapsedSeconds == 90);
+      assert(advanced.remainingSeconds == 510);
+      assert(advanced.progress > 0.0 && advanced.progress < 1.0);
     });
 
     test('tick does not complete before the duration elapses', () async {

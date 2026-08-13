@@ -40,6 +40,7 @@ import 'package:color_picker/data/shared/service/local/user_config_service.dart'
 import 'package:color_picker/data/shared/service/remote/network.dart';
 import 'package:color_picker/data/study/repository/study_repository.dart';
 import 'package:color_picker/data/study/service/local/study_db_service.dart';
+import 'package:color_picker/data/study_tutor/repository/study_tutor_repository.dart';
 import 'package:color_picker/presentation/shared/design_system/utils/alert_service.dart';
 import 'package:color_picker/util/extensions/context_extension.dart';
 import 'package:color_picker/util/extensions/go_router_extension.dart';
@@ -183,6 +184,15 @@ abstract class Dependencies {
     // Assistant personalities
     getIt.registerSingleton<PersonalitiesRepository>(
       PersonalitiesRepository(PersonasDbService()),
+    );
+
+    // Study -> AI tutor (composes Study + Personas + Chat)
+    getIt.registerSingleton<StudyTutorRepository>(
+      StudyTutorRepository(
+        getIt<StudyRepository>(),
+        getIt<PersonalitiesRepository>(),
+        getIt<ChatRepository>(),
+      ),
     );
 
     // Study flashcards (spaced repetition, pure-Dart store)

@@ -16,6 +16,7 @@ import 'package:color_picker/presentation/recording/recording_page.dart';
 import 'package:color_picker/presentation/settings/account_details_page.dart';
 import 'package:color_picker/presentation/settings/settings_page.dart';
 import 'package:color_picker/presentation/study/study_page.dart';
+import 'package:color_picker/presentation/study_tutor/study_tutor_page.dart';
 import 'package:color_picker/util/console/console_deeplinks.dart';
 import 'package:color_picker/util/console/console_environments.dart';
 import 'package:color_picker/util/console/console_logins.dart';
@@ -204,6 +205,12 @@ class ConsoleDeeplinksRoute extends GoRouteData with $ConsoleDeeplinksRoute {
         TypedGoRoute<StudyRoute>(
           path: "/study",
           name: "StudyPage",
+          routes: [
+            TypedGoRoute<StudyTutorRoute>(
+              path: "tutor",
+              name: "StudyTutorPage",
+            ),
+          ],
         ),
       ],
     ),
@@ -390,6 +397,18 @@ class StudyRoute extends GoRouteData with $StudyRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const StudyPage();
+  }
+}
+
+class StudyTutorRoute extends GoRouteData with $StudyTutorRoute {
+  final String deckName;
+  const StudyTutorRoute({
+    required this.deckName,
+  });
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return StudyTutorPage(deckName: deckName);
   }
 }
 

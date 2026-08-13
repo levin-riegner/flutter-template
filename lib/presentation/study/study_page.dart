@@ -8,6 +8,7 @@ import 'package:color_picker/presentation/study/bloc/study_bloc.dart';
 import 'package:color_picker/presentation/study/bloc/study_event.dart';
 import 'package:color_picker/presentation/study/bloc/study_state.dart';
 import 'package:color_picker/util/dependencies.dart';
+import 'package:color_picker/app/navigation/router/app_routes.dart';
 
 class StudyPage extends StatefulWidget {
   const StudyPage({super.key, this.bloc, this.deckName = 'Flutter Basics'});
@@ -135,6 +136,13 @@ class _CardStack extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          Dimens.boxSmall,
+          FilledButton(
+            key: const ValueKey('study_tutor'),
+            onPressed: () => StudyTutorRoute(deckName: 'Flutter Basics')
+                .push(context),
+            child: const Text('Tutor me with AI'),
           ),
         ],
       ),
