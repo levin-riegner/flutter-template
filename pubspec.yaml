@@ -79,6 +79,8 @@ dependencies:
   # Boilerplate generation
   freezed_annotation: ^3.0.0
   json_annotation: ^4.11.0
+  objectbox: ^5.3.2
+  objectbox_flutter_libs: any
 
 dev_dependencies:
   # Testing
@@ -92,11 +94,12 @@ dev_dependencies:
   # Static Code Analysis
   flutter_lints: ^6.0.0
   # Code generation
-  build_runner: ^2.4.9
+  build_runner: ^2.15.1
   freezed: ^3.0.0
   # isar_generator: ^3.1.0+1 # TODO: Incompatible with current analyzer version
   json_serializable: ^6.7.1
   go_router_builder: ^4.2.0
+  objectbox_generator: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

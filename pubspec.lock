@@ -538,6 +538,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  flat_buffers:
+    dependency: transitive
+    description:
+      name: flat_buffers
+      sha256: "7c1de2d6eb5f3e61e5c50040841109f509deaaf2b12ec0d57b92456d9ea50345"
+      url: "https://pub.dev"
+    source: hosted
+    version: "25.9.23"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -1045,6 +1053,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  objectbox:
+    dependency: "direct main"
+    description:
+      name: objectbox
+      sha256: f68d74bfdfa6758cebf4cd319db1f4a4386c79ba8896d19e2e999faf041bac78
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.3.2"
+  objectbox_flutter_libs:
+    dependency: "direct main"
+    description:
+      name: objectbox_flutter_libs
+      sha256: "604d26fac4548693449c9ea802e007d4adf7f31e361ae3ebf362ac142295078d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.3.2"
+  objectbox_generator:
+    dependency: "direct dev"
+    description:
+      name: objectbox_generator
+      sha256: b5f6b9e6062635689d777ba2b3a16548991eb1e61007baf607022537e3bc0436
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.3.2"
   objective_c:
     dependency: transitive
     description:
@@ -1221,6 +1253,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  pointycastle:
+    dependency: transitive
+    description:
+      name: pointycastle
+      sha256: "92aa3841d083cc4b0f4709b5c74fd6409a3e6ba833ffc7dc6a8fee096366acf5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
   pool:
     dependency: transitive
     description:
