@@ -19,7 +19,13 @@ class ChatRepository {
 
   /// Sends a user message, appends both sides to the local store and
   /// returns the full conversation history.
-  Future<List<ChatMessage>> sendMessage(String content) async {
+  ///
+  /// When [systemPrompt] is provided, it is prepended as a `system` message in
+  /// the payload sent to the model (it is not persisted to the local store).
+  Future<List<ChatMessage>> sendMessage(
+    String content, {
+    String? systemPrompt,
+  }) async {
     Flogger.i("Sending chat message");
     final userMessage = ChatMessage(
       id: '${_idCounter++}',
@@ -32,6 +38,9 @@ class ChatRepository {
     final payload = history
         .map((m) => {'role': m.role.name, 'content': m.content})
         .toList();
+    if (systemPrompt != null && systemPrompt.isNotEmpty) {
+      payload.insert(0, {'role': 'system', 'content': systemPrompt});
+    }
 
     final reply = await _apiService.sendChat(payload);
 

@@ -33,5 +33,16 @@ void main() {
       await chatRepository.sendMessage("Question");
       verify(() => apiService.sendChat(any(that: hasLength(1)))).called(1);
     });
+
+    test("should prepend system prompt to payload when provided", () async {
+      when(() => apiService.sendChat(any())).thenAnswer((_) async => "Reply");
+      final messages =
+          await chatRepository.sendMessage("Hi", systemPrompt: "Be concise");
+      // Payload sent to api has 2 entries: system + user.
+      verify(() => apiService.sendChat(any(that: hasLength(2)))).called(1);
+      // The stored history still only holds the user (and assistant) messages:
+      // the system prompt is ephemeral and must not be persisted.
+      assert(messages.where((m) => m.role == ChatRole.system).isEmpty);
+    });
   });
 }

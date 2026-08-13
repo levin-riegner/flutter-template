@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:color_picker/data/chat/model/chat_message.dart';
 import 'package:color_picker/data/chat/repository/chat_repository.dart';
+import 'package:color_picker/data/personas/repository/personas_repository.dart';
 import 'package:color_picker/presentation/chat/bloc/chat_bloc.dart';
 import 'package:color_picker/presentation/chat/bloc/chat_event.dart';
 import 'package:color_picker/presentation/chat/bloc/chat_state.dart';
@@ -37,7 +38,8 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = widget.bloc ?? ChatBloc(getIt<ChatRepository>());
+    final bloc = widget.bloc ??
+        ChatBloc(getIt<ChatRepository>(), getIt<PersonalitiesRepository>());
     return BlocProvider<ChatBloc>.value(
       value: bloc,
       child: Builder(
