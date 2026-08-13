@@ -62,6 +62,18 @@ class BottomNavigationPage extends StatelessWidget {
             icon: Icon(Icons.schema),
             label: "Models",
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.spellcheck),
+            label: "Correct",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.psychology),
+            label: "Personas",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.style),
+            label: "Study",
+          ),
         ],
         currentIndex: navigationShell.currentIndex,
         onTap: (int index) => _onTap(context, index),

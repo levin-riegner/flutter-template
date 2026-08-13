@@ -20,18 +20,24 @@ import 'package:color_picker/data/article/service/remote/article_api_service.dar
 import 'package:color_picker/data/chat/repository/chat_repository.dart';
 import 'package:color_picker/data/chat/service/local/chat_db_service.dart';
 import 'package:color_picker/data/chat/service/remote/chat_api_service.dart';
+import 'package:color_picker/data/corrector/repository/corrector_repository.dart';
+import 'package:color_picker/data/corrector/service/local/corrector_service.dart';
 import 'package:color_picker/data/hf_model/repository/hf_model_repository.dart';
 import 'package:color_picker/data/hf_model/service/local/hf_model_db_service.dart';
 import 'package:color_picker/data/hf_model/service/remote/hf_model_api_service.dart';
 import 'package:color_picker/data/image_gen/repository/image_gen_repository.dart';
 import 'package:color_picker/data/image_gen/service/local/image_gen_db_service.dart';
 import 'package:color_picker/data/image_gen/service/remote/image_gen_api_service.dart';
+import 'package:color_picker/data/personas/repository/personas_repository.dart';
+import 'package:color_picker/data/personas/service/local/personas_db_service.dart';
 import 'package:color_picker/data/recording/repository/recording_repository.dart';
 import 'package:color_picker/data/recording/service/local/recording_db_service.dart';
 import 'package:color_picker/data/recording/service/remote/recording_api_service.dart';
 import 'package:color_picker/data/shared/service/local/secure_storage.dart';
 import 'package:color_picker/data/shared/service/local/user_config_service.dart';
 import 'package:color_picker/data/shared/service/remote/network.dart';
+import 'package:color_picker/data/study/repository/study_repository.dart';
+import 'package:color_picker/data/study/service/local/study_db_service.dart';
 import 'package:color_picker/presentation/shared/design_system/utils/alert_service.dart';
 import 'package:color_picker/util/extensions/context_extension.dart';
 import 'package:color_picker/util/extensions/go_router_extension.dart';
@@ -165,6 +171,21 @@ abstract class Dependencies {
         HfModelApiService(httpClient),
         hfModelDb,
       ),
+    );
+
+    // On-device text correction
+    getIt.registerSingleton<CorrectorRepository>(
+      CorrectorRepository(CorrectorService()),
+    );
+
+    // Assistant personalities
+    getIt.registerSingleton<PersonalitiesRepository>(
+      PersonalitiesRepository(PersonasDbService()),
+    );
+
+    // Study flashcards (spaced repetition, pure-Dart store)
+    getIt.registerSingleton<StudyRepository>(
+      StudyRepository(StudyDbService()),
     );
 
     // Firebase
