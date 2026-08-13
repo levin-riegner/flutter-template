@@ -22,6 +22,8 @@ import 'package:color_picker/data/chat/service/local/chat_db_service.dart';
 import 'package:color_picker/data/chat/service/remote/chat_api_service.dart';
 import 'package:color_picker/data/corrector/repository/corrector_repository.dart';
 import 'package:color_picker/data/corrector/service/local/corrector_service.dart';
+import 'package:color_picker/data/focus/repository/focus_repository.dart';
+import 'package:color_picker/data/focus/service/local/focus_db_service.dart';
 import 'package:color_picker/data/hf_model/repository/hf_model_repository.dart';
 import 'package:color_picker/data/hf_model/service/local/hf_model_db_service.dart';
 import 'package:color_picker/data/hf_model/service/remote/hf_model_api_service.dart';
@@ -186,6 +188,11 @@ abstract class Dependencies {
     // Study flashcards (spaced repetition, pure-Dart store)
     getIt.registerSingleton<StudyRepository>(
       StudyRepository(StudyDbService()),
+    );
+
+    // Focus / Pomodoro timer (pure-Dart store)
+    getIt.registerSingleton<FocusRepository>(
+      FocusRepository(FocusDbService()),
     );
 
     // Firebase

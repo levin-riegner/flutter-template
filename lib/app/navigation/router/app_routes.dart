@@ -8,6 +8,7 @@ import 'package:color_picker/presentation/authentication/login/login_page.dart';
 import 'package:color_picker/presentation/bottom_navigation/bottom_navigation_page.dart';
 import 'package:color_picker/presentation/chat/chat_page.dart';
 import 'package:color_picker/presentation/corrector/corrector_page.dart';
+import 'package:color_picker/presentation/focus/focus_page.dart';
 import 'package:color_picker/presentation/hf_model/hf_model_page.dart';
 import 'package:color_picker/presentation/image_gen/image_gen_page.dart';
 import 'package:color_picker/presentation/personas/personas_page.dart';
@@ -206,6 +207,14 @@ class ConsoleDeeplinksRoute extends GoRouteData with $ConsoleDeeplinksRoute {
         ),
       ],
     ),
+    TypedStatefulShellBranch<FocusBranchData>(
+      routes: [
+        TypedGoRoute<FocusRoute>(
+          path: "/focus",
+          name: "FocusPage",
+        ),
+      ],
+    ),
   ],
 )
 class BottomNavigationPageData extends StatefulShellRouteData {
@@ -381,6 +390,19 @@ class StudyRoute extends GoRouteData with $StudyRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const StudyPage();
+  }
+}
+
+class FocusBranchData extends StatefulShellBranchData {
+  const FocusBranchData();
+}
+
+class FocusRoute extends GoRouteData with $FocusRoute {
+  const FocusRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const FocusPage();
   }
 }
 

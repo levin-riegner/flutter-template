@@ -74,6 +74,10 @@ class BottomNavigationPage extends StatelessWidget {
             icon: Icon(Icons.style),
             label: "Study",
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.timer),
+            label: "Focus",
+          ),
         ],
         currentIndex: navigationShell.currentIndex,
         onTap: (int index) => _onTap(context, index),
