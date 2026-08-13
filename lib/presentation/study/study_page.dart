@@ -144,6 +144,12 @@ class _CardStack extends StatelessWidget {
                 .push(context),
             child: const Text('Tutor me with AI'),
           ),
+          Dimens.boxXSmall,
+          FilledButton(
+            key: const ValueKey('study_manage_decks'),
+            onPressed: () => const DeckManagerRoute().push(context),
+            child: const Text('Manage decks'),
+          ),
         ],
       ),
     );

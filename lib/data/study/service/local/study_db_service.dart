@@ -8,6 +8,7 @@ import 'package:color_picker/data/study/model/flashcard.dart';
 /// single starter deck of real Dart/Flutter flashcards.
 class StudyDbService {
   final List<Flashcard> _store = [];
+  final Set<String> _deckNames = {};
 
   StudyDbService() {
     _seedStarterDeck();
@@ -16,6 +17,7 @@ class StudyDbService {
   /// Seeds the store with one starter deck: 'Flutter Basics'.
   void _seedStarterDeck() {
     final now = DateTime.now();
+    _deckNames.add('Flutter Basics');
     _store.addAll([
       Flashcard(
         id: 'f1',
@@ -60,11 +62,15 @@ class StudyDbService {
     yield List.unmodifiable(_store);
   }
 
-  /// Groups flashcards into decks with progress counters.
+  /// Groups flashcards into decks with progress counters. Also includes any
+  /// empty decks tracked by name so users can see decks they created.
   Future<List<Deck>> getDecks() async {
     final byName = <String, List<Flashcard>>{};
     for (final card in _store) {
       byName.putIfAbsent(card.deckName, () => []).add(card);
+    }
+    for (final name in _deckNames) {
+      byName.putIfAbsent(name, () => []);
     }
     return byName.entries
         .map((entry) => Deck(
@@ -75,8 +81,40 @@ class StudyDbService {
         .toList();
   }
 
+  Future<void> addDeck(String name) async {
+    _deckNames.add(name);
+  }
+
   Future<void> saveFlashcard(Flashcard flashcard) async {
     _store.add(flashcard);
+  }
+
+  Future<void> createFlashcard({
+    required String front,
+    required String back,
+    required String deckName,
+  }) async {
+    final id = 'fc-${_store.length}-${DateTime.now().microsecondsSinceEpoch}';
+    _store.add(Flashcard(
+      id: id,
+      front: front,
+      back: back,
+      deckName: deckName,
+      dueAt: DateTime.now(),
+      repetitions: 0,
+    ));
+  }
+
+  /// Removes the flashcard with [id], if present.
+  Future<void> removeFlashcard(String id) async {
+    _store.removeWhere((c) => c.id == id);
+  }
+
+  /// Removes every flashcard belonging to a deck and stops tracking the deck
+  /// name.
+  Future<void> removeDeck(String deckName) async {
+    _store.removeWhere((c) => c.deckName == deckName);
+    _deckNames.remove(deckName);
   }
 
   /// Replaces the stored card with the same [id], if present.

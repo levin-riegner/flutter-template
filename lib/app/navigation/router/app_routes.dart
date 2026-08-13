@@ -8,6 +8,7 @@ import 'package:color_picker/presentation/authentication/login/login_page.dart';
 import 'package:color_picker/presentation/bottom_navigation/bottom_navigation_page.dart';
 import 'package:color_picker/presentation/chat/chat_page.dart';
 import 'package:color_picker/presentation/corrector/corrector_page.dart';
+import 'package:color_picker/presentation/deck_manager/deck_manager_page.dart';
 import 'package:color_picker/presentation/focus/focus_page.dart';
 import 'package:color_picker/presentation/hf_model/hf_model_page.dart';
 import 'package:color_picker/presentation/image_gen/image_gen_page.dart';
@@ -210,6 +211,10 @@ class ConsoleDeeplinksRoute extends GoRouteData with $ConsoleDeeplinksRoute {
               path: "tutor",
               name: "StudyTutorPage",
             ),
+            TypedGoRoute<DeckManagerRoute>(
+              path: "deck-manager",
+              name: "DeckManagerPage",
+            ),
           ],
         ),
       ],
@@ -409,6 +414,15 @@ class StudyTutorRoute extends GoRouteData with $StudyTutorRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return StudyTutorPage(deckName: deckName);
+  }
+}
+
+class DeckManagerRoute extends GoRouteData with $DeckManagerRoute {
+  const DeckManagerRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const DeckManagerPage();
   }
 }
 

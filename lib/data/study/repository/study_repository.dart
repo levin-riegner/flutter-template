@@ -28,6 +28,49 @@ class StudyRepository {
 
   Future<List<Deck>> getDecks() => _dbService.getDecks();
 
+  /// Creates a new empty deck by name.
+  Future<Deck> createDeck(String name) async {
+    Flogger.i("Creating deck '$name'");
+    await _dbService.addDeck(name);
+    final updated = await _dbService.getDecks();
+    return updated.firstWhere((d) => d.name == name);
+  }
+
+  /// Adds a card to an existing deck.
+  Future<Flashcard> addCard({
+    required String deckName,
+    required String front,
+    required String back,
+  }) async {
+    Flogger.i("Adding card to deck '$deckName'");
+    await _dbService.createFlashcard(
+      front: front,
+      back: back,
+      deckName: deckName,
+    );
+    final cards = await _dbService.getFlashcards();
+    Flashcard? created;
+    for (final c in cards.reversed) {
+      if (c.deckName == deckName) {
+        created = c;
+        break;
+      }
+    }
+    return created!;
+  }
+
+  /// Removes a card by [id].
+  Future<void> removeCard(String id) async {
+    Flogger.i("Removing card $id");
+    await _dbService.removeFlashcard(id);
+  }
+
+  /// Removes the deck and all its cards.
+  Future<void> deleteDeck(String deckName) async {
+    Flogger.i("Deleting deck '$deckName'");
+    await _dbService.removeDeck(deckName);
+  }
+
   /// Returns the flashcards belonging to [deckName].
   Future<List<Flashcard>> getDeck(String deckName) async {
     final cards = await _dbService.getFlashcards();
