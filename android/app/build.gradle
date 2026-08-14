@@ -53,7 +53,7 @@ static def generateVersionName() {
 
 android {
     namespace "com.colorpicker.app"
-    compileSdkVersion 35
+    compileSdkVersion 36
 
 
     sourceSets {
@@ -151,5 +151,5 @@ flutter {
 dependencies {
     implementation("androidx.core:core-ktx:1.15.0")
     // APIs for SplashScreen, including compatibility helpers on devices prior Android 12
-    implementation("androidx.core:core-splashscreen:1.2.1")
+    implementation("androidx.core:core-splashscreen:1.2.0")
 }

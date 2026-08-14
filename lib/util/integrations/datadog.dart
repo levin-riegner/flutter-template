@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:datadog_flutter_plugin/datadog_flutter_plugin.dart';
 import 'package:color_picker/app/config/environment.dart';
 import 'package:logging_flutter/logging_flutter.dart';
@@ -7,10 +8,15 @@ class Datadog {
 
   const Datadog._();
 
+  /// datadog_flutter_plugin supports android/ios/web only.
+  /// On Linux/Windows the native part is absent — calls are no-ops.
+  static bool get _unsupported => Platform.isLinux || Platform.isWindows;
+
   static Future<void> initialize({
     required DatadogConfig config,
     required String environment,
   }) async {
+    if (_unsupported) return;
     await DatadogSdk.instance.initialize(
       DatadogConfiguration(
         clientToken: config.clientToken,
@@ -34,6 +40,7 @@ class Datadog {
   }
 
   static Future<void> setTrackingConsent(bool? dataCollectionEnabled) async {
+    if (_unsupported) return;
     TrackingConsent trackingConsent = TrackingConsent.pending;
     if (dataCollectionEnabled != null) {
       trackingConsent = dataCollectionEnabled
@@ -44,6 +51,7 @@ class Datadog {
   }
 
   static Future<void> logRecord(String message, Level level) async {
+    if (_unsupported) return;
     if (level == Level.SEVERE) {
       _logger?.error(message);
     } else if (level == Level.WARNING) {
@@ -60,10 +68,12 @@ class Datadog {
     String? name,
     String? email,
   }) async {
+    if (_unsupported) return;
     DatadogSdk.instance.setUserInfo(id: userId, name: name, email: email);
   }
 
   static void clearUser() {
+    if (_unsupported) return;
     // datadog_flutter_plugin 2.16.1 removed clearUserInfo; clearing is done by
     // setting all user fields to null.
     DatadogSdk.instance.setUserInfo(id: null, name: null, email: null);
