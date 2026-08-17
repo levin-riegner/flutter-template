@@ -1,0 +1,163 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:1270211537257005006",
+      "lastPropertyId": "4:8054028421582117587",
+      "name": "ChatMessageEntity",
+      "properties": [
+        {
+          "id": "1:7953765926886377458",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:730929068443160974",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "3:7576517755129378896",
+          "name": "role",
+          "type": 6
+        },
+        {
+          "id": "4:8054028421582117587",
+          "name": "content",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:1302043308505925837",
+      "lastPropertyId": "7:8843146992743878911",
+      "name": "FlashcardEntity",
+      "properties": [
+        {
+          "id": "1:5314481526884399334",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2344773390525796778",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "3:7809141634962271811",
+          "name": "front",
+          "type": 9
+        },
+        {
+          "id": "4:2072981101172666086",
+          "name": "back",
+          "type": 9
+        },
+        {
+          "id": "5:1756285064041171601",
+          "name": "deckName",
+          "type": 9
+        },
+        {
+          "id": "6:1285644656381959203",
+          "name": "dueAt",
+          "type": 10
+        },
+        {
+          "id": "7:8843146992743878911",
+          "name": "repetitions",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:8803764891202205410",
+      "lastPropertyId": "6:2662577878116965916",
+      "name": "FocusSessionEntity",
+      "properties": [
+        {
+          "id": "1:6451242939016549948",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7137651199057481610",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "3:2069452431443701400",
+          "name": "label",
+          "type": 9
+        },
+        {
+          "id": "4:6435342043036688153",
+          "name": "durationSeconds",
+          "type": 6
+        },
+        {
+          "id": "5:6746581434364277194",
+          "name": "elapsedSeconds",
+          "type": 6
+        },
+        {
+          "id": "6:2662577878116965916",
+          "name": "isRunning",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:8538806512441697527",
+      "lastPropertyId": "3:6498063703595478158",
+      "name": "SelectionEntity",
+      "properties": [
+        {
+          "id": "1:3007568580896727980",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:199176267062523516",
+          "name": "row",
+          "type": 9
+        },
+        {
+          "id": "3:6498063703595478158",
+          "name": "value",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "5:8538806512441697527",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [
+    6467097567794410384
+  ],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    2794059707737082984,
+    278586071802260018,
+    1182014496699306895,
+    1692435340978214283,
+    5609149016947131313,
+    4733023610960744295
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

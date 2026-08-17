@@ -20,6 +20,7 @@ import 'package:swiss_ai/data/article/service/remote/article_api_service.dart';
 import 'package:swiss_ai/data/chat/repository/chat_repository.dart';
 import 'package:swiss_ai/data/chat/service/local/chat_db_service.dart';
 import 'package:swiss_ai/data/chat/service/remote/chat_api_service.dart';
+import 'package:swiss_ai/data/local/objectbox/app_objectbox.dart';
 import 'package:swiss_ai/data/corrector/repository/corrector_repository.dart';
 import 'package:swiss_ai/data/corrector/service/local/corrector_service.dart';
 import 'package:swiss_ai/data/focus/repository/focus_repository.dart';
@@ -97,6 +98,14 @@ abstract class Dependencies {
     // System directories
     final tempDirectory = await getTemporaryDirectory();
 
+    // ObjectBox — durable on-device persistence for the local data layer.
+    // Opened in the app's documents directory; null on web (no native lib),
+    // in which case the *DbServices fall back to in-memory stores.
+    final objectBox = await AppObjectBox.create(
+      directory: (await getApplicationDocumentsDirectory()).path,
+    );
+    Flogger.i('ObjectBox ${objectBox == null ? "unavailable (web)" : "ready"}');
+
     // Init date format with locale
     Intl.systemLocale = await findSystemLocale();
     final preferredLocales = await Devicelocale.preferredLanguages;
@@ -141,7 +150,7 @@ abstract class Dependencies {
     );
 
     // On-device AI Chat
-    final chatDb = ChatDbService();
+    final chatDb = ChatDbService(objectBox: objectBox);
     getIt.registerSingleton<ChatRepository>(
       ChatRepository(
         ChatApiService(httpClient),
@@ -183,7 +192,7 @@ abstract class Dependencies {
 
     // Assistant personalities
     getIt.registerSingleton<PersonalitiesRepository>(
-      PersonalitiesRepository(PersonasDbService()),
+      PersonalitiesRepository(PersonasDbService(objectBox: objectBox)),
     );
 
     // Study -> AI tutor (composes Study + Personas + Chat)
@@ -197,12 +206,12 @@ abstract class Dependencies {
 
     // Study flashcards (spaced repetition, pure-Dart store)
     getIt.registerSingleton<StudyRepository>(
-      StudyRepository(StudyDbService()),
+      StudyRepository(StudyDbService(objectBox: objectBox)),
     );
 
-    // Focus / Pomodoro timer (pure-Dart store)
+    // Focus / Pomodoro timer
     getIt.registerSingleton<FocusRepository>(
-      FocusRepository(FocusDbService()),
+      FocusRepository(FocusDbService(objectBox: objectBox)),
     );
 
     // Firebase
@@ -415,10 +424,9 @@ abstract class Dependencies {
   static Future<void> clearAllUserData() async {
     Flogger.i("Clearing all local data");
     FlutterBranchSdk.logout();
+    // Clear user data from ObjectBox (study, chat, selection, focus)
+    AppObjectBox.instance?.clearAll();
     await Future.wait([
-      // Clear user data from database
-      // TODO: Add user table deletions here
-      // Example: localDb.saveArticles(const []),
       // Secure storage
       getIt.get<SecureStorage>().deleteAll(),
       // Analytics

@@ -1,10 +1,15 @@
+import 'package:swiss_ai/data/local/objectbox/app_objectbox.dart';
 import 'package:swiss_ai/data/personas/model/persona.dart';
 
 /// Local persistence for the selectable assistant personas.
 ///
-/// Pure-Dart in-memory store (same convention as ChatDbService) so the
-/// personas feature stays testable on the host without native plugins.
+/// The persona catalog is a static seed (shipped with the app); only the
+/// selected persona id is mutable. When an [AppObjectBox] is supplied the
+/// selection is persisted to ObjectBox and restored on startup; otherwise
+/// (web, tests) it lives only in memory.
 class PersonasDbService {
+  final AppObjectBox? _ob;
+
   /// The default set of assistant personas shipped with the app.
   static const List<Persona> _seed = [
     Persona(
@@ -47,6 +52,10 @@ class PersonasDbService {
 
   String? _selectedId;
 
+  PersonasDbService({AppObjectBox? objectBox}) : _ob = objectBox {
+    _selectedId = objectBox?.selectedPersona;
+  }
+
   Future<List<Persona>> getAll() async {
     return List.unmodifiable(_seed);
   }
@@ -55,9 +64,11 @@ class PersonasDbService {
 
   Future<void> select(String id) async {
     _selectedId = id;
+    _ob?.setSelectedPersona(id);
   }
 
   Future<void> clearSelection() async {
     _selectedId = null;
+    _ob?.setSelectedPersona(null);
   }
 }
