@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiss_ai/data/study/model/flashcard.dart';
@@ -49,7 +50,35 @@ class _StudyPageState extends State<StudyPage> {
       child: Builder(
         builder: (context) {
           final bloc = context.read<StudyBloc>();
-          return BlocBuilder<StudyBloc, StudyState>(
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Dimens.marginMedium),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: FilledButton.tonal(
+                        key: const ValueKey('study_open_quiz'),
+                        onPressed: () =>
+                            GoRouter.of(context).go('/study/quiz'),
+                        child: const Text('Quiz from document'),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: FilledButton.tonal(
+                        key: const ValueKey('study_open_capture'),
+                        onPressed: () =>
+                            GoRouter.of(context).go('/study/capture'),
+                        child: const Text('Camera to text'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: BlocBuilder<StudyBloc, StudyState>(
             builder: (context, state) {
               final content = state.data;
               return switch (content) {
@@ -61,6 +90,9 @@ class _StudyPageState extends State<StudyPage> {
                     : _CardStack(data: data, state: state, bloc: bloc),
               };
             },
+          ),
+              ),
+            ],
           );
         },
       ),

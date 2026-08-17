@@ -39,6 +39,7 @@ dependencies:
   another_flushbar: ^1.12.29
   cached_network_image: ^3.3.1
   webview_flutter: ^4.13.0
+  image_picker: ^1.1.2
   # Animations
   animations: ^2.1.0
   flutter_animate: ^4.5.0

@@ -22,9 +22,14 @@ class ChatRepository {
   ///
   /// When [systemPrompt] is provided, it is prepended as a `system` message in
   /// the payload sent to the model (it is not persisted to the local store).
+  ///
+  /// [disableThinking] switches the on-device model out of its thinking
+  /// mode. Required for strict-JSON tasks: thinking tokens otherwise consume
+  /// the completion budget and can truncate the JSON mid-stream.
   Future<List<ChatMessage>> sendMessage(
     String content, {
     String? systemPrompt,
+    bool disableThinking = false,
   }) async {
     Flogger.i("Sending chat message");
     final userMessage = ChatMessage(
@@ -42,7 +47,8 @@ class ChatRepository {
       payload.insert(0, {'role': 'system', 'content': systemPrompt});
     }
 
-    final reply = await _apiService.sendChat(payload);
+    final reply =
+        await _apiService.sendChat(payload, disableThinking: disableThinking);
 
     final assistantMessage = ChatMessage(
       id: '${_idCounter++}',

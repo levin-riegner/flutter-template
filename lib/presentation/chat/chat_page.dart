@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiss_ai/data/chat/model/chat_message.dart';
@@ -6,6 +7,7 @@ import 'package:swiss_ai/data/personas/repository/personas_repository.dart';
 import 'package:swiss_ai/presentation/chat/bloc/chat_bloc.dart';
 import 'package:swiss_ai/presentation/chat/bloc/chat_event.dart';
 import 'package:swiss_ai/presentation/chat/bloc/chat_state.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
 import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:swiss_ai/util/dependencies.dart';
 
@@ -47,6 +49,15 @@ class _ChatPageState extends State<ChatPage> {
           final bloc = context.read<ChatBloc>();
           return Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Dimens.marginMedium, vertical: 8),
+                child: FilledButton.tonal(
+                  key: const ValueKey('chat_open_research'),
+                  onPressed: () => GoRouter.of(context).go('/chat/research'),
+                  child: const Text('Deep research'),
+                ),
+              ),
               Expanded(
                 child: BlocBuilder<ChatBloc, ChatState>(
                   builder: (context, state) {

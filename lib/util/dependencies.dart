@@ -17,6 +17,7 @@ import 'package:swiss_ai/app/navigation/router/app_routes.dart';
 import 'package:swiss_ai/data/article/repository/article_repository.dart';
 import 'package:swiss_ai/data/article/service/local/article_db_service.dart';
 import 'package:swiss_ai/data/article/service/remote/article_api_service.dart';
+import 'package:swiss_ai/data/capture/repository/capture_repository.dart';
 import 'package:swiss_ai/data/chat/repository/chat_repository.dart';
 import 'package:swiss_ai/data/chat/service/local/chat_db_service.dart';
 import 'package:swiss_ai/data/chat/service/remote/chat_api_service.dart';
@@ -33,6 +34,9 @@ import 'package:swiss_ai/data/image_gen/service/local/image_gen_db_service.dart'
 import 'package:swiss_ai/data/image_gen/service/remote/image_gen_api_service.dart';
 import 'package:swiss_ai/data/personas/repository/personas_repository.dart';
 import 'package:swiss_ai/data/personas/service/local/personas_db_service.dart';
+import 'package:swiss_ai/data/quiz/repository/quiz_repository.dart';
+import 'package:swiss_ai/data/research/repository/research_repository.dart';
+import 'package:swiss_ai/data/research/service/remote/web_research_service.dart';
 import 'package:swiss_ai/data/recording/repository/recording_repository.dart';
 import 'package:swiss_ai/data/recording/service/local/recording_db_service.dart';
 import 'package:swiss_ai/data/recording/service/remote/recording_api_service.dart';
@@ -212,6 +216,22 @@ abstract class Dependencies {
     // Focus / Pomodoro timer
     getIt.registerSingleton<FocusRepository>(
       FocusRepository(FocusDbService(objectBox: objectBox)),
+    );
+
+    // Quiz from document (on-device generation, saved into Study decks)
+    getIt.registerSingleton<QuizRepository>(
+      QuizRepository(getIt<ChatRepository>(), getIt<StudyRepository>()),
+    );
+
+    // Deep research (key-less web search + on-device synthesis)
+    getIt.registerSingleton<ResearchRepository>(
+      ResearchRepository(ChatApiService(httpClient),
+          WebResearchService(httpClient)),
+    );
+
+    // Camera capture -> on-device transcription (vision LLM)
+    getIt.registerSingleton<CaptureRepository>(
+      CaptureRepository(ChatApiService(httpClient)),
     );
 
     // Firebase

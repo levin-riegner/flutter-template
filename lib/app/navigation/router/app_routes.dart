@@ -8,6 +8,7 @@ import 'package:swiss_ai/presentation/authentication/login/login_page.dart';
 import 'package:swiss_ai/presentation/bottom_navigation/bottom_navigation_page.dart';
 import 'package:swiss_ai/presentation/chat/chat_page.dart';
 import 'package:swiss_ai/presentation/corrector/corrector_page.dart';
+import 'package:swiss_ai/presentation/capture/capture_page.dart';
 import 'package:swiss_ai/presentation/deck_manager/deck_manager_page.dart';
 import 'package:swiss_ai/presentation/focus/focus_page.dart';
 import 'package:swiss_ai/presentation/hf_model/hf_model_page.dart';
@@ -16,6 +17,8 @@ import 'package:swiss_ai/presentation/personas/personas_page.dart';
 import 'package:swiss_ai/presentation/recording/recording_page.dart';
 import 'package:swiss_ai/presentation/settings/account_details_page.dart';
 import 'package:swiss_ai/presentation/settings/settings_page.dart';
+import 'package:swiss_ai/presentation/quiz/quiz_page.dart';
+import 'package:swiss_ai/presentation/research/research_page.dart';
 import 'package:swiss_ai/presentation/study/study_page.dart';
 import 'package:swiss_ai/presentation/study_tutor/study_tutor_page.dart';
 import 'package:swiss_ai/util/console/console_deeplinks.dart';
@@ -158,6 +161,12 @@ class ConsoleDeeplinksRoute extends GoRouteData with $ConsoleDeeplinksRoute {
         TypedGoRoute<ChatRoute>(
           path: "/chat",
           name: "ChatPage",
+          routes: [
+            TypedGoRoute<ResearchRoute>(
+              path: "research",
+              name: "ResearchPage",
+            ),
+          ],
         ),
       ],
     ),
@@ -214,6 +223,14 @@ class ConsoleDeeplinksRoute extends GoRouteData with $ConsoleDeeplinksRoute {
             TypedGoRoute<DeckManagerRoute>(
               path: "deck-manager",
               name: "DeckManagerPage",
+            ),
+            TypedGoRoute<QuizRoute>(
+              path: "quiz",
+              name: "QuizPage",
+            ),
+            TypedGoRoute<CaptureRoute>(
+              path: "capture",
+              name: "CapturePage",
             ),
           ],
         ),
@@ -402,6 +419,33 @@ class StudyRoute extends GoRouteData with $StudyRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const StudyPage();
+  }
+}
+
+class QuizRoute extends GoRouteData with $QuizRoute {
+  const QuizRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const QuizPage();
+  }
+}
+
+class CaptureRoute extends GoRouteData with $CaptureRoute {
+  const CaptureRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CapturePage();
+  }
+}
+
+class ResearchRoute extends GoRouteData with $ResearchRoute {
+  const ResearchRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ResearchPage();
   }
 }
 

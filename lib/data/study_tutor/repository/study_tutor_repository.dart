@@ -78,13 +78,18 @@ class StudyTutorRepository {
   }
 
   String _buildPrompt(String deckName, List<Flashcard> cards) {
-    final cardLines = cards
-        .map((c) => '- ${c.front}: ${c.back}')
-        .join('\n');
-    return 'Act as my tutor for the "$deckName" deck. '
-        'Here are the flashcards I am studying:\n$cardLines\n'
-        'Warm me up by briefly explaining the first card, then invite me to '
-        'continue one card at a time.';
+    final cardLines = [
+      for (var i = 0; i < cards.length; i++)
+        '${i + 1}. ${cards[i].front}: ${cards[i].back}',
+    ].join('\n');
+    return '=== DECK: $deckName ===\n'
+        '$cardLines\n'
+        '=== END DECK ===\n\n'
+        'Act as my tutor for the "$deckName" deck. Use ONLY the cards in the '
+        'block above and cite card numbers (e.g. "card 3") when you teach or '
+        'quiz me.\n'
+        'Warm me up by briefly explaining card 1, then invite me to continue '
+        'one card at a time.';
   }
 
   String? _lastAssistantMessage(List<ChatMessage> messages) {

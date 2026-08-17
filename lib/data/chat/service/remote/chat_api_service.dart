@@ -27,7 +27,10 @@ class ChatApiService with ApiResponseMapper {
 
   ChatApiService(this.client, {this.endpoint = "/chat/completions"});
 
-  Future<String> sendChat(List<Map<String, String>> messages) async {
+  Future<String> sendChat(
+    List<Map<String, String>> messages, {
+    bool disableThinking = false,
+  }) async {
     try {
       final response = await client.post(
         endpoint,
@@ -36,6 +39,12 @@ class ChatApiService with ApiResponseMapper {
           "messages": messages,
           "temperature": 0.7,
           "max_tokens": 2048,
+          // NOTE: the on-device SGLang server ignores the top-level
+          // `enable_thinking` body flag; it must be passed via
+          // chat_template_kwargs. When enabled, thinking tokens consume the
+          // completion budget and can truncate strict-JSON output.
+          if (disableThinking)
+            "chat_template_kwargs": {"enable_thinking": false},
         },
       );
       final parsed = ChatCompletionResponse.fromJson(response.data);
@@ -44,6 +53,51 @@ class ChatApiService with ApiResponseMapper {
         throw StateError("Chat model returned empty response");
       }
       return content;
+    } catch (e, stackTrace) {
+      throw mapToError(e, stackTrace);
+    }
+  }
+
+  /// Sends a single image (base64 data URL) with a text instruction to the
+  /// on-device model and returns its text reply.
+  ///
+  /// Requires a vision-capable on-device model; throws [StateError] when the
+  /// endpoint rejects image input.
+  Future<String> transcribeImage({
+    required String imageDataUrl,
+    required String instruction,
+    int maxTokens = 2048,
+  }) async {
+    try {
+      final response = await client.post(
+        endpoint,
+        data: {
+          "model": "llm",
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {"type": "text", "text": instruction},
+                {
+                  "type": "image_url",
+                  "image_url": {"url": imageDataUrl},
+                },
+              ],
+            },
+          ],
+          "temperature": 0,
+          "max_tokens": maxTokens,
+          // Transcription is a strict short-output task; disable the
+          // model's thinking mode so it cannot burn the token budget.
+          "chat_template_kwargs": {"enable_thinking": false},
+        },
+      );
+      final parsed = ChatCompletionResponse.fromJson(response.data);
+      final content = parsed.content;
+      if (content == null || content.isEmpty) {
+        throw StateError("Vision model returned empty response");
+      }
+      return content.trim();
     } catch (e, stackTrace) {
       throw mapToError(e, stackTrace);
     }
