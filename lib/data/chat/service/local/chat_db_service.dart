@@ -1,7 +1,6 @@
 import 'package:swiss_ai/data/chat/model/chat_message.dart';
 import 'package:swiss_ai/data/local/objectbox/app_objectbox.dart';
 import 'package:swiss_ai/data/local/objectbox/objectbox_entities.dart';
-import 'package:swiss_ai/objectbox.g.dart';
 
 /// Local persistence for chat sessions.
 ///

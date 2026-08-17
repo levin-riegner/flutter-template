@@ -424,9 +424,13 @@ abstract class Dependencies {
   static Future<void> clearAllUserData() async {
     Flogger.i("Clearing all local data");
     FlutterBranchSdk.logout();
-    // Clear user data from ObjectBox (study, chat, selection, focus)
-    AppObjectBox.instance?.clearAll();
     await Future.wait([
+      // Study, chat, focus, persona selection — each clears its own
+      // in-memory store AND its ObjectBox mirror (single source of truth).
+      getIt.get<StudyRepository>().clear(),
+      getIt.get<ChatRepository>().clear(),
+      getIt.get<FocusRepository>().clear(),
+      getIt.get<PersonalitiesRepository>().clearSelection(),
       // Secure storage
       getIt.get<SecureStorage>().deleteAll(),
       // Analytics

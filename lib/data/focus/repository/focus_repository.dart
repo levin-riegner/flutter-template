@@ -115,4 +115,11 @@ class FocusRepository {
     Flogger.i("Focus session '$id' completed");
     // Keep the session stored (complete) so the UI can show a finished state.
   }
+
+  /// Clears all sessions (memory + persistent store) — used on logout.
+  Future<void> clear() async {
+    _activeId = null;
+    _lastTick = null;
+    await _dbService.clear();
+  }
 }

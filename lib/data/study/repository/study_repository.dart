@@ -126,4 +126,7 @@ class StudyRepository {
     await _dbService.updateFlashcard(updated);
     return updated;
   }
+
+  /// Clears all decks and cards (memory + persistent store) — used on logout.
+  Future<void> clear() => _dbService.clear();
 }

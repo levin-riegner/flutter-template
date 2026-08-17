@@ -23,4 +23,7 @@ class PersonalitiesRepository {
     Flogger.i("Selected assistant persona: $id");
     await _dbService.select(id);
   }
+
+  /// Clears the persona selection (memory + persistent store) — used on logout.
+  Future<void> clearSelection() => _dbService.clearSelection();
 }
