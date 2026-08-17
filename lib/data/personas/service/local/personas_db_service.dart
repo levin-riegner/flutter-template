@@ -1,4 +1,4 @@
-import 'package:color_picker/data/personas/model/persona.dart';
+import 'package:swiss_ai/data/personas/model/persona.dart';
 
 /// Local persistence for the selectable assistant personas.
 ///

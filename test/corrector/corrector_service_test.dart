@@ -1,4 +1,4 @@
-import 'package:color_picker/data/corrector/service/local/corrector_service.dart';
+import 'package:swiss_ai/data/corrector/service/local/corrector_service.dart';
 import 'package:test/scaffolding.dart';
 
 void main() {

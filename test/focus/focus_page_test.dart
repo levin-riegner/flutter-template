@@ -1,7 +1,7 @@
-import 'package:color_picker/data/focus/model/focus_session.dart';
-import 'package:color_picker/data/focus/repository/focus_repository.dart';
-import 'package:color_picker/presentation/focus/bloc/focus_bloc.dart';
-import 'package:color_picker/presentation/focus/focus_page.dart';
+import 'package:swiss_ai/data/focus/model/focus_session.dart';
+import 'package:swiss_ai/data/focus/repository/focus_repository.dart';
+import 'package:swiss_ai/presentation/focus/bloc/focus_bloc.dart';
+import 'package:swiss_ai/presentation/focus/focus_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

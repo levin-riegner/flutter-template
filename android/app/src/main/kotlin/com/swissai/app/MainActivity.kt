@@ -1,4 +1,4 @@
-package com.colorpicker.app
+package com.swissai.app
 
 import android.os.Build
 import android.os.Bundle

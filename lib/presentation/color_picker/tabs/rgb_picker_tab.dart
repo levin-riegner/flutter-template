@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:color_picker/presentation/color_picker/widgets/color_preview.dart';
-import 'package:color_picker/presentation/color_picker/widgets/color_wheel.dart';
-import 'package:color_picker/presentation/color_picker/widgets/channel_slider.dart';
+import 'package:swiss_ai/presentation/color_picker/widgets/color_preview.dart';
+import 'package:swiss_ai/presentation/color_picker/widgets/color_wheel.dart';
+import 'package:swiss_ai/presentation/color_picker/widgets/channel_slider.dart';
 
 class RgbPickerTab extends StatelessWidget {
   final HSVColor hsvColor;

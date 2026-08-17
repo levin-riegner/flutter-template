@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:color_picker/data/shared/model/error/data_error.dart';
-import 'package:color_picker/data/study/model/flashcard.dart';
-import 'package:color_picker/data/study/repository/study_repository.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
-import 'package:color_picker/presentation/study/bloc/study_error.dart';
-import 'package:color_picker/presentation/study/bloc/study_event.dart';
-import 'package:color_picker/presentation/study/bloc/study_state.dart';
+import 'package:swiss_ai/data/shared/model/error/data_error.dart';
+import 'package:swiss_ai/data/study/model/flashcard.dart';
+import 'package:swiss_ai/data/study/repository/study_repository.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/presentation/study/bloc/study_error.dart';
+import 'package:swiss_ai/presentation/study/bloc/study_event.dart';
+import 'package:swiss_ai/presentation/study/bloc/study_state.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class StudyBloc extends Bloc<StudyEvent, StudyState> {

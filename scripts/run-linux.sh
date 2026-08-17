@@ -33,7 +33,7 @@ if [ "$RUN_ONLY" -ne 1 ]; then
   "$FLUTTER" build linux --"$BUILD_TYPE"
 fi
 
-BIN="$ROOT/$BUNDLE_DIR/color_picker"
+BIN="$ROOT/$BUNDLE_DIR/swiss_ai"
 if [ ! -x "$BIN" ]; then
   echo "Binary not found: $BIN" >&2
   echo "Build it first: $FLUTTER build linux --${BUILD_TYPE}" >&2

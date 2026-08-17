@@ -1,6 +1,6 @@
-import 'package:color_picker/data/image_gen/repository/image_gen_repository.dart';
-import 'package:color_picker/data/image_gen/service/local/image_gen_db_service.dart';
-import 'package:color_picker/data/image_gen/service/remote/image_gen_api_service.dart';
+import 'package:swiss_ai/data/image_gen/repository/image_gen_repository.dart';
+import 'package:swiss_ai/data/image_gen/service/local/image_gen_db_service.dart';
+import 'package:swiss_ai/data/image_gen/service/remote/image_gen_api_service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/scaffolding.dart';
 

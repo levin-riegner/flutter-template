@@ -1,6 +1,6 @@
-import 'package:color_picker/app/config/environment.dart';
-import 'package:color_picker/main_shared.dart';
-import 'package:color_picker/util/dependencies.dart';
+import 'package:swiss_ai/app/config/environment.dart';
+import 'package:swiss_ai/main_shared.dart';
+import 'package:swiss_ai/util/dependencies.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 

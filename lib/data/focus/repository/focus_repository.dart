@@ -1,5 +1,5 @@
-import 'package:color_picker/data/focus/model/focus_session.dart';
-import 'package:color_picker/data/focus/service/local/focus_db_service.dart';
+import 'package:swiss_ai/data/focus/model/focus_session.dart';
+import 'package:swiss_ai/data/focus/service/local/focus_db_service.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 /// Default focus session lengths (Pomodoro-ish).

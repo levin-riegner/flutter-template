@@ -1,4 +1,4 @@
-import 'package:color_picker/data/shared/service/remote/api_response_mapper.dart';
+import 'package:swiss_ai/data/shared/service/remote/api_response_mapper.dart';
 import 'package:dio/dio.dart';
 
 /// Response wrapper for a HuggingFace Hub model listing.

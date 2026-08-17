@@ -1,4 +1,4 @@
-import 'package:color_picker/data/article/model/article.dart';
+import 'package:swiss_ai/data/article/model/article.dart';
 
 /// Plain-Dart representation of an Article as persisted by [ArticleDbService].
 ///

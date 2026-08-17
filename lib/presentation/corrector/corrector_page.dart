@@ -1,11 +1,11 @@
-import 'package:color_picker/data/corrector/repository/corrector_repository.dart';
-import 'package:color_picker/data/corrector/service/local/corrector_service.dart';
-import 'package:color_picker/presentation/corrector/bloc/corrector_bloc.dart';
-import 'package:color_picker/presentation/corrector/bloc/corrector_event.dart';
-import 'package:color_picker/presentation/corrector/bloc/corrector_state.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
-import 'package:color_picker/util/dependencies.dart';
+import 'package:swiss_ai/data/corrector/repository/corrector_repository.dart';
+import 'package:swiss_ai/data/corrector/service/local/corrector_service.dart';
+import 'package:swiss_ai/presentation/corrector/bloc/corrector_bloc.dart';
+import 'package:swiss_ai/presentation/corrector/bloc/corrector_event.dart';
+import 'package:swiss_ai/presentation/corrector/bloc/corrector_state.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/util/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,5 +1,5 @@
-import 'package:color_picker/data/chat/model/chat_message.dart';
-import 'package:color_picker/data/study/model/flashcard.dart';
+import 'package:swiss_ai/data/chat/model/chat_message.dart';
+import 'package:swiss_ai/data/study/model/flashcard.dart';
 import 'package:equatable/equatable.dart';
 
 /// The result of starting an AI tutoring session over a flashcard deck.

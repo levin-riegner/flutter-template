@@ -1,5 +1,5 @@
-import 'package:color_picker/data/article/service/local/article_db_service.dart';
-import 'package:color_picker/data/article/service/local/model/article_db_model.dart';
+import 'package:swiss_ai/data/article/service/local/article_db_service.dart';
+import 'package:swiss_ai/data/article/service/local/model/article_db_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../integration_test_shared.dart';

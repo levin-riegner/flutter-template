@@ -1,9 +1,9 @@
-import 'package:color_picker/data/focus/model/focus_session.dart';
-import 'package:color_picker/data/focus/repository/focus_repository.dart';
-import 'package:color_picker/presentation/focus/bloc/focus_error.dart';
-import 'package:color_picker/presentation/focus/bloc/focus_event.dart';
-import 'package:color_picker/presentation/focus/bloc/focus_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/focus/model/focus_session.dart';
+import 'package:swiss_ai/data/focus/repository/focus_repository.dart';
+import 'package:swiss_ai/presentation/focus/bloc/focus_error.dart';
+import 'package:swiss_ai/presentation/focus/bloc/focus_event.dart';
+import 'package:swiss_ai/presentation/focus/bloc/focus_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 

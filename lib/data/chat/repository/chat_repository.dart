@@ -1,6 +1,6 @@
-import 'package:color_picker/data/chat/model/chat_message.dart';
-import 'package:color_picker/data/chat/service/local/chat_db_service.dart';
-import 'package:color_picker/data/chat/service/remote/chat_api_service.dart';
+import 'package:swiss_ai/data/chat/model/chat_message.dart';
+import 'package:swiss_ai/data/chat/service/local/chat_db_service.dart';
+import 'package:swiss_ai/data/chat/service/remote/chat_api_service.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ChatRepository {

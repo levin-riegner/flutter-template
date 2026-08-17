@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:color_picker/data/image_gen/model/generated_image.dart';
-import 'package:color_picker/data/image_gen/repository/image_gen_repository.dart';
-import 'package:color_picker/presentation/image_gen/bloc/image_gen_bloc.dart';
-import 'package:color_picker/presentation/image_gen/bloc/image_gen_event.dart';
-import 'package:color_picker/presentation/image_gen/bloc/image_gen_state.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
-import 'package:color_picker/util/dependencies.dart';
+import 'package:swiss_ai/data/image_gen/model/generated_image.dart';
+import 'package:swiss_ai/data/image_gen/repository/image_gen_repository.dart';
+import 'package:swiss_ai/presentation/image_gen/bloc/image_gen_bloc.dart';
+import 'package:swiss_ai/presentation/image_gen/bloc/image_gen_event.dart';
+import 'package:swiss_ai/presentation/image_gen/bloc/image_gen_state.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/util/dependencies.dart';
 
 class ImageGenPage extends StatefulWidget {
   const ImageGenPage({super.key, this.bloc});

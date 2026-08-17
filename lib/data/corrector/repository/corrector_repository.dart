@@ -1,5 +1,5 @@
-import 'package:color_picker/data/corrector/model/correction.dart';
-import 'package:color_picker/data/corrector/service/local/corrector_service.dart';
+import 'package:swiss_ai/data/corrector/model/correction.dart';
+import 'package:swiss_ai/data/corrector/service/local/corrector_service.dart';
 
 /// Thin data-layer facade around the on-device [CorrectorService].
 ///

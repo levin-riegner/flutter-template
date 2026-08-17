@@ -1,5 +1,5 @@
-import 'package:color_picker/data/personas/model/persona.dart';
-import 'package:color_picker/data/personas/service/local/personas_db_service.dart';
+import 'package:swiss_ai/data/personas/model/persona.dart';
+import 'package:swiss_ai/data/personas/service/local/personas_db_service.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 /// Provides the selectable assistant personas and tracks the active selection.

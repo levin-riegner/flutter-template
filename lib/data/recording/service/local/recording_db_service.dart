@@ -1,4 +1,4 @@
-import 'package:color_picker/data/recording/model/recording.dart';
+import 'package:swiss_ai/data/recording/model/recording.dart';
 
 /// Local persistence for recorded meetings.
 ///

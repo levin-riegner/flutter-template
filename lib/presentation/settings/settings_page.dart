@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:color_picker/app/config/constants.dart';
-import 'package:color_picker/app/l10n/l10n.dart';
-import 'package:color_picker/app/navigation/router/app_routes.dart';
-import 'package:color_picker/app/navigation/util/poppable_mixin.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
-import 'package:color_picker/presentation/shared/design_system/views/ds_app_version.dart';
+import 'package:swiss_ai/app/config/constants.dart';
+import 'package:swiss_ai/app/l10n/l10n.dart';
+import 'package:swiss_ai/app/navigation/router/app_routes.dart';
+import 'package:swiss_ai/app/navigation/util/poppable_mixin.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/presentation/shared/design_system/views/ds_app_version.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';

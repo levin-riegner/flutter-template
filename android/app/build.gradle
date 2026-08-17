@@ -52,7 +52,7 @@ static def generateVersionName() {
 }
 
 android {
-    namespace "com.colorpicker.app"
+    namespace "com.swissai.app"
     compileSdkVersion 36
 
 
@@ -66,7 +66,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.colorpicker.app"
+        applicationId "com.swissai.app"
         minSdkVersion 24
         targetSdkVersion 35
         versionCode generateVersionCode()
@@ -118,7 +118,7 @@ android {
     productFlavors {
         qa {
             dimension "app"
-            manifestPlaceholders.applicationLabel = "ColorPicker QA"
+            manifestPlaceholders.applicationLabel = "SwissAI QA"
             manifestPlaceholders.branchTestMode = true
             manifestPlaceholders.deepLinkScheme = "templateqa"
             manifestPlaceholders.branchDomain = "template.test-app.link"
@@ -127,7 +127,7 @@ android {
         }
         production {
             dimension "app"
-            manifestPlaceholders.applicationLabel = "ColorPicker"
+            manifestPlaceholders.applicationLabel = "SwissAI"
             manifestPlaceholders.branchTestMode = false
             manifestPlaceholders.deepLinkScheme = "template"
             manifestPlaceholders.branchDomain = "template.app.link"

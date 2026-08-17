@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:color_picker/presentation/color_picker/tabs/rgb_picker_tab.dart';
-import 'package:color_picker/presentation/color_picker/tabs/cmyk_picker_tab.dart';
-import 'package:color_picker/presentation/color_picker/tabs/palette_tab.dart';
+import 'package:swiss_ai/presentation/color_picker/tabs/rgb_picker_tab.dart';
+import 'package:swiss_ai/presentation/color_picker/tabs/cmyk_picker_tab.dart';
+import 'package:swiss_ai/presentation/color_picker/tabs/palette_tab.dart';
 
 class ColorPickerPage extends StatefulWidget {
   const ColorPickerPage({super.key});

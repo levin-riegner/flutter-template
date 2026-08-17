@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:color_picker/app/l10n/l10n.dart';
+import 'package:swiss_ai/app/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 extension ContextExtension on BuildContext {

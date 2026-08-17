@@ -1,10 +1,10 @@
-import 'package:color_picker/data/chat/model/chat_message.dart';
-import 'package:color_picker/data/chat/repository/chat_repository.dart';
-import 'package:color_picker/data/personas/model/persona.dart';
-import 'package:color_picker/data/personas/repository/personas_repository.dart';
-import 'package:color_picker/data/study/model/flashcard.dart';
-import 'package:color_picker/data/study/repository/study_repository.dart';
-import 'package:color_picker/data/study_tutor/repository/study_tutor_repository.dart';
+import 'package:swiss_ai/data/chat/model/chat_message.dart';
+import 'package:swiss_ai/data/chat/repository/chat_repository.dart';
+import 'package:swiss_ai/data/personas/model/persona.dart';
+import 'package:swiss_ai/data/personas/repository/personas_repository.dart';
+import 'package:swiss_ai/data/study/model/flashcard.dart';
+import 'package:swiss_ai/data/study/repository/study_repository.dart';
+import 'package:swiss_ai/data/study_tutor/repository/study_tutor_repository.dart';
 import 'package:test/scaffolding.dart';
 import 'package:mocktail/mocktail.dart';
 

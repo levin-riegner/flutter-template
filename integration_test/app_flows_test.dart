@@ -1,6 +1,6 @@
-import 'package:color_picker/app/app.dart';
-import 'package:color_picker/presentation/shared/adaptive_theme/adaptive_theme_cubit.dart';
-import 'package:color_picker/presentation/shared/adaptive_theme/adaptive_theme_state.dart';
+import 'package:swiss_ai/app/app.dart';
+import 'package:swiss_ai/presentation/shared/adaptive_theme/adaptive_theme_cubit.dart';
+import 'package:swiss_ai/presentation/shared/adaptive_theme/adaptive_theme_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

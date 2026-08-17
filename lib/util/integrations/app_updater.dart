@@ -1,10 +1,10 @@
 import 'package:app_versioning/app_versioning.dart';
 import 'package:flutter/material.dart';
-import 'package:color_picker/app/navigation/navigator_holder.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
-import 'package:color_picker/presentation/shared/design_system/views/ds_button.dart';
-import 'package:color_picker/presentation/shared/design_system/views/ds_dialog.dart';
-import 'package:color_picker/util/extensions/context_extension.dart';
+import 'package:swiss_ai/app/navigation/navigator_holder.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/presentation/shared/design_system/views/ds_button.dart';
+import 'package:swiss_ai/presentation/shared/design_system/views/ds_dialog.dart';
+import 'package:swiss_ai/util/extensions/context_extension.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class AppUpdater {

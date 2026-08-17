@@ -1,4 +1,4 @@
-import 'package:color_picker/data/corrector/model/correction.dart';
+import 'package:swiss_ai/data/corrector/model/correction.dart';
 
 /// Pure-Dart, on-device text corrector.
 ///

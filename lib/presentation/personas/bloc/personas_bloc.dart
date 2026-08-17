@@ -1,9 +1,9 @@
-import 'package:color_picker/data/personas/model/persona.dart';
-import 'package:color_picker/data/personas/repository/personas_repository.dart';
-import 'package:color_picker/presentation/personas/bloc/personas_error.dart';
-import 'package:color_picker/presentation/personas/bloc/personas_event.dart';
-import 'package:color_picker/presentation/personas/bloc/personas_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/personas/model/persona.dart';
+import 'package:swiss_ai/data/personas/repository/personas_repository.dart';
+import 'package:swiss_ai/presentation/personas/bloc/personas_error.dart';
+import 'package:swiss_ai/presentation/personas/bloc/personas_event.dart';
+import 'package:swiss_ai/presentation/personas/bloc/personas_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 

@@ -1,6 +1,6 @@
-import 'package:color_picker/data/study/model/deck.dart';
-import 'package:color_picker/data/study/model/flashcard.dart';
-import 'package:color_picker/data/study/service/local/study_db_service.dart';
+import 'package:swiss_ai/data/study/model/deck.dart';
+import 'package:swiss_ai/data/study/model/flashcard.dart';
+import 'package:swiss_ai/data/study/service/local/study_db_service.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 /// Spaced-repetition scheduling parameters for study cards.

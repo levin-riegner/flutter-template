@@ -3,8 +3,8 @@
 Before submitting to Google Play or the App Store, verify each item.
 
 ## Identity (blocking — needs the real product name)
-- [ ] `pubspec.yaml` → name + description (currently `color_picker`)
-- [ ] Rename package `color_picker` everywhere (imports, folders)
+- [ ] `pubspec.yaml` → name + description (currently `swiss_ai`)
+- [ ] Rename package `swiss_ai` everywhere (imports, folders)
 - [ ] `android/app/build.gradle` → `namespace`, `applicationId`, `applicationLabel`
   (both `qa` and `production` flavors)
 - [ ] `ios/Runner/Info.plist` → `CFBundleDisplayName` / `CFBundleName`

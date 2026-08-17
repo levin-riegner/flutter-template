@@ -1,6 +1,6 @@
-import 'package:color_picker/data/image_gen/model/generated_image.dart';
-import 'package:color_picker/data/image_gen/service/local/image_gen_db_service.dart';
-import 'package:color_picker/data/image_gen/service/remote/image_gen_api_service.dart';
+import 'package:swiss_ai/data/image_gen/model/generated_image.dart';
+import 'package:swiss_ai/data/image_gen/service/local/image_gen_db_service.dart';
+import 'package:swiss_ai/data/image_gen/service/remote/image_gen_api_service.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ImageGenRepository {

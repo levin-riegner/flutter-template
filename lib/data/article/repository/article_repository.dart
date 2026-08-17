@@ -1,7 +1,7 @@
-import 'package:color_picker/data/article/model/article.dart';
-import 'package:color_picker/data/article/service/local/article_db_service.dart';
-import 'package:color_picker/data/article/service/local/model/article_db_model.dart';
-import 'package:color_picker/data/article/service/remote/article_api_service.dart';
+import 'package:swiss_ai/data/article/model/article.dart';
+import 'package:swiss_ai/data/article/service/local/article_db_service.dart';
+import 'package:swiss_ai/data/article/service/local/model/article_db_model.dart';
+import 'package:swiss_ai/data/article/service/remote/article_api_service.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 

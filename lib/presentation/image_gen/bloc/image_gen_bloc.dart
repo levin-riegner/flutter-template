@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:color_picker/data/image_gen/model/generated_image.dart';
-import 'package:color_picker/data/image_gen/repository/image_gen_repository.dart';
-import 'package:color_picker/data/shared/model/error/data_error.dart';
-import 'package:color_picker/presentation/image_gen/bloc/image_gen_error.dart';
-import 'package:color_picker/presentation/image_gen/bloc/image_gen_event.dart';
-import 'package:color_picker/presentation/image_gen/bloc/image_gen_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/image_gen/model/generated_image.dart';
+import 'package:swiss_ai/data/image_gen/repository/image_gen_repository.dart';
+import 'package:swiss_ai/data/shared/model/error/data_error.dart';
+import 'package:swiss_ai/presentation/image_gen/bloc/image_gen_error.dart';
+import 'package:swiss_ai/presentation/image_gen/bloc/image_gen_event.dart';
+import 'package:swiss_ai/presentation/image_gen/bloc/image_gen_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ImageGenBloc extends Bloc<ImageGenEvent, ImageGenState> {

@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.colorpicker" "\0"
-            VALUE "FileDescription", "color_picker" "\0"
+            VALUE "CompanyName", "com.swissai" "\0"
+            VALUE "FileDescription", "swiss_ai" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "color_picker" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 com.colorpicker. All rights reserved." "\0"
-            VALUE "OriginalFilename", "color_picker.exe" "\0"
-            VALUE "ProductName", "color_picker" "\0"
+            VALUE "InternalName", "swiss_ai" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 com.swissai. All rights reserved." "\0"
+            VALUE "OriginalFilename", "swiss_ai.exe" "\0"
+            VALUE "ProductName", "swiss_ai" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

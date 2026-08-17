@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:color_picker/data/chat/model/chat_message.dart';
-import 'package:color_picker/data/chat/repository/chat_repository.dart';
-import 'package:color_picker/data/personas/repository/personas_repository.dart';
-import 'package:color_picker/presentation/chat/bloc/chat_bloc.dart';
-import 'package:color_picker/presentation/chat/bloc/chat_event.dart';
-import 'package:color_picker/presentation/chat/bloc/chat_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
-import 'package:color_picker/util/dependencies.dart';
+import 'package:swiss_ai/data/chat/model/chat_message.dart';
+import 'package:swiss_ai/data/chat/repository/chat_repository.dart';
+import 'package:swiss_ai/data/personas/repository/personas_repository.dart';
+import 'package:swiss_ai/presentation/chat/bloc/chat_bloc.dart';
+import 'package:swiss_ai/presentation/chat/bloc/chat_event.dart';
+import 'package:swiss_ai/presentation/chat/bloc/chat_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/util/dependencies.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key, this.bloc});

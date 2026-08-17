@@ -1,9 +1,9 @@
-import 'package:color_picker/data/hf_model/model/hf_model.dart';
-import 'package:color_picker/data/hf_model/repository/hf_model_repository.dart';
-import 'package:color_picker/presentation/hf_model/bloc/hf_model_error.dart';
-import 'package:color_picker/presentation/hf_model/bloc/hf_model_event.dart';
-import 'package:color_picker/presentation/hf_model/bloc/hf_model_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/hf_model/model/hf_model.dart';
+import 'package:swiss_ai/data/hf_model/repository/hf_model_repository.dart';
+import 'package:swiss_ai/presentation/hf_model/bloc/hf_model_error.dart';
+import 'package:swiss_ai/presentation/hf_model/bloc/hf_model_event.dart';
+import 'package:swiss_ai/presentation/hf_model/bloc/hf_model_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 

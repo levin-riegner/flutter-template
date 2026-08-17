@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:color_picker/presentation/color_picker/color_picker_page.dart';
+import 'package:swiss_ai/presentation/color_picker/color_picker_page.dart';
 
 void main() {
   runApp(const ColorPickerApp());
@@ -11,7 +11,7 @@ class ColorPickerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Color Picker',
+      title: 'SwissAI',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorSchemeSeed: Colors.deepPurple,

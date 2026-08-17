@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:color_picker/data/recording/model/recording.dart';
-import 'package:color_picker/data/recording/repository/recording_repository.dart';
-import 'package:color_picker/presentation/recording/bloc/recording_bloc.dart';
-import 'package:color_picker/presentation/recording/bloc/recording_event.dart';
-import 'package:color_picker/presentation/recording/bloc/recording_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
-import 'package:color_picker/util/dependencies.dart';
+import 'package:swiss_ai/data/recording/model/recording.dart';
+import 'package:swiss_ai/data/recording/repository/recording_repository.dart';
+import 'package:swiss_ai/presentation/recording/bloc/recording_bloc.dart';
+import 'package:swiss_ai/presentation/recording/bloc/recording_event.dart';
+import 'package:swiss_ai/presentation/recording/bloc/recording_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/util/dependencies.dart';
 
 class RecordingPage extends StatefulWidget {
   const RecordingPage({super.key, this.bloc});

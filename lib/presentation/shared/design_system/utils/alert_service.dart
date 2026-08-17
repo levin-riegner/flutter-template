@@ -1,7 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
-import 'package:color_picker/util/extensions/context_extension.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/util/extensions/context_extension.dart';
 
 class AlertService {
   AlertService._();

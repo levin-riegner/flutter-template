@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
-import 'package:color_picker/presentation/shared/design_system/utils/conditional_parent_widget.dart';
-import 'package:color_picker/presentation/shared/design_system/views/ds_loading_indicator.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/presentation/shared/design_system/utils/conditional_parent_widget.dart';
+import 'package:swiss_ai/presentation/shared/design_system/views/ds_loading_indicator.dart';
 
 class DSCachedImage extends StatelessWidget {
   final String? imageUrl;

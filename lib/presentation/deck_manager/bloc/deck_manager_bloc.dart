@@ -1,9 +1,9 @@
-import 'package:color_picker/data/study/model/deck.dart';
-import 'package:color_picker/data/study/repository/study_repository.dart';
-import 'package:color_picker/presentation/deck_manager/bloc/deck_manager_error.dart';
-import 'package:color_picker/presentation/deck_manager/bloc/deck_manager_event.dart';
-import 'package:color_picker/presentation/deck_manager/bloc/deck_manager_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/study/model/deck.dart';
+import 'package:swiss_ai/data/study/repository/study_repository.dart';
+import 'package:swiss_ai/presentation/deck_manager/bloc/deck_manager_error.dart';
+import 'package:swiss_ai/presentation/deck_manager/bloc/deck_manager_event.dart';
+import 'package:swiss_ai/presentation/deck_manager/bloc/deck_manager_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 

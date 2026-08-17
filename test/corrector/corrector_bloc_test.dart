@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:color_picker/data/corrector/model/correction.dart';
-import 'package:color_picker/data/corrector/repository/corrector_repository.dart';
-import 'package:color_picker/presentation/corrector/bloc/corrector_bloc.dart';
-import 'package:color_picker/presentation/corrector/bloc/corrector_error.dart';
-import 'package:color_picker/presentation/corrector/bloc/corrector_event.dart';
-import 'package:color_picker/presentation/corrector/bloc/corrector_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/corrector/model/correction.dart';
+import 'package:swiss_ai/data/corrector/repository/corrector_repository.dart';
+import 'package:swiss_ai/presentation/corrector/bloc/corrector_bloc.dart';
+import 'package:swiss_ai/presentation/corrector/bloc/corrector_error.dart';
+import 'package:swiss_ai/presentation/corrector/bloc/corrector_event.dart';
+import 'package:swiss_ai/presentation/corrector/bloc/corrector_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -1,6 +1,6 @@
-import 'package:color_picker/data/hf_model/model/hf_model.dart';
-import 'package:color_picker/data/hf_model/service/local/hf_model_db_service.dart';
-import 'package:color_picker/data/hf_model/service/remote/hf_model_api_service.dart';
+import 'package:swiss_ai/data/hf_model/model/hf_model.dart';
+import 'package:swiss_ai/data/hf_model/service/local/hf_model_db_service.dart';
+import 'package:swiss_ai/data/hf_model/service/remote/hf_model_api_service.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 /// Repository for discovering downloadable models.

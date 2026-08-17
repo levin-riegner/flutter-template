@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:color_picker/data/study/model/flashcard.dart';
-import 'package:color_picker/data/study/repository/study_repository.dart';
-import 'package:color_picker/presentation/study/bloc/study_bloc.dart';
-import 'package:color_picker/presentation/study/bloc/study_error.dart';
-import 'package:color_picker/presentation/study/bloc/study_event.dart';
-import 'package:color_picker/presentation/study/bloc/study_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/study/model/flashcard.dart';
+import 'package:swiss_ai/data/study/repository/study_repository.dart';
+import 'package:swiss_ai/presentation/study/bloc/study_bloc.dart';
+import 'package:swiss_ai/presentation/study/bloc/study_error.dart';
+import 'package:swiss_ai/presentation/study/bloc/study_event.dart';
+import 'package:swiss_ai/presentation/study/bloc/study_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

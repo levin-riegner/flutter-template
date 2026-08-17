@@ -15,10 +15,7 @@ migration:
     - platform: root
       create_revision: 6b182d2c7585eba26d4edce0f97630effd256c33
       base_revision: 6b182d2c7585eba26d4edce0f97630effd256c33
-    - platform: macos
-      create_revision: 6b182d2c7585eba26d4edce0f97630effd256c33
-      base_revision: 6b182d2c7585eba26d4edce0f97630effd256c33
-    - platform: windows
+    - platform: web
       create_revision: 6b182d2c7585eba26d4edce0f97630effd256c33
       base_revision: 6b182d2c7585eba26d4edce0f97630effd256c33
 

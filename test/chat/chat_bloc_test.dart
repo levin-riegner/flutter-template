@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:color_picker/data/chat/model/chat_message.dart';
-import 'package:color_picker/data/chat/repository/chat_repository.dart';
-import 'package:color_picker/presentation/chat/bloc/chat_bloc.dart';
-import 'package:color_picker/presentation/chat/bloc/chat_error.dart';
-import 'package:color_picker/presentation/chat/bloc/chat_event.dart';
-import 'package:color_picker/presentation/chat/bloc/chat_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/chat/model/chat_message.dart';
+import 'package:swiss_ai/data/chat/repository/chat_repository.dart';
+import 'package:swiss_ai/presentation/chat/bloc/chat_bloc.dart';
+import 'package:swiss_ai/presentation/chat/bloc/chat_error.dart';
+import 'package:swiss_ai/presentation/chat/bloc/chat_event.dart';
+import 'package:swiss_ai/presentation/chat/bloc/chat_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

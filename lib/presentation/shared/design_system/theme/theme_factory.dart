@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/app_colors.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/app_text_styles.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/app_theme.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/app_colors.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/app_text_styles.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/app_theme.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
 
 abstract class ThemeFactory {
   const ThemeFactory._();

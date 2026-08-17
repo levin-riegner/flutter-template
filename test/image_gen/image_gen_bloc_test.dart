@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:color_picker/data/image_gen/model/generated_image.dart';
-import 'package:color_picker/data/image_gen/repository/image_gen_repository.dart';
-import 'package:color_picker/presentation/image_gen/bloc/image_gen_bloc.dart';
-import 'package:color_picker/presentation/image_gen/bloc/image_gen_error.dart';
-import 'package:color_picker/presentation/image_gen/bloc/image_gen_event.dart';
-import 'package:color_picker/presentation/image_gen/bloc/image_gen_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/image_gen/model/generated_image.dart';
+import 'package:swiss_ai/data/image_gen/repository/image_gen_repository.dart';
+import 'package:swiss_ai/presentation/image_gen/bloc/image_gen_bloc.dart';
+import 'package:swiss_ai/presentation/image_gen/bloc/image_gen_error.dart';
+import 'package:swiss_ai/presentation/image_gen/bloc/image_gen_event.dart';
+import 'package:swiss_ai/presentation/image_gen/bloc/image_gen_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

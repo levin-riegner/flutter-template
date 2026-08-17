@@ -1,11 +1,11 @@
-import 'package:color_picker/data/hf_model/model/hf_model.dart';
-import 'package:color_picker/data/hf_model/repository/hf_model_repository.dart';
-import 'package:color_picker/presentation/hf_model/bloc/hf_model_bloc.dart';
-import 'package:color_picker/presentation/hf_model/bloc/hf_model_event.dart';
-import 'package:color_picker/presentation/hf_model/bloc/hf_model_state.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
-import 'package:color_picker/util/dependencies.dart';
+import 'package:swiss_ai/data/hf_model/model/hf_model.dart';
+import 'package:swiss_ai/data/hf_model/repository/hf_model_repository.dart';
+import 'package:swiss_ai/presentation/hf_model/bloc/hf_model_bloc.dart';
+import 'package:swiss_ai/presentation/hf_model/bloc/hf_model_event.dart';
+import 'package:swiss_ai/presentation/hf_model/bloc/hf_model_state.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/util/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

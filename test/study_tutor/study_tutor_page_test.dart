@@ -1,7 +1,7 @@
-import 'package:color_picker/data/study_tutor/model/tutor_session.dart';
-import 'package:color_picker/data/study_tutor/repository/study_tutor_repository.dart';
-import 'package:color_picker/presentation/study_tutor/bloc/study_tutor_bloc.dart';
-import 'package:color_picker/presentation/study_tutor/study_tutor_page.dart';
+import 'package:swiss_ai/data/study_tutor/model/tutor_session.dart';
+import 'package:swiss_ai/data/study_tutor/repository/study_tutor_repository.dart';
+import 'package:swiss_ai/presentation/study_tutor/bloc/study_tutor_bloc.dart';
+import 'package:swiss_ai/presentation/study_tutor/study_tutor_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

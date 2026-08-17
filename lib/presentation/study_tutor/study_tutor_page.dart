@@ -1,10 +1,10 @@
-import 'package:color_picker/data/study_tutor/repository/study_tutor_repository.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
-import 'package:color_picker/presentation/study_tutor/bloc/study_tutor_bloc.dart';
-import 'package:color_picker/presentation/study_tutor/bloc/study_tutor_event.dart';
-import 'package:color_picker/presentation/study_tutor/bloc/study_tutor_state.dart';
-import 'package:color_picker/util/dependencies.dart';
+import 'package:swiss_ai/data/study_tutor/repository/study_tutor_repository.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/presentation/study_tutor/bloc/study_tutor_bloc.dart';
+import 'package:swiss_ai/presentation/study_tutor/bloc/study_tutor_event.dart';
+import 'package:swiss_ai/presentation/study_tutor/bloc/study_tutor_state.dart';
+import 'package:swiss_ai/util/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

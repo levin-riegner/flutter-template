@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:color_picker/util/tools/qa_config.dart';
+import 'package:swiss_ai/util/tools/qa_config.dart';
 import 'package:provider/provider.dart';
 
 class ConsoleQaConfigs extends StatefulWidget {

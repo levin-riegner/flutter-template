@@ -1,6 +1,6 @@
-import 'package:color_picker/data/focus/model/focus_session.dart';
-import 'package:color_picker/presentation/focus/bloc/focus_error.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/focus/model/focus_session.dart';
+import 'package:swiss_ai/presentation/focus/bloc/focus_error.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'focus_state.freezed.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
 
 class DSDivider extends StatelessWidget {
   final double margin;

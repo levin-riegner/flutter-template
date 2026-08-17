@@ -1,9 +1,9 @@
-import 'package:color_picker/data/chat/model/chat_message.dart';
-import 'package:color_picker/data/chat/service/local/chat_db_service.dart';
-import 'package:color_picker/data/image_gen/model/generated_image.dart';
-import 'package:color_picker/data/image_gen/service/local/image_gen_db_service.dart';
-import 'package:color_picker/data/recording/model/recording.dart';
-import 'package:color_picker/data/recording/service/local/recording_db_service.dart';
+import 'package:swiss_ai/data/chat/model/chat_message.dart';
+import 'package:swiss_ai/data/chat/service/local/chat_db_service.dart';
+import 'package:swiss_ai/data/image_gen/model/generated_image.dart';
+import 'package:swiss_ai/data/image_gen/service/local/image_gen_db_service.dart';
+import 'package:swiss_ai/data/recording/model/recording.dart';
+import 'package:swiss_ai/data/recording/service/local/recording_db_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../integration_test_shared.dart';

@@ -1,12 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:color_picker/data/study/model/flashcard.dart';
-import 'package:color_picker/data/study_tutor/model/tutor_session.dart';
-import 'package:color_picker/data/study_tutor/repository/study_tutor_repository.dart';
-import 'package:color_picker/presentation/study_tutor/bloc/study_tutor_bloc.dart';
-import 'package:color_picker/presentation/study_tutor/bloc/study_tutor_error.dart';
-import 'package:color_picker/presentation/study_tutor/bloc/study_tutor_event.dart';
-import 'package:color_picker/presentation/study_tutor/bloc/study_tutor_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/study/model/flashcard.dart';
+import 'package:swiss_ai/data/study_tutor/model/tutor_session.dart';
+import 'package:swiss_ai/data/study_tutor/repository/study_tutor_repository.dart';
+import 'package:swiss_ai/presentation/study_tutor/bloc/study_tutor_bloc.dart';
+import 'package:swiss_ai/presentation/study_tutor/bloc/study_tutor_error.dart';
+import 'package:swiss_ai/presentation/study_tutor/bloc/study_tutor_event.dart';
+import 'package:swiss_ai/presentation/study_tutor/bloc/study_tutor_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -1,4 +1,4 @@
-import 'package:color_picker/data/shared/service/remote/api_response_mapper.dart';
+import 'package:swiss_ai/data/shared/service/remote/api_response_mapper.dart';
 import 'package:dio/dio.dart';
 
 /// OpenAI-compatible chat-completions response for a local on-device model.

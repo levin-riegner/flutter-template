@@ -1,4 +1,4 @@
-import 'package:color_picker/data/hf_model/model/hf_model.dart';
+import 'package:swiss_ai/data/hf_model/model/hf_model.dart';
 import 'package:test/scaffolding.dart';
 
 void main() {

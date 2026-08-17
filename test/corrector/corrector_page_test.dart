@@ -1,7 +1,7 @@
-import 'package:color_picker/data/corrector/model/correction.dart';
-import 'package:color_picker/data/corrector/repository/corrector_repository.dart';
-import 'package:color_picker/presentation/corrector/bloc/corrector_bloc.dart';
-import 'package:color_picker/presentation/corrector/corrector_page.dart';
+import 'package:swiss_ai/data/corrector/model/correction.dart';
+import 'package:swiss_ai/data/corrector/repository/corrector_repository.dart';
+import 'package:swiss_ai/presentation/corrector/bloc/corrector_bloc.dart';
+import 'package:swiss_ai/presentation/corrector/corrector_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

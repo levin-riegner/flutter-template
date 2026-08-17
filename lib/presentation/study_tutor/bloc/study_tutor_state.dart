@@ -1,6 +1,6 @@
-import 'package:color_picker/data/study_tutor/model/tutor_session.dart';
-import 'package:color_picker/presentation/study_tutor/bloc/study_tutor_error.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/study_tutor/model/tutor_session.dart';
+import 'package:swiss_ai/presentation/study_tutor/bloc/study_tutor_error.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'study_tutor_state.freezed.dart';

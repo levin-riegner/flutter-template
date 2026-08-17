@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:color_picker/data/study/model/flashcard.dart';
-import 'package:color_picker/data/study/repository/study_repository.dart';
-import 'package:color_picker/presentation/shared/design_system/theme/dimens.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
-import 'package:color_picker/presentation/study/bloc/study_bloc.dart';
-import 'package:color_picker/presentation/study/bloc/study_event.dart';
-import 'package:color_picker/presentation/study/bloc/study_state.dart';
-import 'package:color_picker/util/dependencies.dart';
-import 'package:color_picker/app/navigation/router/app_routes.dart';
+import 'package:swiss_ai/data/study/model/flashcard.dart';
+import 'package:swiss_ai/data/study/repository/study_repository.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/presentation/study/bloc/study_bloc.dart';
+import 'package:swiss_ai/presentation/study/bloc/study_event.dart';
+import 'package:swiss_ai/presentation/study/bloc/study_state.dart';
+import 'package:swiss_ai/util/dependencies.dart';
+import 'package:swiss_ai/app/navigation/router/app_routes.dart';
 
 class StudyPage extends StatefulWidget {
   const StudyPage({super.key, this.bloc, this.deckName = 'Flutter Basics'});

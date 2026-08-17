@@ -1,5 +1,5 @@
-import 'package:color_picker/data/focus/repository/focus_repository.dart';
-import 'package:color_picker/data/focus/service/local/focus_db_service.dart';
+import 'package:swiss_ai/data/focus/repository/focus_repository.dart';
+import 'package:swiss_ai/data/focus/service/local/focus_db_service.dart';
 import 'package:test/scaffolding.dart';
 
 void main() {

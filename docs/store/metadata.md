@@ -1,7 +1,7 @@
 # App Store Metadata (placeholder — update before submission)
 
 ## App name
-color_picker
+swiss_ai
 
 ## Subtitle
 Local-first AI: chat, images, and meeting notes on your device.
@@ -15,7 +15,7 @@ leaving your device.
 AI chat, image generation, meeting notes, on-device AI, transcription, private AI
 
 ## Description
-color_picker is a local-first AI application. Everything runs on your device:
+swiss_ai is a local-first AI application. Everything runs on your device:
 • **Chat** — converse with an on-device language model.
 • **Image generation** — turn prompts into images.
 • **Recording / meetings** — capture segments and transcribe them locally.

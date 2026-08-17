@@ -1,7 +1,7 @@
-import 'package:color_picker/data/personas/model/persona.dart';
-import 'package:color_picker/data/personas/repository/personas_repository.dart';
-import 'package:color_picker/presentation/personas/bloc/personas_bloc.dart';
-import 'package:color_picker/presentation/personas/personas_page.dart';
+import 'package:swiss_ai/data/personas/model/persona.dart';
+import 'package:swiss_ai/data/personas/repository/personas_repository.dart';
+import 'package:swiss_ai/presentation/personas/bloc/personas_bloc.dart';
+import 'package:swiss_ai/presentation/personas/personas_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

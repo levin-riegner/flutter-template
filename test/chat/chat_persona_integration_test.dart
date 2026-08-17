@@ -1,8 +1,8 @@
-import 'package:color_picker/data/chat/repository/chat_repository.dart';
-import 'package:color_picker/data/personas/model/persona.dart';
-import 'package:color_picker/data/personas/repository/personas_repository.dart';
-import 'package:color_picker/presentation/chat/bloc/chat_bloc.dart';
-import 'package:color_picker/presentation/chat/bloc/chat_event.dart';
+import 'package:swiss_ai/data/chat/repository/chat_repository.dart';
+import 'package:swiss_ai/data/personas/model/persona.dart';
+import 'package:swiss_ai/data/personas/repository/personas_repository.dart';
+import 'package:swiss_ai/presentation/chat/bloc/chat_bloc.dart';
+import 'package:swiss_ai/presentation/chat/bloc/chat_event.dart';
 import 'package:test/scaffolding.dart';
 import 'package:mocktail/mocktail.dart';
 

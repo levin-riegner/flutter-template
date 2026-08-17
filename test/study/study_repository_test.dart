@@ -1,5 +1,5 @@
-import 'package:color_picker/data/study/repository/study_repository.dart';
-import 'package:color_picker/data/study/service/local/study_db_service.dart';
+import 'package:swiss_ai/data/study/repository/study_repository.dart';
+import 'package:swiss_ai/data/study/service/local/study_db_service.dart';
 import 'package:test/scaffolding.dart';
 
 void main() {

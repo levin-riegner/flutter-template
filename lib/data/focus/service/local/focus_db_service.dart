@@ -1,4 +1,4 @@
-import 'package:color_picker/data/focus/model/focus_session.dart';
+import 'package:swiss_ai/data/focus/model/focus_session.dart';
 
 /// Local persistence for focus sessions.
 ///

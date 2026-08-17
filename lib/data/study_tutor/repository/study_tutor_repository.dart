@@ -1,9 +1,9 @@
-import 'package:color_picker/data/chat/model/chat_message.dart';
-import 'package:color_picker/data/chat/repository/chat_repository.dart';
-import 'package:color_picker/data/personas/repository/personas_repository.dart';
-import 'package:color_picker/data/study/model/flashcard.dart';
-import 'package:color_picker/data/study/repository/study_repository.dart';
-import 'package:color_picker/data/study_tutor/model/tutor_session.dart';
+import 'package:swiss_ai/data/chat/model/chat_message.dart';
+import 'package:swiss_ai/data/chat/repository/chat_repository.dart';
+import 'package:swiss_ai/data/personas/repository/personas_repository.dart';
+import 'package:swiss_ai/data/study/model/flashcard.dart';
+import 'package:swiss_ai/data/study/repository/study_repository.dart';
+import 'package:swiss_ai/data/study_tutor/model/tutor_session.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 /// Coordinates an AI tutoring session over a flashcard deck.

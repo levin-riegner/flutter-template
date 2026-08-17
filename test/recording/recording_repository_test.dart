@@ -1,6 +1,6 @@
-import 'package:color_picker/data/recording/repository/recording_repository.dart';
-import 'package:color_picker/data/recording/service/local/recording_db_service.dart';
-import 'package:color_picker/data/recording/service/remote/recording_api_service.dart';
+import 'package:swiss_ai/data/recording/repository/recording_repository.dart';
+import 'package:swiss_ai/data/recording/service/local/recording_db_service.dart';
+import 'package:swiss_ai/data/recording/service/remote/recording_api_service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/scaffolding.dart';
 

@@ -1,4 +1,4 @@
-import 'package:color_picker/data/image_gen/model/generated_image.dart';
+import 'package:swiss_ai/data/image_gen/model/generated_image.dart';
 
 /// Local persistence for generated images.
 ///

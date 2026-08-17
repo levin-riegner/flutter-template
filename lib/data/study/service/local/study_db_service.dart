@@ -1,5 +1,5 @@
-import 'package:color_picker/data/study/model/deck.dart';
-import 'package:color_picker/data/study/model/flashcard.dart';
+import 'package:swiss_ai/data/study/model/deck.dart';
+import 'package:swiss_ai/data/study/model/flashcard.dart';
 
 /// Local persistence for study flashcards.
 ///

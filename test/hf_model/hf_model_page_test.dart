@@ -1,7 +1,7 @@
-import 'package:color_picker/data/hf_model/model/hf_model.dart';
-import 'package:color_picker/data/hf_model/repository/hf_model_repository.dart';
-import 'package:color_picker/presentation/hf_model/bloc/hf_model_bloc.dart';
-import 'package:color_picker/presentation/hf_model/hf_model_page.dart';
+import 'package:swiss_ai/data/hf_model/model/hf_model.dart';
+import 'package:swiss_ai/data/hf_model/repository/hf_model_repository.dart';
+import 'package:swiss_ai/presentation/hf_model/bloc/hf_model_bloc.dart';
+import 'package:swiss_ai/presentation/hf_model/hf_model_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

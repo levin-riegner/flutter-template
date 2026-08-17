@@ -1,6 +1,6 @@
-import 'package:color_picker/data/hf_model/repository/hf_model_repository.dart';
-import 'package:color_picker/data/hf_model/service/local/hf_model_db_service.dart';
-import 'package:color_picker/data/hf_model/service/remote/hf_model_api_service.dart';
+import 'package:swiss_ai/data/hf_model/repository/hf_model_repository.dart';
+import 'package:swiss_ai/data/hf_model/service/local/hf_model_db_service.dart';
+import 'package:swiss_ai/data/hf_model/service/remote/hf_model_api_service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/scaffolding.dart';
 

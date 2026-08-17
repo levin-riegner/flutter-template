@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:color_picker/data/recording/model/recording.dart';
-import 'package:color_picker/data/recording/repository/recording_repository.dart';
-import 'package:color_picker/presentation/recording/bloc/recording_bloc.dart';
-import 'package:color_picker/presentation/recording/bloc/recording_error.dart';
-import 'package:color_picker/presentation/recording/bloc/recording_event.dart';
-import 'package:color_picker/presentation/recording/bloc/recording_state.dart';
-import 'package:color_picker/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/recording/model/recording.dart';
+import 'package:swiss_ai/data/recording/repository/recording_repository.dart';
+import 'package:swiss_ai/presentation/recording/bloc/recording_bloc.dart';
+import 'package:swiss_ai/presentation/recording/bloc/recording_error.dart';
+import 'package:swiss_ai/presentation/recording/bloc/recording_event.dart';
+import 'package:swiss_ai/presentation/recording/bloc/recording_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -1,4 +1,4 @@
-import 'package:color_picker/data/hf_model/model/hf_model.dart';
+import 'package:swiss_ai/data/hf_model/model/hf_model.dart';
 
 /// Local persistence for the chosen model shortlist.
 ///

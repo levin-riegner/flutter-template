@@ -1,5 +1,5 @@
-import 'package:color_picker/data/personas/repository/personas_repository.dart';
-import 'package:color_picker/data/personas/service/local/personas_db_service.dart';
+import 'package:swiss_ai/data/personas/repository/personas_repository.dart';
+import 'package:swiss_ai/data/personas/service/local/personas_db_service.dart';
 import 'package:test/scaffolding.dart';
 
 void main() {

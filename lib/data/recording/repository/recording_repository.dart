@@ -1,6 +1,6 @@
-import 'package:color_picker/data/recording/model/recording.dart';
-import 'package:color_picker/data/recording/service/local/recording_db_service.dart';
-import 'package:color_picker/data/recording/service/remote/recording_api_service.dart';
+import 'package:swiss_ai/data/recording/model/recording.dart';
+import 'package:swiss_ai/data/recording/service/local/recording_db_service.dart';
+import 'package:swiss_ai/data/recording/service/remote/recording_api_service.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class RecordingRepository {
