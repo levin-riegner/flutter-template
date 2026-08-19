@@ -1,5 +1,5 @@
-name: swiss_ai
-description: SwissAI
+name: flutter_template
+description: Flutter template Application
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -32,6 +32,9 @@ dependencies:
   dio: ^5.9.0
   dio_cache_interceptor: ^3.5.0
   dio_cache_interceptor_hive_store: ^4.0.0
+  drift: ^2.22.0
+  drift_flutter: ^0.2.0
+  sqlite3_flutter_libs: ^0.5.0
   flutter_secure_storage: ^10.0.0
   shared_preferences: ^2.5.0
   # Presentation Views
@@ -39,13 +42,12 @@ dependencies:
   another_flushbar: ^1.12.29
   cached_network_image: ^3.3.1
   webview_flutter: ^4.13.0
-  image_picker: ^1.1.2
   # Animations
   animations: ^2.1.0
   flutter_animate: ^4.5.0
   # 3rd Party Services
-  flutter_branch_sdk: ^8.3.1
-  datadog_flutter_plugin: ^2.14.0
+  flutter_branch_sdk: ^9.1.0
+  datadog_flutter_plugin: ^3.1.0
   # Firebase
   firebase_core: ^4.5.0
   firebase_analytics: ^12.1.0
@@ -80,27 +82,24 @@ dependencies:
   # Boilerplate generation
   freezed_annotation: ^3.0.0
   json_annotation: ^4.11.0
-  objectbox: ^5.3.2
-  objectbox_flutter_libs: any
 
 dev_dependencies:
   # Testing
+  test:
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
   mocktail: ^1.0.3
-  test: ^1.25.0
   bloc_test: ^10.0.0
   # Static Code Analysis
   flutter_lints: ^6.0.0
   # Code generation
-  build_runner: ^2.15.1
+  build_runner: ^2.4.9
   freezed: ^3.0.0
-  # isar_generator: ^3.1.0+1 # TODO: Incompatible with current analyzer version
-  json_serializable: ^6.7.1
+  drift_dev: ^2.22.0
+  json_serializable: ^6.13.0
   go_router_builder: ^4.2.0
-  objectbox_generator: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

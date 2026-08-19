@@ -1,11 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart'
-    show
-        TargetPlatform,
-        defaultTargetPlatform,
-        kIsWeb,
-        visibleForTesting;
+import 'package:flutter/foundation.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
@@ -35,13 +30,6 @@ class BranchApi {
     required this.onUtmParameters,
   });
 
-  /// flutter_branch_sdk has no native impl on desktop (linux/windows) or web.
-  /// There the SDK is a no-op so it must never be initialised.
-  static bool get _unsupported =>
-      kIsWeb ||
-      defaultTargetPlatform == TargetPlatform.linux ||
-      defaultTargetPlatform == TargetPlatform.windows;
-
   StreamSubscription? _branchLinksSubscription;
   Map<dynamic, dynamic>? _lastBranchData;
 
@@ -49,10 +37,6 @@ class BranchApi {
   Future<void> initBranchSession({
     required bool enableLogging,
   }) async {
-    if (_unsupported) {
-      Flogger.i("Branch session skipped: unsupported platform");
-      return;
-    }
     Flogger.i("Init Branch session");
     await FlutterBranchSdk.init(
       enableLogging: enableLogging,

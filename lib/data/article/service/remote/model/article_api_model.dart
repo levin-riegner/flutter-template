@@ -1,4 +1,4 @@
-import 'package:swiss_ai/data/article/model/article.dart';
+import 'package:flutter_template/data/article/model/article.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'article_api_model.g.dart';

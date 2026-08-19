@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:swiss_ai/app/config/environment.dart';
-import 'package:swiss_ai/util/dependencies.dart';
+import 'package:flutter_template/app/config/environment.dart';
+import 'package:flutter_template/util/dependencies.dart';
 
 class ConsoleEnvironments extends StatefulWidget {
   const ConsoleEnvironments({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
-import 'package:swiss_ai/util/extensions/context_extension.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
+import 'package:flutter_template/util/extensions/context_extension.dart';
 
 class DSPasswordTextField extends StatefulWidget {
   final FocusNode? focusNode;

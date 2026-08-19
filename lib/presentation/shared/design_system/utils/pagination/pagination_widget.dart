@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:swiss_ai/presentation/shared/design_system/utils/pagination/pagination_state.dart';
-import 'package:swiss_ai/presentation/shared/util/data_state.dart';
-import 'package:swiss_ai/presentation/shared/util/throttler.dart';
+import 'package:flutter_template/presentation/shared/design_system/utils/pagination/pagination_state.dart';
+import 'package:flutter_template/presentation/shared/util/data_state.dart';
+import 'package:flutter_template/presentation/shared/util/throttler.dart';
 
 typedef IndexedItemBuilder<T> = Widget Function(
     BuildContext context, int index, T item, bool isBottom);
