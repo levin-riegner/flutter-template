@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:swiss_ai/data/shared/model/error/data_error.dart';
-import 'package:swiss_ai/data/shared/service/remote/model/api_error_response.dart';
+import 'package:flutter_template/data/shared/model/error/data_error.dart';
+import 'package:flutter_template/data/shared/service/remote/model/api_error_response.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 mixin ApiResponseMapper {
@@ -48,9 +48,6 @@ mixin ApiResponseMapper {
                   return const DataError.badInternet();
                 case DioExceptionType.receiveTimeout:
                   // API Timeout
-                  return const DataError.serverTimeout();
-                case DioExceptionType.transformTimeout:
-                  // Transform (body processing) timeout
                   return const DataError.serverTimeout();
                 case DioExceptionType.badResponse:
                   // This will probably be handled already in the API response error

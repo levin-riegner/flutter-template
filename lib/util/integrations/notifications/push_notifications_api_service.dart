@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:swiss_ai/util/integrations/notifications/installation_api_model.dart';
+import 'package:flutter_template/util/integrations/notifications/installation_api_model.dart';
 
 class PushNotificationsApiService {
   final Dio _dio;

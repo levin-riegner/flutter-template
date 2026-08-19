@@ -1,12 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:swiss_ai/data/article/model/article.dart';
-import 'package:swiss_ai/data/article/repository/article_repository.dart';
-import 'package:swiss_ai/data/shared/model/error/data_error.dart';
-import 'package:swiss_ai/presentation/articles/bloc/articles_bloc.dart';
-import 'package:swiss_ai/presentation/articles/bloc/articles_error.dart';
-import 'package:swiss_ai/presentation/articles/bloc/articles_event.dart';
-import 'package:swiss_ai/presentation/articles/bloc/articles_state.dart';
-import 'package:swiss_ai/presentation/shared/util/data_state.dart';
+import 'package:flutter_template/data/article/model/article.dart';
+import 'package:flutter_template/data/article/repository/article_repository.dart';
+import 'package:flutter_template/data/shared/model/error/data_error.dart';
+import 'package:flutter_template/presentation/articles/bloc/articles_bloc.dart';
+import 'package:flutter_template/presentation/articles/bloc/articles_error.dart';
+import 'package:flutter_template/presentation/articles/bloc/articles_event.dart';
+import 'package:flutter_template/presentation/articles/bloc/articles_state.dart';
+import 'package:flutter_template/presentation/shared/util/data_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -52,6 +52,7 @@ void main() {
         ],
       );
       final unknownException = Exception("Unknown");
+      final unknownDataError = DataError.unknown(error: unknownException);
       const notFoundError = DataError.notFound();
       const apiError = DataError.apiError(reason: "Api error", code: 405);
       const expiredError = DataError.apiError(

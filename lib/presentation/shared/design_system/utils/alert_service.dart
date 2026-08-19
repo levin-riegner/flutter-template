@@ -1,7 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
-import 'package:swiss_ai/util/extensions/context_extension.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
+import 'package:flutter_template/util/extensions/context_extension.dart';
 
 class AlertService {
   AlertService._();
@@ -39,7 +39,10 @@ class AlertService {
             : context.colorScheme.onPrimary);
     switch (style) {
       case AlertStyle.topBar:
-        Flushbar(
+        // Declare variable to avoid compiler error:
+        // Local variable 'flushBar' can't be referenced before it is declared.
+        late final Flushbar flushBar;
+        flushBar = Flushbar(
           flushbarPosition: FlushbarPosition.TOP,
           flushbarStyle: FlushbarStyle.FLOATING,
           animationDuration: const Duration(milliseconds: 500),
@@ -84,7 +87,7 @@ class AlertService {
               ),
           isDismissible: true,
           shouldIconPulse: false,
-        ).show(context);
+        )..show(context);
         break;
       case AlertStyle.snackBar:
         ScaffoldMessenger.of(context).showSnackBar(

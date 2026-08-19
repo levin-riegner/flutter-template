@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
+import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
 
 class DSDialog extends StatelessWidget {
   final bool hasCloseButton;
