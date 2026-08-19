@@ -1,18 +1,31 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template/app/navigation/navigator_holder.dart';
-import 'package:flutter_template/app/navigation/router/page_transitions.dart';
-import 'package:flutter_template/presentation/articles/articles_page.dart';
-import 'package:flutter_template/presentation/articles/blank_page.dart';
-import 'package:flutter_template/presentation/articles/detail/article_detail_page.dart';
-import 'package:flutter_template/presentation/authentication/login/login_page.dart';
-import 'package:flutter_template/presentation/bottom_navigation/bottom_navigation_page.dart';
-import 'package:flutter_template/presentation/settings/account_details_page.dart';
-import 'package:flutter_template/presentation/settings/settings_page.dart';
-import 'package:flutter_template/util/console/console_deeplinks.dart';
-import 'package:flutter_template/util/console/console_environments.dart';
-import 'package:flutter_template/util/console/console_logins.dart';
-import 'package:flutter_template/util/console/console_page.dart';
-import 'package:flutter_template/util/console/console_qa_config.dart';
+import 'package:swiss_ai/app/navigation/navigator_holder.dart';
+import 'package:swiss_ai/app/navigation/router/page_transitions.dart';
+import 'package:swiss_ai/presentation/articles/articles_page.dart';
+import 'package:swiss_ai/presentation/articles/blank_page.dart';
+import 'package:swiss_ai/presentation/articles/detail/article_detail_page.dart';
+import 'package:swiss_ai/presentation/authentication/login/login_page.dart';
+import 'package:swiss_ai/presentation/bottom_navigation/bottom_navigation_page.dart';
+import 'package:swiss_ai/presentation/chat/chat_page.dart';
+import 'package:swiss_ai/presentation/corrector/corrector_page.dart';
+import 'package:swiss_ai/presentation/capture/capture_page.dart';
+import 'package:swiss_ai/presentation/deck_manager/deck_manager_page.dart';
+import 'package:swiss_ai/presentation/focus/focus_page.dart';
+import 'package:swiss_ai/presentation/hf_model/hf_model_page.dart';
+import 'package:swiss_ai/presentation/image_gen/image_gen_page.dart';
+import 'package:swiss_ai/presentation/personas/personas_page.dart';
+import 'package:swiss_ai/presentation/recording/recording_page.dart';
+import 'package:swiss_ai/presentation/settings/account_details_page.dart';
+import 'package:swiss_ai/presentation/settings/settings_page.dart';
+import 'package:swiss_ai/presentation/quiz/quiz_page.dart';
+import 'package:swiss_ai/presentation/research/research_page.dart';
+import 'package:swiss_ai/presentation/study/study_page.dart';
+import 'package:swiss_ai/presentation/study_tutor/study_tutor_page.dart';
+import 'package:swiss_ai/util/console/console_deeplinks.dart';
+import 'package:swiss_ai/util/console/console_environments.dart';
+import 'package:swiss_ai/util/console/console_logins.dart';
+import 'package:swiss_ai/util/console/console_page.dart';
+import 'package:swiss_ai/util/console/console_qa_config.dart';
 import 'package:go_router/go_router.dart';
 
 part 'app_routes.g.dart';
@@ -143,6 +156,94 @@ class ConsoleDeeplinksRoute extends GoRouteData with $ConsoleDeeplinksRoute {
         )
       ],
     ),
+    TypedStatefulShellBranch<ChatBranchData>(
+      routes: [
+        TypedGoRoute<ChatRoute>(
+          path: "/chat",
+          name: "ChatPage",
+          routes: [
+            TypedGoRoute<ResearchRoute>(
+              path: "research",
+              name: "ResearchPage",
+            ),
+          ],
+        ),
+      ],
+    ),
+    TypedStatefulShellBranch<ImageGenBranchData>(
+      routes: [
+        TypedGoRoute<ImageGenRoute>(
+          path: "/image-gen",
+          name: "ImageGenPage",
+        ),
+      ],
+    ),
+    TypedStatefulShellBranch<RecordingBranchData>(
+      routes: [
+        TypedGoRoute<RecordingRoute>(
+          path: "/recording",
+          name: "RecordingPage",
+        ),
+      ],
+    ),
+    TypedStatefulShellBranch<HfModelBranchData>(
+      routes: [
+        TypedGoRoute<HfModelRoute>(
+          path: "/models",
+          name: "HfModelPage",
+        ),
+      ],
+    ),
+    TypedStatefulShellBranch<CorrectorBranchData>(
+      routes: [
+        TypedGoRoute<CorrectorRoute>(
+          path: "/corrector",
+          name: "CorrectorPage",
+        ),
+      ],
+    ),
+    TypedStatefulShellBranch<PersonasBranchData>(
+      routes: [
+        TypedGoRoute<PersonasRoute>(
+          path: "/personas",
+          name: "PersonalitiesPage",
+        ),
+      ],
+    ),
+    TypedStatefulShellBranch<StudyBranchData>(
+      routes: [
+        TypedGoRoute<StudyRoute>(
+          path: "/study",
+          name: "StudyPage",
+          routes: [
+            TypedGoRoute<StudyTutorRoute>(
+              path: "tutor",
+              name: "StudyTutorPage",
+            ),
+            TypedGoRoute<DeckManagerRoute>(
+              path: "deck-manager",
+              name: "DeckManagerPage",
+            ),
+            TypedGoRoute<QuizRoute>(
+              path: "quiz",
+              name: "QuizPage",
+            ),
+            TypedGoRoute<CaptureRoute>(
+              path: "capture",
+              name: "CapturePage",
+            ),
+          ],
+        ),
+      ],
+    ),
+    TypedStatefulShellBranch<FocusBranchData>(
+      routes: [
+        TypedGoRoute<FocusRoute>(
+          path: "/focus",
+          name: "FocusPage",
+        ),
+      ],
+    ),
   ],
 )
 class BottomNavigationPageData extends StatefulShellRouteData {
@@ -227,6 +328,158 @@ class ArticleBlankDetailRoute extends GoRouteData with $ArticleBlankDetailRoute 
       id: aid,
       url: url ?? "https://www.google.com",
     );
+  }
+}
+
+class ChatBranchData extends StatefulShellBranchData {
+  const ChatBranchData();
+}
+
+class ChatRoute extends GoRouteData with $ChatRoute {
+  const ChatRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ChatPage();
+  }
+}
+
+class ImageGenBranchData extends StatefulShellBranchData {
+  const ImageGenBranchData();
+}
+
+class ImageGenRoute extends GoRouteData with $ImageGenRoute {
+  const ImageGenRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ImageGenPage();
+  }
+}
+
+class RecordingBranchData extends StatefulShellBranchData {
+  const RecordingBranchData();
+}
+
+class RecordingRoute extends GoRouteData with $RecordingRoute {
+  const RecordingRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const RecordingPage();
+  }
+}
+
+class HfModelBranchData extends StatefulShellBranchData {
+  const HfModelBranchData();
+}
+
+class HfModelRoute extends GoRouteData with $HfModelRoute {
+  const HfModelRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const HfModelPage();
+  }
+}
+
+class CorrectorBranchData extends StatefulShellBranchData {
+  const CorrectorBranchData();
+}
+
+class CorrectorRoute extends GoRouteData with $CorrectorRoute {
+  const CorrectorRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CorrectorPage();
+  }
+}
+
+class PersonasBranchData extends StatefulShellBranchData {
+  const PersonasBranchData();
+}
+
+class PersonasRoute extends GoRouteData with $PersonasRoute {
+  const PersonasRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const PersonalitiesPage();
+  }
+}
+
+class StudyBranchData extends StatefulShellBranchData {
+  const StudyBranchData();
+}
+
+class StudyRoute extends GoRouteData with $StudyRoute {
+  const StudyRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const StudyPage();
+  }
+}
+
+class QuizRoute extends GoRouteData with $QuizRoute {
+  const QuizRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const QuizPage();
+  }
+}
+
+class CaptureRoute extends GoRouteData with $CaptureRoute {
+  const CaptureRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CapturePage();
+  }
+}
+
+class ResearchRoute extends GoRouteData with $ResearchRoute {
+  const ResearchRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ResearchPage();
+  }
+}
+
+class StudyTutorRoute extends GoRouteData with $StudyTutorRoute {
+  final String deckName;
+  const StudyTutorRoute({
+    required this.deckName,
+  });
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return StudyTutorPage(deckName: deckName);
+  }
+}
+
+class DeckManagerRoute extends GoRouteData with $DeckManagerRoute {
+  const DeckManagerRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const DeckManagerPage();
+  }
+}
+
+class FocusBranchData extends StatefulShellBranchData {
+  const FocusBranchData();
+}
+
+class FocusRoute extends GoRouteData with $FocusRoute {
+  const FocusRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const FocusPage();
   }
 }
 

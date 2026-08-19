@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_template/app/config/constants.dart';
-import 'package:flutter_template/app/config/environment.dart';
-import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
-import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
-import 'package:flutter_template/data/shared/service/remote/network.dart';
-import 'package:flutter_template/util/dependencies.dart';
+import 'package:swiss_ai/app/config/constants.dart';
+import 'package:swiss_ai/app/config/environment.dart';
+import 'package:swiss_ai/data/article/service/remote/article_api_service.dart';
+import 'package:swiss_ai/data/shared/service/local/secure_storage.dart';
+import 'package:swiss_ai/data/shared/service/remote/network.dart';
+import 'package:swiss_ai/util/dependencies.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../integration_test_shared.dart';

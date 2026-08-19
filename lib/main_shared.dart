@@ -4,7 +4,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_template/app/app.dart';
+import 'package:swiss_ai/app/app.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 void mainShared({
@@ -25,6 +25,14 @@ void mainShared({
       if (kReleaseMode) {
         FirebaseCrashlytics.instance.recordFlutterError(details, fatal: false);
       }
+    };
+    // Log uncaught platform/async errors
+    PlatformDispatcher.instance.onError = (error, stack) {
+      Zone.current.handleUncaughtError(error, stack);
+      if (kReleaseMode) {
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      }
+      return true;
     };
     // Enable only portrait mode
     await SystemChrome.setPreferredOrientations(

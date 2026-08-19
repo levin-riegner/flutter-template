@@ -1,5 +1,5 @@
-import 'package:flutter_template/app/navigation/listener/route_listener.dart';
-import 'package:flutter_template/util/integrations/analytics.dart';
+import 'package:swiss_ai/app/navigation/listener/route_listener.dart';
+import 'package:swiss_ai/util/integrations/analytics.dart';
 
 class AnalyticsRouteListener implements RouteListener {
   final Analytics _analytics;

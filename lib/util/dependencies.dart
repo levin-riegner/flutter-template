@@ -9,31 +9,56 @@ import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart'
     as fir_remote_config;
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
-import 'package:flutter_template/app/config/constants.dart';
-import 'package:flutter_template/app/config/environment.dart';
-import 'package:flutter_template/app/navigation/deeplink_manager.dart';
-import 'package:flutter_template/app/navigation/navigator_holder.dart';
-import 'package:flutter_template/app/navigation/router/app_routes.dart';
-import 'package:flutter_template/data/article/repository/article_repository.dart';
-import 'package:flutter_template/data/article/service/local/article_db_service.dart';
-import 'package:flutter_template/data/article/service/remote/article_api_service.dart';
-import 'package:flutter_template/data/shared/service/local/database.dart';
-import 'package:flutter_template/data/shared/service/local/secure_storage.dart';
-import 'package:flutter_template/data/shared/service/local/user_config_service.dart';
-import 'package:flutter_template/data/shared/service/remote/network.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
-import 'package:flutter_template/util/extensions/context_extension.dart';
-import 'package:flutter_template/util/extensions/go_router_extension.dart';
-import 'package:flutter_template/util/integrations/analytics.dart';
-import 'package:flutter_template/util/integrations/app_updater.dart';
-import 'package:flutter_template/util/integrations/branch_api.dart';
-import 'package:flutter_template/util/integrations/branch_share.dart';
-import 'package:flutter_template/util/integrations/datadog.dart';
-import 'package:flutter_template/util/integrations/notifications/push_notifications_api_service.dart';
-import 'package:flutter_template/util/integrations/notifications/push_notifications_helper.dart';
-import 'package:flutter_template/util/integrations/remote_config.dart';
-import 'package:flutter_template/util/tools/permissions_service.dart';
-import 'package:flutter_template/util/tools/shake_manager.dart';
+import 'package:swiss_ai/app/config/constants.dart';
+import 'package:swiss_ai/app/config/environment.dart';
+import 'package:swiss_ai/app/navigation/deeplink_manager.dart';
+import 'package:swiss_ai/app/navigation/navigator_holder.dart';
+import 'package:swiss_ai/app/navigation/router/app_routes.dart';
+import 'package:swiss_ai/data/article/repository/article_repository.dart';
+import 'package:swiss_ai/data/article/service/local/article_db_service.dart';
+import 'package:swiss_ai/data/article/service/remote/article_api_service.dart';
+import 'package:swiss_ai/data/capture/repository/capture_repository.dart';
+import 'package:swiss_ai/data/chat/repository/chat_repository.dart';
+import 'package:swiss_ai/data/chat/service/local/chat_db_service.dart';
+import 'package:swiss_ai/data/chat/service/remote/chat_api_service.dart';
+import 'package:swiss_ai/data/local/objectbox/app_objectbox.dart';
+import 'package:swiss_ai/data/corrector/repository/corrector_repository.dart';
+import 'package:swiss_ai/data/corrector/service/local/corrector_service.dart';
+import 'package:swiss_ai/data/focus/repository/focus_repository.dart';
+import 'package:swiss_ai/data/focus/service/local/focus_db_service.dart';
+import 'package:swiss_ai/data/hf_model/repository/hf_model_repository.dart';
+import 'package:swiss_ai/data/hf_model/service/local/hf_model_db_service.dart';
+import 'package:swiss_ai/data/hf_model/service/remote/hf_model_api_service.dart';
+import 'package:swiss_ai/data/image_gen/repository/image_gen_repository.dart';
+import 'package:swiss_ai/data/image_gen/service/local/image_gen_db_service.dart';
+import 'package:swiss_ai/data/image_gen/service/remote/image_gen_api_service.dart';
+import 'package:swiss_ai/data/personas/repository/personas_repository.dart';
+import 'package:swiss_ai/data/personas/service/local/personas_db_service.dart';
+import 'package:swiss_ai/data/quiz/repository/quiz_repository.dart';
+import 'package:swiss_ai/data/research/repository/research_repository.dart';
+import 'package:swiss_ai/data/research/service/remote/web_research_service.dart';
+import 'package:swiss_ai/data/recording/repository/recording_repository.dart';
+import 'package:swiss_ai/data/recording/service/local/recording_db_service.dart';
+import 'package:swiss_ai/data/recording/service/remote/recording_api_service.dart';
+import 'package:swiss_ai/data/shared/service/local/secure_storage.dart';
+import 'package:swiss_ai/data/shared/service/local/user_config_service.dart';
+import 'package:swiss_ai/data/shared/service/remote/network.dart';
+import 'package:swiss_ai/data/study/repository/study_repository.dart';
+import 'package:swiss_ai/data/study/service/local/study_db_service.dart';
+import 'package:swiss_ai/data/study_tutor/repository/study_tutor_repository.dart';
+import 'package:swiss_ai/presentation/shared/design_system/utils/alert_service.dart';
+import 'package:swiss_ai/util/extensions/context_extension.dart';
+import 'package:swiss_ai/util/extensions/go_router_extension.dart';
+import 'package:swiss_ai/util/integrations/analytics.dart';
+import 'package:swiss_ai/util/integrations/app_updater.dart';
+import 'package:swiss_ai/util/integrations/branch_api.dart';
+import 'package:swiss_ai/util/integrations/branch_share.dart';
+import 'package:swiss_ai/util/integrations/datadog.dart';
+import 'package:swiss_ai/util/integrations/notifications/push_notifications_api_service.dart';
+import 'package:swiss_ai/util/integrations/notifications/push_notifications_helper.dart';
+import 'package:swiss_ai/util/integrations/remote_config.dart';
+import 'package:swiss_ai/util/tools/permissions_service.dart';
+import 'package:swiss_ai/util/tools/shake_manager.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart';
@@ -44,8 +69,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 final getIt = GetIt.instance;
 
 abstract class Dependencies {
-  static AppDatabase? _database;
-
   static Future<void> register({
     required Environment environment,
     required bool isDebugBuild,
@@ -78,7 +101,14 @@ abstract class Dependencies {
 
     // System directories
     final tempDirectory = await getTemporaryDirectory();
-    final applicationDirectory = await getApplicationDocumentsDirectory();
+
+    // ObjectBox — durable on-device persistence for the local data layer.
+    // Opened in the app's documents directory; null on web (no native lib),
+    // in which case the *DbServices fall back to in-memory stores.
+    final objectBox = await AppObjectBox.create(
+      directory: (await getApplicationDocumentsDirectory()).path,
+    );
+    Flogger.i('ObjectBox ${objectBox == null ? "unavailable (web)" : "ready"}');
 
     // Init date format with locale
     Intl.systemLocale = await findSystemLocale();
@@ -111,14 +141,97 @@ abstract class Dependencies {
     );
 
     // Database
-    _database = AppDatabase.init(directory: applicationDirectory.path);
+    // Note: the template shipped a drift/isar AppDatabase that could not
+    // compile. ArticleDbService now owns a pure-Dart in-memory store.
+    final localDb = ArticleDbService();
 
     // Repositories
     getIt.registerSingleton<ArticleRepository>(
       ArticleRepository(
         ArticleApiService(httpClient),
-        ArticleDbService(_database!),
+        localDb,
       ),
+    );
+
+    // On-device AI Chat
+    final chatDb = ChatDbService(objectBox: objectBox);
+    getIt.registerSingleton<ChatRepository>(
+      ChatRepository(
+        ChatApiService(httpClient),
+        chatDb,
+      ),
+    );
+
+    // On-device Image Generation
+    final imageGenDb = ImageGenDbService();
+    getIt.registerSingleton<ImageGenRepository>(
+      ImageGenRepository(
+        ImageGenApiService(httpClient),
+        imageGenDb,
+      ),
+    );
+
+    // On-device Recording / Meeting capture
+    final recordingDb = RecordingDbService();
+    getIt.registerSingleton<RecordingRepository>(
+      RecordingRepository(
+        RecordingApiService(httpClient),
+        recordingDb,
+      ),
+    );
+
+    // On-device Model discovery (HuggingFace Hub shortlist)
+    final hfModelDb = HfModelDbService();
+    getIt.registerSingleton<HfModelRepository>(
+      HfModelRepository(
+        HfModelApiService(httpClient),
+        hfModelDb,
+      ),
+    );
+
+    // On-device text correction
+    getIt.registerSingleton<CorrectorRepository>(
+      CorrectorRepository(CorrectorService()),
+    );
+
+    // Assistant personalities
+    getIt.registerSingleton<PersonalitiesRepository>(
+      PersonalitiesRepository(PersonasDbService(objectBox: objectBox)),
+    );
+
+    // Study -> AI tutor (composes Study + Personas + Chat)
+    getIt.registerSingleton<StudyTutorRepository>(
+      StudyTutorRepository(
+        getIt<StudyRepository>(),
+        getIt<PersonalitiesRepository>(),
+        getIt<ChatRepository>(),
+      ),
+    );
+
+    // Study flashcards (spaced repetition, pure-Dart store)
+    getIt.registerSingleton<StudyRepository>(
+      StudyRepository(StudyDbService(objectBox: objectBox)),
+    );
+
+    // Focus / Pomodoro timer
+    getIt.registerSingleton<FocusRepository>(
+      FocusRepository(FocusDbService(objectBox: objectBox)),
+    );
+
+    // Quiz from document (on-device generation, saved into Study decks)
+    getIt.registerSingleton<QuizRepository>(
+      QuizRepository(getIt<ChatRepository>(), getIt<StudyRepository>()),
+    );
+
+    // Deep research (key-less web search + on-device synthesis)
+    getIt.registerSingleton<ResearchRepository>(
+      ResearchRepository(ChatApiService(httpClient),
+          WebResearchService(httpClient)),
+    );
+
+    // Camera capture -> on-device transcription (vision LLM)
+    getIt.registerSingleton<CaptureRepository>(
+      CaptureRepository(ChatApiService(httpClient)),
     );
 
     // Firebase
@@ -302,8 +415,6 @@ abstract class Dependencies {
   static Future<void> dispose() async {
     Flogger.i("Disposing dependencies");
     try {
-      // Close Database
-      await _database?.close();
       // Stop listening to Shake
       ShakeManager.stopListening();
       // Dispose DeepLink listener
@@ -334,9 +445,12 @@ abstract class Dependencies {
     Flogger.i("Clearing all local data");
     FlutterBranchSdk.logout();
     await Future.wait([
-      // Clear user data from database
-      // TODO: Add user table deletions here
-      // Example: _database!.delete(_database!.userTable).go(),
+      // Study, chat, focus, persona selection — each clears its own
+      // in-memory store AND its ObjectBox mirror (single source of truth).
+      getIt.get<StudyRepository>().clear(),
+      getIt.get<ChatRepository>().clear(),
+      getIt.get<FocusRepository>().clear(),
+      getIt.get<PersonalitiesRepository>().clearSelection(),
       // Secure storage
       getIt.get<SecureStorage>().deleteAll(),
       // Analytics

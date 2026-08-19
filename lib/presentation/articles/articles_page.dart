@@ -1,18 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/app/navigation/router/app_routes.dart';
-import 'package:flutter_template/data/article/model/article.dart';
-import 'package:flutter_template/data/article/repository/article_repository.dart';
-import 'package:flutter_template/presentation/articles/bloc/articles_bloc.dart';
-import 'package:flutter_template/presentation/articles/bloc/articles_event.dart';
-import 'package:flutter_template/presentation/articles/bloc/articles_state.dart';
-import 'package:flutter_template/presentation/shared/design_system/theme/dimens.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/alert_service.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
-import 'package:flutter_template/presentation/shared/design_system/views/ds_loading_indicator.dart';
-import 'package:flutter_template/presentation/shared/util/data_state.dart';
-import 'package:flutter_template/util/dependencies.dart';
+import 'package:swiss_ai/app/navigation/router/app_routes.dart';
+import 'package:swiss_ai/data/article/model/article.dart';
+import 'package:swiss_ai/data/article/repository/article_repository.dart';
+import 'package:swiss_ai/presentation/articles/bloc/articles_bloc.dart';
+import 'package:swiss_ai/presentation/articles/bloc/articles_event.dart';
+import 'package:swiss_ai/presentation/articles/bloc/articles_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/presentation/shared/design_system/theme/dimens.dart';
+import 'package:swiss_ai/presentation/shared/design_system/utils/alert_service.dart';
+import 'package:swiss_ai/presentation/shared/design_system/views/ds_content_placeholder_views.dart';
+import 'package:swiss_ai/presentation/shared/design_system/views/ds_loading_indicator.dart';
+import 'package:swiss_ai/util/dependencies.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 class ArticlesPage extends StatelessWidget {

@@ -1,10 +1,10 @@
 import 'package:async/async.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/data/shared/model/pagination/paginated.dart';
-import 'package:flutter_template/data/shared/model/pagination/paginated_request.dart';
-import 'package:flutter_template/data/shared/model/pagination/pagination_model.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/pagination/pagination_state.dart';
-import 'package:flutter_template/presentation/shared/util/data_state.dart';
+import 'package:swiss_ai/data/shared/model/pagination/paginated.dart';
+import 'package:swiss_ai/data/shared/model/pagination/paginated_request.dart';
+import 'package:swiss_ai/data/shared/model/pagination/pagination_model.dart';
+import 'package:swiss_ai/presentation/shared/design_system/utils/pagination/pagination_state.dart';
+import 'package:swiss_ai/presentation/shared/util/data_state.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:meta/meta.dart';
 

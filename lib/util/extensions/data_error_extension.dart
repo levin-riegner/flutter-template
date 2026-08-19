@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/app/l10n/l10n.dart';
-import 'package:flutter_template/data/shared/model/error/data_error.dart';
+import 'package:swiss_ai/app/l10n/l10n.dart';
+import 'package:swiss_ai/data/shared/model/error/data_error.dart';
 
 extension DataErrorLocalized on DataError {
   String localizedMessage(BuildContext context) {

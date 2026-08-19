@@ -6,6 +6,6 @@ abstract class Constants {
   static const appstoreAppId = "123124123";
   static const playstoreAppId = "com.levinriegner.fluttertemplate";
 
-  // Keys
-  static const apiKey = "f32ad1e0dc6e4a4b838218e8f3dac87f";
+  // Keys — inject via --dart-define=API_KEY=your_key
+  static const apiKey = String.fromEnvironment('API_KEY');
 }

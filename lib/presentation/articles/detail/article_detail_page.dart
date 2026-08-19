@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/data/article/repository/article_repository.dart';
-import 'package:flutter_template/presentation/articles/detail/article_detail_bloc.dart';
-import 'package:flutter_template/presentation/shared/design_system/utils/inapp_webview.dart';
-import 'package:flutter_template/util/dependencies.dart';
+import 'package:swiss_ai/data/article/repository/article_repository.dart';
+import 'package:swiss_ai/presentation/articles/detail/article_detail_bloc.dart';
+import 'package:swiss_ai/presentation/shared/design_system/utils/inapp_webview.dart';
+import 'package:swiss_ai/util/dependencies.dart';
 import 'package:provider/provider.dart';
 
 class ArticleDetailPage extends StatelessWidget {
